@@ -105,36 +105,31 @@ body {
     </style>
 </head>
 <body>
-<div class="tradingview-widget-container" style="position: fixed; bottom: 0; left: 0; width: 100%; z-index: 1000;">
+<div class="tradingview-widget-container" id="market-ticker">
     <div class="tradingview-widget-container__widget"></div>
     <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-ticker-tape.js" async>
-   
+    {
+    "symbols": [
+      { "proName": "FX_IDC:USDTRY", "title": "USD/TRY" },
+      { "proName": "FX_IDC:EURTRY", "title": "EUR/TRY" },
+      { "proName": "FX:EURUSD", "title": "PARİTE" },
+      { "proName": "BITSTAMP:BTCUSD", "title": "BITCOIN" },
+      { "proName": "BITSTAMP:ETHUSD", "title": "ETHEREUM" },
+      { "proName": "INDEX:XU100", "title": "BIST 100" },
+      { "proName": "INDEX:XU030", "title": "BIST 30" },
+      { "proName": "OANDA:XAUUSD", "title": "ALTIN" },
+      { "proName": "OANDA:XAGUSD", "title": "GÜMÜŞ" },
+      { "proName": "CAPITALCOM:COPPER", "title": "BAKIR" },
+      { "description": "🔥 GÜÇLÜ: SISE", "proName": "BIST:SISE" },
+      { "description": "⭐ RAPOR: THYAO", "proName": "BIST:THYAO" }
+    ],
+    "showSymbolLogo": true,
+    "colorTheme": "light",
+    "isTransparent": false,
+    "displayMode": "regular",
+    "locale": "tr"
+    }
     </script>
-</div>
-{
-  "symbols": [
-    { "proName": "FX_IDC:USDTRY", "title": "USD/TRY" },
-    { "proName": "FX_IDC:EURTRY", "title": "EUR/TRY" },
-    { "proName": "FX:EURUSD", "title": "PARİTE" },
-    { "proName": "INDEX:XU100", "title": "BIST 100" },
-    { "proName": "INDEX:XU030", "title": "BIST 30" },
-    { "proName": "BITSTAMP:BTCUSD", "title": "BITCOIN" },
-    { "proName": "BITSTAMP:ETHUSD", "title": "ETHEREUM" },
-    { "proName": "OANDA:XAUUSD", "title": "ALTIN" },
-    { "proName": "OANDA:XAGUSD", "title": "GÜMÜŞ" },
-    { "proName": "CAPITALCOM:COPPER", "title": "BAKIR" },
-    { "description": "🔥 GÜÇLÜ: SISE", "proName": "BIST:SISE" },
-    { "description": "⭐ RAPOR: THYAO", "proName": "BIST:THYAO" },
-    { "description": "⭐ RAPOR: ASELS", "proName": "BIST:ASELS" }
-  ],
-  "showSymbolLogo": true,
-  "colorTheme": "light",
-  "isTransparent": false,
-  "displayMode": "regular",
-  "locale": "tr",
-  "symbols_description": "on"
-}
-    </div>
 </div>
     <div class="logo-container">
         <img src="logo.png" alt="SignalizeHub Logo">
@@ -149,9 +144,8 @@ body {
         ⚠️ YASAL UYARI: Burada yer alan bilgiler yatırım tavsiyesi değildir.
     </div>
 <div style="text-align: center; margin: 20px 0;">
-   <a href="#" target="_blank"...
-   style="background-color: #00ff41; color: black; padding: 12px 25px; text-decoration: none; border-radius: 30px; font-weight: bold; display: inline-block;">
-   ☕ Bir Kahve Ismarla
+   <a href="javascript:void(0)" style="background-color: #00ff41; color: black; padding: 12px 25px; text-decoration: none; border-radius: 30px; font-weight: bold; display: inline-block;">
+   ☕ Bir Kahve Ismarla (Yakında)
 </a>
 </div>
     <script>
