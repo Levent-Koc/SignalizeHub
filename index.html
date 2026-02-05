@@ -146,32 +146,35 @@ body {
     </div>
 
 </div>
-<div style="display: block; clear: both; width: 90%; max-width: 800px; margin: 30px auto; position: relative !important; z-index: 1;">
-  <div class="tradingview-widget-container" style="background-color: #000; border: 1px solid #00ff41; border-radius: 10px; padding: 5px;">
-    <div class="tradingview-widget-container__widget"></div>
-    <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-market-overview.js" async>
-    {
-    "colorTheme": "dark",
-    "dateRange": "12M",
-    "showChart": false,
-    "locale": "tr",
-    "width": "100%",
-    "height": "300",
-    "isTransparent": true,
-    "showSymbolLogo": true,
-    "tabs": [
-      {
-        "title": "Anlık Piyasa",
-        "symbols": [
-          { "s": "FX_IDC:USDTRY", "d": "DOLAR/TL" },
-          { "s": "FX_IDC:EURTRY", "d": "EURO/TL" },
-          { "s": "BITSTAMP:BTCUSD", "d": "BITCOIN" }
-        ]
-      }
-    ]
-  }
-    </script>
-  </div>
+<div style="width: 100%; display: flex; justify-content: center; margin: 20px 0;">
+    <div style="width: 90%; max-width: 800px; background: #000; border: 1px solid #00ff41; border-radius: 10px; padding: 10px; position: relative !important;">
+        <div class="tradingview-widget-container">
+            <div class="tradingview-widget-container__widget"></div>
+            <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-market-quotes.js" async>
+            {
+            "width": "100%",
+            "height": 300,
+            "symbolsGroups": [
+              {
+                "name": "Anlık Piyasa & Rapor",
+                "originalName": "Indices",
+                "symbols": [
+                  { "name": "FX_IDC:USDTRY", "displayName": "USD/TRY" },
+                  { "name": "FX_IDC:EURTRY", "displayName": "EUR/TRY" },
+                  { "name": "BITSTAMP:BTCUSD", "displayName": "BITCOIN" },
+                  { "name": "BIST:THYAO", "displayName": "THYAO" },
+                  { "name": "BIST:SISE", "displayName": "SISE" }
+                ]
+              }
+            ],
+            "showSymbolLogo": true,
+            "colorTheme": "dark",
+            "isTransparent": true,
+            "locale": "tr"
+          }
+            </script>
+        </div>
+    </div>
 </div>
     <div class="disclaimer">
         ⚠️ YASAL UYARI: Burada yer alan bilgiler yatırım tavsiyesi değildir.
