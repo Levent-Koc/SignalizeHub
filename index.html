@@ -188,6 +188,32 @@
             ],
             "showSymbolLogo": true, "colorTheme": "light", "locale": "tr"
             }
+<script>
+function toggleDarkMode() {
+    const body = document.body;
+    const isDark = body.style.backgroundColor === 'rgb(15, 23, 42)';
+    
+    if (!isDark) {
+        body.style.backgroundColor = '#0f172a';
+        body.style.color = '#f1f5f9';
+        document.querySelectorAll('.card, header, footer').forEach(el => {
+            el.style.backgroundColor = '#1e293b';
+            el.style.color = '#f1f5f9';
+            el.style.borderColor = '#334155';
+        });
+        document.getElementById('modeBtn').innerHTML = "☀️ Gündüz Modu";
+    } else {
+        body.style.backgroundColor = '#f8fafc';
+        body.style.color = '#1a1a1a';
+        document.querySelectorAll('.card, header, footer').forEach(el => {
+            el.style.backgroundColor = '#ffffff';
+            el.style.color = '#1a1a1a';
+            el.style.borderColor = '#e1e8ed';
+        });
+        document.getElementById('modeBtn').innerHTML = "🌙 Gece Modu";
+    }
+}
+</script>
             </script>
         </div>
     </div>
