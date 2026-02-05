@@ -234,10 +234,10 @@ function showUpdateTime() {
     timestampSpan.innerHTML = date + " - " + time;
     timeBox.style.display = 'block';
     
-    // 20 saniye (20000 ms) sonra otomatik gizle
+    // 10 saniye (10000 ms) sonra otomatik gizle
     setTimeout(() => {
         timeBox.style.display = 'none';
-    }, 20000);
+    }, 10000);
 }
         function toggleDarkMode() {
             const body = document.body;
