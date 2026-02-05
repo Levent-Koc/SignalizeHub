@@ -1,3 +1,16 @@
-SignalizeHub için teknoloji hisseleri odaklı çok kısa bir borsa yorumu:
+--- SİGNALİZEHUB GÜNLÜK ANALİZ RAPORU ---
+Tarih: 05-02-2026 08:44
+========================================
 
-Teknoloji hisseleri, yapay zeka liderliğinde güçlü seyrini sürdürüyor; inovasyon odaklı devler piyasayı yönlendiriyor. Ancak, yüksek faiz ortamı ve değerleme endişeleri, özellikle kârlılığı zayıf şirketlerde seçiciliği önemli kılıyor. Yakın vadede volatilite devam etse de, uzun vadede dijital dönüşüm ve AI temalı şirketlerde fırsatlar sürebilir.
+🚀 GÜNÜN YILDIZ TABLOSU:
+
+HİSSE      | DURUM        | HEDEF     
+--------------------------------------
+ASELS      | GÜÇLÜ AL     | 120.50    
+THYAO      | TUT          | 315.00    
+EREGL      | AL           | 62.00     
+
+========================================
+💡 ANALİST NOTU:
+Piyasadaki hacim artışı teknoloji hisselerini destekliyor.
+Kısa vadeli direnç noktalarına dikkat edilmeli.
