@@ -214,7 +214,97 @@ body.dark-mode .cloud-red { background-color: rgba(255, 77, 77, 0.2) !important;
         </table>
         </div>
     </div>
+<div class="card" style="margin-top: 30px; padding: 25px; border-top: 4px solid #f1c40f;">
+    <h3 style="margin-top: 0; font-size: 18px; display: flex; align-items: center; gap: 10px;">
+        🧮 Finansal Hesap Makinesi & Çevirici
+    </h3>
+    
+    <div style="display: flex; gap: 20px; flex-wrap: wrap;">
+        <div style="flex: 1; min-width: 200px;">
+            <label style="display: block; font-size: 12px; margin-bottom: 5px; opacity: 0.8;">Miktar</label>
+            <input type="number" id="amount" value="1" oninput="calculateExchange()" style="width: 100%; padding: 10px; border-radius: 8px; border: 1px solid var(--border); background: var(--bg); color: var(--text); font-weight: bold;">
+        </div>
 
+        <div style="flex: 1; min-width: 150px;">
+            <label style="display: block; font-size: 12px; margin-bottom: 5px; opacity: 0.8;">Satılan</label>
+            <select id="fromCurrency" onchange="calculateExchange()" style="width: 100%; padding: 10px; border-radius: 8px; border: 1px solid var(--border); background: var(--bg); color: var(--text);">
+                <option value="USD">USD - ABD Doları</option>
+                <option value="EUR">EUR - Euro</option>
+                <option value="GBP">GBP - İngiliz Sterlini</option>
+                <option value="TRY" selected>TRY - Türk Lirası</option>
+                <option value="XAU">XAU - Gram Altın</option>
+                <option value="BTC">BTC - Bitcoin</option>
+            </select>
+        </div>
+
+        <div style="flex: 1; min-width: 150px;">
+            <label style="display: block; font-size: 12px; margin-bottom: 5px; opacity: 0.8;">Alınan</label>
+            <select id="toCurrency" onchange="calculateExchange()" style="width: 100%; padding: 10px; border-radius: 8px; border: 1px solid var(--border); background: var(--bg); color: var(--text);">
+                <option value="USD" selected>USD - ABD Doları</option>
+                <option value="EUR">EUR - Euro</option>
+                <option value="GBP">GBP - İngiliz Sterlini</option>
+                <option value="TRY">TRY - Türk Lirası</option>
+                <option value="XAU">XAU - Gram Altın</option>
+                <option value="BTC">BTC - Bitcoin</option>
+            </select>
+        </div>
+    </div>
+
+    <div style="margin-top: 20px; padding: 20px; background: rgba(241, 196, 15, 0.1); border-radius: 10px; text-align: center;">
+        <div style="font-size: 14px; opacity: 0.8; margin-bottom: 5px;">Tahmini İşlem Karşılığı</div>
+        <div id="conversionResult" style="font-size: 24px; font-weight: 800; color: var(--text);">
+            ---
+        </div>
+    </div>
+    <div style="font-size: 10px; opacity: 0.5; margin-top: 10px; text-align: center;">
+        * Veriler piyasa koşullarına göre değişkenlik gösterebilir.
+    </div>
+</div>
+
+<script>
+// Bu veriler normalde bir API'den çekilir, terminal için baz kur değerleri tanımlıyoruz:
+const rates = {
+    "TRY": 1,
+    "USD": 34.50, // Güncel kur tahmini
+    "EUR": 37.20,
+    "GBP": 44.10,
+    "XAU": 2950.00, // Gram Altın
+    "BTC": 3250000.00 // Bitcoin (TRY bazlı)
+};
+
+function calculateExchange() {
+    const amount = document.getElementById('amount').value;
+    const from = document.getElementById('fromCurrency').value;
+    const to = document.getElementById('toCurrency').value;
+    const resultDiv = document.getElementById('conversionResult');
+
+    if (amount <= 0 || isNaN(amount)) {
+        resultDiv.innerHTML = "Lütfen miktar giriniz";
+        return;
+    }
+
+    // Çeviri Mantığı: Önce TRY'ye çevir, sonra hedef birime böl.
+    const amountInTry = amount * rates[from];
+    const finalResult = amountInTry / rates[to];
+
+    // Sonuç Formatlama
+    let formattedResult;
+    if (to === "BTC") {
+        formattedResult = finalResult.toFixed(6) + " BTC";
+    } else if (to === "XAU") {
+        formattedResult = finalResult.toFixed(4) + " GR";
+    } else {
+        formattedResult = finalResult.toLocaleString('tr-TR', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + " " + to;
+    }
+
+    resultDiv.innerHTML = amount + " " + from + " = " + formattedResult;
+}
+
+// Sayfa yüklendiğinde ilk hesaplamayı yap
+window.onload = function() {
+    calculateExchange();
+}
+</script>
     <div style="font-size: 12px; opacity: 0.7; line-height: 1.6; text-align: justify; padding: 25px; border-top: 1px solid var(--border); margin-top: 20px;">
     <strong style="display: block; margin-bottom: 5px;">⚠️ YASAL UYARI:</strong> 
     Burada yer alan yatırım bilgi, yorum ve tavsiyeleri yatırım danışmanlığı kapsamında değildir. Yatırım danışmanlığı hizmeti, aracı kurumlar, portföy yönetim şirketleri, mevduat kabul etmeyen bankalar ile müşteri arasında imzalanacak yatırım danışmanlığı sözleşmesi çerçevesinde sunulmaktadır. Burada yer alan yorum ve tavsiyeler, yorum ve tavsiyede bulunanların kişisel görüşlerine dayanmaktadır.
