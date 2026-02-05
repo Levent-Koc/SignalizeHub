@@ -30,6 +30,28 @@
     }
 </style>
 <style>
+    /* Bu sınıf aktif olduğunda tüm sayfaya hükmeder */
+    .dark-mode-global {
+        background-color: #0f172a !important;
+        color: #f1f5f9 !important;
+    }
+    
+    /* İçerideki tüm beyaz kutuları zorla koyulaştırır */
+    .dark-mode-global div, 
+    .dark-mode-global header, 
+    .dark-mode-global section, 
+    .dark-mode-global table {
+        background-color: #1e293b !important;
+        color: #f1f5f9 !important;
+        border-color: #334155 !important;
+    }
+
+    /* Linklerin ve yazıların renklerini korur */
+    .dark-mode-global a, .dark-mode-global p, .dark-mode-global td {
+        color: #f1f5f9 !important;
+    }
+</style>
+<style>
     /* Filtre yöntemi: Hiçbir yerleşimi bozmaz, sadece renkleri çevirir */
     .night-filter {
         filter: invert(1) hue-rotate(180deg);
@@ -249,13 +271,27 @@
 <script>
 function toggleDarkMode() {
     const body = document.body;
-    body.classList.toggle('night-filter');
-    
     const btn = document.getElementById('modeBtn');
-    if (body.classList.contains('night-filter')) {
+    
+    // Şalteri aç/kapat
+    body.classList.toggle('dark-mode-global');
+    
+    // Sayfadaki her bir div ve elemente ulaşıp rengini zorla değiştiriyoruz
+    const allElements = document.querySelectorAll('*');
+    
+    if (body.classList.contains('dark-mode-global')) {
         btn.innerHTML = "☀️ Gündüz Modu";
+        allElements.forEach(el => {
+            // Sadece arka planı beyaz olanları hedefle (görselleri bozmamak için)
+            const style = window.getComputedStyle(el);
+            if (style.backgroundColor === 'rgb(255, 255, 255)' || style.backgroundColor === 'white') {
+                el.style.setProperty('background-color', '#1e293b', 'important');
+                el.style.setProperty('color', '#f1f5f9', 'important');
+            }
+        });
     } else {
-        btn.innerHTML = "🌙 Gece Modu";
+        // GÜNDÜZ MODUNA DÖNÜŞ (Sayfayı yenileyerek tertemiz hale getirir)
+        location.reload();
     }
 }
 </script>
