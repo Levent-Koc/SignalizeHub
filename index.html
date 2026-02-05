@@ -170,40 +170,42 @@ body.dark-mode .cloud-red { background-color: rgba(255, 77, 77, 0.2) !important;
             </script>
         </div>
     </div>
-<div style="max-width: 900px; margin: 30px auto;"> 
-    <div class="card" style="border-top: 4px solid var(--primary); position: relative; overflow: hidden; padding: 25px;">
+<div class="container">
+    
+    <div style="display: flex; gap: 15px; margin-bottom: 25px;">
+        </div>
+
+    <div class="card" style="border-top: 4px solid var(--primary); position: relative; overflow: hidden; padding: 25px; margin-bottom: 30px;">
         <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 15px;">
             <span style="font-size: 20px;">📜</span>
             <h3 style="margin: 0; font-size: 18px; font-weight: 800;">Günlük Strateji Analizi</h3>
             <span style="margin-left: auto; background: var(--primary); color: white; padding: 3px 8px; border-radius: 5px; font-size: 10px; font-weight: 700;">GÜNCEL</span>
         </div>
 
-        <div style="line-height: 1.6; font-size: 14px; opacity: 0.9; margin-bottom: 10px;">
-            <p>
-                Küresel piyasalarda Fed'in faiz patikasına dair belirsizlikler sürerken, BIST100 endeksi 9.200 puan seviyesindeki kritik direncini test etmeye devam ediyor.
-                Özellikle bankacılık endeksindeki hacimli alımlar piyasayı yukarı yönlü desteklese de, sanayi grubunda kar satışlarının derinleştiğini gözlemliyoruz.
-            </p>
+        <div style="line-height: 1.6; font-size: 14px; opacity: 0.9;">
+            <p>Küresel piyasalarda Fed'in faiz patikasına dair belirsizlikler sürerken, BIST100 endeksi 9.200 puan seviyesindeki kritik direncini test etmeye devam ediyor. Bankacılık endeksindeki hacimli alımlar piyasayı yukarı yönlü destekliyor.</p>
         </div>
 
         <div style="margin-top: -10px; padding: 30px 10px 10px; background: linear-gradient(to bottom, transparent, var(--card-bg) 50%); text-align: center;">
-            <div style="filter: blur(3px); opacity: 0.2; pointer-events: none; font-size: 12px; margin-bottom: 15px;">
-                Teknik olarak AL sinyali veren bu hisselerin hedef fiyatları ve stop-loss seviyeleri...
-            </div>
-            
-            <div style="background: rgba(0, 184, 148, 0.05); border: 1px dashed var(--primary); padding: 15px; border-radius: 10px; display: inline-block; width: 90%;">
-                <div style="font-size: 15px; font-weight: 800; color: var(--primary); margin-bottom: 5px;">
-                    🔒 Raporun Devamı Üyelere Özeldir
-                </div>
-                <p style="margin: 0 0 10px; font-size: 12px; opacity: 0.8;">
-                    Özel önerileri ve analizleri görmek için giriş yapın.
-                </p>
-                <a href="#" style="display: inline-block; background: #1a1a1a; color: white; text-decoration: none; padding: 8px 20px; border-radius: 6px; font-weight: 700; font-size: 13px;">
-                    Analizin Tamamını Oku
-                </a>
+            <div style="filter: blur(3px); opacity: 0.2; pointer-events: none; font-size: 12px; margin-bottom: 15px;">Teknik olarak AL sinyali veren bu hisselerin hedef fiyatları...</div>
+            <div style="background: rgba(0, 184, 148, 0.05); border: 1px dashed var(--primary); padding: 15px; border-radius: 10px; display: inline-block; width: 80%;">
+                <div style="font-size: 15px; font-weight: 800; color: var(--primary); margin-bottom: 5px;">🔒 Raporun Devamı Üyelere Özeldir</div>
+                <a href="#" style="display: inline-block; background: #1a1a1a; color: white; text-decoration: none; padding: 8px 20px; border-radius: 6px; font-weight: 700; font-size: 13px;">Analizin Tamamını Oku</a>
             </div>
         </div>
     </div>
-</div>
+
+    <div style="display: flex; gap: 25px; flex-wrap: wrap; justify-content: center;">
+        <div class="card" style="flex: 1; min-width: 350px; padding: 25px;">
+            <div class="cloud-green">🚀 YÜKSELEN HİSSELER</div>
+            </div>
+
+        <div class="card" style="flex: 1; min-width: 350px; padding: 25px;">
+            <div class="cloud-red">📉 DÜŞEN HİSSELER</div>
+            </div>
+    </div>
+
+</div> ```
     <script>
         function toggleDarkMode() {
             const body = document.body;
