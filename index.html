@@ -105,33 +105,26 @@ body {
     </style>
 </head>
 <body>
-<div class="tradingview-widget-container" id="market-ticker">
+<div class="tradingview-widget-container" style="position: fixed; bottom: 0; left: 0; width: 100%; z-index: 1000;">
     <div class="tradingview-widget-container__widget"></div>
     <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-ticker-tape.js" async>
     {
     "symbols": [
-      { "proName": "BIST:XU100", "title": "BIST 100" },
-      { "proName": "BIST:XU030", "title": "BIST 30" },
       { "proName": "FX_IDC:USDTRY", "title": "USD/TRY" },
       { "proName": "FX_IDC:EURTRY", "title": "EUR/TRY" },
       { "proName": "FX:EURUSD", "title": "EUR/USD PARİTE" },
-      { "proName": "FX_IDC:GBPTRY", "title": "GBP/TRY" },
+      { "proName": "BIST:XU100", "title": "BIST 100" },
+      { "proName": "BIST:XU030", "title": "BIST 30" },
       { "proName": "OANDA:XAUUSD", "title": "ALTIN ONS" },
-      { "proName": "OANDA:XAGUSD", "title": "GÜMÜŞ" },
-      { "proName": "COMEX:HG1!", "title": "BRONZ/BAKIR" },
       { "description": "🔥 EN GÜÇLÜ", "proName": "BIST:SISE" },
       { "description": "🔥 EN GÜÇLÜ", "proName": "BIST:AKBNK" },
-      { "description": "🔥 EN GÜÇLÜ", "proName": "BIST:TUPRS" },
-      { "description": "🔥 EN GÜÇLÜ", "proName": "BIST:KCHOL" },
-      { "description": "🔥 EN GÜÇLÜ", "proName": "BIST:BIMAS" },
       { "description": "⭐ GÜNÜN RAPORU", "proName": "BIST:ASELS" },
-      { "description": "⭐ GÜNÜN RAPORU", "proName": "BIST:THYAO" },
-      { "description": "⭐ GÜNÜN RAPORU", "proName": "BIST:EREGL" }
+      { "description": "⭐ GÜNÜN RAPORU", "proName": "BIST:THYAO" }
     ],
     "showSymbolLogo": true,
     "colorTheme": "light",
     "isTransparent": false,
-    "displayMode": "adaptive",
+    "displayMode": "regular", 
     "locale": "tr",
     "symbols_description": "on"
     }
@@ -151,13 +144,12 @@ body {
     <div class="disclaimer">
         ⚠️ YASAL UYARI: Burada yer alan bilgiler yatırım tavsiyesi değildir.
     </div>
-<div style="margin-top: 40px; text-align: center; border-top: 1px solid #333; padding-top: 20px; margin-bottom: 20px;">
-        <p style="color: #888; font-size: 0.9em; margin-bottom: 15px;">Analizler size kazandırdı mı? Gelişimi destekleyebilirsiniz:</p>
-        <a href="https://www.buymeacoffee.com/KULLANICI_ADIN" target="_blank" 
-           style="background-color: #00ff41; color: black; padding: 12px 25px; text-decoration: none; border-radius: 30px; font-weight: bold; box-shadow: 0 0 15px rgba(0, 255, 65, 0.4); display: inline-block;">
-           ☕ Bir Kahve Ismarla
-        </a>
-    </div>
+<div style="text-align: center; margin: 20px 0;">
+    <a href="https://www.buymeacoffee.com/KULLANICI_ADIN" target="_blank" 
+       style="background-color: #00ff41; color: black; padding: 12px 25px; text-decoration: none; border-radius: 30px; font-weight: bold; display: inline-block;">
+       ☕ Bir Kahve Ismarla
+    </a>
+</div>
     <script>
         // signaliz_borsa.txt dosyasını okuyan kod
         fetch('signaliz_borsa.txt')
