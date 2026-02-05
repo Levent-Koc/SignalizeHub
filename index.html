@@ -150,13 +150,18 @@ body.dark-mode .cloud-red { background-color: rgba(255, 77, 77, 0.2) !important;
     </div>
 <div class="container">    
         <div class="card" style="border-top: 4px solid var(--primary); position: relative; overflow: hidden; padding: 30px; margin-bottom: 30px;">
-    <div style="text-align: center; margin-bottom: 25px;">
-        <h3 style="margin: 0; font-size: 22px; font-weight: 800; display: inline-flex; align-items: center; gap: 10px;">
-            <span>📜</span> Günlük Strateji Analizi
-            <span style="background: var(--primary); color: white; padding: 4px 10px; border-radius: 6px; font-size: 11px; font-weight: 700; vertical-align: middle;">GÜNCEL</span>
-        </h3>
+   <div style="text-align: center; margin-bottom: 25px; position: relative;">
+    <h3 style="margin: 0; font-size: 22px; font-weight: 800; display: inline-flex; align-items: center; gap: 10px;">
+        <span>📜</span> Günlük Strateji Analizi
+        <span id="updateTag" onclick="showUpdateTime()" style="cursor: pointer; background: var(--primary); color: white; padding: 4px 10px; border-radius: 6px; font-size: 11px; font-weight: 700; vertical-align: middle; transition: 0.3s; user-select: none;">
+            GÜNCEL
+        </span>
+    </h3>
+    
+    <div id="timeBox" style="display: none; position: absolute; left: 50%; transform: translateX(-50%); top: 40px; background: var(--card-bg); border: 1px solid var(--primary); padding: 8px 15px; border-radius: 8px; font-size: 13px; font-weight: 600; box-shadow: 0 4px 15px rgba(0,0,0,0.1); z-index: 10;">
+        🕒 Son Güncelleme: <span id="currentTimestamp" style="color: var(--primary);"></span>
     </div>
-
+</div>
     <div style="line-height: 1.8; font-size: 17px; opacity: 0.9; text-align: center; max-width: 900px; margin: 0 auto;">
         <p>
             Küresel piyasalarda Fed'in faiz patikasına dair belirsizlikler sürerken, BIST100 endeksi 9.200 puan seviyesindeki kritik direncini test etmeye devam ediyor. 
@@ -209,6 +214,31 @@ body.dark-mode .cloud-red { background-color: rgba(255, 77, 77, 0.2) !important;
 </div>
 
     <script>
+function showUpdateTime() {
+    const timeBox = document.getElementById('timeBox');
+    const timestampSpan = document.getElementById('currentTimestamp');
+    
+    // Şu anki tarihi ve saati al
+    const now = new Date();
+    
+    // Gün/Ay/Yıl formatı
+    const date = now.toLocaleDateString('tr-TR');
+    
+    // 24 Saat Formatı (HH:mm:ss)
+    const hours = String(now.getHours()).padStart(2, '0');
+    const minutes = String(now.getMinutes()).padStart(2, '0');
+    const seconds = String(now.getSeconds()).padStart(2, '0');
+    const time = hours + ":" + minutes + ":" + seconds;
+
+    // Yazıyı oluştur ve kutuyu göster
+    timestampSpan.innerHTML = date + " - " + time;
+    timeBox.style.display = 'block';
+    
+    // 20 saniye (20000 ms) sonra otomatik gizle
+    setTimeout(() => {
+        timeBox.style.display = 'none';
+    }, 20000);
+}
         function toggleDarkMode() {
             const body = document.body;
             body.classList.toggle('dark-mode');
