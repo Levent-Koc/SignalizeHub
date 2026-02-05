@@ -3,315 +3,179 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SignalizeHub | Global Analiz Paneli</title>
-<style>
-    /* Varsayılan Gündüz Renkleri */
-    :root {
-        --bg: #f8fafc;
-        --card-bg: white;
-        --text: #1a1a1a;
-        --border: #e1e8ed;
-    }
-
-    /* Gece Modu Aktif Olduğunda Geçecek Renkler */
-    body.dark-mode {
-        --bg: #0f172a;
-        --card-bg: #1e293b;
-        --text: #f8fafc;
-        --border: #334155;
-    }
-
-    /* Sayfadaki elemanların bu değişkenleri kullanmasını sağlayan zorlayıcı kural */
-    body { background-color: var(--bg) !important; color: var(--text) !important; transition: 0.3s; }
-    header, main div, section, footer, .card { 
-        background-color: var(--card-bg) !important; 
-        color: var(--text) !important; 
-        border-color: var(--border) !important; 
-    }
-</style>
-<style>
-    /* Bu sınıf aktif olduğunda tüm sayfaya hükmeder */
-    .dark-mode-global {
-        background-color: #0f172a !important;
-        color: #f1f5f9 !important;
-    }
-    
-    /* İçerideki tüm beyaz kutuları zorla koyulaştırır */
-    .dark-mode-global div, 
-    .dark-mode-global header, 
-    .dark-mode-global section, 
-    .dark-mode-global table {
-        background-color: #1e293b !important;
-        color: #f1f5f9 !important;
-        border-color: #334155 !important;
-    }
-
-    /* Linklerin ve yazıların renklerini korur */
-    .dark-mode-global a, .dark-mode-global p, .dark-mode-global td {
-        color: #f1f5f9 !important;
-    }
-</style>
-<style>
-    /* Filtre yöntemi: Hiçbir yerleşimi bozmaz, sadece renkleri çevirir */
-    .night-filter {
-        filter: invert(1) hue-rotate(180deg);
-        background-color: #000 !important;
-    }
-    /* Grafikler ve resimler bozulmasın diye onları tekrar ters çevirir */
-    .night-filter img, .night-filter iframe, .night-filter .tradingview-widget-container {
-        filter: invert(1) hue-rotate(180deg);
-    }
-    body { transition: filter 0.3s ease; }
-</style>
-<style>
-    /* Gece Modu Aktifleşince Sayfayı Yöneten Kurallar */
-    body.dark-mode, 
-    body.dark-mode header, 
-    body.dark-mode main, 
-    body.dark-mode .card, 
-    body.dark-mode div[style*="background"],
-    body.dark-mode section,
-    body.dark-mode footer {
-        background-color: #0f172a !important; 
-        color: #f1f5f9 !important;
-        border-color: #334155 !important;
-    }
-
-    /* Tablo satırları ve metinleri için düzeltme */
-    body.dark-mode td, body.dark-mode p, body.dark-mode h1, body.dark-mode strong {
-        color: #f1f5f9 !important;
-    }
-    
-    /* Gece modunda butonların parlaması */
-    body.dark-mode #modeBtn {
-        background-color: #334155 !important;
-        color: #fff !important;
-    }
-</style>
+    <title>SignalizeHub | Finansal Terminal</title>
     <style>
-        body {
-            background-color: #f4f7f6; /* Modern hafif gri zemin */
-            color: #2d3436;
+        /* GLOBAL RENK DEĞİŞKENLERİ */
+        :root {
+            --bg: #f8fafc;
+            --header-bg: #ffffff;
+            --card-bg: #ffffff;
+            --text: #1a1a1a;
+            --border: #e1e8ed;
+            --primary: #00b894;
+        }
+
+        /* GECE MODU RENKLERİ */
+        body.dark-mode {
+            --bg: #0f172a;
+            --header-bg: #1e293b;
+            --card-bg: #1e293b;
+            --text: #f1f5f9;
+            --border: #334155;
+        }
+
+        body { 
+            background-color: var(--bg); 
+            color: var(--text); 
+            margin: 0; 
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            margin: 0;
-            padding: 0;
+            transition: all 0.3s ease;
+            padding-bottom: 80px; /* Kayan bant için boşluk */
+        }
+
+        /* HEADER */
+        header {
+            background-color: var(--header-bg);
+            border-bottom: 1px solid var(--border);
+            padding: 15px 40px;
             display: flex;
-            flex-direction: column;
+            justify-content: space-between;
             align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
         }
 
-        /* Logo Alanı */
-        /* Logo ve Üst Bar Alanı */
-.header {
-    display: flex;
-    justify-content: flex-start; /* Sola yasla */
-    align-items: center;
-    padding: 15px 5%;
-    background: white;
-    border-bottom: 1px solid #e1e8ed;
-    width: 100%;
-    box-sizing: border-box;
-<button onclick="toggleDarkMode()" id="modeBtn" style="cursor:pointer; background: #e2e8f0; border: none; padding: 10px 15px; border-radius: 8px; font-weight: 600; font-size: 12px; margin-right: 10px;">🌙 Gece Modu</button>
-}
-
-/* Siyah kutu içindeki S Logosu için stil */
-.logo-box {
-    background-color: #1a1a1a; /* Siyah kutu */
-    width: 45px;
-    height: 45px;
-    border-radius: 8px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-right: 15px;
-    box-shadow: 0 0 10px rgba(0, 255, 65, 0.2);
-}
-
-.logo-text {
-    font-size: 28px;
-    font-weight: 800;
-    color: #1a1a1a;
-    letter-spacing: -1px;
-    font-family: sans-serif;
-}
-
-/* HUB yazısının o özel rengi */
-.hub-highlight {
-    color: #6c5ce7; /* Orijinal mor/mavi tonu */
-}
-        /* Rapor Kartı */
-        .modern-card {
-            background: white;
-            border-radius: 16px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
-            border: 1px solid #e1e8ed;
-            max-width: 800px;
-            width: 90%;
-            margin: 40px auto;
-            padding: 35px;
-            box-sizing: border-box;
+        .logo-area { display: flex; align-items: center; gap: 15px; }
+        .logo-box { 
+            background: #1a1a1a; width: 45px; height: 45px; border-radius: 10px; 
+            display: flex; align-items: center; justify-content: center; border: 2px solid var(--primary);
         }
 
-        .card-title {
-            border-left: 6px solid #6c5ce7;
-            padding-left: 15px;
-            margin-bottom: 25px;
+        /* BUTONLAR */
+        .btn-group { display: flex; align-items: center; gap: 12px; }
+        .btn-mode { cursor: pointer; background: var(--bg); border: 1px solid var(--border); padding: 8px 15px; border-radius: 20px; color: var(--text); font-weight: 600; }
+        .btn-login { text-decoration: none; color: var(--text); border: 1px solid var(--text); padding: 9px 18px; border-radius: 8px; font-weight: 600; font-size: 13px; }
+        .btn-register { text-decoration: none; background: var(--primary); color: white !important; padding: 10px 20px; border-radius: 8px; font-weight: 700; font-size: 13px; }
+
+        /* KARTLAR VE İÇERİK */
+        .container { max-width: 1200px; margin: 30px auto; padding: 0 20px; }
+        .card { 
+            background-color: var(--card-bg); 
+            border: 1px solid var(--border); 
+            border-radius: 15px; 
+            padding: 25px; 
+            margin-bottom: 25px; 
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05); 
         }
 
-        .paywall {
-            text-align: center;
-            margin-top: 30px;
-            padding: 30px;
-            background: #f9f9ff;
-            border: 1px dashed #6c5ce7;
-            border-radius: 12px;
-        }
+        /* TABLO AYARLARI */
+        table { width: 100%; border-collapse: collapse; margin-top: 10px; }
+        td { padding: 12px; border-bottom: 1px solid var(--border); }
+        .up { color: #00b894; font-weight: 800; }
+        .down { color: #ff4d4d; font-weight: 800; }
 
-        .btn-vip {
-            background: #6c5ce7;
-            color: white;
-            padding: 12px 35px;
-            border-radius: 30px;
-            text-decoration: none;
-            font-weight: bold;
-            display: inline-block;
-            margin-top: 15px;
-            transition: 0.3s;
-        }
-
-        .btn-vip:hover {
-            background: #a29bfe;
-        }
-
-        .footer {
-            font-size: 12px;
-            color: #636e72;
-            text-align: center;
-            padding: 40px;
+        /* EN ALTTAKİ SABİT BANT */
+        .footer-ticker {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            background: var(--header-bg);
+            border-top: 1px solid var(--border);
+            z-index: 2000;
         }
     </style>
 </head>
 <body>
-<body style="margin: 0; padding: 0; font-family: 'Segoe UI', sans-serif; background-color: #f8fafc; display: flex; flex-direction: column; min-height: 100vh;">
-   <header style="display: flex; justify-content: space-between; align-items: center; padding: 15px 40px; background: white; border-bottom: 1px solid #e1e8ed; width: 100%; box-sizing: border-box;">
-    <div style="display: flex; align-items: center; gap: 15px;">
-        <div style="background: #1a1a1a; width: 45px; height: 45px; border-radius: 10px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; border: 2px solid #00b894;">
-            <img src="logo.png" style="width: 80%; height: auto;" onerror="this.parentElement.innerHTML='<b style=\'color:white\'>S</b>'">
+
+    <header>
+        <div class="logo-area">
+            <div class="logo-box">
+                <img src="logo.png" style="width: 80%;" onerror="this.parentElement.innerHTML='<b style=\'color:white\'>S</b>'">
+            </div>
+            <h1 style="margin:0; font-size: 24px; letter-spacing: -1px;">Signalize<span style="color:var(--primary)">Hub</span></h1>
         </div>
-        <h1 style="margin: 0; font-size: 26px; font-weight: 800; color: #1a1a1a; white-space: nowrap;">Signalize<span style="color: #00b894;">Hub</span></h1>
+        <div class="btn-group">
+            <button class="btn-mode" id="modeBtn" onclick="toggleDarkMode()">🌙 Gece Modu</button>
+            <a href="#" class="btn-login">Giriş Yap</a>
+            <a href="#" class="btn-register">Hemen Kayıt Ol</a>
+        </div>
+    </header>
+
+    <div class="container">
+        <div style="display: flex; gap: 15px; margin-bottom: 25px;">
+            <div class="card" style="flex:1; margin-bottom:0; padding:10px; height: 80px;">
+                <div class="tradingview-widget-container"><div class="tradingview-widget-container__widget"></div>
+                <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-mini-symbol-overview.js" async>
+                { "symbol": "BIST:XU100", "width": "100%", "height": "100%", "locale": "tr", "dateRange": "12M", "colorTheme": "light", "trendLineColor": "#00b894" }
+                </script></div>
+            </div>
+            <div class="card" style="flex:1; margin-bottom:0; padding:10px; height: 80px;">
+                <div class="tradingview-widget-container"><div class="tradingview-widget-container__widget"></div>
+                <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-mini-symbol-overview.js" async>
+                { "symbol": "BIST:XU030", "width": "100%", "height": "100%", "locale": "tr", "dateRange": "12M", "colorTheme": "light", "trendLineColor": "#00b894" }
+                </script></div>
+            </div>
+        </div>
+
+        <div class="card" style="border-left: 5px solid var(--primary);">
+            <h3 style="margin-top:0">📜 Günlük Piyasa Stratejisi</h3>
+            <p style="opacity: 0.9; line-height: 1.6;">BIST 100 endeksi 9.200 direnç bölgesinde yatay seyrediyor. Bankacılık endeksindeki toparlanma piyasayı destekleyebilir. Altın fiyatlarında ise ONS bazlı hareketler takip edilmeli.</p>
+            <div style="text-align: center; margin-top: 20px; padding: 15px; background: rgba(0,184,148,0.05); border-radius: 10px;">
+                <span style="color: var(--primary); font-weight: bold;">🔒 Raporun Devamı Sadece Üyelerimize Özeldir</span>
+            </div>
+        </div>
+
+        <div style="display: flex; gap: 20px; flex-wrap: wrap;">
+            <div class="card" style="flex: 1; min-width: 300px;">
+                <h4 style="margin-top:0; color: var(--primary);">🚀 YÜKSELEN HİSSELER</h4>
+                <table>
+                    <tr><td>THYAO</td><td class="up">+4.52%</td></tr>
+                    <tr><td>ASELS</td><td class="up">+3.85%</td></tr>
+                    <tr><td>EREGL</td><td class="up">+2.90%</td></tr>
+                </table>
+            </div>
+            <div class="card" style="flex: 1; min-width: 300px;">
+                <h4 style="margin-top:0; color: #ff4d4d;">📉 DÜŞEN HİSSELER</h4>
+                <table>
+                    <tr><td>SASA</td><td class="down">-3.20%</td></tr>
+                    <tr><td>HEKTS</td><td class="down">-2.85%</td></tr>
+                    <tr><td>ASTOR</td><td class="down">-2.15%</td></tr>
+                </table>
+            </div>
+        </div>
     </div>
-<div style="display: flex; align-items: center; gap: 12px; flex-shrink: 0;">
-    <button onclick="geceModuAcKapat()" id="modeBtn" style="cursor:pointer; background: #f1f5f9; border: 1px solid #ddd; padding: 8px 14px; border-radius: 20px; font-weight: 600; font-size: 12px;">🌙 Gece Modu</button>
-    <a href="#" style="text-decoration: none; color: #1a1a1a; border: 1px solid #1a1a1a; padding: 10px 18px; border-radius: 8px; font-weight: 600; font-size: 13px;">Giriş Yap</a>
-    <a href="#" style="text-decoration: none; background: #00b894; color: white; padding: 10px 18px; border-radius: 8px; font-weight: 700; font-size: 13px;">Kayıt Ol</a>
-</div>
-</header>
-    <main style="flex: 1; width: 100%; max-width: 1200px; margin: 30px auto; padding: 0 40px; box-sizing: border-box;">
-        <div style="background: #fff; border-radius: 15px; margin-bottom: 30px; border: 1px solid #e1e8ed; overflow: hidden; box-shadow: 0 4px 15px rgba(0,0,0,0.05);">
-            <div style="background: #1a1a1a; color: white; padding: 15px 25px; font-weight: 700;">📜 GÜNLÜK STRATEJİ VE PİYASA ANALİZİ</div>
-            <div style="padding: 25px;">
-                <p style="color: #444; font-size: 16px; line-height: 1.7; margin: 0;">
-                    <strong>Makro Görünüm:</strong> Küresel piyasalarda EUR/USD paritesi 1.0850 seviyesindeki dengesini koruyor. Altın-TL fiyatları 3.050₺ direncini zorlarken, BIST100 endeksinde 9.120 desteği üzerinde kalındığı sürece pozitif görünüm devam edecektir.
-                </p>
-                <div style="margin-top: 20px; padding: 20px; background: linear-gradient(to bottom, rgba(255,255,255,0) 0%, #fff 100%); text-align: center; border-top: 1px dashed #ddd;">
-                    <div style="color: #00b894; font-weight: 800; font-size: 18px; margin-bottom: 10px;">🔒 Raporun Devamı Sadece Üyelerimize Özeldir</div>
-                    <p style="color: #888; font-size: 14px; margin-bottom: 15px;">Hisse bazlı özel önerileri, hedef fiyatları ve teknik analizleri görmek için giriş yapın.</p>
-                    <a href="#" style="display: inline-block; background: #1a1a1a; color: white; padding: 10px 25px; border-radius: 6px; text-decoration: none; font-weight: 600;">Analizin Tamamını Oku</a>
-                </div>
-            </div>
-        </div>
 
-        <div style="display: flex; gap: 30px; flex-wrap: wrap;">
-            <div style="flex: 1; min-width: 350px; background: white; border-radius: 15px; border: 1px solid #e1e8ed; overflow: hidden;">
-                <div style="background: #f0fff4; padding: 15px; color: #22863a; font-weight: 800; text-align: center;">🚀 YÜKSELEN / HİSSELER</div>
-                <table style="width: 100%; border-collapse: collapse;">
-                    <tr style="border-bottom: 1px solid #f8f9fa;"><td style="padding: 14px 20px; font-weight: 600;">THYAO</td><td style="text-align: right; padding: 14px 20px;"><span style="color:#666; margin-right: 15px;">284.50₺</span><span style="color: #00b894; font-weight: 800;">+4.52%</span></td></tr>
-                    <tr style="border-bottom: 1px solid #f8f9fa;"><td style="padding: 14px 20px; font-weight: 600;">ASELS</td><td style="text-align: right; padding: 14px 20px;"><span style="color:#666; margin-right: 15px;">62.15₺</span><span style="color: #00b894; font-weight: 800;">+3.85%</span></td></tr>
-                    <tr style="border-bottom: 1px solid #f8f9fa;"><td style="padding: 14px 20px; font-weight: 600;">EREGL</td><td style="text-align: right; padding: 14px 20px;"><span style="color:#666; margin-right: 15px;">48.30₺</span><span style="color: #00b894; font-weight: 800;">+2.90%</span></td></tr>
-                    <tr style="border-bottom: 1px solid #f8f9fa;"><td style="padding: 14px 20px; font-weight: 600;">SISE</td><td style="text-align: right; padding: 14px 20px;"><span style="color:#666; margin-right: 15px;">51.20₺</span><span style="color: #00b894; font-weight: 800;">+2.45%</span></td></tr>
-                    <tr><td style="padding: 14px 20px; font-weight: 600;">KCHOL</td><td style="text-align: right; padding: 14px 20px;"><span style="color:#666; margin-right: 15px;">178.40₺</span><span style="color: #00b894; font-weight: 800;">+2.10%</span></td></tr>
-                </table>
-            </div>
-
-            <div style="flex: 1; min-width: 350px; background: white; border-radius: 15px; border: 1px solid #e1e8ed; overflow: hidden;">
-                <div style="background: #fff5f5; padding: 15px; color: #cf222e; font-weight: 800; text-align: center;">📉 DÜŞEN / HİSSELER</div>
-                <table style="width: 100%; border-collapse: collapse;">
-                    <tr style="border-bottom: 1px solid #f8f9fa;"><td style="padding: 14px 20px; font-weight: 600;">SASA</td><td style="text-align: right; padding: 14px 20px;"><span style="color:#666; margin-right: 15px;">38.12₺</span><span style="color: #cf222e; font-weight: 800;">-3.20%</span></td></tr>
-                    <tr style="border-bottom: 1px solid #f8f9fa;"><td style="padding: 14px 20px; font-weight: 600;">HEKTS</td><td style="text-align: right; padding: 14px 20px;"><span style="color:#666; margin-right: 15px;">14.25₺</span><span style="color: #cf222e; font-weight: 800;">-2.85%</span></td></tr>
-                    <tr style="border-bottom: 1px solid #f8f9fa;"><td style="padding: 14px 20px; font-weight: 600;">ASTOR</td><td style="text-align: right; padding: 14px 20px;"><span style="color:#666; margin-right: 15px;">92.40₺</span><span style="color: #cf222e; font-weight: 800;">-2.15%</span></td></tr>
-                    <tr style="border-bottom: 1px solid #f8f9fa;"><td style="padding: 14px 20px; font-weight: 600;">KONTR</td><td style="text-align: right; padding: 14px 20px;"><span style="color:#666; margin-right: 15px;">215.60₺</span><span style="color: #cf222e; font-weight: 800;">-1.90%</span></td></tr>
-                    <tr><td style="padding: 14px 20px; font-weight: 600;">GUBRF</td><td style="text-align: right; padding: 14px 20px;"><span style="color:#666; margin-right: 15px;">165.30₺</span><span style="color: #cf222e; font-weight: 800;">-1.50%</span></td></tr>
-                </table>
-            </div>
-        </div>
-    </main>
-
-    <div style="width: 100%; background: white; border-top: 1px solid #e1e8ed;">
+    <div class="footer-ticker">
         <div class="tradingview-widget-container">
             <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-ticker-tape.js" async>
             {
-            "symbols": [
-                { "proName": "BIST:XU100", "title": "BIST 100" },
-                { "proName": "BIST:XU030", "title": "BIST 030" },
-                { "proName": "FX:EURUSD", "title": "EUR/USD" },
-                { "proName": "FX_IDC:USDTRY", "title": "USD/TRY ₺" },
-                { "proName": "FX_IDC:EURTRY", "title": "EUR/TRY ₺" },
-                { "proName": "FX_IDC:GBPTRY", "title": "GBP/TRY ₺" },
-                { "proName": "OANDA:XAUUSD", "title": "ALTIN (GR/TL)" },
-                { "proName": "OANDA:XAGUSD", "title": "GÜMÜŞ (GR/TL)" },
-                { "proName": "COMEX:HG1!", "title": "BAKIR (KG/TL)" },
-                { "proName": "BINANCE:BTCUSDT", "title": "BTC/USD" },
-                { "proName": "BINANCE:ETHUSDT", "title": "ETH/USD" },
-                { "proName": "BINANCE:SOLUSDT", "title": "SOL/USD" },
-                { "proName": "BINANCE:XRPUSDT", "title": "XRP/USD" },
-                { "proName": "BINANCE:ADAUSDT", "title": "ADA/USD" }
-            ],
-            "showSymbolLogo": true, "colorTheme": "light", "locale": "tr"
+              "symbols": [
+                {"proName": "BIST:XU100", "title": "BIST 100"},
+                {"proName": "BIST:XU030", "title": "BIST 30"},
+                {"proName": "FX_IDC:USDTRY", "title": "USD/TRY ₺"},
+                {"proName": "BINANCE:BTCUSDT", "title": "BTC/USD"},
+                {"proName": "BINANCE:ADAUSDT", "title": "ADA/USD"}
+              ],
+              "showSymbolLogo": true, "colorTheme": "light", "isTransparent": false, "displayMode": "adaptive", "locale": "tr"
             }
-<script>
-function geceModuAcKapat() {
-    const body = document.body;
-    const btn = document.getElementById('modeBtn');
-    
-    // Eğer filtre yoksa ekle, varsa kaldır
-    if (!body.style.filter || body.style.filter === 'none') {
-        // GECE MODUNU AÇ (Tüm renkleri ters çevir ve tonu ayarla)
-        body.style.filter = 'invert(0.9) hue-rotate(180deg)';
-        body.style.backgroundColor = '#000'; // Arka planı sabitle
-        
-        // Görsellerin ve grafiklerin renkleri bozulmasın diye onları tekrar ters çevir
-        document.querySelectorAll('img, iframe, .tradingview-widget-container').forEach(el => {
-            el.style.filter = 'invert(1) hue-rotate(180deg)';
-        });
-        
-        btn.innerHTML = "☀️ Gündüz Modu";
-    } else {
-        // GÜNDÜZ MODUNA DÖN (Her şeyi sıfırla)
-        body.style.filter = 'none';
-        body.style.backgroundColor = '';
-        document.querySelectorAll('img, iframe, .tradingview-widget-container').forEach(el => {
-            el.style.filter = 'none';
-        });
-        
-        btn.innerHTML = "🌙 Gece Modu";
-    }
-}
-</script>
             </script>
         </div>
     </div>
 
-    <footer style="background: white; border-top: 1px solid #e1e8ed; padding: 30px 40px; text-align: center;">
-        <div style="max-width: 800px; margin: 0 auto;">
-            <p style="font-size: 12px; color: #666; line-height: 1.5; margin-bottom: 15px;">
-                ⚠️ <strong>YASAL UYARI:</strong> Burada yer alan yatırım bilgi, yorum ve tavsiyeleri yatırım danışmanlığı kapsamında değildir. Yatırım danışmanlığı hizmeti, kişilerin risk ve getiri tercihleri dikkate alınarak kişiye özel sunulmaktadır. Burada yer alan ve hiçbir şekilde yönlendirici nitelikte olmayan içerik, yorum ve tavsiyeler ise genel niteliktedir. Bu tavsiyeler mali durumunuz ile risk ve getiri tercihlerinize uygun olmayabilir. Bu nedenle, sadece burada yer alan bilgilere dayanılarak yatırım kararı verilmesi beklentilerinize uygun sonuçlar doğurmayabilir.
-            </p>
-            <p style="font-size: 11px; color: #999; margin: 0; font-weight: 600;">
-                © 2026 SignalizeHub. Tüm Hakları Saklıdır.
-            </p>
-        </div>
-    </footer>
-
-</body>
+    <script>
+        function toggleDarkMode() {
+            const body = document.body;
+            body.classList.toggle('dark-mode');
+            const btn = document.getElementById('modeBtn');
+            
+            if(body.classList.contains('dark-mode')) {
+                btn.innerHTML = "☀️ Gündüz Modu";
+                // Widget'ları gece moduna uydurmak için (Opsiyonel: Sayfa yenilenebilir)
+            } else {
+                btn.innerHTML = "🌙 Gece Modu";
+            }
+        }
+    </script>
 </body>
 </html>
