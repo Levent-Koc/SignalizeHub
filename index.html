@@ -146,33 +146,20 @@ body {
     </div>
 
 </div>
-<div style="width: 100%; display: flex; justify-content: center; margin: 20px 0;">
-    <div style="width: 90%; max-width: 800px; background: #000; border: 1px solid #00ff41; border-radius: 10px; padding: 10px; position: relative !important;">
-        <div class="tradingview-widget-container">
-            <div class="tradingview-widget-container__widget"></div>
-            <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-market-quotes.js" async>
-            {
-            "width": "100%",
-            "height": 300,
-            "symbolsGroups": [
-              {
-                "name": "Anlık Piyasa & Rapor",
-                "originalName": "Indices",
-                "symbols": [
-                  { "name": "FX_IDC:USDTRY", "displayName": "USD/TRY" },
-                  { "name": "FX_IDC:EURTRY", "displayName": "EUR/TRY" },
-                  { "name": "BITSTAMP:BTCUSD", "displayName": "BITCOIN" },
-                  { "name": "BIST:THYAO", "displayName": "THYAO" },
-                  { "name": "BIST:SISE", "displayName": "SISE" }
-                ]
-              }
-            ],
-            "showSymbolLogo": true,
-            "colorTheme": "dark",
-            "isTransparent": true,
-            "locale": "tr"
-          }
-            </script>
+<div style="display: block; width: 95%; max-width: 900px; margin: 30px auto; position: static !important; clear: both;">
+    <h3 style="color: #00ff41; font-family: monospace; text-align: center; margin-bottom: 15px;">📊 ANLIK PİYASA TAKİBİ</h3>
+    
+    <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 15px;">
+        <div style="width: 250px; height: 120px; border: 1px solid #00ff41; border-radius: 8px; overflow: hidden;">
+            <iframe src="https://s.tradingview.com/embed-widget-single-quote/?symbol=FX_IDC%3AUSDTRY&theme=dark" width="100%" height="120" frameborder="0" scrolling="no"></iframe>
+        </div>
+        
+        <div style="width: 250px; height: 120px; border: 1px solid #00ff41; border-radius: 8px; overflow: hidden;">
+            <iframe src="https://s.tradingview.com/embed-widget-single-quote/?symbol=BIST%3AXU100&theme=dark" width="100%" height="120" frameborder="0" scrolling="no"></iframe>
+        </div>
+
+        <div style="width: 250px; height: 120px; border: 1px solid #00ff41; border-radius: 8px; overflow: hidden;">
+            <iframe src="https://s.tradingview.com/embed-widget-single-quote/?symbol=BIST%3ATHYAO&theme=dark" width="100%" height="120" frameborder="0" scrolling="no"></iframe>
         </div>
     </div>
 </div>
