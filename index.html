@@ -17,25 +17,25 @@
         }
 
         /* Logo Alanı */
-        .header {
-            text-align: center;
-            padding: 40px 0;
-            width: 100%;
-            background: white;
-            border-bottom: 1px solid #e1e8ed;
-        }
+        /* Logo ve Üst Bar Alanı */
+.header {
+    display: flex;
+    justify-content: flex-start; /* Sola yasla */
+    align-items: center;
+    padding: 20px 5%; /* Kenarlardan pay bırak */
+    width: 100%;
+    background: white;
+    border-bottom: 1px solid #e1e8ed;
+    box-sizing: border-box;
+}
 
-        .logo {
-            font-size: 32px;
-            font-weight: bold;
-            color: #1a1a1a;
-            text-decoration: none;
-        }
-
-        .logo span {
-            color: #6c5ce7; /* Hub yazısı için Mor vurgu */
-        }
-
+.logo {
+    font-size: 24px; /* Köşede daha kibar dursun */
+    font-weight: bold;
+    color: #1a1a1a;
+    text-decoration: none;
+    letter-spacing: -1px;
+}
         /* Rapor Kartı */
         .modern-card {
             background: white;
