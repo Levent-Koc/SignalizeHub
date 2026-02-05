@@ -262,15 +262,41 @@ body.dark-mode .cloud-red { background-color: rgba(255, 77, 77, 0.2) !important;
 </div>
 
 <script>
-// Bu veriler normalde bir API'den çekilir, terminal için baz kur değerleri tanımlıyoruz:
-const rates = {
+// Global kur nesnesi (Varsayılan değerler, API gelene kadar koruyucu olarak durur)
+let rates = {
     "TRY": 1,
-    "USD": 34.50, // Güncel kur tahmini
+    "USD": 34.50,
     "EUR": 37.20,
     "GBP": 44.10,
-    "XAU": 2950.00, // Gram Altın
-    "BTC": 3250000.00 // Bitcoin (TRY bazlı)
+    "XAU": 2950,
+    "BTC": 66336 // İstediğin güncel seviye
 };
+
+async function fetchLiveRates() {
+    try {
+        // Ücretsiz bir döviz kuru API'sinden veri çekiyoruz (Örnek: Frankfurter veya benzeri)
+        const response = await fetch('https://api.exchangerate-api.com/v4/latest/USD');
+        const data = await response.json();
+        
+        // USD bazlı kurları TRY'ye ve diğerlerine çeviriyoruz
+        const usdToTry = data.rates.TRY;
+        rates["USD"] = usdToTry; 
+        rates["EUR"] = (usdToTry / data.rates.EUR);
+        rates["GBP"] = (usdToTry / data.rates.GBP);
+        
+        // Kripto ve Altın için başka bir mini-fetch (CoinGecko ücretsiz API)
+        const cryptoResponse = await fetch('https://api.coingecko.com/api/v3/simple/price?ids=bitcoin,gold&vs_currencies=usd');
+        const cryptoData = await cryptoResponse.json();
+        
+        rates["BTC"] = cryptoData.bitcoin.usd * usdToTry; // BTC'yi TRY bazına çevir
+        // Altın gram hesabı (Ons/31.1) genelde manuel veya ek API ister, şimdilik sabit veya yaklaşık
+        
+        console.log("Canlı kurlar başarıyla güncellendi.");
+        calculateExchange(); // İlk hesaplamayı tetikle
+    } catch (error) {
+        console.error("Kurlar çekilemedi, sabit veriler kullanılıyor:", error);
+    }
+}
 
 function calculateExchange() {
     const amount = document.getElementById('amount').value;
@@ -278,31 +304,30 @@ function calculateExchange() {
     const to = document.getElementById('toCurrency').value;
     const resultDiv = document.getElementById('conversionResult');
 
-    if (amount <= 0 || isNaN(amount)) {
+    if (!amount || amount <= 0) {
         resultDiv.innerHTML = "Lütfen miktar giriniz";
         return;
     }
 
-    // Çeviri Mantığı: Önce TRY'ye çevir, sonra hedef birime böl.
+    // Çeviri Mantığı: Önce TRY'ye çevir, sonra hedef birime böl
     const amountInTry = amount * rates[from];
     const finalResult = amountInTry / rates[to];
 
-    // Sonuç Formatlama
     let formattedResult;
     if (to === "BTC") {
         formattedResult = finalResult.toFixed(6) + " BTC";
-    } else if (to === "XAU") {
-        formattedResult = finalResult.toFixed(4) + " GR";
     } else {
         formattedResult = finalResult.toLocaleString('tr-TR', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + " " + to;
     }
 
-    resultDiv.innerHTML = amount + " " + from + " = " + formattedResult;
+    resultDiv.innerHTML = `${amount} ${from} = ${formattedResult}`;
 }
 
-// Sayfa yüklendiğinde ilk hesaplamayı yap
+// Sayfa açıldığında canlı verileri çekmeye başla
 window.onload = function() {
-    calculateExchange();
+    fetchLiveRates();
+    // Her 5 dakikada bir kurları tazele
+    setInterval(fetchLiveRates, 300000);
 }
 </script>
     <div style="font-size: 12px; opacity: 0.7; line-height: 1.6; text-align: justify; padding: 25px; border-top: 1px solid var(--border); margin-top: 20px;">
