@@ -5,6 +5,30 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SignalizeHub | Finansal Terminal</title>
     <style>
+/* Bulut Efektleri */
+.cloud-green {
+    background-color: rgba(0, 184, 148, 0.1) !important;
+    color: #00b894 !important;
+    padding: 15px;
+    border-radius: 12px 12px 0 0;
+    font-weight: 800;
+    text-align: center;
+    margin: -25px -25px 15px -25px; /* Kartın içine tam oturması için */
+}
+
+.cloud-red {
+    background-color: rgba(255, 77, 77, 0.1) !important;
+    color: #ff4d4d !important;
+    padding: 15px;
+    border-radius: 12px 12px 0 0;
+    font-weight: 800;
+    text-align: center;
+    margin: -25px -25px 15px -25px;
+}
+
+/* Gece modunda bulutların renklerini biraz daha belirgin yapalım */
+body.dark-mode .cloud-green { background-color: rgba(0, 184, 148, 0.2) !important; }
+body.dark-mode .cloud-red { background-color: rgba(255, 77, 77, 0.2) !important; }
         /* GLOBAL RENK DEĞİŞKENLERİ */
         :root {
             --bg: #f8fafc;
@@ -103,47 +127,31 @@
     </header>
 
     <div class="container">
-        <div style="display: flex; gap: 15px; margin-bottom: 25px;">
-            <div class="card" style="flex:1; margin-bottom:0; padding:10px; height: 80px;">
-                <div class="tradingview-widget-container"><div class="tradingview-widget-container__widget"></div>
-                <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-mini-symbol-overview.js" async>
-                { "symbol": "BIST:XU100", "width": "100%", "height": "100%", "locale": "tr", "dateRange": "12M", "colorTheme": "light", "trendLineColor": "#00b894" }
-                </script></div>
-            </div>
-            <div class="card" style="flex:1; margin-bottom:0; padding:10px; height: 80px;">
-                <div class="tradingview-widget-container"><div class="tradingview-widget-container__widget"></div>
-                <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-mini-symbol-overview.js" async>
-                { "symbol": "BIST:XU030", "width": "100%", "height": "100%", "locale": "tr", "dateRange": "12M", "colorTheme": "light", "trendLineColor": "#00b894" }
-                </script></div>
-            </div>
-        </div>
+        <div style="display: flex; gap: 25px; flex-wrap: wrap; justify-content: center; margin-top: 30px;">
+    
+    <div class="card" style="flex: 1; min-width: 350px; max-width: 500px; padding: 25px;">
+        <div class="cloud-green">🚀 YÜKSELEN HİSSELER</div>
+        <table>
+            <tr><td style="font-weight: 600;">THYAO</td><td class="up" style="text-align: right;">+4.52%</td></tr>
+            <tr><td style="font-weight: 600;">ASELS</td><td class="up" style="text-align: right;">+3.85%</td></tr>
+            <tr><td style="font-weight: 600;">EREGL</td><td class="up" style="text-align: right;">+2.90%</td></tr>
+            <tr><td style="font-weight: 600;">SISE</td><td class="up" style="text-align: right;">+2.45%</td></tr>
+            <tr><td style="font-weight: 600;">KCHOL</td><td class="up" style="text-align: right;">+2.10%</td></tr>
+        </table>
+    </div>
 
-        <div class="card" style="border-left: 5px solid var(--primary);">
-            <h3 style="margin-top:0">📜 Günlük Piyasa Stratejisi</h3>
-            <p style="opacity: 0.9; line-height: 1.6;">BIST 100 endeksi 9.200 direnç bölgesinde yatay seyrediyor. Bankacılık endeksindeki toparlanma piyasayı destekleyebilir. Altın fiyatlarında ise ONS bazlı hareketler takip edilmeli.</p>
-            <div style="text-align: center; margin-top: 20px; padding: 15px; background: rgba(0,184,148,0.05); border-radius: 10px;">
-                <span style="color: var(--primary); font-weight: bold;">🔒 Raporun Devamı Sadece Üyelerimize Özeldir</span>
-            </div>
-        </div>
+    <div class="card" style="flex: 1; min-width: 350px; max-width: 500px; padding: 25px;">
+        <div class="cloud-red">📉 DÜŞEN HİSSELER</div>
+        <table>
+            <tr><td style="font-weight: 600;">SASA</td><td class="down" style="text-align: right;">-3.20%</td></tr>
+            <tr><td style="font-weight: 600;">HEKTS</td><td class="down" style="text-align: right;">-2.85%</td></tr>
+            <tr><td style="font-weight: 600;">ASTOR</td><td class="down" style="text-align: right;">-2.15%</td></tr>
+            <tr><td style="font-weight: 600;">KONTR</td><td class="down" style="text-align: right;">-1.90%</td></tr>
+            <tr><td style="font-weight: 600;">GUBRF</td><td class="down" style="text-align: right;">-1.50%</td></tr>
+        </table>
+    </div>
 
-        <div style="display: flex; gap: 20px; flex-wrap: wrap;">
-            <div class="card" style="flex: 1; min-width: 300px;">
-                <h4 style="margin-top:0; color: var(--primary);">🚀 YÜKSELEN HİSSELER</h4>
-                <table>
-                    <tr><td>THYAO</td><td class="up">+4.52%</td></tr>
-                    <tr><td>ASELS</td><td class="up">+3.85%</td></tr>
-                    <tr><td>EREGL</td><td class="up">+2.90%</td></tr>
-                </table>
-            </div>
-            <div class="card" style="flex: 1; min-width: 300px;">
-                <h4 style="margin-top:0; color: #ff4d4d;">📉 DÜŞEN HİSSELER</h4>
-                <table>
-                    <tr><td>SASA</td><td class="down">-3.20%</td></tr>
-                    <tr><td>HEKTS</td><td class="down">-2.85%</td></tr>
-                    <tr><td>ASTOR</td><td class="down">-2.15%</td></tr>
-                </table>
-            </div>
-        </div>
+</div>
     </div>
 
     <div class="footer-ticker">
