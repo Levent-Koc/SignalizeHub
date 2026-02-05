@@ -4,7 +4,36 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SignalizeHub | Profesyonel Analiz Paneli</title>
-    <style>
+    <style>.ticker-wrap {
+    width: 100%;
+    overflow: hidden;
+    background-color: rgba(0, 0, 0, 0.9);
+    border-bottom: 1px solid #00ff41;
+    padding: 10px 0;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+}
+
+.ticker {
+    display: inline-block;
+    white-space: nowrap;
+    animation: ticker 30s linear infinite;
+}
+
+.ticker-item {
+    display: inline-block;
+    padding: 0 30px;
+    font-family: monospace;
+    color: #00ff41;
+    font-weight: bold;
+}
+
+@keyframes ticker {
+    0% { transform: translateX(100%); }
+    100% { transform: translateX(-100%); }
+}
         body {
             background-color: #000;
             color: #00ff41; /* Neon yeşil */
@@ -61,7 +90,15 @@
     </style>
 </head>
 <body>
-
+<div class="ticker-wrap">
+    <div class="ticker">
+        <span class="ticker-item">BIST 100: 9.245,30 (+1.2%)</span>
+        <span class="ticker-item">USD/TRY: 30,45 (+0.1%)</span>
+        <span class="ticker-item">ONS ALTIN: 2.035$ (-0.3%)</span>
+        <span class="ticker-item">THYAO: 315.00 (+2.5%)</span>
+        <span class="ticker-item">ASELS: 120.50 (+1.8%)</span>
+    </div>
+</div>
     <div class="logo-container">
         <img src="logo.png" alt="SignalizeHub Logo">
     </div>
