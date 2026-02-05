@@ -109,20 +109,21 @@
 </head>
 <body>
 <body style="margin: 0; padding: 0; font-family: 'Segoe UI', sans-serif; background-color: #f8fafc; display: flex; flex-direction: column; min-height: 100vh;">
-
-   <header style="display: flex; justify-content: space-between; align-items: center; padding: 20px 40px; background: white; border-bottom: 1px solid #eee;">
+   <header style="display: flex; justify-content: space-between; align-items: center; padding: 15px 40px; background: white; border-bottom: 1px solid #e1e8ed; width: 100%; box-sizing: border-box;">
     <div style="display: flex; align-items: center; gap: 15px;">
-        <div style="width: 50px; height: 50px; background: #1a1a1a; border-radius: 12px; display: flex; align-items: center; justify-content: center; border: 2px solid #00b894; flex-shrink: 0;">
-            <img src="logo.png" style="width: 80%; height: auto;" onerror="this.parentElement.innerHTML='<span style=\'color:white;font-weight:bold\'>S</span>'">
+        <div style="background: #1a1a1a; width: 45px; height: 45px; border-radius: 10px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; border: 2px solid #00b894;">
+            <img src="logo.png" style="width: 80%; height: auto;" onerror="this.parentElement.innerHTML='<b style=\'color:white\'>S</b>'">
         </div>
-        <h1 style="margin: 0; font-size: 28px; font-weight: 800; color: #1a1a1a;">Signalize<span style="color: #00b894;">Hub</span></h1>
+        <h1 style="margin: 0; font-size: 26px; font-weight: 800; color: #1a1a1a; white-space: nowrap;">Signalize<span style="color: #00b894;">Hub</span></h1>
     </div>
-    <div style="display: flex; align-items: center; gap: 15px;">
-        <button onclick="toggleDarkMode()" id="modeBtn" style="cursor:pointer; border:1px solid #ddd; background:none; padding:8px 15px; border-radius:20px; font-size:12px;">🌙 Gece Modu</button>
-        <a href="#" style="text-decoration:none; background:#00b894; color:white; padding:10px 20px; border-radius:8px; font-weight:700;">Hemen Kayıt Ol</a>
+
+    <div style="display: flex; align-items: center; gap: 12px;">
+        <button onclick="toggleDarkMode()" id="modeBtn" style="cursor:pointer; background: #f1f5f9; border: 1px solid #ddd; padding: 8px 16px; border-radius: 20px; font-weight: 600; font-size: 13px; display: flex; align-items: center; gap: 5px;">
+            🌙 Gece Modu
+        </button>
+        <a href="#" style="text-decoration: none; background: #00b894; color: white; padding: 10px 22px; border-radius: 8px; font-weight: 700; font-size: 14px; white-space: nowrap;">Hemen Kayıt Ol</a>
     </div>
 </header>
-
     <main style="flex: 1; width: 100%; max-width: 1200px; margin: 30px auto; padding: 0 40px; box-sizing: border-box;">
         <div style="background: #fff; border-radius: 15px; margin-bottom: 30px; border: 1px solid #e1e8ed; overflow: hidden; box-shadow: 0 4px 15px rgba(0,0,0,0.05);">
             <div style="background: #1a1a1a; color: white; padding: 15px 25px; font-weight: 700;">📜 GÜNLÜK STRATEJİ VE PİYASA ANALİZİ</div>
@@ -168,37 +169,40 @@
             <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-ticker-tape.js" async>
             {
             "symbols": [
-                {"proName": "BIST:XU100", "title": "BIST 100"},
-                {"proName": "BIST:XU030", "title": "BIST 030"},
-                {"proName": "FX:EURUSD", "title": "EUR/USD"},
-                {"proName": "FX_IDC:USDTRY", "title": "USD/TRY ₺"},
-                {"proName": "FX_IDC:EURTRY", "title": "EUR/TRY ₺"},
-                {"proName": "FX_IDC:GBPTRY", "title": "GBP/TRY ₺"},
-                {"proName": "OANDA:XAUUSD", "title": "ALTIN (GR/TL)"},
-                {"proName": "OANDA:XAGUSD", "title": "GÜMÜŞ (GR/TL)"},
-                {"proName": "COMEX:HG1!", "title": "BAKIR (KG/TL)"},
-                {"proName": "BINANCE:BTCUSDT", "title": "BTC/USD"},
-                {"proName": "BINANCE:ETHUSDT", "title": "ETH/USD"},
-                {"proName": "BINANCE:SOLUSDT", "title": "SOL/USD"},
-                {"proName": "BINANCE:XRPUSDT", "title": "XRP/USD"},
-                {"proName": "BINANCE:ADAUSDT", "title": "ADA/USD"}
+                { "proName": "BIST:XU100", "title": "BIST 100" },
+                { "proName": "BIST:XU030", "title": "BIST 030" },
+                { "proName": "FX:EURUSD", "title": "EUR/USD" },
+                { "proName": "FX_IDC:USDTRY", "title": "USD/TRY ₺" },
+                { "proName": "FX_IDC:EURTRY", "title": "EUR/TRY ₺" },
+                { "proName": "FX_IDC:GBPTRY", "title": "GBP/TRY ₺" },
+                { "proName": "OANDA:XAUUSD", "title": "ALTIN (GR/TL)" },
+                { "proName": "OANDA:XAGUSD", "title": "GÜMÜŞ (GR/TL)" },
+                { "proName": "COMEX:HG1!", "title": "BAKIR (KG/TL)" },
+                { "proName": "BINANCE:BTCUSDT", "title": "BTC/USD" },
+                { "proName": "BINANCE:ETHUSDT", "title": "ETH/USD" },
+                { "proName": "BINANCE:SOLUSDT", "title": "SOL/USD" },
+                { "proName": "BINANCE:XRPUSDT", "title": "XRP/USD" },
+                { "proName": "BINANCE:ADAUSDT", "title": "ADA/USD" }
             ],
             "showSymbolLogo": true, "colorTheme": "light", "locale": "tr"
             }
 <script>
 function toggleDarkMode() {
-    const isDark = document.body.style.backgroundColor === 'rgb(15, 23, 42)';
+    const body = document.body;
+    const isDark = body.style.backgroundColor === 'rgb(15, 23, 42)';
+    
     if (!isDark) {
-        document.body.style.backgroundColor = '#0f172a';
-        document.body.style.color = '#ffffff';
-        document.querySelectorAll('header, div[style*="background: white"]').forEach(el => {
+        body.style.backgroundColor = '#0f172a';
+        body.style.color = '#f8fafc';
+        document.querySelectorAll('header, .card, div[style*="background: white"]').forEach(el => {
             el.style.backgroundColor = '#1e293b';
-            el.style.color = '#ffffff';
+            el.style.color = '#f8fafc';
             el.style.borderColor = '#334155';
         });
         document.getElementById('modeBtn').innerHTML = "☀️ Gündüz Modu";
     } else {
-        location.reload(); // En güvenli dönüş yolu: sayfayı yenilemek
+        // Gündüz moduna en temiz dönüş: Ayarları sıfırla
+        location.reload(); 
     }
 }
 </script>
