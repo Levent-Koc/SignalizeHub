@@ -4,6 +4,31 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SignalizeHub | Global Analiz Paneli</title>
+<style>
+    /* Varsayılan Gündüz Renkleri */
+    :root {
+        --bg: #f8fafc;
+        --card-bg: white;
+        --text: #1a1a1a;
+        --border: #e1e8ed;
+    }
+
+    /* Gece Modu Aktif Olduğunda Geçecek Renkler */
+    body.dark-mode {
+        --bg: #0f172a;
+        --card-bg: #1e293b;
+        --text: #f8fafc;
+        --border: #334155;
+    }
+
+    /* Sayfadaki elemanların bu değişkenleri kullanmasını sağlayan zorlayıcı kural */
+    body { background-color: var(--bg) !important; color: var(--text) !important; transition: 0.3s; }
+    header, main div, section, footer, .card { 
+        background-color: var(--card-bg) !important; 
+        color: var(--text) !important; 
+        border-color: var(--border) !important; 
+    }
+</style>
     <style>
         body {
             background-color: #f4f7f6; /* Modern hafif gri zemin */
@@ -188,27 +213,19 @@
             }
 <script>
 function toggleDarkMode() {
-    const body = document.body;
-    const currentBg = window.getComputedStyle(body).backgroundColor;
+    // Body etiketine "dark-mode" sınıfını ekle veya çıkar
+    document.body.classList.toggle('dark-mode');
     
-    // Eğer arka plan beyaz veya beyaza yakınsa gece moduna geç
-    if (currentBg === 'rgb(248, 250, 252)' || currentBg === 'white' || currentBg === 'rgba(0, 0, 0, 0)') {
-        // GECE MODU
-        body.style.setProperty('background-color', '#0f172a', 'important');
-        body.style.setProperty('color', '#f1f5f9', 'important');
-        
-        document.querySelectorAll('header, main div, section, footer, article').forEach(el => {
-            el.style.setProperty('background-color', '#1e293b', 'important');
-            el.style.setProperty('color', '#f1f5f9', 'important');
-            el.style.setProperty('border-color', '#334155', 'important');
-        });
-
-        document.getElementById('modeBtn').innerHTML = "☀️ Gündüz Modu";
-        document.getElementById('modeBtn').style.backgroundColor = "#334155";
-        document.getElementById('modeBtn').style.color = "#fff";
+    // Butonun içindeki yazıyı güncelle
+    const btn = document.getElementById('modeBtn');
+    if (document.body.classList.contains('dark-mode')) {
+        btn.innerHTML = "☀️ Gündüz Modu";
+        btn.style.backgroundColor = "#334155";
+        btn.style.color = "#fff";
     } else {
-        // GÜNDÜZ MODU (Sayfayı yenileyerek orijinal renkleri getirir - En güvenli yol)
-        location.reload();
+        btn.innerHTML = "🌙 Gece Modu";
+        btn.style.backgroundColor = "#f1f5f9";
+        btn.style.color = "#000";
     }
 }
 </script>
