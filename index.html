@@ -22,19 +22,37 @@
     display: flex;
     justify-content: flex-start; /* Sola yasla */
     align-items: center;
-    padding: 20px 5%; /* Kenarlardan pay bırak */
-    width: 100%;
+    padding: 15px 5%;
     background: white;
     border-bottom: 1px solid #e1e8ed;
+    width: 100%;
     box-sizing: border-box;
 }
 
-.logo {
-    font-size: 24px; /* Köşede daha kibar dursun */
-    font-weight: bold;
+/* Siyah kutu içindeki S Logosu için stil */
+.logo-box {
+    background-color: #1a1a1a; /* Siyah kutu */
+    width: 45px;
+    height: 45px;
+    border-radius: 8px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 15px;
+    box-shadow: 0 0 10px rgba(0, 255, 65, 0.2);
+}
+
+.logo-text {
+    font-size: 28px;
+    font-weight: 800;
     color: #1a1a1a;
-    text-decoration: none;
     letter-spacing: -1px;
+    font-family: sans-serif;
+}
+
+/* HUB yazısının o özel rengi */
+.hub-highlight {
+    color: #6c5ce7; /* Orijinal mor/mavi tonu */
 }
         /* Rapor Kartı */
         .modern-card {
