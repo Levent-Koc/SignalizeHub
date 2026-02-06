@@ -167,12 +167,13 @@ body.dark-mode .hub-text {
 
     <div class="dropdown">
         <span class="nav-item">₿ Kripto ▼</span>
-        <div class="dropdown-content">
-            <a href="#">🚀 Kripto Takibi</a>
-            <a href="#" style="color:var(--primary); font-weight:bold;">⭐ Takip Ettiklerim</a>
-        </div>
+  <div class="dropdown">
+    <span class="nav-item">₿ Kripto ▼</span>
+    <div class="dropdown-content">
+        <a href="javascript:void(0)" onclick="openP('kPanel')">📊 Açgözlülük Endeksi</a>
+        <a href="#" style="color:var(--primary); font-weight:bold;">⭐ Takip Ettiklerim</a>
     </div>
-
+</div>
     <div class="dropdown">
         <span class="nav-item">💵 Döviz ▼</span>
         <div class="dropdown-content">
@@ -285,6 +286,41 @@ body.dark-mode .hub-text {
     <div style="height:450px;"> <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-market-overview.js" async>
         { "colorTheme": "light", "width": "100%", "height": "100%", "tabs": [{ "title": "Maden", "symbols": [{ "s": "OANDA:XAUUSD" }, { "s": "FX_IDC:XAUTRY" }] }] }
         </script>
+    </div>
+</div>
+<div id="kPanel" class="tali-panel-yeni">
+    <button class="panel-kapat-btn" onclick="closeP('kPanel')">×</button>
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; padding: 10px; height: 500px; background: #131722;">
+        
+        <div style="height: 100%; border-right: 1px solid #333;">
+            <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-technical-analysis.js" async>
+            {
+                "interval": "1D",
+                "width": "100%",
+                "isTransparent": true,
+                "height": "100%",
+                "symbol": "BINANCE:BTCUSDT",
+                "showIntervalTabs": true,
+                "displayMode": "single",
+                "locale": "tr",
+                "colorTheme": "dark"
+            }
+            </script>
+        </div>
+
+        <div style="height: 100%;">
+            <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-cryptocurrency-market.js" async>
+            {
+                "width": "100%",
+                "height": "100%",
+                "defaultColumn": "overview",
+                "screener_type": "crypto_mkt",
+                "displayMode": "adaptive",
+                "colorTheme": "dark",
+                "locale": "tr"
+            }
+            </script>
+        </div>
     </div>
 </div>
 <div class="grid-3">
@@ -416,10 +452,15 @@ function toggleTimePopup() {
     }, 5000);
 }
     function openP(id) {
-        document.querySelectorAll('.tali-panel').forEach(p => p.style.display = 'none');
-        document.getElementById(id).style.display = 'block';
+    // Hem .tali-panel hem de .tali-panel-yeni olan her şeyi gizle
+    document.querySelectorAll('.tali-panel, .tali-panel-yeni').forEach(p => p.style.display = 'none');
+    
+    const panel = document.getElementById(id);
+    if (panel) {
+        panel.style.display = 'block';
         window.scrollTo({ top: document.getElementById('topCard').offsetHeight + 20, behavior: 'smooth' });
     }
+}
     function closeP(id) { document.getElementById(id).style.display = 'none'; window.scrollTo({ top: 0, behavior: 'smooth' }); }
     function cc() {
         const a = document.getElementById('amt').value;
