@@ -264,32 +264,29 @@ function toggleTimePopup() {
     const popup = document.getElementById('timePopup');
     const timeSpan = document.getElementById('exactTime');
     
-    // Eğer şu an kapalıysa aç ve saati güncelle
-    if (popup.style.display === 'none' || popup.style.display === '') {
-        const simdi = new Date();
-        const tarih = simdi.toLocaleDateString('tr-TR');
-        const saat = simdi.getHours().toString().padStart(2, '0');
-        const dakika = simdi.getMinutes().toString().padStart(2, '0');
-        
-        timeSpan.innerText = `${tarih} - ${saat}:${dakika}`;
-        popup.style.display = 'block';
-        
-        // 3 saniye sonra otomatik kapansın istersen (isteğe bağlı)
-        // setTimeout(() => { popup.style.display = 'none'; }, 3000);
-        
-    } else {
-        // Açıksa kapat
-        popup.style.display = 'none';
-    }
-}
+    // Saat ve tarih bilgisini güncelle
+    const simdi = new Date();
+    const tarih = simdi.toLocaleDateString('tr-TR');
+    const saat = simdi.getHours().toString().padStart(2, '0');
+    const dakika = simdi.getMinutes().toString().padStart(2, '0');
+    
+    timeSpan.innerText = `${tarih} - ${saat}:${dakika}`;
+    
+    // Kutuyu görünür yap
+    popup.style.display = 'block';
+    popup.style.opacity = '1'; // Görünürlük efekti için
 
-// Ekranda başka bir yere tıklayınca kutuyu kapatmak için:
-window.onclick = function(event) {
-    const popup = document.getElementById('timePopup');
-    const btn = document.getElementById('updateBtn');
-    if (event.target !== btn && !btn.contains(event.target) && event.target !== popup) {
-        popup.style.display = 'none';
-    }
+    // 5 saniye (5000 milisaniye) sonra otomatik kapat
+    setTimeout(() => {
+        // Hafif bir kaybolma efekti ekleyelim
+        popup.style.transition = "opacity 0.5s ease";
+        popup.style.opacity = "0";
+        
+        // Animasyon bitince display'i tamamen kapat
+        setTimeout(() => {
+            popup.style.display = 'none';
+        }, 500); 
+    }, 5000); 
 }
     function openP(id) {
         document.querySelectorAll('.tali-panel').forEach(p => p.style.display = 'none');
