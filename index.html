@@ -173,7 +173,7 @@ body.dark-mode .hub-text {
 <div class="dropdown">
     <span class="nav-item">💵 Döviz ▼</span>
     <div class="dropdown-content">
-        <a href="javascript:void(0)" onclick="openP('dPanel')">🏦 Canlı Kurlar & Pariteler</a>
+    <a href="javascript:void(0)" onclick="openP('dPanel')">🏦 Canlı Kurlar & Pariteler</a>    
     </div>
 </div>       
         </div>
@@ -329,34 +329,28 @@ nav {
             { "interval": "1D", "width": "100%", "height": "100%", "symbol": "BINANCE:BTCUSDT", "showIntervalTabs": true, "displayMode": "single", "locale": "tr", "colorTheme": "dark" }
             </script>
         </div>
-<div id="dPanel" class="tali-panel-yeni" style="background: white !important;">
+<div id="dPanel" class="tali-panel-yeni" style="display: none; background: white !important;">
     <button class="panel-kapat-btn" onclick="closeP('dPanel')">×</button>
-    <div style="padding: 20px; height: 500px;">
-        <h3 style="margin-top:0; color:#1a1a1a; font-size: 16px; border-bottom: 2px solid #3498db; padding-bottom: 10px;">🏦 Canlı Döviz ve Parite Takibi</h3>
+    <div style="padding: 20px; height: 450px;">
+        <h3 style="margin-top:0; color:#1a1a1a; font-size: 16px; border-bottom: 2px solid #3498db; padding-bottom: 10px;">🏦 Canlı Döviz Takibi</h3>
         
-        <div class="tradingview-widget-container" style="height: 400px;">
+        <div class="tradingview-widget-container">
             <div class="tradingview-widget-container__widget"></div>
             <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-market-overview.js" async>
             {
               "colorTheme": "light",
-              "dateRange": "12M",
               "showChart": false,
               "locale": "tr",
               "width": "100%",
-              "height": "100%",
+              "height": 400,
               "isTransparent": false,
-              "showSymbolLogo": true,
-              "showFloatingTooltip": false,
               "tabs": [
                 {
-                  "title": "Döviz Kurları",
+                  "title": "Döviz",
                   "symbols": [
-                    { "s": "FX_IDC:USDTRY", "d": "Dolar / TL" },
-                    { "s": "FX_IDC:EURTRY", "d": "Euro / TL" },
-                    { "s": "FX:EURUSD", "d": "Euro / Dolar" },
-                    { "s": "FX:GBPUSD", "d": "Sterlin / Dolar" },
-                    { "s": "FX:USDJPY", "d": "Dolar / Yen" },
-                    { "s": "FX:USDCHF", "d": "Dolar / Frank" }
+                    { "s": "FX_IDC:USDTRY" },
+                    { "s": "FX_IDC:EURTRY" },
+                    { "s": "FX:EURUSD" }
                   ]
                 }
               ]
@@ -501,14 +495,21 @@ function toggleTimePopup() {
         }, 300);
     }, 5000);
 }
-    function openP(id) {
-    // Hem .tali-panel hem de .tali-panel-yeni olan her şeyi gizle
-    document.querySelectorAll('.tali-panel, .tali-panel-yeni').forEach(p => p.style.display = 'none');
+function openP(id) {
+    console.log("Açılmak istenen panel ID'si:", id);
     
-    const panel = document.getElementById(id);
-    if (panel) {
-        panel.style.display = 'block';
-        window.scrollTo({ top: document.getElementById('topCard').offsetHeight + 20, behavior: 'smooth' });
+    // Tüm panelleri gizle
+    document.querySelectorAll('.tali-panel, .tali-panel-yeni').forEach(p => p.style.display = 'none');
+
+    const hedefPanel = document.getElementById(id);
+    
+    if (hedefPanel) {
+        hedefPanel.style.display = 'block';
+        // Görünürlüğü garantiye alalım
+        window.scrollTo({ top: 100, behavior: 'smooth' });
+    } else {
+        // Eğer panel bulunamazsa bu uyarı ekranına gelecek
+        alert("SinyalizeHub Hatası: '" + id + "' isimli panel kodun içinde bulunamadı!");
     }
 }
     function closeP(id) { document.getElementById(id).style.display = 'none'; window.scrollTo({ top: 0, behavior: 'smooth' }); }
