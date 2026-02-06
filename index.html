@@ -325,7 +325,12 @@ nav {
     
     <div style="background: #1a1a1a; padding: 15px 20px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #333;">
         <span style="color: #f3ba2f; font-weight: bold; font-size: 15px; letter-spacing: 1px;">₿ BTC TEKNİK ANALİZ</span>
-        <div onclick="this.parentElement.parentElement.style.display='none'" style="color: #ff4d4d; cursor: pointer; font-size: 24px; font-weight: bold; line-height: 1;">×</div>
+        <div onclick="this.parentElement.parentElement.style.display='none'" 
+     style="color: #ff4d4d; cursor: pointer; font-size: 28px; font-weight: bold; line-height: 1; transition: 0.3s;"
+     onmouseover="this.style.color='#ff1a1a'" 
+     onmouseout="this.style.color='#ff4d4d'">
+     ×
+</div>
     </div>
 
     <div style="padding: 20px; background: #121212;">
@@ -353,7 +358,12 @@ nav {
 </div>
 
 <div id="dPanel" class="tali-panel-yeni" style="display: none; background: white !important; color: #333; padding: 20px; border-radius: 12px; border: 2px solid #3498db; margin: 20px 0;">
-    <button class="panel-kapat-btn" onclick="this.parentElement.style.display='none'" style="color: #333; float: right; background: none; border: none; font-size: 24px; cursor: pointer;">×</button>
+    <div onclick="this.parentElement.style.display='none'" 
+     style="position: absolute; right: 20px; top: 10px; color: #ff4d4d; cursor: pointer; font-size: 32px; font-weight: bold; line-height: 1; transition: 0.3s; z-index: 10006; font-family: Arial, sans-serif;"
+     onmouseover="this.style.color='#ff1a1a'; this.style.transform='scale(1.2)';" 
+     onmouseout="this.style.color='#ff4d4d'; this.style.transform='scale(1)';">
+     ×
+</div>
     <h3 style="color: #2c3e50;">🏦 Canlı Döviz ve Parite Takibi</h3>
     <div class="tradingview-widget-container" style="height: 400px;">
         <div class="tradingview-widget-container__widget"></div>
