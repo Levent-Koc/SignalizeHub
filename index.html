@@ -155,7 +155,7 @@ nav a:hover {
             </div>
             <h1 style="margin:0; font-size: 24px; letter-spacing: -1px;">Signalize<span style="color:var(--primary)">Hub</span></h1>
         </div>
-<nav style="display: flex; gap: 20px; align-items: center; margin-left: 30px;">
+<nav style="display: flex; gap: 20px; align-items: center; margin-left: 30px; position: relative; z-index: 10000;">
     <div class="dropdown" style="position: relative; display: inline-block;">
     <a href="javascript:void(0)" style="text-decoration: none; color: var(--text); font-weight: 600; font-size: 14px; display: flex; align-items: center; gap: 6px; white-space: nowrap; transition: 0.3s;">
         📈 Hisse Senedi <small style="font-size: 10px;">▼</small>
@@ -433,8 +433,8 @@ function showUpdateTime() {
             }
         }
     </script>
-<div id="isiharitasi" style="display: none; width: 90%; max-width: 900px; margin: 30px auto; background: #131722; padding: 20px; border-radius: 12px; border-top: 4px solid #00a884; box-shadow: 0 10px 30px rgba(0,0,0,0.5);">
-    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+<div id="isiharitasi" style="display: none; width: 90%; max-width: 900px; margin: 30px auto; background: #131722; padding: 20px; border-radius: 12px; border-top: 4px solid #00a884; box-shadow: 0 10px 30px rgba(0,0,0,0.5); position: relative; z-index: 1;">
+   <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
         <h3 style="color: white; margin: 0; font-size: 18px;">BIST Piyasa Isı Haritası</h3>
         <button onclick="document.getElementById('isiharitasi').style.display='none'" style="background: #ff4757; color: white; border: none; padding: 6px 15px; border-radius: 6px; cursor: pointer; font-weight: bold;">Kapat</button>
     </div>
@@ -467,29 +467,33 @@ function acTarayici() {
     y.scrollIntoView({ behavior: 'smooth', block: 'center' });
 }
 </script>
-<div id="hisseTarayici" style="display: none; width: 95%; max-width: 1100px; margin: 30px auto; background: #ffffff; padding: 20px; border-radius: 12px; border-top: 4px solid #2962ff; box-shadow: 0 10px 30px rgba(0,0,0,0.2);">
-  <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; line-height: normal !important; position: relative; z-index: 10001;">
-        <h3 style="color: #333; margin: 0; font-size: 16px;">🔍 BIST Hisse Takipçisi / Tarayıcı</h3>
+<div id="hisseTarayici" style="display: none; width: 95%; max-width: 1100px; margin: 30px auto; background: #ffffff; padding: 20px; border-radius: 12px; border-top: 4px solid #2962ff; box-shadow: 0 10px 30px rgba(0,0,0,0.2); position: relative; z-index: 1;">
+ <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; line-height: normal !important; position: relative; z-index: 10001;">
+  <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+        <h3 style="color: #333; margin: 0; font-size: 16px; font-family: sans-serif;">🔍 BIST Hisse Takipçisi / Tarayıcı</h3>
         <button onclick="document.getElementById('hisseTarayici').style.display='none'" style="background: #ff4757; color: white; border: none; padding: 5px 12px; border-radius: 6px; cursor: pointer; font-weight: bold; font-size: 12px;">Kapat</button>
     </div>
     
-   <div style="all: initial; display: block; height: 550px; border-radius: 8px; overflow: hidden; border: 1px solid #eee; background: white; font-family: sans-serif;">
-    <div class="tradingview-widget-container" style="height: 100%; width: 100%;">
-        <div class="tradingview-widget-container__widget"></div>
-        <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-screener.js" async>
-        {
-          "width": "100%",
-          "height": "100%",
-          "defaultColumn": "overview",
-          "defaultScreen": "most_capitalized",
-          "market": "turkey",
-          "showToolbar": true,
-          "colorTheme": "light",
-          "locale": "tr"
-        }
-        </script>
-    </div>
-</div>
-</div>
+    <div style="height: 550px; border-radius: 8px; overflow: hidden; border: 1px solid #eee;">
+        <iframe style="width: 100%; height: 100%; border: none;" 
+            srcdoc='<html><body style="margin:0;">
+            <div class="tradingview-widget-container">
+                <div class="tradingview-widget-container__widget"></div>
+                <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-screener.js" async>
+                {
+                  "width": "100%",
+                  "height": "550",
+                  "defaultColumn": "overview",
+                  "defaultScreen": "most_capitalized",
+                  "market": "turkey",
+                  "showToolbar": true,
+                  "colorTheme": "light",
+                  "locale": "tr"
+                }
+                </script>
+            </div>
+            </body></html>'>
+        </iframe>
+    </div>     
 </body>
 </html>
