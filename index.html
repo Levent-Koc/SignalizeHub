@@ -222,19 +222,27 @@ body.dark-mode .hub-text {
 </div>
         
     </div>
-    <div id="hPanel" class="card tali-panel">
-        <button class="close-btn" onclick="closeP('hPanel')">KAPAT ✖</button>
-        <div style="height:550px;"><script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-screener.js" async>{ "width": "100%", "height": 550, "market": "turkey", "colorTheme": "light", "locale": "tr" }</script></div>
+   <div id="hPanel" class="card tali-panel" style="padding:0; overflow:hidden; position:relative;">
+        <button class="close-btn" onclick="closeP('hPanel')" style="position:absolute; right:10px; top:10px; z-index:99; background:#f1f2f6; color:#636e72; border:none; width:28px; height:28px; border-radius:50%; cursor:pointer; font-size:16px; font-weight:bold; display:flex; align-items:center; justify-content:center; box-shadow:0 2px 5px rgba(0,0,0,0.2);">×</button>
+        <div style="height:550px; width:100%; box-sizing:border-box;">
+            <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-screener.js" async>
+            { "width": "100%", "height": 550, "market": "turkey", "colorTheme": "light", "locale": "tr" }
+            </script>
+        </div>
     </div>
 
-    <div id="iPanel" class="card tali-panel">
-        <button class="close-btn" onclick="closeP('iPanel')">KAPAT ✖</button>
-        <iframe style="width:100%; height:550px; border:none;" srcdoc='<html><body style="margin:0;"><script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-stock-heatmap.js" async>{"dataSource": "BIST","colorTheme": "light","width": "100%","height": 550}</script></body></html>'></iframe>
+    <div id="iPanel" class="card tali-panel" style="padding:0; overflow:hidden; position:relative;">
+        <button class="close-btn" onclick="closeP('iPanel')" style="position:absolute; right:10px; top:10px; z-index:99; background:#f1f2f6; color:#636e72; border:none; width:28px; height:28px; border-radius:50%; cursor:pointer; font-size:16px; font-weight:bold; display:flex; align-items:center; justify-content:center; box-shadow:0 2px 5px rgba(0,0,0,0.2);">×</button>
+        <iframe style="width:100%; height:550px; border:none; display:block;" srcdoc='<html><body style="margin:0;"><script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-stock-heatmap.js" async>{"dataSource": "BIST","colorTheme": "light","width": "100%","height": 550}</script></body></html>'></iframe>
     </div>
 
-    <div id="mPanel" class="card tali-panel">
-        <button class="close-btn" onclick="closeP('mPanel')">KAPAT ✖</button>
-        <div style="height:500px;"><script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-market-overview.js" async>{ "colorTheme": "light", "width": "100%", "height": 500, "tabs": [{ "title": "Maden", "symbols": [{ "s": "OANDA:XAUUSD" }, { "s": "FX_IDC:XAUTRY" }] }] }</script></div>
+    <div id="mPanel" class="card tali-panel" style="padding:0; overflow:hidden; position:relative;">
+        <button class="close-btn" onclick="closeP('mPanel')" style="position:absolute; right:10px; top:10px; z-index:99; background:#f1f2f6; color:#636e72; border:none; width:28px; height:28px; border-radius:50%; cursor:pointer; font-size:16px; font-weight:bold; display:flex; align-items:center; justify-content:center; box-shadow:0 2px 5px rgba(0,0,0,0.2);">×</button>
+        <div style="height:500px; width:100%; box-sizing:border-box;">
+            <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-market-overview.js" async>
+            { "colorTheme": "light", "width": "100%", "height": 500, "tabs": [{ "title": "Maden", "symbols": [{ "s": "OANDA:XAUUSD" }, { "s": "FX_IDC:XAUTRY" }] }] }
+            </script>
+        </div>
     </div>
 <div class="grid-3">
     <div class="card" style="padding:0; border-top: 4px solid #2ecc71; height: 420px; overflow: hidden;">
