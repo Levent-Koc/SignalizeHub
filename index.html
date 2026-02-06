@@ -124,22 +124,7 @@ nav a:hover {
             </div>
             <h1 style="margin:0; font-size: 24px; letter-spacing: -1px;">Signalize<span style="color:var(--primary)">Hub</span></h1>
         </div>
-<nav style="display: flex; gap: 20px; align-items: center; margin-left: 30px;">
-    
-    <div class="dropdown" style="position: relative; display: inline-block;">
-        <a href="javascript:void(0)" style="text-decoration: none; color: var(--text); font-weight: 600; font-size: 14px; display: flex; align-items: center; gap: 6px;">
-            📈 Hisse Senedi <span style="font-size: 10px;">▼</span>
-        </a>
-        <div class="dropdown-content">
-            <a href="javascript:void(0)" onclick="toggleHeatmap()">📊 Piyasa Isı Haritası</a>
-            <a href="#hisse-listesi">📋 Takip Listem</a>
-        </div>
-    </div>
 
-    <a href="#maden" style="text-decoration: none; color: var(--text); font-weight: 600; font-size: 14px; display: flex; align-items: center; gap: 6px;">🪙 Değerli Maden</a>
-    <a href="#koin" style="text-decoration: none; color: var(--text); font-weight: 600; font-size: 14px; display: flex; align-items: center; gap: 6px;">₿ Kripto Para</a>
-    <a href="#para" style="text-decoration: none; color: var(--text); font-weight: 600; font-size: 14px; display: flex; align-items: center; gap: 6px;">💵 Döviz</a>
-</nav>
 
 <style>
 /* Tasarım ve Hizalama Kuralları */
@@ -167,18 +152,19 @@ nav a:hover {
 .dropdown-content a:hover { background-color: #f8f9fa; color: #2ecc71; }
 </style>
 <nav style="display: flex; gap: 20px; align-items: center; margin-left: 30px;">
-    <a href="#hisse" style="text-decoration: none; color: var(--text); font-weight: 600; font-size: 14px; display: flex; align-items: center; gap: 6px; white-space: nowrap; transition: 0.3s;">
-        📈 Hisse Senedi
-    </a>
-    <a href="#maden" style="text-decoration: none; color: var(--text); font-weight: 600; font-size: 14px; display: flex; align-items: center; gap: 6px; white-space: nowrap; transition: 0.3s;">
-        🪙 Değerli Maden
-    </a>
-    <a href="#koin" style="text-decoration: none; color: var(--text); font-weight: 600; font-size: 14px; display: flex; align-items: center; gap: 6px; white-space: nowrap; transition: 0.3s;">
-        ₿ Kripto Para
-    </a>
-    <a href="#para" style="text-decoration: none; color: var(--text); font-weight: 600; font-size: 14px; display: flex; align-items: center; gap: 6px; white-space: nowrap; transition: 0.3s;">
-        💵 Döviz
-    </a>
+    <div class="dropdown" style="position: relative; display: inline-block;">
+        <a href="javascript:void(0)" style="text-decoration: none; color: var(--text); font-weight: 600; font-size: 14px; display: flex; align-items: center; gap: 6px;">
+            📈 Hisse Senedi <span style="font-size: 10px;">▼</span>
+        </a>
+        <div class="dropdown-content">
+            <a href="javascript:void(0)" onclick="toggleHeatmap()">📊 Piyasa Isı Haritası</a>
+            <a href="#hisse-listesi">📋 Takip Listem</a>
+        </div>
+    </div>
+
+    <a href="#maden" style="text-decoration: none; color: var(--text); font-weight: 600; font-size: 14px; display: flex; align-items: center; gap: 6px;">🪙 Maden</a>
+    <a href="#koin" style="text-decoration: none; color: var(--text); font-weight: 600; font-size: 14px; display: flex; align-items: center; gap: 6px;">₿ Kripto</a>
+    <a href="#para" style="text-decoration: none; color: var(--text); font-weight: 600; font-size: 14px; display: flex; align-items: center; gap: 6px;">💵 Döviz</a>
 </nav>
         <div class="btn-group">
             <button class="btn-mode" id="modeBtn" onclick="toggleDarkMode()">🌙 Gece Modu</button>
