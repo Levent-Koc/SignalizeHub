@@ -189,22 +189,19 @@ body.dark-mode .hub-text {
 </header>
 <div class="card" id="topCard" style="padding:30px; border-top: 4px solid var(--primary);">
     <div style="display: flex; justify-content: space-between; align-items: center;">
-        <div style="text-align: left; display: flex; align-items: center; gap: 15px;">
-            <h3 style="margin: 0;">📜 Günlük Strateji Raporu</h3>
-            
-            <div style="position: relative; display: inline-block;">
-                <button onclick="toggleTimePopup()" id="updateBtn" style="background: var(--primary); color: white; border: none; padding: 6px 15px; border-radius: 6px; cursor: pointer; font-weight: bold; font-size: 12px; transition: 0.3s; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
-                    🔄 GÜNCEL
-                </button>
+       <div style="text-align: left; display: flex; align-items: center; gap: 10px;">
+    <h3 style="margin: 0;">📜 Günlük Strateji Raporu</h3>
+    
+    <div style="position: relative; display: flex; align-items: center;">
+        <button onclick="toggleTimePopup()" id="updateBtn" style="background: var(--primary); color: white; border: none; padding: 5px 12px; border-radius: 6px; cursor: pointer; font-weight: bold; font-size: 11px; transition: 0.3s; box-shadow: 0 2px 4px rgba(0,0,0,0.1); white-space: nowrap;">
+            🔄 GÜNCEL
+        </button>
 
-                <div id="timePopup" style="display: none; position: absolute; top: 110%; left: 0; background: var(--header-bg); border: 1px solid var(--primary); padding: 10px 15px; border-radius: 8px; box-shadow: 0 5px 15px rgba(0,0,0,0.2); z-index: 100; min-width: 180px; font-size: 12px; font-weight: bold; color: var(--text);">
-                    <div style="color: var(--primary); margin-bottom: 4px;">✔ Veriler Güncellendi</div>
-                    <span id="exactTime">--:--</span>
-                </div>
-            </div>
+        <div id="timePopup" style="display: none; position: absolute; left: 110%; top: 50%; transform: translateY(-50%); background: var(--header-bg); border: 1px solid var(--primary); padding: 4px 10px; border-radius: 4px; box-shadow: 0 3px 10px rgba(0,0,0,0.1); z-index: 100; white-space: nowrap; font-size: 11px; font-weight: 600; color: var(--text); opacity: 0;">
+            <span style="color: var(--primary);">✔</span> <span id="exactTime">--:--</span>
         </div>
     </div>
-
+</div>
     <div style="text-align: left; line-height: 1.8; font-size: 15px; border-top: 1px solid var(--border); margin-top: 15px; padding-top: 15px;">
         <p>Piyasa verileri ve günlük analiz notları burada yer alır. "Güncel" butonuna tıklayarak son onay zamanını görebilirsiniz.</p>
     </div>
@@ -264,29 +261,25 @@ function toggleTimePopup() {
     const popup = document.getElementById('timePopup');
     const timeSpan = document.getElementById('exactTime');
     
-    // Saat ve tarih bilgisini güncelle
+    // Zamanı al
     const simdi = new Date();
-    const tarih = simdi.toLocaleDateString('tr-TR');
     const saat = simdi.getHours().toString().padStart(2, '0');
     const dakika = simdi.getMinutes().toString().padStart(2, '0');
+    const saniye = simdi.getSeconds().toString().padStart(2, '0');
     
-    timeSpan.innerText = `${tarih} - ${saat}:${dakika}`;
+    timeSpan.innerText = `Güncellendi: ${saat}:${dakika}:${saniye}`;
     
-    // Kutuyu görünür yap
+    // Kutuyu aç (Yana doğru)
     popup.style.display = 'block';
-    popup.style.opacity = '1'; // Görünürlük efekti için
+    setTimeout(() => { popup.style.opacity = '1'; }, 10);
 
-    // 5 saniye (5000 milisaniye) sonra otomatik kapat
+    // 5 saniye sonra kapat
     setTimeout(() => {
-        // Hafif bir kaybolma efekti ekleyelim
-        popup.style.transition = "opacity 0.5s ease";
-        popup.style.opacity = "0";
-        
-        // Animasyon bitince display'i tamamen kapat
+        popup.style.opacity = '0';
         setTimeout(() => {
             popup.style.display = 'none';
-        }, 500); 
-    }, 5000); 
+        }, 300);
+    }, 5000);
 }
     function openP(id) {
         document.querySelectorAll('.tali-panel').forEach(p => p.style.display = 'none');
