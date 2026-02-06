@@ -482,38 +482,40 @@ function acTarayici() {
     });
 }
 </script>
-<div id="hisseTarayici" style="display: none; width: 95%; max-width: 1200px; margin: 150px auto 30px auto; background: #ffffff; padding: 20px; border-radius: 12px; border-top: 4px solid #2962ff; box-shadow: 0 10px 30px rgba(0,0,0,0.2); position: relative; z-index: 1;">
+<div id="hisseTarayici" style="display: none; width: 98%; max-width: 1300px; margin: 150px auto 30px auto; background: #ffffff; padding: 25px; border-radius: 12px; border-top: 4px solid #2962ff; box-shadow: 0 10px 40px rgba(0,0,0,0.3); position: relative; z-index: 1;">
     <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
-        <h3 style="color: #333; margin: 0; font-size: 18px; font-family: sans-serif;">🔍 BIST Hisse Takipçisi / Tarayıcı</h3>
-        <button onclick="document.getElementById('hisseTarayici').style.display='none'" style="background: #ff4757; color: white; border: none; padding: 6px 15px; border-radius: 6px; cursor: pointer; font-weight: bold;">Kapat</button>
+        <h3 style="color: #333; margin: 0; font-size: 18px; font-family: sans-serif; font-weight: bold;">🔍 BIST Hisse Takipçisi / Tarayıcı</h3>
+        <button onclick="document.getElementById('hisseTarayici').style.display='none'" style="background: #ff4757; color: white; border: none; padding: 8px 18px; border-radius: 8px; cursor: pointer; font-weight: bold; transition: 0.3s;">Kapat</button>
     </div>
     
-    <div style="height: 700px; border-radius: 8px; overflow: hidden; border: 1px solid #eee;">
-       <iframe style="width: 100%; height: 700px; border: none;" 
-    srcdoc='<html>
-    <head>
-        <style>
-            /* Senin sitendeki tüm yazı baskısını burada sıfırlıyoruz */
-            body { margin:0; padding:0; line-height: normal !important; letter-spacing: normal !important; font-size: initial !important; }
-        </style>
-    </head>
-    <body>
-        <div class="tradingview-widget-container" style="height: 700px; width: 100%;">
-            <div class="tradingview-widget-container__widget" style="height: 700px;"></div>
-            <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-screener.js" async>
-            {
-              "width": "100%",
-              "height": 700,
-              "defaultColumn": "overview",
-              "defaultScreen": "most_capitalized",
-              "market": "turkey",
-              "showToolbar": true,
-              "colorTheme": "light",
-              "locale": "tr"
-            }
-            </script>
-        </div>
-    </body></html>'>
-</iframe>
+    <div style="height: 750px; border-radius: 8px; overflow: hidden; border: 1px solid #ddd; background: #fff;">
+        <iframe style="width: 100%; height: 750px; border: none;" 
+            srcdoc='<html>
+            <head>
+                <style>
+                    body { margin:0; padding:0; overflow: hidden; }
+                    /* Widgetın dış dünya ile bağını tamamen kesen CSS */
+                    .tradingview-widget-container { width: 100% !important; height: 750px !important; }
+                </style>
+            </head>
+            <body>
+                <div class="tradingview-widget-container">
+                    <div class="tradingview-widget-container__widget"></div>
+                    <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-screener.js" async>
+                    {
+                      "width": "100%",
+                      "height": "750",
+                      "defaultColumn": "overview",
+                      "defaultScreen": "most_capitalized",
+                      "market": "turkey",
+                      "showToolbar": true,
+                      "colorTheme": "light",
+                      "locale": "tr",
+                      "isTransparent": false
+                    }
+                    </script>
+                </div>
+            </body></html>'>
+        </iframe>
     </div>
 </div>
