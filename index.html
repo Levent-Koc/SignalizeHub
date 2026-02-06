@@ -297,19 +297,21 @@ nav {
     }
 </style>
 
-<div id="hPanel" class="tali-panel-yeni" style="display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 95%; max-width: 1100px; background: white; z-index: 10005; box-shadow: 0 20px 50px rgba(0,0,0,0.3); border-radius: 15px; border-top: 5px solid #2ecc71; overflow: hidden; font-family: sans-serif;">
+<div id="hPanel" class="tali-panel-yeni" style="display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 95%; max-width: 1100px; background: white; z-index: 10005; border-radius: 15px; border-top: 5px solid #007bff; overflow: hidden; font-family: sans-serif; box-shadow: 0 0 30px rgba(0, 123, 255, 0.4);">
     
     <div onclick="this.parentElement.style.display='none'" 
-         style="position: absolute; right: 15px; top: 10px; color: #ff4d4d; cursor: pointer; font-size: 32px; font-weight: bold; line-height: 1; transition: 0.3s; z-index: 10010;"
+         style="position: absolute; right: 15px; top: 12px; color: #ff4d4d; cursor: pointer; font-size: 32px; font-weight: bold; line-height: 1; transition: 0.3s; z-index: 10010;"
          onmouseover="this.style.color='#ff1a1a'; this.style.transform='scale(1.1)';" 
          onmouseout="this.style.color='#ff4d4d'; this.style.transform='scale(1)';">
          ×
     </div>
 
-    <div style="padding: 20px;">
-        <h3 style="margin-top:0; color:#2c3e50; font-size: 18px; border-bottom: 1px solid #eee; padding-bottom: 10px;">📈 Borsa İstanbul Hisse Takipçisi</h3>
+    <div style="padding: 20px; background: white;">
+        <h3 style="margin-top:0; color:#0056b3; font-size: 18px; border-bottom: 2px solid #f0f7ff; padding-bottom: 10px; display: flex; align-items: center; gap: 10px;">
+            <span style="font-size: 20px;">📈</span> Borsa İstanbul Hisse Takipçisi
+        </h3>
         
-        <div style="height:500px;"> 
+        <div style="height:500px; border: 1px solid #e0eefb; border-radius: 8px; overflow: hidden;"> 
             <div class="tradingview-widget-container">
                 <div class="tradingview-widget-container__widget"></div>
                 <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-screener.js" async>
@@ -327,7 +329,11 @@ nav {
                 </script>
             </div>
         </div>
-        </div>
+        <p style="color: #007bff; font-size: 11px; text-align: right; margin-top: 10px; font-weight: bold; opacity: 0.7;">
+            SinyalizeHub Veri Akışı • BIST Canlı Veri
+        </p>
+    </div>
+</div>
 </div>
 <div id="iPanel" class="tali-panel-yeni">
     <button class="panel-kapat-btn" onclick="closeP('iPanel')">×</button>
