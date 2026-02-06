@@ -512,38 +512,44 @@ function acTarayici() {
         </div>
 
     <script>
+// Sayfa yenilendiğinde en başa dönmeyi zorunlu kılar
+window.onbeforeunload = function () {
+    window.scrollTo(0, 0);
+};
+
+if ('scrollRestoration' in history) {
+    history.scrollRestoration = 'manual';
+}
 function acMaden() {
-    // Diğerlerini kapat
-    if(document.getElementById("isiharitasi")) document.getElementById("isiharitasi").style.display = "none";
-    if(document.getElementById("hisseTarayici")) document.getElementById("hisseTarayici").style.display = "none";
+    // Diğer panelleri kapat
+    const isiharitasi = document.getElementById("isiharitasi");
+    const hisseTarayici = document.getElementById("hisseTarayici");
+    if(isiharitasi) isiharitasi.style.display = "none";
+    if(hisseTarayici) hisseTarayici.style.display = "none";
     
     var m = document.getElementById("madenPaneli");
     if(m) {
         m.style.display = "block";
         
-        // Tarayıcının 'çapa' (anchor) hafızasını temizlemek için küçük bir hile
-        window.location.hash = ""; 
+        // ÖNEMLİ: URL'deki karmaşayı temizle
+        if(window.location.hash) {
+            history.replaceState(null, null, ' ');
+        }
 
-        // Milimetrik kaydırma
+        // Milimetrik hesaplama
         setTimeout(function() {
-            const yOffset = -150; // Beyaz bar payı
-            const y = m.getBoundingClientRect().top + window.pageYOffset + yOffset;
-            window.scrollTo({top: y, behavior: 'smooth'});
-        }, 50);
+            // Panelin sayfanın en tepesinden uzaklığını bul
+            const rect = m.getBoundingClientRect();
+            const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+            const hedefNokta = rect.top + scrollTop - 120; // 120px beyaz bar payı
+
+            window.scrollTo({
+                top: hedefNokta,
+                behavior: 'smooth'
+            });
+        }, 100);
     }
 }
-        function acMaden() {
-            // Diğer panelleri kapatıyoruz
-            document.getElementById("isiharitasi").style.display = "none";
-            document.getElementById("hisseTarayici").style.display = "none";
-            
-            var m = document.getElementById("madenPaneli");
-            m.style.display = "block";
-            
-            // Beyaz barın altına milimetrik kaydırma
-            var mesafe = m.getBoundingClientRect().top + window.pageYOffset - 100; 
-            window.scrollTo({ top: mesafe, behavior: 'smooth' });
-        }
     </script>
 
     </body>
