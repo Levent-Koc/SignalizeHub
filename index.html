@@ -140,20 +140,22 @@ nav a:hover {
 
 
 <style>
+/* Menü kutusu ayarları */
 .dropdown-content {
     display: none;
     position: absolute;
     top: 100%;
     left: 0;
     background: white;
-    min-width: 160px;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-    border-radius: 4px;
+    min-width: 180px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    border-radius: 8px;
     padding: 10px 0;
+    z-index: 10000;
 }
 .dropdown:hover .dropdown-content { display: block; }
-.dropdown-content a { display: block; padding: 8px 15px; color: #333; text-decoration: none; font-size: 13px; }
-.dropdown-content a:hover { background: #f5f5f5; color: #00a884; }
+.dropdown-content a { color: #333; padding: 12px 20px; text-decoration: none; display: block; transition: 0.2s; font-size: 13px; }
+.dropdown-content a:hover { background: #f4f4f4; color: #00a884; }
 /* Menü ve Alt Dal Arasındaki Boşluğu Kapatan Köprü */
 .dropdown-content {
     display: none;
@@ -209,27 +211,29 @@ nav a:hover {
 }
 .dropdown-content a:hover { background-color: #f8f9fa; color: #2ecc71; }
 </style>
-<header style="display: flex; justify-content: space-between; align-items: center; padding: 10px 5%; background: white; position: relative; z-index: 1000; border-bottom: 1px solid #eee;">
-    <div style="font-size: 22px; font-weight: bold;">Signalize<span style="color: #00a884;">Hub</span></div>
+<header style="display: flex; justify-content: space-between; align-items: center; padding: 15px 5%; background: white; border-bottom: 1px solid #eee; position: sticky; top: 0; z-index: 9999;">
+    <div style="font-size: 24px; font-weight: bold; display: flex; align-items: center;">
+        <span style="color: #000;">Signalize</span><span style="color: #00a884;">Hub</span>
+    </div>
 
-    <nav style="display: flex; gap: 15px;">
-        <div class="dropdown" style="position: relative;">
-            <a href="javascript:void(0)" style="text-decoration: none; color: #333; font-weight: 600;">📈 Hisse Senedi ▼</a>
+    <nav style="display: flex; gap: 25px; align-items: center;">
+        <div class="dropdown" style="position: relative; cursor: pointer;">
+            <a href="javascript:void(0)" style="text-decoration: none; color: #333; font-weight: 600; font-size: 14px;">📈 Hisse Senedi <small>▼</small></a>
             <div class="dropdown-content">
-                <a href="javascript:void(0)" onclick="acKapaHeatmap()">📊 Piyasa Isı Haritası</a>
+                <a href="javascript:void(0)" onclick="acKapaHarita()">📊 Piyasa Isı Haritası</a>
+                <a href="#hisse">📋 Takip Listem</a>
             </div>
         </div>
-        <a href="#maden" style="text-decoration: none; color: #333; font-weight: 600;">🪙 Maden</a>
-        <a href="#koin" style="text-decoration: none; color: #333; font-weight: 600;">₿ Kripto</a>
+        <a href="#maden" style="text-decoration: none; color: #333; font-weight: 600; font-size: 14px;">🪙 Maden</a>
+        <a href="#koin" style="text-decoration: none; color: #333; font-weight: 600; font-size: 14px;">₿ Kripto</a>
     </nav>
 
-    <div style="display: flex; gap: 10px; align-items: center;">
-        <span style="cursor:pointer;">🌙</span>
-        <button style="padding: 5px 10px; border-radius: 4px; border: 1px solid #ccc; background: none;">Giriş</button>
-        <button style="padding: 5px 10px; border-radius: 4px; border: none; background: #00a884; color: white;">Kayıt</button>
+    <div style="display: flex; align-items: center; gap: 15px;">
+        <div style="cursor: pointer; font-size: 20px;" title="Gece Modu">🌙</div>
+        <button style="background: none; border: 1px solid #333; padding: 8px 18px; border-radius: 6px; font-weight: 600; cursor: pointer;">Giriş Yap</button>
+        <button style="background: #00a884; border: none; color: white; padding: 8px 18px; border-radius: 6px; font-weight: 600; cursor: pointer;">Kayıt Ol</button>
     </div>
 </header>
-
    
     </div>
 
@@ -568,13 +572,13 @@ function showUpdateTime() {
             }
         }
     </script>
-<div id="yeniHeatmap" style="display: none; width: 90%; max-width: 1100px; margin: 20px auto; background: #131722; padding: 15px; border-radius: 10px; border: 1px solid #00a884;">
-    <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
-        <span style="color: white; font-weight: bold;">Piyasa Isı Haritası</span>
-        <button onclick="acKapaHeatmap()" style="background: red; color: white; border: none; padding: 3px 10px; border-radius: 4px; cursor: pointer;">Kapat</button>
+<div id="finalHeatmap" style="display: none; width: 95%; max-width: 1200px; margin: 40px auto; background: #131722; padding: 20px; border-radius: 15px; border-top: 5px solid #00a884; box-shadow: 0 20px 40px rgba(0,0,0,0.3); clear: both;">
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+        <h3 style="color: white; margin: 0;">BIST Piyasa Isı Haritası</h3>
+        <button onclick="acKapaHarita()" style="background: #ff4757; color: white; border: none; padding: 8px 20px; border-radius: 6px; cursor: pointer; font-weight: bold;">Kapat</button>
     </div>
-    <div style="height: 500px;">
-        <div class="tradingview-widget-container" style="height:100%;">
+    <div style="height: 600px; border-radius: 10px; overflow: hidden;">
+        <div class="tradingview-widget-container" style="height: 100%;">
             <div class="tradingview-widget-container__widget"></div>
             <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-stock-heatmap.js" async>
             {"dataSource": "BIST","colorTheme": "dark","width": "100%","height": "100%"}
@@ -584,10 +588,10 @@ function showUpdateTime() {
 </div>
 
 <script>
-function acKapaHeatmap() {
-    var h = document.getElementById('yeniHeatmap');
-    h.style.display = (h.style.display === 'none') ? 'block' : 'none';
-    if(h.style.display === 'block') h.scrollIntoView({behavior:'smooth'});
+function acKapaHarita() {
+    var x = document.getElementById("finalHeatmap");
+    x.style.display = (x.style.display === "none" || x.style.display === "") ? "block" : "none";
+    if (x.style.display === "block") x.scrollIntoView({ behavior: 'smooth', block: 'center' });
 }
 </script>
 </body>
