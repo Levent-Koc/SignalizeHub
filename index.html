@@ -508,3 +508,23 @@ function acTarayici() {
         </div>
     </div>
 </div>
+<div id="madenPaneli" style="display: none; width: 95%; max-width: 1250px; margin: 150px auto 30px auto; background: #ffffff; padding: 20px; border-radius: 12px; border-top: 4px solid #f1c40f; box-shadow: 0 10px 30px rgba(0,0,0,0.2); position: relative; z-index: 1;">
+        </div>
+
+    <script>
+        function acMaden() {
+            // Diğer panelleri kapatıyoruz
+            document.getElementById("isiharitasi").style.display = "none";
+            document.getElementById("hisseTarayici").style.display = "none";
+            
+            var m = document.getElementById("madenPaneli");
+            m.style.display = "block";
+            
+            // Beyaz barın altına milimetrik kaydırma
+            var mesafe = m.getBoundingClientRect().top + window.pageYOffset - 100; 
+            window.scrollTo({ top: mesafe, behavior: 'smooth' });
+        }
+    </script>
+
+    </body>
+</html>
