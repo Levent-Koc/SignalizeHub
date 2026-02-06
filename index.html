@@ -295,13 +295,22 @@ nav a:hover {
     </div>
 
 <script>
-function toggleHeatmap() {
-    var x = document.getElementById("heatmapContainer");
-    if (x.style.display === "none") {
-        x.style.display = "block";
-        x.scrollIntoView({ behavior: 'smooth' });
+// Fonksiyon ismini benzersiz yaptık: acKapaHarita
+function acKapaHarita() {
+    var haritaKutusu = document.getElementById("heatmapContainer");
+    
+    if (haritaKutusu) {
+        if (haritaKutusu.style.display === "none" || haritaKutusu.style.display === "") {
+            haritaKutusu.style.display = "block";
+            // Sayfayı haritaya odakla
+            setTimeout(function(){
+                haritaKutusu.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }, 200);
+        } else {
+            haritaKutusu.style.display = "none";
+        }
     } else {
-        x.style.display = "none";
+        console.error("Hata: heatmapContainer bulunamadı!");
     }
 }
 </script>
@@ -356,17 +365,16 @@ function toggleHeatmap() {
 </div>
 
 <script>
-function toggleHeatmap() {
-    var x = document.getElementById("heatmapContainer");
-    if (x) {
-        if (x.style.display === "none") {
-            x.style.display = "block";
-            // Harita açılınca sayfayı oraya yumuşakça kaydırır
+function acKapaHarita() {
+    var haritaKutusu = document.getElementById("heatmapContainer");
+    if (haritaKutusu) {
+        if (haritaKutusu.style.display === "none" || haritaKutusu.style.display === "") {
+            haritaKutusu.style.display = "block";
             setTimeout(function(){
-                x.scrollIntoView({ behavior: 'smooth', block: 'center' });
-            }, 100);
+                haritaKutusu.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }, 200);
         } else {
-            x.style.display = "none";
+            haritaKutusu.style.display = "none";
         }
     }
 }
