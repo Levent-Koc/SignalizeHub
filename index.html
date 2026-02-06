@@ -501,21 +501,24 @@ function toggleTimePopup() {
     }, 5000);
 }
 function openP(id) {
-    // 1. Önce piyasadaki TÜM panelleri gizle
-    // (tali-panel ve tali-panel-yeni sınıflarına sahip her şeyi display:none yapar)
-    const tumPaneller = document.querySelectorAll('.tali-panel, .tali-panel-yeni');
-    tumPaneller.forEach(panel => {
-        panel.style.display = 'none';
+    // 1. Bilinen tüm panelleri TEK TEK kapat (Garanti yöntem)
+    const paneller = ['kPanel', 'dPanel', 'mPanel', 'hPanel', 'pPanel'];
+    paneller.forEach(pId => {
+        const p = document.getElementById(pId);
+        if (p) p.style.display = 'none';
     });
 
-    // 2. Şimdi sadece senin tıkladığın paneli bul ve aç
-    const secilenPanel = document.getElementById(id);
-    if (secilenPanel) {
-        secilenPanel.style.display = 'block';
-        // Sayfayı panelin başına yumuşakça kaydır
+    // 2. Ekstra önlem: 'tali-panel' sınıfına ait ne varsa gizle
+    document.querySelectorAll('.tali-panel, .tali-panel-yeni').forEach(el => {
+        el.style.display = 'none';
+    });
+
+    // 3. Şimdi sadece hedef paneli aç
+    const hedef = document.getElementById(id);
+    if (hedef) {
+        hedef.style.display = 'block';
         window.scrollTo({ top: 0, behavior: 'smooth' });
-    } else {
-        console.error("Hata: " + id + " id'li panel bulunamadı!");
+        console.log(id + " paneli başarıyla açıldı.");
     }
 }
     function closeP(id) { document.getElementById(id).style.display = 'none'; window.scrollTo({ top: 0, behavior: 'smooth' }); }
