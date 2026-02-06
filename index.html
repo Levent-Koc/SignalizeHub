@@ -125,6 +125,16 @@ h2 span, h1 span {
     color: var(--primary);
     background-color: rgba(0, 184, 148, 0.05); /* Çok hafif bir arka plan rengi */
 } 
+/* Hub kelimesi için özel baskın renk */
+.hub-text {
+    color: #00b894 !important;
+    display: inline-block; /* Rengin tam oturması için */
+}
+
+/* Koyu modda da rengin kaybolmaması için */
+body.dark-mode .hub-text {
+    color: #00b894 !important;
+}
  </style>
 </head>
 <body>
