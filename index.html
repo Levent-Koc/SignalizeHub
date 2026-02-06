@@ -417,11 +417,25 @@ function calculateExchange() {
 
     resultDiv.innerHTML = `${amount} ${from} = ${formattedResult}`;
 }
-
-// Sayfa açıldığında canlı verileri çekmeye başla
+// Sayfa açıldığında sadece verileri çek ve panelleri zorla gizle
 window.onload = function() {
-    fetchLiveRates();
-    // Her 5 dakikada bir kurları tazele
+    // 1. Canlı verileri arka planda çek (Kutucuklar için)
+    if (typeof fetchLiveRates === "function") {
+        fetchLiveRates();
+    }
+
+    // 2. TÜM PANELLERİ KAPAT (Sayfa açılışında temiz görüntü için)
+    // Eğer hesap makinenin ID'si farklıysa 'hesapMakinesi' yerine onu yazabilirsin
+    const paneller = ['hisseTarayici', 'madenPaneli', 'hesapMakinesi']; 
+    
+    paneller.forEach(id => {
+        const panel = document.getElementById(id);
+        if (panel) {
+            panel.style.display = 'none'; // Panelleri görünmez yapar
+        }
+    });
+
+    // 3. Her 5 dakikada bir kurları tazele
     setInterval(fetchLiveRates, 300000);
 }
 </script>
