@@ -501,20 +501,21 @@ function toggleTimePopup() {
     }, 5000);
 }
 function openP(id) {
-    console.log("Açılmak istenen panel ID'si:", id);
-    
-    // Tüm panelleri gizle
-    document.querySelectorAll('.tali-panel, .tali-panel-yeni').forEach(p => p.style.display = 'none');
+    // 1. Önce piyasadaki TÜM panelleri gizle
+    // (tali-panel ve tali-panel-yeni sınıflarına sahip her şeyi display:none yapar)
+    const tumPaneller = document.querySelectorAll('.tali-panel, .tali-panel-yeni');
+    tumPaneller.forEach(panel => {
+        panel.style.display = 'none';
+    });
 
-    const hedefPanel = document.getElementById(id);
-    
-    if (hedefPanel) {
-        hedefPanel.style.display = 'block';
-        // Görünürlüğü garantiye alalım
-        window.scrollTo({ top: 100, behavior: 'smooth' });
+    // 2. Şimdi sadece senin tıkladığın paneli bul ve aç
+    const secilenPanel = document.getElementById(id);
+    if (secilenPanel) {
+        secilenPanel.style.display = 'block';
+        // Sayfayı panelin başına yumuşakça kaydır
+        window.scrollTo({ top: 0, behavior: 'smooth' });
     } else {
-        // Eğer panel bulunamazsa bu uyarı ekranına gelecek
-        alert("SinyalizeHub Hatası: '" + id + "' isimli panel kodun içinde bulunamadı!");
+        console.error("Hata: " + id + " id'li panel bulunamadı!");
     }
 }
     function closeP(id) { document.getElementById(id).style.display = 'none'; window.scrollTo({ top: 0, behavior: 'smooth' }); }
