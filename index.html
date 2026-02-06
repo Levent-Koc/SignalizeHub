@@ -512,6 +512,27 @@ function acTarayici() {
         </div>
 
     <script>
+function acMaden() {
+    // 1. Önce açık olan diğer panelleri kapatıyoruz
+    if(document.getElementById("isiharitasi")) document.getElementById("isiharitasi").style.display = "none";
+    if(document.getElementById("hisseTarayici")) document.getElementById("hisseTarayici").style.display = "none";
+    
+    // 2. Maden panelini görünür yapıyoruz
+    var m = document.getElementById("madenPaneli");
+    if(m) {
+        m.style.display = "block";
+        
+        // 3. Hesap makinesine gitmesini engellemek için milimetrik odaklanma
+        // 100 milisaniye gecikme, panelin tam açılmasını bekler ve doğru konuma kaydırır
+        setTimeout(function() {
+            var mesafe = m.getBoundingClientRect().top + window.pageYOffset - 150; 
+            window.scrollTo({
+                top: mesafe,
+                behavior: 'smooth'
+            });
+        }, 100);
+    }
+}
         function acMaden() {
             // Diğer panelleri kapatıyoruz
             document.getElementById("isiharitasi").style.display = "none";
