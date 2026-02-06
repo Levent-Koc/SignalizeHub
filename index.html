@@ -222,24 +222,23 @@ body.dark-mode .hub-text {
 </div>
         
     </div>
-   <style>
+  <style>
     .tali-panel-yeni {
         display: none; 
         position: fixed; 
         top: 50%; 
         left: 50%; 
         transform: translate(-50%, -50%); 
-        width: 90%; 
-        max-width: 1000px; /* Sağı ve solu ufalatan ana ayar */
-        background: #131722 !important; /* TradingView Siyahı */
-        border-radius: 16px; 
-        box-shadow: 0 25px 50px rgba(0, 0, 0, 0.7); 
+        width: 80%;       /* Ekranın %80'ini kapla (Mobilde geniş kalması için) */
+        max-width: 750px;  /* AMA masaüstünde asla 750px'i geçme (İşte bu ufalatır) */
+        background: #131722 !important; 
+        border-radius: 20px; /* Köşeleri biraz daha yuvarlattık, daha modern oldu */
+        box-shadow: 0 30px 60px rgba(0, 0, 0, 0.8); 
         z-index: 10001; 
         overflow: hidden;
         border: 1px solid #333;
     }
     
-    /* Kapatma butonu tasarımı */
     .panel-kapat-btn {
         position: absolute; 
         right: 15px; 
@@ -248,21 +247,25 @@ body.dark-mode .hub-text {
         background: #e74c3c; 
         color: #ffffff; 
         border: none; 
-        width: 30px; 
-        height: 30px; 
+        width: 32px; 
+        height: 32px; 
         border-radius: 50%; 
         cursor: pointer; 
         font-weight: bold;
         display: flex;
         align-items: center;
         justify-content: center;
+        transition: transform 0.2s;
+    }
+    
+    .panel-kapat-btn:hover {
+        transform: scale(1.1); /* Üzerine gelince hafifçe büyür */
     }
 </style>
 
 <div id="hPanel" class="tali-panel-yeni">
     <button class="panel-kapat-btn" onclick="closeP('hPanel')">×</button>
-    <div style="height:550px;">
-        <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-screener.js" async>
+    <div style="height:500px;"> <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-screener.js" async>
         { "width": "100%", "height": "100%", "market": "turkey", "colorTheme": "dark", "locale": "tr" }
         </script>
     </div>
@@ -270,21 +273,20 @@ body.dark-mode .hub-text {
 
 <div id="iPanel" class="tali-panel-yeni">
     <button class="panel-kapat-btn" onclick="closeP('iPanel')">×</button>
-    <div style="height:550px;">
+    <div style="height:500px;">
         <iframe style="width:100%; height:100%; border:none; display:block; background:#131722;" 
-            srcdoc='<html><body style="margin:0; background:#131722;"><script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-stock-heatmap.js" async>{"dataSource": "BIST","colorTheme": "dark","width": "100%","height": 550}</script></body></html>'>
+            srcdoc='<html><body style="margin:0; background:#131722;"><script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-stock-heatmap.js" async>{"dataSource": "BIST","colorTheme": "dark","width": "100%","height": 500}</script></body></html>'>
         </iframe>
     </div>
 </div>
 
 <div id="mPanel" class="tali-panel-yeni">
     <button class="panel-kapat-btn" onclick="closeP('mPanel')">×</button>
-    <div style="height:500px;">
-        <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-market-overview.js" async>
+    <div style="height:450px;"> <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-market-overview.js" async>
         { "colorTheme": "dark", "width": "100%", "height": "100%", "tabs": [{ "title": "Maden", "symbols": [{ "s": "OANDA:XAUUSD" }, { "s": "FX_IDC:XAUTRY" }] }] }
         </script>
     </div>
-</div>    
+</div>
 <div class="grid-3">
     <div class="card" style="padding:0; border-top: 4px solid #2ecc71; height: 420px; overflow: hidden;">
         <div class="cloud-title c-green" style="margin:0; border-radius: 8px 8px 0 0; padding: 10px;">🚀 EN ÇOK YÜKSELENLER</div>
