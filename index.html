@@ -521,36 +521,24 @@ if ('scrollRestoration' in history) {
     history.scrollRestoration = 'manual';
 }
 function acMaden() {
-    // Diğer panelleri kapat
-    const isiharitasi = document.getElementById("isiharitasi");
-    const hisseTarayici = document.getElementById("hisseTarayici");
-    if(isiharitasi) isiharitasi.style.display = "none";
-    if(hisseTarayici) hisseTarayici.style.display = "none";
+    // 1. Önce açık olan diğer panelleri kapatıyoruz
+    if(document.getElementById("isiharitasi")) document.getElementById("isiharitasi").style.display = "none";
+    if(document.getElementById("hisseTarayici")) document.getElementById("hisseTarayici").style.display = "none";
     
+    // 2. Maden panelini görünür yapıyoruz
     var m = document.getElementById("madenPaneli");
     if(m) {
         m.style.display = "block";
         
-        // ÖNEMLİ: URL'deki karmaşayı temizle
-        if(window.location.hash) {
-            history.replaceState(null, null, ' ');
-        }
-
-        // Milimetrik hesaplama
+        // 3. Hesap makinesine gitmesini engellemek için 200ms bekleyip öyle kaydırıyoruz
         setTimeout(function() {
-            // Panelin sayfanın en tepesinden uzaklığını bul
-            const rect = m.getBoundingClientRect();
-            const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-            const hedefNokta = rect.top + scrollTop - 120; // 120px beyaz bar payı
-
+            var mesafe = m.getBoundingClientRect().top + window.pageYOffset - 130; 
             window.scrollTo({
-                top: hedefNokta,
+                top: mesafe,
                 behavior: 'smooth'
             });
-        }, 100);
+        }, 200);
     }
 }
-    </script>
-
     </body>
 </html>
