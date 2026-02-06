@@ -184,18 +184,23 @@ body.dark-mode .hub-text {
 </div>
 </header>
 <div class="card" id="topCard" style="padding:30px; border-top: 4px solid var(--primary);">
-    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; flex-wrap: wrap; gap: 10px;">
-        <div style="text-align: left;">
-            <h3 style="margin: 0; display: inline-block; vertical-align: middle;">📜 Günlük Strateji Raporu</h3>
-            <button onclick="updateReportTime()" style="margin-left: 15px; background: var(--primary); color: white; border: none; padding: 6px 15px; border-radius: 6px; cursor: pointer; font-weight: bold; font-size: 12px; transition: 0.3s; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+    <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px;">
+        <div style="text-align: left; display: flex; align-items: center; gap: 15px;">
+            <h3 style="margin: 0;">📜 Günlük Strateji Raporu</h3>
+            <button onclick="raporuGuncelle()" style="background: var(--primary); color: white; border: none; padding: 6px 15px; border-radius: 6px; cursor: pointer; font-weight: bold; font-size: 12px; transition: 0.3s; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
                 🔄 GÜNCEL
             </button>
         </div>
-        <div id="update-info" style="font-size: 13px; font-weight: 600; color: var(--primary); background: rgba(0,184,148,0.05); padding: 5px 12px; border-radius: 4px;">
-            Son Güncelleme: Yükleniyor...
+        
+        <div id="update-info" style="font-size: 13px; font-weight: 600; color: var(--primary); background: rgba(0,184,148,0.05); padding: 5px 12px; border-radius: 4px; display: none; border: 1px solid var(--primary);">
+            Son Güncelleme: --:--
         </div>
     </div>
 
+    <div style="text-align: left; line-height: 1.8; font-size: 15px; border-top: 1px solid var(--border); margin-top: 15px; padding-top: 15px;">
+        <p>Piyasa verileri ve günlük analiz notları burada yer alır. "Güncel" butonuna basarak raporun onaylanma saatini görebilirsiniz.</p>
+    </div>
+</div>
     <div style="text-align: left; line-height: 1.8; font-size: 15px; border-top: 1px solid var(--border); padding-top: 15px;">
         <p>Piyasa verileri ve günlük analiz notları burada yer alır. Stratejik görünüme göre pozisyonlarınızı gözden geçirebilirsiniz.</p>
     </div>
@@ -242,7 +247,7 @@ body.dark-mode .hub-text {
 </div>
 
 <script>
-function updateReportTime() {
+function raporuGuncelle() {
     const simdi = new Date();
     const gun = simdi.getDate();
     const ay = simdi.toLocaleString('tr-TR', { month: 'long' });
@@ -251,11 +256,19 @@ function updateReportTime() {
     const dakika = simdi.getMinutes().toString().padStart(2, '0');
     
     const formatliZaman = `${gun} ${ay} ${yil} - ${saat}:${dakika}`;
-    document.getElementById('update-info').innerText = `Son Güncelleme: ${formatliZaman}`;
-}
+    
+    const bilgiAlani = document.getElementById('update-info');
+    
+    // Tarihi yaz ve alanı görünür yap
+    bilgiAlani.innerText = `Rapor Onaylandı: ${formatliZaman}`;
+    bilgiAlani.style.display = 'block'; 
 
-// Sayfa açıldığında saati otomatik göster
-window.addEventListener('load', updateReportTime);
+    // Küçük bir görsel efekt: Butona basınca tarih kutusu parlasın
+    bilgiAlani.style.animation = "none";
+    setTimeout(() => {
+        bilgiAlani.style.animation = "highlight 0.5s ease";
+    }, 10);
+}
     function openP(id) {
         document.querySelectorAll('.tali-panel').forEach(p => p.style.display = 'none');
         document.getElementById(id).style.display = 'block';
