@@ -491,6 +491,24 @@ function acTarayici() {
     
     <div style="height: 700px; border-radius: 8px; overflow: hidden; border: 1px solid #eee; line-height: normal !important; letter-spacing: normal !important;">
         <style>
+<style>
+    /* Widget içindeki başlık alanını (header) yakalayıp zeminini beyaz yapıyoruz */
+    #hisseTarayici iframe {
+        background-color: white !important; /* Dış zemin beyaz */
+    }
+
+    /* Eğer widget doğrudan sayfadaysa bu CSS başlıkları sabitler ve altını temizler */
+    .tv-embed-widget-wrapper__header {
+        background-color: #ffffff !important;
+        z-index: 10 !important;
+        position: relative;
+    }
+
+    /* Hisse isimlerinin başlığın içinden geçmemesi için 'sticky' (yapışkan) alan ayarı */
+    #hisseTarayici .tradingview-widget-container {
+        background: #ffffff !important;
+    }
+</style>
             /* Widget içindeki tüm metin elemanlarının genişlemesini sağlar */
             #hisseTarayici .tradingview-widget-container div, 
             #hisseTarayici .tradingview-widget-container span {
