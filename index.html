@@ -489,43 +489,11 @@ function acTarayici() {
         <button onclick="document.getElementById('hisseTarayici').style.display='none'" style="background: #ff4757; color: white; border: none; padding: 6px 15px; border-radius: 6px; cursor: pointer; font-weight: bold;">Kapat</button>
     </div>
     
-    <div style="height: 700px; border-radius: 8px; overflow: hidden; border: 1px solid #eee; line-height: normal !important; letter-spacing: normal !important;">
-        <style>
-    /* Widget içindeki başlık alanını (header) yakalayıp zeminini beyaz yapıyoruz */
-    #hisseTarayici iframe {
-        background-color: white !important; /* Dış zemin beyaz */
-    }
-{
-  "width": "100%",
-  "height": 700,
-  "defaultColumn": "overview",
-  "defaultScreen": "most_capitalized",
-  "market": "turkey",
-  "showToolbar": true,
-  "colorTheme": "light",
-  "locale": "tr",
-  "isTransparent": false  /* BU SATIRIN FALSE OLDUĞUNDAN EMİN OLALIM */
-}
-    /* Eğer widget doğrudan sayfadaysa bu CSS başlıkları sabitler ve altını temizler */
-    .tv-embed-widget-wrapper__header {
-        background-color: #ffffff !important;
-        z-index: 10 !important;
-        position: relative;
-    }
+    <div style="position: relative; height: 700px; border-radius: 8px; overflow: hidden; border: 1px solid #eee;">
+        
+        <div style="position: absolute; top: 38px; left: 0; width: 100%; height: 2px; background: white; z-index: 2; box-shadow: 0 2px 10px white;"></div>
 
-    /* Hisse isimlerinin başlığın içinden geçmemesi için 'sticky' (yapışkan) alan ayarı */
-    #hisseTarayici .tradingview-widget-container {
-        background: #ffffff !important;
-    }
-            /* Widget içindeki tüm metin elemanlarının genişlemesini sağlar */
-            #hisseTarayici .tradingview-widget-container div, 
-            #hisseTarayici .tradingview-widget-container span {
-                line-height: normal !important;
-                letter-spacing: normal !important;
-            }
-        </style>
-
-        <div class="tradingview-widget-container">
+        <div class="tradingview-widget-container" style="height: 700px;">
             <div class="tradingview-widget-container__widget"></div>
             <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-screener.js" async>
             {
@@ -536,7 +504,8 @@ function acTarayici() {
               "market": "turkey",
               "showToolbar": true,
               "colorTheme": "light",
-              "locale": "tr"
+              "locale": "tr",
+              "isTransparent": false
             }
             </script>
         </div>
