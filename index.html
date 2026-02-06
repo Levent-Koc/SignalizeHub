@@ -127,6 +127,37 @@ nav a:hover {
 
 
 <style>
+/* Menü ve Alt Dal Arasındaki Boşluğu Kapatan Köprü */
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: var(--card-bg); /* Koyu tema uyumu */
+    min-width: 200px;
+    box-shadow: 0px 8px 16px rgba(0,0,0,0.3);
+    z-index: 1000;
+    border-radius: 8px;
+    border: 1px solid var(--primary);
+    overflow: hidden;
+    
+    /* İŞTE ÇÖZÜM BURASI: */
+    margin-top: 0; /* Boşluğu sıfırladık */
+    padding-top: 10px; /* Görsel boşluğu içeriden verdik */
+}
+
+/* Fareyle üzerine gelince açık kalmasını sağlar */
+.dropdown:hover .dropdown-content {
+    display: block !important;
+}
+
+/* Menü alanı ile alt kutu arasında görünmez bir köprü kurar */
+.dropdown::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    height: 15px; /* Bu görünmez köprü farenin düşmesini engeller */
+}
 /* Tasarım ve Hizalama Kuralları */
 .dropdown-content {
     display: none;
