@@ -236,17 +236,44 @@ body.dark-mode .hub-text {
         <button class="close-btn" onclick="closeP('mPanel')">KAPAT ✖</button>
         <div style="height:500px;"><script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-market-overview.js" async>{ "colorTheme": "light", "width": "100%", "height": 500, "tabs": [{ "title": "Maden", "symbols": [{ "s": "OANDA:XAUUSD" }, { "s": "FX_IDC:XAUTRY" }] }] }</script></div>
     </div>
-
-    <div class="grid-3">
-        <div class="card">
-            <div class="cloud-title c-green">🚀 YÜKSELENLER</div>
-            <div style="height:350px;"><script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-market-overview.js" async>{ "colorTheme": "light", "width": "100%", "height": 350, "tabs": [{ "title": "BIST", "symbols": [{ "s": "BIST:THYAO" }, { "s": "BIST:ASELS" }, { "s": "BIST:EREGL" }] }] }</script></div>
+<div class="grid-3">
+    <div class="card" style="padding:0; border-top: 4px solid #2ecc71; height: 420px; overflow: hidden;">
+        <div class="cloud-title c-green" style="margin:0; border-radius: 8px 8px 0 0; padding: 10px;">🚀 EN ÇOK YÜKSELENLER</div>
+        <div style="height: 380px;">
+            <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-screener.js" async>
+            {
+              "width": "100%",
+              "height": 380,
+              "defaultColumn": "overview",
+              "defaultScreen": "top_gainers",
+              "market": "turkey",
+              "showToolbar": false,
+              "colorTheme": "light",
+              "locale": "tr",
+              "isTransparent": true
+            }
+            </script>
         </div>
-        <div class="card">
-            <div class="cloud-title c-red">📉 DÜŞENLER</div>
-            <div style="height:350px;"><script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-market-overview.js" async>{ "colorTheme": "light", "width": "100%", "height": 350, "tabs": [{ "title": "BIST", "symbols": [{ "s": "BIST:SASA" }, { "s": "BIST:HEKTS" }, { "s": "BIST:ASTOR" }] }] }</script></div>
+    </div>
+    <div class="card" style="padding:0; border-top: 4px solid #e74c3c; height: 420px; overflow: hidden;">
+        <div class="cloud-title c-red" style="margin:0; border-radius: 8px 8px 0 0; padding: 10px;">📉 EN ÇOK DÜŞENLER</div>
+        <div style="height: 380px;">
+            <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-screener.js" async>
+            {
+              "width": "100%",
+              "height": 380,
+              "defaultColumn": "overview",
+              "defaultScreen": "top_losers",
+              "market": "turkey",
+              "showToolbar": false,
+              "colorTheme": "light",
+              "locale": "tr",
+              "isTransparent": true
+            }
+            </script>
         </div>
-<div class="card" style="padding:0; border-bottom: 4px solid var(--primary); min-height: 420px; display: flex; flex-direction: column;">
+    </div>
+    <div class="card" style="padding:0; border-bottom: 4px solid var(--primary); min-height: 420px; display: flex; flex-direction: column;">
     <div class="cloud-title c-yellow" style="margin:0; border-radius: 8px 8px 0 0; padding: 10px;">🧮 CANLI DÖNÜŞTÜRÜCÜ</div>
     
     <div class="tradingview-widget-container" style="width: 100%;">
