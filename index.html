@@ -246,41 +246,36 @@ body.dark-mode .hub-text {
             <div class="cloud-title c-red">📉 DÜŞENLER</div>
             <div style="height:350px;"><script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-market-overview.js" async>{ "colorTheme": "light", "width": "100%", "height": 350, "tabs": [{ "title": "BIST", "symbols": [{ "s": "BIST:SASA" }, { "s": "BIST:HEKTS" }, { "s": "BIST:ASTOR" }] }] }</script></div>
         </div>
-<div class="card" style="padding:0; border-bottom: 4px solid var(--primary); height: 420px; overflow: hidden;">
+<div class="card" style="padding:0; border-bottom: 4px solid var(--primary); min-height: 420px; display: flex; flex-direction: column;">
     <div class="cloud-title c-yellow" style="margin:0; border-radius: 8px 8px 0 0; padding: 10px;">🧮 CANLI DÖNÜŞTÜRÜCÜ</div>
     
-    <div class="tradingview-widget-container" style="height: 380px;">
+    <div class="tradingview-widget-container" style="width: 100%;">
         <div class="tradingview-widget-container__widget"></div>
         <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-market-overview.js" async>
         {
           "colorTheme": "light",
-          "dateRange": "12M",
           "showChart": false,
           "locale": "tr",
           "width": "100%",
-          "height": 380,
-          "largeChartUrl": "",
+          "height": 350, 
           "isTransparent": true,
-          "showSymbolLogo": true,
-          "showFloatingTooltip": false,
           "tabs": [
             {
               "title": "Döviz & Altın",
               "symbols": [
                 { "s": "FX_IDC:USDTRY", "d": "Dolar / TL" },
                 { "s": "FX_IDC:EURTRY", "d": "Euro / TL" },
+                { "s": "FX_IDC:EURUSD", "d": "Euro / Dolar" },
                 { "s": "FX_IDC:XAUTRY", "d": "Gram Altın" },
-                { "s": "BINANCE:BTCUSD", "d": "Bitcoin ($)" },
-                { "s": "FX_IDC:EURUSD", "d": "Euro / Dolar" }
+                { "s": "BINANCE:BTCUSD", "d": "Bitcoin ($)" }
               ]
             }
           ]
         }
         </script>
-<div class="card" style="padding:0; border-bottom: 4px solid var(--primary); height: 420px; overflow: hidden;">
-    <div class="cloud-title c-yellow" style="margin:0; border-radius: 8px 8px 0 0; padding: 10px;">🧮 CANLI DÖNÜŞTÜRÜCÜ</div>
-    
-    <div style="padding: 15px; font-size: 13px; line-height: 1.4; color: var(--text); opacity: 0.8; border-top: 1px solid var(--border); background: rgba(0,0,0,0.02);">
+    </div>
+
+    <div style="padding: 15px; font-size: 13px; line-height: 1.4; color: var(--text); border-top: 1px solid var(--border); background: rgba(0,0,0,0.02); margin-top: auto;">
         <p style="margin: 0;">ℹ️ BIST100 endeksi verilerine dayalı günlük stratejik görünüm ve piyasa notları burada yer alır.</p>
     </div>
 </div>
