@@ -173,7 +173,7 @@ body.dark-mode .hub-text {
 <div class="dropdown">
     <span class="nav-item">💵 Döviz ▼</span>
     <div class="dropdown-content">
-   <a href="javascript:void(0)" onclick="openP('dPanel')">🏦 Canlı Kurlar & Pariteler</a>
+   <a href="javascript:void(0)" onclick="document.getElementById('dPanel').style.display='block'">🏦 Canlı Kurlar & Pariteler</a>
    </div>
 </div>       
         </div>
@@ -329,24 +329,34 @@ nav {
             { "interval": "1D", "width": "100%", "height": "100%", "symbol": "BINANCE:BTCUSDT", "showIntervalTabs": true, "displayMode": "single", "locale": "tr", "colorTheme": "dark" }
             </script>
         </div>
-<div id="dPanel" class="tali-panel-yeni" style="display: none; position: fixed; top: 10%; left: 5%; width: 90%; height: 80vh; background: white; z-index: 10001; box-shadow: 0 0 50px rgba(0,0,0,0.5); border-radius: 12px; border: 2px solid #3498db;">
+<div id="dPanel" style="display: none; position: fixed; top: 5%; left: 5%; width: 90%; height: 90%; background: white; z-index: 99999; box-shadow: 0 0 100px rgba(0,0,0,0.8); border: 5px solid #3498db; border-radius: 15px; overflow: hidden;">
     
-    <button onclick="document.getElementById('dPanel').style.display='none'" style="position: absolute; right: 20px; top: 10px; font-size: 30px; cursor: pointer; background: none; border: none; color: #333; font-weight: bold;">×</button>
-    
-    <div style="padding: 30px; height: 90%;">
-        <h2 style="margin-top: 0; color: #2c3e50; border-bottom: 3px solid #3498db; padding-bottom: 10px;">🏦 Global Döviz Piyasası</h2>
-        
-        <div style="height: 100%; width: 100%;">
+    <div onclick="this.parentElement.style.display='none'" style="position: absolute; right: 10px; top: 10px; background: #ff4d4d; color: white; width: 40px; height: 40px; line-height: 40px; text-align: center; border-radius: 50%; cursor: pointer; font-weight: bold; font-family: Arial; z-index: 100000;">X</div>
+
+    <div style="padding: 20px; height: 100%;">
+        <h2 style="color: #2c3e50; margin-top: 0;">🏦 Döviz & Parite Ekranı</h2>
+        <hr>
+        <div style="width: 100%; height: 85%;">
             <div class="tradingview-widget-container" style="height: 100%; width: 100%;">
                 <div class="tradingview-widget-container__widget"></div>
-                <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-forex-cross-rates.js" async>
+                <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-market-overview.js" async>
                 {
+                  "colorTheme": "light",
+                  "showChart": false,
+                  "locale": "tr",
                   "width": "100%",
                   "height": "100%",
-                  "currencies": ["EUR", "USD", "JPY", "GBP", "CHF", "TRY"],
-                  "isTransparent": false,
-                  "colorTheme": "light",
-                  "locale": "tr"
+                  "tabs": [
+                    {
+                      "title": "Döviz",
+                      "symbols": [
+                        { "s": "FX_IDC:USDTRY" },
+                        { "s": "FX_IDC:EURTRY" },
+                        { "s": "FX:EURUSD" },
+                        { "s": "FX:GBPUSD" }
+                      ]
+                    }
+                  ]
                 }
                 </script>
             </div>
