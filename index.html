@@ -113,19 +113,6 @@ nav a:hover {
     color: var(--primary) !important; /* Yazı senin temanın rengine (yeşil/sarı) döner */
     transform: translateY(-2px); /* Hafifçe yukarı zıplar */
 }
-.dropdown-content {
-    display: none;
-    position: absolute;
-    background: white;
-    min-width: 200px;
-    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
-    border-radius: 8px;
-    top: 100%;
-    z-index: 9999;
-}
-.dropdown:hover .dropdown-content { display: block; }
-.dropdown-content a { color: #333; padding: 12px 15px; text-decoration: none; display: block; transition: 0.2s; }
-.dropdown-content a:hover { background: #f1f2f6; color: #00a884; }
     </style>
 </head>
 <body>
@@ -137,51 +124,27 @@ nav a:hover {
             </div>
             <h1 style="margin:0; font-size: 24px; letter-spacing: -1px;">Signalize<span style="color:var(--primary)">Hub</span></h1>
         </div>
-
-
-<style>
-<header style="display: flex !important; justify-content: space-between !important; align-items: center !important; padding: 15px 5% !important; background: white !important; border-bottom: 2px solid #00a884 !important; position: relative !important; width: 100% !important; box-sizing: border-box !important;">
-    
-    <div style="font-size: 24px; font-weight: bold; color: black; flex-shrink: 0;">
-        Signalize<span style="color: #00a884;">Hub</span>
-    </div>
-
-    <nav style="display: flex !important; gap: 20px !important; align-items: center !important;">
-        <div class="dropdown" style="position: relative;">
-            <button onclick="toggleHeatmapFinal()" style="background:none; border:none; font-weight:600; cursor:pointer; font-size:14px;">📈 Hisse Senedi ▼</button>
+<nav style="display: flex; gap: 20px; align-items: center; margin-left: 30px;">
+    <a href="#hisse" style="text-decoration: none; color: var(--text); font-weight: 600; font-size: 14px; display: flex; align-items: center; gap: 6px; white-space: nowrap; transition: 0.3s;">
+        📈 Hisse Senedi
+    </a>
+    <a href="#maden" style="text-decoration: none; color: var(--text); font-weight: 600; font-size: 14px; display: flex; align-items: center; gap: 6px; white-space: nowrap; transition: 0.3s;">
+        🪙 Değerli Maden
+    </a>
+    <a href="#koin" style="text-decoration: none; color: var(--text); font-weight: 600; font-size: 14px; display: flex; align-items: center; gap: 6px; white-space: nowrap; transition: 0.3s;">
+        ₿ Kripto Para
+    </a>
+    <a href="#para" style="text-decoration: none; color: var(--text); font-weight: 600; font-size: 14px; display: flex; align-items: center; gap: 6px; white-space: nowrap; transition: 0.3s;">
+        💵 Döviz
+    </a>
+</nav>
+        <div class="btn-group">
+            <button class="btn-mode" id="modeBtn" onclick="toggleDarkMode()">🌙 Gece Modu</button>
+            <a href="#" class="btn-login">Giriş Yap</a>
+            <a href="#" class="btn-register">Hemen Kayıt Ol</a>
         </div>
-        <a href="#maden" style="text-decoration: none; color: #333; font-weight: 600;">🪙 Maden</a>
-        <a href="#koin" style="text-decoration: none; color: #333; font-weight: 600;">₿ Kripto</a>
-    </nav>
+    </header>
 
-    <div style="display: flex !important; gap: 15px !important; align-items: center !important; flex-shrink: 0;">
-        <button style="background: #00a884; color: white; border: none; padding: 8px 15px; border-radius: 5px; cursor: pointer; font-weight: bold;">Giriş / Kayıt</button>
-    </div>
-</header>
-</style>
-<header style="display: flex; justify-content: space-between; align-items: center; padding: 15px 5%; background: white; border-bottom: 1px solid #eee; position: sticky; top: 0; z-index: 9999;">
-    <div style="font-size: 24px; font-weight: bold; display: flex; align-items: center;">
-        <span style="color: #000;">Signalize</span><span style="color: #00a884;">Hub</span>
-    </div>
-
-    <nav style="display: flex; gap: 25px; align-items: center;">
-        <div class="dropdown" style="position: relative; cursor: pointer;">
-            <a href="javascript:void(0)" style="text-decoration: none; color: #333; font-weight: 600; font-size: 14px;">📈 Hisse Senedi <small>▼</small></a>
-            <div class="dropdown-content">
-                <a href="javascript:void(0)" onclick="acKapaHarita()">📊 Piyasa Isı Haritası</a>
-                <a href="#hisse">📋 Takip Listem</a>
-            </div>
-        </div>
-        <a href="#maden" style="text-decoration: none; color: #333; font-weight: 600; font-size: 14px;">🪙 Maden</a>
-        <a href="#koin" style="text-decoration: none; color: #333; font-weight: 600; font-size: 14px;">₿ Kripto</a>
-    </nav>
-
-    <div style="display: flex; align-items: center; gap: 15px;">
-        <div style="cursor: pointer; font-size: 20px;" title="Gece Modu">🌙</div>
-        <button style="background: none; border: 1px solid #333; padding: 8px 18px; border-radius: 6px; font-weight: 600; cursor: pointer;">Giriş Yap</button>
-        <button style="background: #00a884; border: none; color: white; padding: 8px 18px; border-radius: 6px; font-weight: 600; cursor: pointer;">Kayıt Ol</button>
-    </div>
-</header>
    
     </div>
 
@@ -193,8 +156,8 @@ nav a:hover {
             <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-ticker-tape.js" async>
             {
               "symbols": [
-                {"proName": "BIST:XU100", "title": "XU100"},
-                {"proName": "BIST:XU030", "title": "XU030"},
+                {"proName": "BIST:XU100", "title": "BIST 100"},
+                {"proName": "BIST:XU030", "title": "BIST 30"},
                 {"proName": "FX:EURUSD", "title": "EUR/USD"},
                 {"proName": "FX_IDC:USDTRY", "title": "USD/TRY ₺"},
                 {"proName": "FX_IDC:EURTRY", "title": "EUR/TRY ₺"},
@@ -269,94 +232,6 @@ nav a:hover {
             <tr><td style="font-weight: 600;">GUBRF</td><td class="down" style="text-align: right;">-1.50%</td></tr>
         </table>
         </div>
-<div id="heatmapContainer" style="display: none; margin-top: 20px;">
-    </div>
-
-<script>
-// Fonksiyon ismini benzersiz yaptık: acKapaHarita
-function acKapaHarita() {
-    var haritaKutusu = document.getElementById("heatmapContainer");
-    
-    if (haritaKutusu) {
-        if (haritaKutusu.style.display === "none" || haritaKutusu.style.display === "") {
-            haritaKutusu.style.display = "block";
-            // Sayfayı haritaya odakla
-            setTimeout(function(){
-                haritaKutusu.scrollIntoView({ behavior: 'smooth', block: 'start' });
-            }, 200);
-        } else {
-            haritaKutusu.style.display = "none";
-        }
-    } else {
-        console.error("Hata: heatmapContainer bulunamadı!");
-    }
-}
-</script>
-               </div>
-        </div>
-    </div>
-</div>
-
-<script>
-function toggleHeatmap() {
-    var x = document.getElementById("heatmapContainer");
-    if (x.style.display === "none") {
-        x.style.display = "block";
-        x.scrollIntoView({ behavior: 'smooth' }); // Haritaya otomatik kaydırır
-    } else {
-        x.style.display = "none";
-    }
-}
-</script>
-
-<style>
-@keyframes fadeIn {
-    from { opacity: 0; transform: translateY(-5px); }
-    to { opacity: 1; transform: translateY(0); }
-}
-</style>
-</div>
-<div id="heatmapContainer" style="display: none; margin-top: 30px; animation: fadeIn 0.4s ease-out;">
-    <div class="card" style="padding: 10px; border-top: 3px solid var(--primary); background: #131722;">
-        <div style="height: 550px; width: 100%; border-radius: 8px; overflow: hidden;">
-            <div class="tradingview-widget-container">
-                <div class="tradingview-widget-container__widget"></div>
-                <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-stock-heatmap.js" async>
-                {
-                    "dataSource": "BIST",
-                    "grouping": "sector",
-                    "blockSize": "market_cap_basic",
-                    "blockColor": "change",
-                    "symbolUrl": "",
-                    "colorTheme": "dark",
-                    "hasSymbolTooltip": true,
-                    "isTransparent": true,
-                    "columnCountDefault": 2,
-                    "defaultVisualMode": "heatmap",
-                    "width": "100%",
-                    "height": "100%"
-                }
-                </script>
-            </div>
-        </div>
-    </div>
-</div>
-
-<script>
-function acKapaHarita() {
-    var haritaKutusu = document.getElementById("heatmapContainer");
-    if (haritaKutusu) {
-        if (haritaKutusu.style.display === "none" || haritaKutusu.style.display === "") {
-            haritaKutusu.style.display = "block";
-            setTimeout(function(){
-                haritaKutusu.scrollIntoView({ behavior: 'smooth', block: 'start' });
-            }, 200);
-        } else {
-            haritaKutusu.style.display = "none";
-        }
-    }
-}
-</script>
     </div>
 <div class="card" style="margin-top: 30px; padding: 25px; border-top: 4px solid #f1c40f;">
     <h3 style="margin-top: 0; font-size: 18px; display: flex; align-items: center; gap: 10px;">
@@ -520,27 +395,5 @@ function showUpdateTime() {
             }
         }
     </script>
-<div id="finalHeatmap" style="display: none; width: 95%; max-width: 1200px; margin: 40px auto; background: #131722; padding: 20px; border-radius: 15px; border-top: 5px solid #00a884; box-shadow: 0 20px 40px rgba(0,0,0,0.3); clear: both;">float: none !important; clear: both !important; display: block;
-    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
-        <h3 style="color: white; margin: 0;">BIST Piyasa Isı Haritası</h3>
-        <button onclick="acKapaHarita()" style="background: #ff4757; color: white; border: none; padding: 8px 20px; border-radius: 6px; cursor: pointer; font-weight: bold;">Kapat</button>
-    </div>
-    <div style="height: 600px; border-radius: 10px; overflow: hidden;">
-        <div class="tradingview-widget-container" style="height: 100%;">
-            <div class="tradingview-widget-container__widget"></div>
-            <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-stock-heatmap.js" async>
-            {"dataSource": "BIST","colorTheme": "dark","width": "100%","height": "100%"}
-            </script>
-        </div>
-    </div>
-</div>
-
-<script>
-function acKapaHarita() {
-    var x = document.getElementById("finalHeatmap");
-    x.style.display = (x.style.display === "none" || x.style.display === "") ? "block" : "none";
-    if (x.style.display === "block") x.scrollIntoView({ behavior: 'smooth', block: 'center' });
-}
-</script>
 </body>
 </html>
