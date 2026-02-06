@@ -329,6 +329,48 @@ function toggleHeatmap() {
 }
 </style>
 </div>
+<div id="heatmapContainer" style="display: none; margin-top: 30px; animation: fadeIn 0.4s ease-out;">
+    <div class="card" style="padding: 10px; border-top: 3px solid var(--primary); background: #131722;">
+        <div style="height: 550px; width: 100%; border-radius: 8px; overflow: hidden;">
+            <div class="tradingview-widget-container">
+                <div class="tradingview-widget-container__widget"></div>
+                <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-stock-heatmap.js" async>
+                {
+                    "dataSource": "BIST",
+                    "grouping": "sector",
+                    "blockSize": "market_cap_basic",
+                    "blockColor": "change",
+                    "symbolUrl": "",
+                    "colorTheme": "dark",
+                    "hasSymbolTooltip": true,
+                    "isTransparent": true,
+                    "columnCountDefault": 2,
+                    "defaultVisualMode": "heatmap",
+                    "width": "100%",
+                    "height": "100%"
+                }
+                </script>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+function toggleHeatmap() {
+    var x = document.getElementById("heatmapContainer");
+    if (x) {
+        if (x.style.display === "none") {
+            x.style.display = "block";
+            // Harita açılınca sayfayı oraya yumuşakça kaydırır
+            setTimeout(function(){
+                x.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }, 100);
+        } else {
+            x.style.display = "none";
+        }
+    }
+}
+</script>
     </div>
 <div class="card" style="margin-top: 30px; padding: 25px; border-top: 4px solid #f1c40f;">
     <h3 style="margin-top: 0; font-size: 18px; display: flex; align-items: center; gap: 10px;">
