@@ -101,7 +101,7 @@ h2 span, h1 span {
         .cloud-title { padding: 12px; text-align: center; font-weight: 800; font-size: 13px; }
         .c-green { background: rgba(0,184,148,0.1); color: #00b894; }
         .c-red { background: rgba(255,77,77,0.1); color: #ff4d4d; }
-        .c-yellow { background: rgba(241,196,15,0.1); color: #b8860b; }
+        .c-blue { background: rgba(52, 152, 219, 0.1); color: #3498db; }
 
         .ticker-bar { position: fixed; bottom: 0; left: 0; width: 100%; background: var(--header-bg); border-top: 1px solid var(--border); z-index: 3000; }
         
@@ -373,39 +373,40 @@ nav {
             </script>
         </div>
     </div>
-    <div class="card" style="padding:0; border-bottom: 4px solid var(--primary); min-height: 420px; display: flex; flex-direction: column;">
-    <div class="cloud-title c-yellow" style="margin:0; border-radius: 8px 8px 0 0; padding: 10px;">🧮 CANLI DÖNÜŞTÜRÜCÜ</div>
-    
-    <div class="tradingview-widget-container" style="width: 100%;">
-        <div class="tradingview-widget-container__widget"></div>
-        <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-market-overview.js" async>
-        {
-          "colorTheme": "light",
-          "showChart": false,
-          "locale": "tr",
-          "width": "100%",
-          "height": 350, 
-          "isTransparent": true,
-          "tabs": [
-            {
-              "title": "Döviz & Altın",
-              "symbols": [
-                { "s": "FX_IDC:USDTRY", "d": "Dolar / TL" },
-                { "s": "FX_IDC:EURTRY", "d": "Euro / TL" },
-                { "s": "FX_IDC:EURUSD", "d": "Euro / Dolar" },
-                { "s": "FX_IDC:XAUTRY", "d": "Gram Altın" },
-                { "s": "BINANCE:BTCUSD", "d": "Bitcoin ($)" }
-              ]
-            }
-          ]
-        }
-        </script>
+ <div class="card" style="padding:0; border-top: 4px solid #3498db; height: 420px; overflow: hidden; display: flex; flex-direction: column; box-shadow: 0 4px 15px rgba(0,0,0,0.05);">
+        <div class="cloud-title c-blue" style="margin:0; border-radius: 8px 8px 0 0; padding: 10px;">🧮 CANLI DÖNÜŞTÜRÜCÜ & DÖVİZ</div>
+        
+        <div style="flex-grow: 1; overflow: hidden;">
+            <div class="tradingview-widget-container" style="width: 100%; height: 100%;">
+                <div class="tradingview-widget-container__widget"></div>
+                <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-market-overview.js" async>
+                {
+                  "colorTheme": "light",
+                  "showChart": false,
+                  "locale": "tr",
+                  "width": "100%",
+                  "height": "100%",
+                  "isTransparent": true,
+                  "tabs": [
+                    {
+                      "title": "Piyasa",
+                      "symbols": [
+                        { "s": "FX_IDC:USDTRY", "d": "Dolar / TL" },
+                        { "s": "FX_IDC:EURTRY", "d": "Euro / TL" },
+                        { "s": "OANDA:XAUUSD", "d": "Ons Altın" },
+                        { "s": "FX_IDC:XAUTRY", "d": "Gram Altın" },
+                        { "s": "BINANCE:BTCUSDT", "d": "Bitcoin ($)" }
+                      ]
+                    }
+                  ]
+                }
+                </script>
+            </div>
+        </div>
+        <div style="padding: 10px; font-size: 11px; color: #7f8c8d; border-top: 1px solid var(--border); background: rgba(0,0,0,0.01); text-align: center;">
+            Anlık veriler TradingView üzerinden sağlanmaktadır.
+        </div>
     </div>
-
-    <div style="padding: 15px; font-size: 13px; line-height: 1.4; color: var(--text); border-top: 1px solid var(--border); background: rgba(0,0,0,0.02); margin-top: auto;">
-        <p style="margin: 0;">ℹ️ BIST100 endeksi verilerine dayalı günlük stratejik görünüm ve piyasa notları burada yer alır.</p>
-    </div>
-</div>
     </div>
 </div>
      </div>
