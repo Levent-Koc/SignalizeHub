@@ -166,7 +166,7 @@ nav a:hover {
 </div>
 </div>
     </a>
-  <a href="javascript:void(0)" onclick="acMaden()" style="text-decoration: none; color: var(--text); font-weight: 600; font-size: 14px; display: flex; align-items: center; gap: 6px; white-space: nowrap; transition: 0.3s;">
+  <a href="javascript:void(0)" onclick="event.preventDefault(); acMaden();" style="text-decoration: none; color: var(--text); font-weight: 600; font-size: 14px; display: flex; align-items: center; gap: 6px; white-space: nowrap; transition: 0.3s;">
     🪙 Değerli Maden
 </a>   
     <a href="#koin" style="text-decoration: none; color: var(--text); font-weight: 600; font-size: 14px; display: flex; align-items: center; gap: 6px; white-space: nowrap; transition: 0.3s;">
@@ -513,24 +513,23 @@ function acTarayici() {
 
     <script>
 function acMaden() {
-    // 1. Önce açık olan diğer panelleri kapatıyoruz
+    // Diğerlerini kapat
     if(document.getElementById("isiharitasi")) document.getElementById("isiharitasi").style.display = "none";
     if(document.getElementById("hisseTarayici")) document.getElementById("hisseTarayici").style.display = "none";
     
-    // 2. Maden panelini görünür yapıyoruz
     var m = document.getElementById("madenPaneli");
     if(m) {
         m.style.display = "block";
         
-        // 3. Hesap makinesine gitmesini engellemek için milimetrik odaklanma
-        // 100 milisaniye gecikme, panelin tam açılmasını bekler ve doğru konuma kaydırır
+        // Tarayıcının 'çapa' (anchor) hafızasını temizlemek için küçük bir hile
+        window.location.hash = ""; 
+
+        // Milimetrik kaydırma
         setTimeout(function() {
-            var mesafe = m.getBoundingClientRect().top + window.pageYOffset - 150; 
-            window.scrollTo({
-                top: mesafe,
-                behavior: 'smooth'
-            });
-        }, 100);
+            const yOffset = -150; // Beyaz bar payı
+            const y = m.getBoundingClientRect().top + window.pageYOffset + yOffset;
+            window.scrollTo({top: y, behavior: 'smooth'});
+        }, 50);
     }
 }
         function acMaden() {
