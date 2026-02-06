@@ -113,6 +113,37 @@ nav a:hover {
     color: var(--primary) !important; /* Yazı senin temanın rengine (yeşil/sarı) döner */
     transform: translateY(-2px); /* Hafifçe yukarı zıplar */
 }
+/* Açılır menü kutusunun tasarımı */
+.dropdown-content {
+    display: none; /* İlk başta gizle */
+    position: absolute; /* Menünün altında bağımsız dursun */
+    background-color: white; /* Kutunun rengi */
+    min-width: 180px; /* Kutunun genişliği */
+    box-shadow: 0px 8px 16px rgba(0,0,0,0.1); /* Hafif gölge */
+    border-radius: 8px; /* Köşeleri yuvarla */
+    padding: 5px 0;
+    z-index: 999; /* En üstte görünsün */
+}
+
+/* Fareyle Hisse Senedi üzerine gelince kutuyu göster */
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+/* Kutunun içindeki linklerin tasarımı */
+.dropdown-content a {
+    color: #333 !important;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    font-size: 13px;
+}
+
+/* Linkin üzerine gelince renk değiştir */
+.dropdown-content a:hover {
+    background-color: #f1f1f1;
+    color: #00a884 !important;
+}
     </style>
 </head>
 <body>
