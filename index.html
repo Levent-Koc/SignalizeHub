@@ -331,27 +331,35 @@ nav {
         </div>
 <div id="dPanel" class="tali-panel-yeni" style="background: white !important;">
     <button class="panel-kapat-btn" onclick="closeP('dPanel')">×</button>
-    
-    <div style="height: 500px; padding: 20px;">
-        <h3 style="margin-top:0; color:#1a1a1a; font-size: 16px; border-bottom: 2px solid #3498db; padding-bottom: 10px; display: inline-block;">🏦 Global Döviz & Parite Takibi</h3>
+    <div style="padding: 20px; height: 500px;">
+        <h3 style="margin-top:0; color:#1a1a1a; font-size: 16px; border-bottom: 2px solid #3498db; padding-bottom: 10px;">🏦 Canlı Döviz ve Parite Takibi</h3>
         
-        <div class="tradingview-widget-container" style="height: 420px; width: 100%;">
+        <div class="tradingview-widget-container" style="height: 400px;">
             <div class="tradingview-widget-container__widget"></div>
-            <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-forex-cross-rates.js" async>
+            <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-market-overview.js" async>
             {
+              "colorTheme": "light",
+              "dateRange": "12M",
+              "showChart": false,
+              "locale": "tr",
               "width": "100%",
               "height": "100%",
-              "currencies": [
-                "EUR",
-                "USD",
-                "JPY",
-                "GBP",
-                "CHF",
-                "TRY"
-              ],
-              "isTransparent": true,
-              "colorTheme": "light",
-              "locale": "tr"
+              "isTransparent": false,
+              "showSymbolLogo": true,
+              "showFloatingTooltip": false,
+              "tabs": [
+                {
+                  "title": "Döviz Kurları",
+                  "symbols": [
+                    { "s": "FX_IDC:USDTRY", "d": "Dolar / TL" },
+                    { "s": "FX_IDC:EURTRY", "d": "Euro / TL" },
+                    { "s": "FX:EURUSD", "d": "Euro / Dolar" },
+                    { "s": "FX:GBPUSD", "d": "Sterlin / Dolar" },
+                    { "s": "FX:USDJPY", "d": "Dolar / Yen" },
+                    { "s": "FX:USDCHF", "d": "Dolar / Frank" }
+                  ]
+                }
+              ]
             }
             </script>
         </div>
