@@ -48,13 +48,11 @@
         .logo-box { background: #1a1a1a; width: 38px; height: 38px; border-radius: 8px; display: flex; align-items: center; justify-content: center; border: 2px solid var(--primary); color: white; font-weight: bold; }
 
         nav { display: flex; gap: 10px; align-items: center; }
-        
         .dropdown { position: relative; }
         .nav-item { 
             text-decoration: none; color: var(--text); font-weight: 600; font-size: 14px; 
             cursor: pointer; padding: 10px 15px; transition: 0.2s ease; display: inline-block;
         }
-        /* Sadece gelinen buton yukarı kalkar */
         .nav-item:hover { color: var(--primary); transform: translateY(-3px); }
 
         .dropdown-content {
@@ -66,7 +64,6 @@
         .dropdown-content a { color: var(--text); padding: 10px 20px; text-decoration: none; display: block; font-size: 13px; }
         .dropdown-content a:hover { background: var(--primary); color: white !important; }
 
-        /* AUTH BUTTONS */
         .auth-group { display: flex; align-items: center; gap: 12px; }
         .btn-login { text-decoration: none; color: var(--text); font-weight: 600; font-size: 13px; }
         .btn-register { text-decoration: none; background: var(--primary); color: white !important; padding: 8px 16px; border-radius: 6px; font-weight: 700; font-size: 13px; }
@@ -79,14 +76,18 @@
         .tali-container { display: none; background: var(--card-bg); border: 1px solid var(--border); border-radius: 12px; padding: 20px; margin-bottom: 25px; position: relative; box-shadow: 0 10px 30px rgba(0,0,0,0.08); }
         .close-btn { position: absolute; top: 15px; right: 15px; background: #ff4757; color: white; border: none; padding: 6px 12px; border-radius: 5px; cursor: pointer; font-weight: bold; font-size: 12px; z-index: 100; }
 
-        /* INFO GRID */
-        .grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; }
-        .card { background: var(--card-bg); border: 1px solid var(--border); border-radius: 12px; padding: 20px; }
+        /* ÜÇLÜ GRID (Yükselen, Düşen, Hesap Makinesi) */
+        .bottom-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 20px; margin-top: 25px; align-items: start; }
+        .card { background: var(--card-bg); border: 1px solid var(--border); border-radius: 12px; padding: 0; overflow: hidden; height: 420px; position: relative; }
         
-        .cloud-green { background: rgba(0,184,148,0.1); color: #00b894; padding: 10px; border-radius: 8px; text-align: center; font-weight: 800; margin-bottom: 15px; }
-        .cloud-red { background: rgba(255, 77, 77, 0.1); color: #ff4d4d; padding: 10px; border-radius: 8px; text-align: center; font-weight: 800; margin-bottom: 15px; }
+        .cloud-header { padding: 15px; font-weight: 800; text-align: center; font-size: 14px; }
+        .cloud-green { background: rgba(0,184,148,0.1); color: #00b894; }
+        .cloud-red { background: rgba(255, 77, 77, 0.1); color: #ff4d4d; }
+        .calc-header { background: rgba(241, 196, 15, 0.1); color: #b8860b; border-bottom: 1px solid var(--border); }
 
         .footer-ticker { position: fixed; bottom: 0; left: 0; width: 100%; z-index: 10000; background: var(--header-bg); border-top: 1px solid var(--border); }
+        
+        @media (max-width: 900px) { .bottom-grid { grid-template-columns: 1fr; } }
     </style>
 </head>
 <body>
@@ -140,7 +141,7 @@
     
     <div class="main-card" id="anaBlok">
         <h3>📜 Günlük Strateji Analizi</h3>
-        <p>BIST100 endeksi 9.200 puan üzerindeki kalıcılığını korumaya çalışırken, küresel emtia piyasaları Fed kararlarına odaklanmış durumda.</p>
+        <p>BIST100 endeksi verilerine dayalı günlük stratejik görünüm ve piyasa notları.</p>
     </div>
 
     <div id="hissePanel" class="tali-container">
@@ -166,59 +167,23 @@
         </div>
     </div>
 
-    <div class="grid-3">
+    <div class="bottom-grid">
         <div class="card">
-            <div class="cloud-green">🚀 YÜKSELENLER</div>
-            <p style="font-size:14px; text-align:center;">THYAO: +4.5% | ASELS: +3.8% | EREGL: +2.9%</p>
-        </div>
-        <div class="card">
-            <div class="cloud-red">📉 DÜŞENLER</div>
-            <p style="font-size:14px; text-align:center;">SASA: -3.2% | HEKTS: -2.8% | ASTOR: -2.1%</p>
-        </div>
-        <div class="card" style="border-top: 2px solid #f1c40f;">
-            <h4 style="margin:0 0 10px 0; text-align:center;">🧮 Hesap Makinesi</h4>
-            <div style="display: flex; gap: 5px;">
-                <input type="number" id="v1" value="1" oninput="calc()" style="width:50%; padding:8px; border-radius:5px; border:1px solid #ddd;">
-                <select id="v2" onchange="calc()" style="width:50%; padding:8px; border-radius:5px; border:1px solid #ddd;">
-                    <option value="34.40">USD/TRY</option>
-                    <option value="2950">Gr Altın</option>
-                </select>
+            <div class="cloud-header cloud-green">🚀 BIST EN ÇOK YÜKSELENLER</div>
+            <div class="tradingview-widget-container">
+                <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-market-overview.js" async>
+                { "colorTheme": "light", "width": "100%", "height": 360, "tabs": [{ "title": "Hisseler", "symbols": [{ "s": "BIST:THYAO" }, { "s": "BIST:ASELS" }, { "s": "BIST:EREGL" }, { "s": "BIST:KCHOL" }, { "s": "BIST:SISE" }] }] }
+                </script>
             </div>
-            <div id="res" style="margin-top:10px; text-align:center; font-weight:bold; color:var(--primary);">-- TL --</div>
         </div>
-    </div>
 
-</div>
+        <div class="card">
+            <div class="cloud-header cloud-red">📉 BIST EN ÇOK DÜŞENLER</div>
+            <div class="tradingview-widget-container">
+                <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-market-overview.js" async>
+                { "colorTheme": "light", "width": "100%", "height": 360, "tabs": [{ "title": "Hisseler", "symbols": [{ "s": "BIST:SASA" }, { "s": "BIST:HEKTS" }, { "s": "BIST:GUBRF" }, { "s": "BIST:ASTOR" }, { "s": "BIST:KONTR" }] }] }
+                </script>
+            </div>
+        </div>
 
-<div class="footer-ticker">
-    <div class="tradingview-widget-container">
-        <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-ticker-tape.js" async>
-        { "symbols": [{ "proName": "FX_IDC:USDTRY", "title": "USD/TRY" },{ "proName": "OANDA:XAUUSD", "title": "Altın" }], "colorTheme": "light", "locale": "tr" }
-        </script>
-    </div>
-</div>
-
-<script>
-    function taliAc(id) {
-        document.querySelectorAll('.tali-container').forEach(el => el.style.display = 'none');
-        const p = document.getElementById(id);
-        if(p) {
-            p.style.display = 'block';
-            const target = document.getElementById('anaBlok').offsetTop + document.getElementById('anaBlok').offsetHeight;
-            window.scrollTo({ top: target, behavior: 'smooth' });
-        }
-    }
-    function taliKapat(id) {
-        document.getElementById(id).style.display = 'none';
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-    }
-    function calc() {
-        const a = document.getElementById('v1').value;
-        const b = document.getElementById('v2').value;
-        document.getElementById('res').innerText = (a * b).toLocaleString('tr-TR') + " TL";
-    }
-    window.onload = calc;
-</script>
-
-</body>
-</html>
+        <div
