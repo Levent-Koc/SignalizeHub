@@ -26,11 +26,11 @@
             background-color: var(--bg); 
             color: var(--text); 
             margin: 0; 
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Segoe UI', sans-serif;
             transition: all 0.3s ease;
         }
 
-        /* HEADER & DROPDOWN */
+        /* HEADER & LOGO */
         header {
             background-color: var(--header-bg);
             border-bottom: 1px solid var(--border);
@@ -43,206 +43,168 @@
             z-index: 9999;
         }
 
+        .logo-area { display: flex; align-items: center; gap: 15px; }
+        .logo-box { 
+            background: #1a1a1a; width: 45px; height: 45px; border-radius: 10px; 
+            display: flex; align-items: center; justify-content: center; border: 2px solid var(--primary);
+        }
+
+        /* MENÜ BUTONLARI & HOVER EFEKTİ */
         nav { display: flex; gap: 20px; align-items: center; }
-        
+        .nav-item { 
+            text-decoration: none; color: var(--text); font-weight: 600; font-size: 14px; 
+            transition: all 0.3s ease; cursor: pointer; display: inline-block;
+        }
+        .nav-item:hover { color: var(--primary); transform: translateY(-3px); }
+
+        /* DROPDOWN */
         .dropdown { position: relative; display: inline-block; }
-        .dropbtn { text-decoration: none; color: var(--text); font-weight: 600; font-size: 14px; cursor: pointer; padding: 10px 0; display: block; }
-        
         .dropdown-content {
-            display: none;
-            position: absolute;
-            background-color: var(--header-bg);
-            min-width: 200px;
-            box-shadow: 0px 8px 16px rgba(0,0,0,0.1);
-            border-radius: 8px;
-            z-index: 10000;
-            border: 1px solid var(--border);
-            overflow: hidden;
-            top: 100%;
+            display: none; position: absolute; background-color: var(--header-bg);
+            min-width: 180px; box-shadow: 0px 8px 16px rgba(0,0,0,0.1);
+            border-radius: 8px; z-index: 10000; border: 1px solid var(--border);
         }
-
         .dropdown:hover .dropdown-content { display: block; }
-        .dropdown-content a {
-            color: var(--text);
-            padding: 12px 16px;
-            text-decoration: none;
-            display: block;
-            font-size: 13px;
-            border-bottom: 1px solid var(--border);
-        }
-        .dropdown-content a:last-child { border-bottom: none; }
-        .dropdown-content a:hover { background-color: var(--primary); color: white !important; }
+        .dropdown-content a { color: var(--text); padding: 12px 16px; text-decoration: none; display: block; font-size: 13px; }
+        .dropdown-content a:hover { background-color: var(--primary); color: white; }
 
-        /* KAPSAYICI VE KARTLAR */
+        /* BUTONLAR */
+        .btn-group { display: flex; align-items: center; gap: 12px; }
+        .btn-login { text-decoration: none; color: var(--text); border: 1px solid var(--border); padding: 8px 16px; border-radius: 8px; font-weight: 600; font-size: 13px; }
+        .btn-register { text-decoration: none; background: var(--primary); color: white !important; padding: 10px 20px; border-radius: 8px; font-weight: 700; font-size: 13px; }
+
         .container { max-width: 1250px; margin: 20px auto; padding: 0 20px; }
-        .card { 
-            background-color: var(--card-bg); 
-            border: 1px solid var(--border); 
-            border-radius: 12px; 
-            padding: 20px; 
-            margin-bottom: 20px; 
-            box-shadow: 0 4px 10px rgba(0,0,0,0.03);
-            position: relative;
-        }
+        .card { background: var(--card-bg); border: 1px solid var(--border); border-radius: 15px; padding: 25px; margin-bottom: 25px; box-shadow: 0 4px 12px rgba(0,0,0,0.05); }
 
-        .cloud-green { background-color: rgba(0, 184, 148, 0.1); color: #00b894; padding: 12px; border-radius: 10px 10px 0 0; font-weight: 800; text-align: center; margin: -20px -20px 15px -20px; }
-        .cloud-red { background-color: rgba(255, 77, 77, 0.1); color: #ff4d4d; padding: 12px; border-radius: 10px 10px 0 0; font-weight: 800; text-align: center; margin: -20px -20px 15px -20px; }
-
-        /* PANELLER (Hisse, Maden vb) */
-        .panel { display: none; overflow: hidden; }
+        /* BULUT EFEKTLERİ */
+        .cloud-green { background: rgba(0,184,148,0.1); color: #00b894; padding: 15px; border-radius: 12px 12px 0 0; font-weight: 800; text-align: center; margin: -25px -25px 15px -25px; }
+        .cloud-red { background: rgba(255,77,77,0.1); color: #ff4d4d; padding: 15px; border-radius: 12px 12px 0 0; font-weight: 800; text-align: center; margin: -25px -25px 15px -25px; }
 
         table { width: 100%; border-collapse: collapse; }
         td { padding: 12px; border-bottom: 1px solid var(--border); font-size: 14px; }
         .up { color: #00b894; font-weight: bold; }
         .down { color: #ff4d4d; font-weight: bold; }
 
-        .btn-mode { cursor: pointer; background: var(--header-bg); border: 1px solid var(--border); padding: 8px 15px; border-radius: 20px; color: var(--text); }
+        /* PANELLE - GİZLİ BAŞLAR */
+        .tali-panel { display: none; margin-bottom: 30px; }
     </style>
 </head>
 <body>
 
 <header>
-    <div style="display: flex; align-items: center; gap: 10px;">
-        <h2 style="margin:0; font-size: 22px;">Signalize<span style="color:var(--primary)">Hub</span></h2>
+    <div class="logo-area">
+        <div class="logo-box"><b style="color:white">S</b></div>
+        <h1 style="margin:0; font-size: 24px;">Signalize<span style="color:var(--primary)">Hub</span></h1>
     </div>
 
     <nav>
         <div class="dropdown">
-            <span class="dropbtn">📈 Hisse Senedi ▼</span>
+            <span class="nav-item">📈 Hisse Senedi ▼</span>
             <div class="dropdown-content">
                 <a href="javascript:void(0)" onclick="panelAc('hisseTarayici')">🔍 Hisse Tarayıcı</a>
                 <a href="javascript:void(0)" onclick="panelAc('isiharitasi')">📊 Isı Haritası</a>
             </div>
         </div>
-        <div class="dropdown">
-            <span class="dropbtn">🪙 Değerli Maden ▼</span>
-            <div class="dropdown-content">
-                <a href="javascript:void(0)" onclick="panelAc('madenPaneli')">🟡 Altın & Gümüş</a>
-                <a href="javascript:void(0)">📉 Maden Analizleri</a>
-            </div>
-        </div>
-        <div class="dropdown">
-            <span class="dropbtn">₿ Kripto Para ▼</span>
-            <div class="dropdown-content">
-                <a href="javascript:void(0)">🚀 Piyasa Özeti</a>
-                <a href="javascript:void(0)">💎 Altcoinler</a>
-            </div>
-        </div>
-        <div class="dropdown">
-            <span class="dropbtn">💵 Döviz ▼</span>
-            <div class="dropdown-content">
-                <a href="javascript:void(0)">🏦 Canlı Kurlar</a>
-                <a href="javascript:void(0)">💱 Çapraz Kurlar</a>
-            </div>
-        </div>
+        <span class="nav-item" onclick="panelAc('madenPaneli')">🪙 Değerli Maden</span>
+        <span class="nav-item">₿ Kripto Para</span>
+        <span class="nav-item">💵 Döviz</span>
     </nav>
 
-    <button class="btn-mode" onclick="document.body.classList.toggle('dark-mode')">🌓 Mod Değiştir</button>
+    <div class="btn-group">
+        <button onclick="document.body.classList.toggle('dark-mode')" style="cursor:pointer; padding:5px 10px; border-radius:15px; border:1px solid var(--border); background:var(--header-bg); color:var(--text);">🌓</button>
+        <a href="#" class="btn-login">Giriş Yap</a>
+        <a href="#" class="btn-register">Kayıt Ol</a>
+    </div>
 </header>
 
 <div class="container">
-    <div class="card" style="padding:0; overflow:hidden;">
-        <div class="tradingview-widget-container">
-            <div class="tradingview-widget-container__widget"></div>
-            <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-tickers.js" async>
-            {
-              "symbols": [
-                { "proName": "OANDA:XAUUSD", "title": "Ons Altın" },
-                { "proName": "FX_IDC:XAUTRY", "title": "Gram Altın" },
-                { "proName": "FX_IDC:USDTRY", "title": "Dolar/TL" },
-                { "proName": "BITSTAMP:BTCUSD", "title": "Bitcoin" }
-              ],
-              "colorTheme": "light", "showSymbolLogo": true, "locale": "tr"
-            }
+    <div class="card" style="border-top: 4px solid var(--primary); text-align: center;">
+        <h3>📜 Günlük Strateji Analizi</h3>
+        <p style="line-height: 1.8; font-size: 16px; opacity: 0.9;">
+            Küresel piyasalarda Fed'in faiz patikasına dair belirsizlikler sürerken, BIST100 endeksi 9.200 puan seviyesindeki kritik direncini test etmeye devam ediyor...
+        </p>
+    </div>
+
+    <div id="hisseTarayici" class="tali-panel card">
+        <div style="height: 600px;">
+            <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-screener.js" async>
+            { "width": "100%", "height": 600, "defaultColumn": "overview", "market": "turkey", "showToolbar": true, "colorTheme": "light", "locale": "tr" }
             </script>
         </div>
     </div>
-</div>
 
-<div class="container">
-    
-    <div id="hisseTarayici" class="panel card">
-        <h3 style="margin-top:0;">🔍 BIST Hisse Tarayıcı</h3>
-        <div style="height: 600px;">
-            <div class="tradingview-widget-container">
-                <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-screener.js" async>
-                { "width": "100%", "height": 600, "defaultColumn": "overview", "market": "turkey", "showToolbar": true, "colorTheme": "light", "locale": "tr" }
-                </script>
-            </div>
-        </div>
+    <div id="isiharitasi" class="tali-panel card" style="background: #131722;">
+        <iframe style="width: 100%; height: 600px; border: none;" srcdoc='<html><body style="margin:0;"><div class="tradingview-widget-container"><script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-stock-heatmap.js" async>{"dataSource": "BIST","colorTheme": "dark","width": "100%","height": 600}</script></div></body></html>'></iframe>
     </div>
 
-    <div id="isiharitasi" class="panel card">
-        <h3 style="margin-top:0;">📊 BIST Piyasa Isı Haritası</h3>
-        <iframe style="width: 100%; height: 600px; border: none;" srcdoc='<html><body style="margin:0;"><div class="tradingview-widget-container"><script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-stock-heatmap.js" async>{"dataSource": "BIST","colorTheme": "light","width": "100%","height": 600}</script></div></body></html>'></iframe>
-    </div>
-
-    <div id="madenPaneli" class="panel card">
-        <h3 style="margin-top:0;">🪙 Değerli Maden Detayları</h3>
+    <div id="madenPaneli" class="tali-panel card">
         <div style="height: 500px;">
-            <div class="tradingview-widget-container">
-                <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-market-overview.js" async>
-                { "colorTheme": "light", "dateRange": "12M", "showChart": true, "locale": "tr", "width": "100%", "height": 500, "tabs": [{ "title": "Madenler", "symbols": [{ "s": "OANDA:XAUUSD" }, { "s": "FX_IDC:XAUTRY" }, { "s": "OANDA:XAGUSD" }] }] }
-                </script>
-            </div>
+            <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-market-overview.js" async>
+            { "colorTheme": "light", "width": "100%", "height": 500, "tabs": [{ "title": "Madenler", "symbols": [{ "s": "OANDA:XAUUSD" }, { "s": "FX_IDC:XAUTRY" }] }] }
+            </script>
         </div>
     </div>
 
     <div style="display: flex; gap: 20px; flex-wrap: wrap;">
-        <div class="card" style="flex: 2; min-width: 300px;">
-            <h3>📜 Günlük Strateji Analizi</h3>
-            <p style="line-height: 1.6; opacity: 0.9;">BIST100 endeksinde 9.200 puan seviyesindeki kritik direncini test etmeye devam ediyor. Küresel piyasalardaki seyir maden fiyatları üzerinde belirleyici olmaya devam edecektir...</p>
-            <div style="margin-top: 15px; padding: 15px; border: 1px dashed var(--primary); border-radius: 8px; background: rgba(0, 184, 148, 0.05); text-align: center;">
-                <a href="#" style="color: var(--text); font-weight: bold; text-decoration: none;">Analizin Tamamını Gör →</a>
-            </div>
-        </div>
-
-        <div class="card" style="flex: 1; min-width: 250px;">
-            <div class="cloud-green">🚀 YÜKSELENLER (TOP 5)</div>
+        <div class="card" style="flex: 1; min-width: 300px;">
+            <div class="cloud-green">🚀 YÜKSELEN HİSSELER</div>
             <table>
                 <tr><td>THYAO</td><td class="up">+4.52%</td></tr>
                 <tr><td>ASELS</td><td class="up">+3.85%</td></tr>
                 <tr><td>EREGL</td><td class="up">+2.90%</td></tr>
-                <tr><td>KCHOL</td><td class="up">+2.45%</td></tr>
-                <tr><td>SISE</td><td class="up">+1.90%</td></tr>
+                <tr><td>KCHOL</td><td class="up">+2.40%</td></tr>
+                <tr><td>SISE</td><td class="up">+1.95%</td></tr>
             </table>
         </div>
-
-        <div class="card" style="flex: 1; min-width: 250px;">
-            <div class="cloud-red">📉 DÜŞENLER (TOP 5)</div>
+        <div class="card" style="flex: 1; min-width: 300px;">
+            <div class="cloud-red">📉 DÜŞEN HİSSELER</div>
             <table>
                 <tr><td>SASA</td><td class="down">-3.20%</td></tr>
                 <tr><td>HEKTS</td><td class="down">-2.85%</td></tr>
                 <tr><td>ASTOR</td><td class="down">-2.15%</td></tr>
-                <tr><td>GUBRF</td><td class="down">-1.95%</td></tr>
-                <tr><td>KONTR</td><td class="down">-1.70%</td></tr>
+                <tr><td>GUBRF</td><td class="down">-1.90%</td></tr>
+                <tr><td>KONTR</td><td class="down">-1.65%</td></tr>
             </table>
         </div>
+    </div>
+
+    <div class="card" style="border-top: 4px solid #f1c40f;">
+        <h3>🧮 Döviz Çevirici</h3>
+        <div style="display: flex; gap: 15px; margin-bottom: 15px;">
+            <input type="number" id="amount" value="1" oninput="calculate()" style="flex:1; padding:10px; border-radius:8px; border:1px solid var(--border);">
+            <select id="from" onchange="calculate()" style="padding:10px; border-radius:8px; border:1px solid var(--border);">
+                <option value="TRY">TRY</option><option value="USD">USD</option>
+            </select>
+            <select id="to" onchange="calculate()" style="padding:10px; border-radius:8px; border:1px solid var(--border);">
+                <option value="USD">USD</option><option value="TRY">TRY</option>
+            </select>
+        </div>
+        <div id="result" style="text-align:center; font-weight:800; font-size:20px; padding:10px; background:rgba(241,196,15,0.1); border-radius:10px;">---</div>
     </div>
 </div>
 
 <script>
-    // TÜM PANELLERİ YÖNETEN ANA FONKSİYON
     function panelAc(id) {
-        // 1. Önce tüm panelleri gizle (Geçişlerin düzgün olması için)
-        const paneller = document.querySelectorAll('.panel');
-        paneller.forEach(p => p.style.display = 'none');
-
-        // 2. Tıklanan paneli göster
-        const hedef = document.getElementById(id);
-        if(hedef) {
-            hedef.style.display = 'block';
-            // Panelin olduğu yere yumuşakça kaydır
-            hedef.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        // Tüm tali panelleri kapat
+        document.querySelectorAll('.tali-panel').forEach(p => p.style.display = 'none');
+        // Seçileni aç
+        const target = document.getElementById(id);
+        if(target) {
+            target.style.display = 'block';
+            target.scrollIntoView({ behavior: 'smooth', block: 'start' });
         }
     }
 
-    // Başlangıçta panellerin kapalı olduğundan emin ol
-    window.onload = function() {
-        const paneller = document.querySelectorAll('.panel');
-        paneller.forEach(p => p.style.display = 'none');
+    function calculate() {
+        const amt = document.getElementById('amount').value;
+        const res = document.getElementById('result');
+        // Basit çeviri mantığı (Live rates eklenebilir)
+        res.innerHTML = amt + " İşlem Yapılıyor..."; 
     }
-</script>
 
+    window.onload = function() {
+        document.querySelectorAll('.tali-panel').forEach(p => p.style.display = 'none');
+    };
+</script>
 </body>
 </html>
