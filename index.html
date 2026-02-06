@@ -230,23 +230,28 @@ body.dark-mode .hub-text {
             </script>
         </div>
     </div>
-  <div id="iPanel" class="card tali-panel" style="padding:0; overflow:hidden; position:relative; background:#131722 !important;">
-    <button class="close-btn" onclick="closeP('iPanel')" style="position:absolute; right:10px; top:10px; z-index:99; background:#e74c3c; color:#ffffff; border:none; width:30px; height:30px; border-radius:50%; cursor:pointer; font-size:18px; font-weight:bold; display:flex; align-items:center; justify-content:center; box-shadow:0 2px 8px rgba(0,0,0,0.5);">×</button>
+  <div id="iPanel" class="card tali-panel" style="padding:0; overflow:hidden; position:relative; background:#131722 !important; border:1px solid #333;">
+    <button class="close-btn" onclick="closeP('iPanel')" style="position:absolute; right:10px; top:10px; z-index:999; background:#e74c3c; color:#ffffff; border:none; width:30px; height:30px; border-radius:50%; cursor:pointer; font-size:18px; font-weight:bold; display:flex; align-items:center; justify-content:center; box-shadow:0 2px 8px rgba(0,0,0,0.5);">×</button>
     
-    <iframe style="width:100%; height:550px; border:none; display:block; background:#131722;" 
-        srcdoc='<!DOCTYPE html><html><head><style>body{margin:0; background-color:#131722 !important;}</style></head><body>
+    <div class="tradingview-widget-container" style="height: 550px; background:#131722;">
+        <div class="tradingview-widget-container__widget"></div>
         <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-stock-heatmap.js" async>
         {
+          "exchange": "BIST",
           "dataSource": "BIST",
+          "grouping": "sector",
+          "blockSize": "market_cap_basic",
+          "blockColor": "change",
+          "locale": "tr",
+          "symbolUrl": "",
           "colorTheme": "dark",
           "hasSymbolTooltip": true,
           "isTransparent": false,
-          "displayMode": "regular",
           "width": "100%",
           "height": 550
         }
-        </script></body></html>'>
-    </iframe>
+        </script>
+    </div>
 </div>
     <div id="mPanel" class="card tali-panel" style="padding:0; overflow:hidden; position:relative;">
         <button class="close-btn" onclick="closeP('mPanel')" style="position:absolute; right:10px; top:10px; z-index:99; background:#e74c3c; color:#ffffff; border:none; width:30px; height:30px; border-radius:50%; cursor:pointer; font-size:18px; font-weight:bold; display:flex; align-items:center; justify-content:center; box-shadow:0 2px 8px rgba(0,0,0,0.3); transition: background 0.3s;" onmouseover="this.style.background='#c0392b'" onmouseout="this.style.background='#e74c3c'">×</button>
