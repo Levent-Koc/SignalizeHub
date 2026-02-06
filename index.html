@@ -210,11 +210,7 @@ body.dark-mode .hub-text {
     <div style="text-align: left; line-height: 1.8; font-size: 15px; border-top: 1px solid var(--border); margin-top: 15px; padding-top: 15px;">
         <p>Piyasa verileri ve günlük analiz notları burada yer alır. "Güncel" butonuna basarak raporun onaylanma saatini görebilirsiniz.</p>
     </div>
-</div>
-    <div style="text-align: left; line-height: 1.8; font-size: 15px; border-top: 1px solid var(--border); padding-top: 15px;">
-        <p>Piyasa verileri ve günlük analiz notları burada yer alır. Stratejik görünüme göre pozisyonlarınızı gözden geçirebilirsiniz.</p>
-    </div>
-</div>
+</div>    
     <div id="hPanel" class="card tali-panel">
         <button class="close-btn" onclick="closeP('hPanel')">KAPAT ✖</button>
         <div style="height:550px;"><script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-screener.js" async>{ "width": "100%", "height": 550, "market": "turkey", "colorTheme": "light", "locale": "tr" }</script></div>
@@ -261,15 +257,15 @@ function toggleTimePopup() {
     const popup = document.getElementById('timePopup');
     const timeSpan = document.getElementById('exactTime');
     
-    // Zamanı al
+   // Saat ve tarih bilgisini güncelle
     const simdi = new Date();
+    const tarih = simdi.toLocaleDateString('tr-TR');
     const saat = simdi.getHours().toString().padStart(2, '0');
     const dakika = simdi.getMinutes().toString().padStart(2, '0');
-    const saniye = simdi.getSeconds().toString().padStart(2, '0');
-    
-    timeSpan.innerText = `Güncellendi: ${saat}:${dakika}:${saniye}`;
-    
-    // Kutuyu aç (Yana doğru)
+  
+    timeSpan.innerText = `${tarih} - ${saat}:${dakika}`;
+
+  // Kutuyu aç (Yana doğru)
     popup.style.display = 'block';
     setTimeout(() => { popup.style.opacity = '1'; }, 10);
 
