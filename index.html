@@ -161,9 +161,9 @@ nav a:hover {
         📈 Hisse Senedi <small style="font-size: 10px;">▼</small>
     </a>
     <div class="dropdown-content">
-        <a href="javascript:void(0)" onclick="acHarita()">📊 Piyasa Isı Haritası</a>
-        <a href="#takip-listesi">📋 Takip Listem</a>
-    </div>
+    <a href="javascript:void(0)" onclick="acHarita()">📊 Piyasa Isı Haritası</a>
+    <a href="javascript:void(0)" onclick="acTarayici()">🔍 Hisse Tarayıcı</a> <a href="#takip-listesi">📋 Takip Listem</a>
+</div>
 </div>
     </a>
     <a href="#maden" style="text-decoration: none; color: var(--text); font-weight: 600; font-size: 14px; display: flex; align-items: center; gap: 6px; white-space: nowrap; transition: 0.3s;">
@@ -461,6 +461,35 @@ function acHarita() {
     // Sayfayı yumuşak bir şekilde haritaya kaydır
     x.scrollIntoView({ behavior: 'smooth', block: 'center' });
 }
+function acTarayici() {
+    var y = document.getElementById("hisseTarayici");
+    y.style.display = "block";
+    y.scrollIntoView({ behavior: 'smooth', block: 'center' });
+}
 </script>
+<div id="hisseTarayici" style="display: none; width: 95%; max-width: 1100px; margin: 30px auto; background: #ffffff; padding: 20px; border-radius: 12px; border-top: 4px solid #2962ff; box-shadow: 0 10px 30px rgba(0,0,0,0.2);">
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+        <h3 style="color: #333; margin: 0; font-size: 16px;">🔍 BIST Hisse Takipçisi / Tarayıcı</h3>
+        <button onclick="document.getElementById('hisseTarayici').style.display='none'" style="background: #ff4757; color: white; border: none; padding: 5px 12px; border-radius: 6px; cursor: pointer; font-weight: bold; font-size: 12px;">Kapat</button>
+    </div>
+    
+    <div style="height: 550px; border-radius: 8px; overflow: hidden;">
+        <div class="tradingview-widget-container">
+            <div class="tradingview-widget-container__widget"></div>
+            <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-screener.js" async>
+            {
+              "width": "100%",
+              "height": "100%",
+              "defaultColumn": "overview",
+              "defaultScreen": "most_capitalized",
+              "market": "turkey",
+              "showToolbar": true,
+              "colorTheme": "light",
+              "locale": "tr"
+            }
+            </script>
+        </div>
+    </div>
+</div>
 </body>
 </html>
