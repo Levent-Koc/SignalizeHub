@@ -189,22 +189,23 @@ body.dark-mode .hub-text {
 </header>
 <div class="card" id="topCard" style="padding:30px; border-top: 4px solid var(--primary);">
     <div style="display: flex; justify-content: space-between; align-items: center;">
-       <div style="text-align: left; display: flex; align-items: center; gap: 10px;">
+      <div style="text-align: left; display: flex; align-items: center; gap: 10px;">
     <h3 style="margin: 0;">📜 Günlük Strateji Raporu</h3>
     
     <div style="position: relative; display: flex; align-items: center;">
-        <button onclick="toggleTimePopup()" id="updateBtn" style="background: var(--primary); color: white; border: none; padding: 5px 12px; border-radius: 6px; cursor: pointer; font-weight: bold; font-size: 11px; transition: 0.3s; box-shadow: 0 2px 4px rgba(0,0,0,0.1); white-space: nowrap;">
-            🔄 GÜNCEL
+        
+        <button onclick="toggleTimePopup()" id="updateBtn" style="background: var(--primary); color: white; border: none; padding: 5px 12px; border-radius: 6px; cursor: pointer; font-weight: bold; font-size: 11px; transition: 0.3s; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+            🔄 GÜNCELLEME
         </button>
 
-        <div id="timePopup" style="display: none; position: absolute; left: 110%; top: 50%; transform: translateY(-50%); background: var(--header-bg); border: 1px solid var(--primary); padding: 4px 10px; border-radius: 4px; box-shadow: 0 3px 10px rgba(0,0,0,0.1); z-index: 100; white-space: nowrap; font-size: 11px; font-weight: 600; color: var(--text); opacity: 0;">
+        <div id="timePopup" style="display: none; position: absolute; left: 105%; top: 50%; transform: translateY(-50%); background: var(--header-bg); border: 1px solid var(--primary); padding: 4px 10px; border-radius: 4px; box-shadow: 0 3px 10px rgba(0,0,0,0.1); z-index: 1000; white-space: nowrap; font-size: 11px; font-weight: 600; color: var(--text); opacity: 0; pointer-events: none;">
             <span style="color: var(--primary);">✔</span> <span id="exactTime">--:--</span>
         </div>
     </div>
 </div>
-    <div style="text-align: left; line-height: 1.8; font-size: 15px; border-top: 1px solid var(--border); margin-top: 15px; padding-top: 15px;">
-        <p>Piyasa verileri ve günlük analiz notları burada yer alır. "Güncel" butonuna tıklayarak son onay zamanını görebilirsiniz.</p>
-    </div>
+
+<div style="text-align: left; line-height: 1.8; font-size: 15px; border-top: 1px solid var(--border); margin-top: 15px; padding-top: 15px;">
+    <p>BIST100 endeksi verilerine dayalı günlük stratejik görünüm ve piyasa notları burada yer alır.</p>
 </div>
 
     <div id="hPanel" class="card tali-panel">
