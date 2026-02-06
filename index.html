@@ -361,11 +361,35 @@ body.dark-mode .hub-text {
 </div>
      </div>
 </div>
-
 <div class="ticker-bar">
-    <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-ticker-tape.js" async>{ "symbols": [{ "proName": "FX_IDC:USDTRY", "title": "USD/TRY" },{ "proName": "OANDA:XAUUSD", "title": "Altın" }], "colorTheme": "light", "locale": "tr" }</script>
+    <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-ticker-tape.js" async>
+    {
+      "symbols": [
+        { "proName": "BITSTAMP:BTCUSD", "description": "Bitcoin" },
+        { "proName": "BITSTAMP:ETHUSD", "description": "Ethereum" },
+        { "proName": "BINANCE:SOLUSD", "description": "Solana" },
+        { "proName": "BITSTAMP:XRPUSD", "description": "Ripple" },
+        { "proName": "BINANCE:ADAUSD", "description": "Cardano" },
+        { "proName": "OANDA:XAUUSD", "description": "Ons Altın" },
+        { "proName": "FX_IDC:XAUTRY", "description": "Gram Altın" },
+        { "proName": "OANDA:XAGUSD", "description": "Gümüş" },
+        { "proName": "OANDA:XPTUSD", "description": "Platin" },
+        { "proName": "FX_IDC:EURUSD", "description": "EUR / USD" },
+        { "proName": "FX_IDC:EURTRY", "description": "EUR / TL" },
+        { "proName": "FX_IDC:USDTRY", "description": "USD / TL" },
+        { "proName": "BIST:XU100", "description": "BIST 100" },
+        { "proName": "BIST:XU030", "description": "BIST 30" },
+        { "proName": "TVC:UKOIL", "description": "Brent Petrol" },
+        { "proName": "NASDAQ:NDX", "description": "Nasdaq 100" }
+      ],
+      "showSymbolLogo": true,
+      "colorTheme": "dark",
+      "isTransparent": false,
+      "displayMode": "adaptive",
+      "locale": "tr"
+    }
+    </script>
 </div>
-
 <script>
 function toggleTimePopup() {
     const popup = document.getElementById('timePopup');
