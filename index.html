@@ -855,75 +855,85 @@ function updatePaymentUI(el) {
     }
 }
 <script>
-        // 1. Üstteki butonlardan gelen isteği yakalayan fonksiyon
-        function openModalWithTab(tabName) {
-            document.getElementById('membershipModal').style.display = 'flex';
-            switchTab(tabName);
-        }
+/**
+ * HUB ÜYELİK SİSTEMİ ANA KONTROL MERKEZİ
+ */
 
-        // 2. Sekmeler arası geçiş ve RENK YÖNETİMİ
-        function switchTab(tab) {
-            const loginArea = document.getElementById('loginFormArea');
-            const regArea = document.getElementById('registerFormArea');
-            const tabL = document.getElementById('tabLogin');
-            const tabR = document.getElementById('tabRegister');
+// 1. MODALI AÇAN KÖPRÜ FONKSİYONLAR
+function handleMembership() {
+    // Takip listesi butonları burayı tetikler
+    openModalWithTab('login');
+}
 
-            if(tab === 'login') {
-                loginArea.style.display = 'block';
-                regArea.style.display = 'none';
-                // Giriş Sekmesi: Aktif Turkuaz
-                tabL.style.background = '#fff'; 
-                tabL.style.color = '#00d1ff'; 
-                tabL.style.borderBottom = '3px solid #00d1ff';
-                // Kayıt Sekmesi: Pasif Gri
-                tabR.style.background = '#f8f9fa'; 
-                tabR.style.color = '#999';
-                tabR.style.borderBottom = 'none';
-            } else {
-                loginArea.style.display = 'none';
-                regArea.style.display = 'block';
-                // Kayıt Sekmesi: Aktif Turkuaz (Burayı sabitledik!)
-                tabR.style.background = '#fff'; 
-                tabR.style.color = '#00d1ff'; 
-                tabR.style.borderBottom = '3px solid #00d1ff';
-                // Giriş Sekmesi: Pasif Gri
-                tabL.style.background = '#f8f9fa'; 
-                tabL.style.color = '#999';
-                tabL.style.borderBottom = 'none';
-            }
-        }
+function openModalWithTab(tabName) {
+    const modal = document.getElementById('membershipModal');
+    if (modal) {
+        modal.style.display = 'flex'; // Paneli görünür yapar
+        switchTab(tabName);          // Doğru sekmeye (Giriş veya Kayıt) odaklar
+    } else {
+        alert("Hata: 'membershipModal' ID'li panel bulunamadı!");
+    }
+}
 
-        // 3. Modalı Kapatma
-        function closeMembershipModal() {
-            document.getElementById('membershipModal').style.display = 'none';
-        }
+// 2. MODALI KAPATAN FONKSİYON
+function closeMembershipModal() {
+    const modal = document.getElementById('membershipModal');
+    if (modal) modal.style.display = 'none';
+}
 
-        // 4. Takip Listesi butonları için (Varsayılan olarak girişi açar)
-        function handleMembership() {
-            openModalWithTab('login');
-        }
+// 3. SEKMELER VE RENK YÖNETİMİ (TURKUAZ SABİTLEME)
+function switchTab(tab) {
+    const loginArea = document.getElementById('loginFormArea');
+    const regArea = document.getElementById('registerFormArea');
+    const tabL = document.getElementById('tabLogin');
+    const tabR = document.getElementById('tabRegister');
 
-        // 5. Ödeme UI Güncelleme (Bunu da buraya ekle)
-        function updatePaymentUI(el) {
-            const cardBox = document.getElementById('cardBox');
-            const eftBox = document.getElementById('eftBox');
-            const cardDetails = document.getElementById('cardDetails');
+    if (tab === 'login') {
+        if(loginArea) loginArea.style.display = 'block';
+        if(regArea) regArea.style.display = 'none';
+        // Giriş Sekmesi: Aktif (Turkuaz)
+        tabL.style.color = '#00d1ff'; 
+        tabL.style.borderBottom = '3px solid #00d1ff';
+        tabL.style.background = '#fff';
+        // Kayıt Sekmesi: Pasif
+        tabR.style.color = '#999';
+        tabR.style.borderBottom = 'none';
+        tabR.style.background = '#f8f9fa';
+    } else {
+        if(loginArea) loginArea.style.display = 'none';
+        if(regArea) regArea.style.display = 'block';
+        // Kayıt Sekmesi: Aktif (Turkuaz)
+        tabR.style.color = '#00d1ff'; 
+        tabR.style.borderBottom = '3px solid #00d1ff';
+        tabR.style.background = '#fff';
+        // Giriş Sekmesi: Pasif
+        tabL.style.color = '#999';
+        tabL.style.borderBottom = 'none';
+        tabL.style.background = '#f8f9fa';
+    }
+}
 
-            if (el.value === 'card') {
-                cardBox.style.borderColor = '#00d1ff';
-                cardBox.style.background = '#f0fbff';
-                eftBox.style.borderColor = '#eee';
-                eftBox.style.background = '#fff';
-                cardDetails.innerHTML = "Ödeme işleminiz 256-bit SSL sertifikalı güvenli altyapı ile tamamlanacaktır.";
-            } else {
-                eftBox.style.borderColor = '#00d1ff';
-                eftBox.style.background = '#f0fbff';
-                cardBox.style.borderColor = '#eee';
-                cardBox.style.background = '#fff';
-                cardDetails.innerHTML = "<strong>IBAN Bilgileri:</strong> TR00 0000 0000 0000... <br> (Lütfen açıklama kısmına e-posta adresinizi yazınız.)";
-            }
-        }
-    </script>
+// 4. ÖDEME SEÇENEĞİ UI GÜNCELLEME
+function updatePaymentUI(el) {
+    const cardBox = document.getElementById('cardBox');
+    const eftBox = document.getElementById('eftBox');
+    const cardDetails = document.getElementById('cardDetails');
+
+    if (el.value === 'card') {
+        cardBox.style.borderColor = '#00d1ff';
+        cardBox.style.background = '#f0fbff';
+        eftBox.style.borderColor = '#eee';
+        eftBox.style.background = '#fff';
+        cardDetails.innerHTML = "Ödeme işleminiz 256-bit SSL sertifikalı güvenli altyapı ile tamamlanacaktır.";
+    } else {
+        eftBox.style.borderColor = '#00d1ff';
+        eftBox.style.background = '#f0fbff';
+        cardBox.style.borderColor = '#eee';
+        cardBox.style.background = '#fff';
+        cardDetails.innerHTML = "<strong>IBAN Bilgileri:</strong> TR00 0000 0000 0000... <br> (Lütfen açıklama kısmına e-posta adresinizi yazınız.)";
+    }
+}
+</script>
 </body>
 </html>
 </script>
