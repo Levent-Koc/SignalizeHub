@@ -833,14 +833,16 @@ function closeMembershipModal() {
     </div>
 </div>
 <div id="loginRequiredPanel" class="tali-panel-yeni" style="display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 90%; max-width: 400px; background: white; z-index: 10020; border-radius: 20px; box-shadow: 0 0 40px rgba(0,0,0,0.5); text-align: center; padding: 30px; font-family: sans-serif;">
+    
     <div onclick="this.parentElement.style.display='none'" style="position: absolute; right: 15px; top: 10px; color: #999; cursor: pointer; font-size: 24px;">×</div>
     
     <div style="font-size: 50px; margin-bottom: 15px;">🔒</div>
-    <h3 style="margin-bottom: 10px; color: #333;">Takip Listesi Size Özeldir</h3>
-    <p style="color: #666; font-size: 14px; margin-bottom: 25px;">Kendi listenizi oluşturmak ve fiyatları anlık takip etmek için lütfen giriş yapın veya kayıt olun.</p>
+    <h3 style="margin-bottom: 10px; color: #333;">Takip Listesi Üyelere Özeldir</h3>
+    <p style="color: #666; font-size: 14px; margin-bottom: 25px;">Kendi listenizi oluşturmak ve piyasayı takip etmek için lütfen hesabınıza giriş yapın veya yeni bir üyelik oluşturun.</p>
     
-    <button onclick="document.getElementById('loginRequiredPanel').style.display='none'; openModal('loginModal');" style="width: 100%; padding: 12px; margin-bottom: 10px; border-radius: 10px; border: none; background: #007bff; color: white; font-weight: bold; cursor: pointer;">Giriş Yap</button>
-    <button onclick="document.getElementById('loginRequiredPanel').style.display='none'; openModal('registerModal');" style="width: 100%; padding: 12px; border-radius: 10px; border: 1px solid #007bff; background: white; color: #007bff; font-weight: bold; cursor: pointer;">Ücretsiz Kayıt Ol</button>
+    <button onclick="document.getElementById('loginRequiredPanel').style.display='none'; openModal('loginModal');" style="width: 100%; padding: 12px; margin-bottom: 10px; border-radius: 10px; border: none; background: #007bff; color: white; font-weight: bold; cursor: pointer; transition: 0.3s;">Giriş Yap</button>
+    
+    <button onclick="document.getElementById('loginRequiredPanel').style.display='none'; openModal('registerModal');" style="width: 100%; padding: 12px; border-radius: 10px; border: 1px solid #007bff; background: white; color: #007bff; font-weight: bold; cursor: pointer; transition: 0.3s;">Kayıt Ol / Üye Ol</button>
 </div>
 <script>
 let isLoggedIn = false;
