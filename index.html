@@ -756,7 +756,32 @@ function handleMembership(kategori) {
                     <input type="email" required class="smart-input">
                     <label class="floating-label">E-posta</label>
                 </div>
-                <button style="width: 100%; padding: 14px; border-radius: 10px; border: none; background: #2ecc71; color: #fff; font-weight: bold; cursor: pointer;">Ücretsiz Kayıt Ol</button>
+<div style="margin-top: 10px; margin-bottom: 20px;">
+    <label style="font-size: 12px; color: #888; font-weight: bold; display: block; margin-bottom: 10px; border-left: 3px solid #00d1ff; padding-left: 8px;">📊 ÖDEME YÖNTEMİ SEÇİN</label>
+    
+    <div style="display: flex; gap: 10px;">
+        <label style="flex: 1; position: relative; cursor: pointer;">
+            <input type="radio" name="payment" value="card" checked style="display:none;" onchange="updatePaymentUI(this)">
+            <div class="pay-box active-pay" id="cardBox" style="border: 2px solid #00d1ff; padding: 10px; border-radius: 10px; text-align: center; transition: 0.3s;">
+                <span style="font-size: 20px;">💳</span>
+                <div style="font-size: 11px; font-weight: bold; margin-top: 5px;">Kredi Kartı</div>
+            </div>
+        </label>
+
+        <label style="flex: 1; position: relative; cursor: pointer;">
+            <input type="radio" name="payment" value="eft" style="display:none;" onchange="updatePaymentUI(this)">
+            <div class="pay-box" id="eftBox" style="border: 2px solid #eee; padding: 10px; border-radius: 10px; text-align: center; transition: 0.3s;">
+                <span style="font-size: 20px;">🏦</span>
+                <div style="font-size: 11px; font-weight: bold; margin-top: 5px;">Havale / EFT</div>
+            </div>
+        </label>
+    </div>
+</div>
+
+<div id="cardDetails" style="background: #fdfdfd; border: 1px dashed #00d1ff; padding: 10px; border-radius: 8px; margin-bottom: 20px; font-size: 11px; color: #555;">
+    ℹ️ Bir sonraki adımda güvenli ödeme sayfasına (iyzico/troy) yönlendirileceksiniz.
+</div>
+                <button style="width: 100%; padding: 14px; border-radius: 10px; border: none; background: #2ecc71; color: #fff; font-weight: bold; cursor: pointer;">Kayıt Ol ve Devam Et</button>
             </div>
 
             <button onclick="closeMembershipModal()" style="width: 100%; margin-top: 25px; background: none; border: none; color: #bbb; cursor: pointer; font-size: 12px;">Vazgeç ve Kapat</button>
@@ -802,6 +827,25 @@ function handleMembership(kategori) {
             tabR.style.background = '#fff'; tabR.style.color = '#2ecc71';
         }
     }
+function updatePaymentUI(el) {
+    const cardBox = document.getElementById('cardBox');
+    const eftBox = document.getElementById('eftBox');
+    const cardDetails = document.getElementById('cardDetails');
+
+    if (el.value === 'card') {
+        cardBox.style.borderColor = '#00d1ff';
+        cardBox.style.background = '#f0fbff';
+        eftBox.style.borderColor = '#eee';
+        eftBox.style.background = '#fff';
+        cardDetails.innerText = "ℹ️ Bir sonraki adımda güvenli ödeme sayfasına yönlendirileceksiniz.";
+    } else {
+        eftBox.style.borderColor = '#00d1ff';
+        eftBox.style.background = '#f0fbff';
+        cardBox.style.borderColor = '#eee';
+        cardBox.style.background = '#fff';
+        cardDetails.innerText = "ℹ️ Kayıt sonrası banka hesap bilgilerimiz e-posta adresinize gönderilecektir.";
+    }
+}
 </script>
 </body>
 </html>
