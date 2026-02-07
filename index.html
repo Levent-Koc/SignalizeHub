@@ -709,65 +709,84 @@ function handleMembership(kategori) {
     alert(kategori + " Takip Listesi sadece üyelerimize özeldir. Lütfen Giriş Yapın veya Kayıt Olun.");
 }
 </script>
-<div id="membershipModal" style="display:none; position: fixed; z-index: 9999; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.85); backdrop-filter: blur(5px); align-items: center; justify-content: center;">
+<div id="membershipModal" style="display:none; position: fixed; z-index: 9999; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.4); backdrop-filter: blur(8px); align-items: center; justify-content: center;">
     
-    <div style="background: #1a1a1a; width: 400px; border-radius: 15px; border: 1px solid rgba(0,209,255,0.2); overflow: hidden; font-family: sans-serif; box-shadow: 0 20px 50px rgba(0,0,0,0.5);">
+    <div style="background: #ffffff; width: 420px; border-radius: 20px; overflow: hidden; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; box-shadow: 0 25px 50px rgba(0,0,0,0.15); border: 1px solid #eee;">
         
-        <div style="display: flex; background: #252525;">
-            <button id="tabLogin" onclick="switchTab('login')" style="flex: 1; padding: 15px; border: none; background: #1a1a1a; color: #00d1ff; cursor: pointer; font-weight: bold; font-size: 14px;">GİRİŞ YAP</button>
-            <button id="tabRegister" onclick="switchTab('register')" style="flex: 1; padding: 15px; border: none; background: #252525; color: #888; cursor: pointer; font-weight: bold; font-size: 14px;">KAYIT OL</button>
+        <div style="display: flex; background: #f8f9fa; border-bottom: 1px solid #eee;">
+            <button id="tabLogin" onclick="switchTab('login')" style="flex: 1; padding: 18px; border: none; background: #fff; color: #00d1ff; cursor: pointer; font-weight: bold; font-size: 14px; transition: 0.3s;">GİRİŞ YAP</button>
+            <button id="tabRegister" onclick="switchTab('register')" style="flex: 1; padding: 18px; border: none; background: #f8f9fa; color: #999; cursor: pointer; font-weight: bold; font-size: 14px; transition: 0.3s;">KAYIT OL</button>
         </div>
 
-        <div style="padding: 30px;">
+        <div style="padding: 35px;">
             <div id="loginForm">
-                <input type="text" placeholder="E-posta veya Kullanıcı Adı" style="width: 100%; padding: 12px; margin-bottom: 15px; border-radius: 8px; border: 1px solid #333; background: #111; color: #fff; outline: none;">
-                <input type="password" placeholder="Şifre" style="width: 100%; padding: 12px; margin-bottom: 20px; border-radius: 8px; border: 1px solid #333; background: #111; color: #fff; outline: none;">
-                <button style="width: 100%; padding: 12px; border-radius: 8px; border: none; background: #00d1ff; color: #000; font-weight: bold; cursor: pointer; transition: 0.3s;">OTURUM AÇ</button>
-                <p style="color: #666; font-size: 12px; text-align: center; margin-top: 15px; cursor: pointer;">Şifremi Unuttum</p>
+                <div class="input-group">
+                    <input type="text" required class="smart-input">
+                    <label class="floating-label">E-posta veya Kullanıcı Adı</label>
+                </div>
+                <div class="input-group">
+                    <input type="password" required class="smart-input">
+                    <label class="floating-label">Şifre</label>
+                </div>
+                <button style="width: 100%; padding: 14px; border-radius: 10px; border: none; background: #00d1ff; color: #fff; font-weight: bold; cursor: pointer; box-shadow: 0 4px 12px rgba(0,209,255,0.3); margin-top: 10px;">Giriş Yap</button>
+                <p style="color: #00d1ff; font-size: 12px; text-align: center; margin-top: 20px; cursor: pointer; font-weight: 500;">Şifremi Unuttum?</p>
             </div>
 
             <div id="registerForm" style="display: none;">
-                <input type="text" placeholder="Ad Soyad" style="width: 100%; padding: 12px; margin-bottom: 15px; border-radius: 8px; border: 1px solid #333; background: #111; color: #fff; outline: none;">
-                <input type="email" placeholder="E-posta Adresi" style="width: 100%; padding: 12px; margin-bottom: 15px; border-radius: 8px; border: 1px solid #333; background: #111; color: #fff; outline: none;">
-                <input type="password" placeholder="Şifre Oluştur" style="width: 100%; padding: 12px; margin-bottom: 20px; border-radius: 8px; border: 1px solid #333; background: #111; color: #fff; outline: none;">
-                <button style="width: 100%; padding: 12px; border-radius: 8px; border: none; background: #00ff88; color: #000; font-weight: bold; cursor: pointer;">HESAP OLUŞTUR</button>
+                <div class="input-group">
+                    <input type="text" required class="smart-input">
+                    <label class="floating-label">Ad Soyad</label>
+                </div>
+                
+                <div style="display: flex; gap: 10px; margin-bottom: 20px;">
+                    <div style="width: 100px; position: relative;">
+                        <select style="width: 100%; padding: 12px; border-radius: 10px; border: 1px solid #ddd; background: #f9f9f9; font-size: 13px; outline: none; appearance: none;">
+                            <option value="TR">🇹🇷 +90</option>
+                            <option value="US">🇺🇸 +1</option>
+                            <option value="DE">🇩🇪 +49</option>
+                        </select>
+                    </div>
+                    <div class="input-group" style="flex: 1; margin-bottom: 0;">
+                        <input type="tel" required class="smart-input">
+                        <label class="floating-label">Telefon Numarası</label>
+                    </div>
+                </div>
+
+                <div class="input-group">
+                    <input type="email" required class="smart-input">
+                    <label class="floating-label">E-posta Adresi</label>
+                </div>
+                <div class="input-group">
+                    <input type="password" required class="smart-input">
+                    <label class="floating-label">Güçlü Şifre Oluştur</label>
+                </div>
+                <button style="width: 100%; padding: 14px; border-radius: 10px; border: none; background: #2ecc71; color: #fff; font-weight: bold; cursor: pointer; box-shadow: 0 4px 12px rgba(46,204,113,0.3);">Ücretsiz Kayıt Ol</button>
             </div>
 
-            <button onclick="closeModal()" style="width: 100%; margin-top: 20px; background: none; border: none; color: #555; cursor: pointer; font-size: 12px;">Vazgeç, Sayfaya Dön</button>
+            <button onclick="closeModal()" style="width: 100%; margin-top: 25px; background: none; border: none; color: #bbb; cursor: pointer; font-size: 12px;">Vazgeç ve Kapat</button>
         </div>
     </div>
 </div>
 
-<script>
-    // Paneli Açan Fonksiyon (Takip listesi butonları bunu tetikleyecek)
-    function handleMembership(kategori) {
-        document.getElementById('membershipModal').style.display = 'flex';
-    }
+<style>
+/* Akıllı Giriş Kutusu CSS (Placeholder Animasyonu) */
+.input-group { position: relative; margin-bottom: 20px; }
+.smart-input {
+    width: 100%; padding: 12px; border-radius: 10px; border: 1px solid #ddd; 
+    background: #fff; outline: none; transition: 0.3s; font-size: 14px; box-sizing: border-box;
+}
+.smart-input:focus { border-color: #00d1ff; background: #f0fbff; }
 
-    // Paneli Kapatan Fonksiyon
-    function closeModal() {
-        document.getElementById('membershipModal').style.display = 'none';
-    }
-
-    // Sekme Değiştirme (Giriş / Kayıt)
-    function switchTab(tab) {
-        const loginF = document.getElementById('loginForm');
-        const regF = document.getElementById('registerForm');
-        const tabL = document.getElementById('tabLogin');
-        const tabR = document.getElementById('tabRegister');
-
-        if(tab === 'login') {
-            loginF.style.display = 'block';
-            regF.style.display = 'none';
-            tabL.style.background = '#1a1a1a'; tabL.style.color = '#00d1ff';
-            tabR.style.background = '#252525'; tabR.style.color = '#888';
-        } else {
-            loginF.style.display = 'none';
-            regF.style.display = 'block';
-            tabL.style.background = '#252525'; tabL.style.color = '#888';
-            tabR.style.background = '#1a1a1a'; tabR.style.color = '#00ff88';
-        }
-    }
-</script>
+/* Floating Label Efekti */
+.floating-label {
+    position: absolute; left: 12px; top: 12px; color: #aaa; 
+    transition: 0.2s ease all; pointer-events: none; font-size: 14px;
+}
+/* Kutuya tıklandığında veya doluyken yazıyı yukarı itme */
+.smart-input:focus ~ .floating-label,
+.smart-input:valid ~ .floating-label {
+    top: -18px; left: 5px; font-size: 11px; color: #00d1ff; font-weight: bold;
+}
+</style>
 </body>
 </html>
