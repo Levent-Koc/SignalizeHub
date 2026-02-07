@@ -317,38 +317,24 @@ nav {
     }
 </style>
 
-<div id="hPanel" class="tali-panel-yeni" style="display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 95%; max-width: 1100px; background: white; z-index: 10005; border-radius: 15px; border-top: 5px solid #007bff; overflow: hidden; font-family: sans-serif; box-shadow: 0 0 30px rgba(0, 123, 255, 0.4);">
+<div id="hPanel" class="tali-panel-yeni" style="display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 95%; max-width: 1100px; background: white; z-index: 10005; border-radius: 15px; border-top: 5px solid #00d1ff; overflow: hidden; font-family: sans-serif; box-shadow: 0 0 30px rgba(0, 0, 0, 0.4);">
     
     <div onclick="this.parentElement.style.display='none'" 
-         style="position: absolute; right: 15px; top: 12px; color: #ff4d4d; cursor: pointer; font-size: 32px; font-weight: bold; line-height: 1; transition: 0.3s; z-index: 10010;"
-         onmouseover="this.style.color='#ff1a1a'; this.style.transform='scale(1.1)';" 
-         onmouseout="this.style.color='#ff4d4d'; this.style.transform='scale(1)';">
+         style="position: absolute; right: 15px; top: 12px; color: #ff4d4d; cursor: pointer; font-size: 32px; font-weight: bold; line-height: 1; z-index: 10010;">
          ×
     </div>
 
     <div style="padding: 20px; background: white;">
         <h3 style="margin-top:0; color:#0056b3; font-size: 18px; border-bottom: 2px solid #f0f7ff; padding-bottom: 10px; display: flex; align-items: center; gap: 10px;">
-            <span style="font-size: 20px;">📈</span> Borsa İstanbul Hisse Takipçisi
+            <span style="font-size: 20px;">📈</span> Borsa İstanbul Hisse Tarayıcı
         </h3>
         
         <div style="height:500px; border: 1px solid #e0eefb; border-radius: 8px; overflow: hidden;"> 
-            <div class="tradingview-widget-container">
-                <div class="tradingview-widget-container__widget"></div>
-                <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-screener.js" async>
-                {
-                  "width": "100%",
-                  "height": "100%",
-                  "defaultColumn": "overview",
-                  "defaultScreen": "most_capitalized",
-                  "market": "turkey",
-                  "showToolbar": true,
-                  "colorTheme": "light",
-                  "locale": "tr",
-                  "isTransparent": false
-                }
-                </script>
-            </div>
+            <iframe src="https://s.tradingview.com/embed-widget/screener/?locale=tr#%7B%22width%22%3A%22100%25%22%2C%22height%22%3A%22100%25%22%2C%22defaultColumn%22%3A%22overview%22%2C%22defaultScreen%22%3A%22most_capitalized%22%2C%22market%22%3A%22turkey%22%2C%22showToolbar%22%3Atrue%2C%22colorTheme%22%3A%22light%22%2C%22isTransparent%22%3Afalse%7D" 
+                    style="width: 100%; height: 100%; border: none;"></iframe>
         </div>
+    </div>
+</div>
         <p style="color: #007bff; font-size: 11px; text-align: right; margin-top: 10px; font-weight: bold; opacity: 0.7;">
             SinyalizeHub Veri Akışı • BIST Canlı Veri
         </p>
@@ -437,14 +423,24 @@ nav {
         </p>
     </div>
 </div>
-<div id="mPanel" class="tali-panel-yeni" style="display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 90%; max-width: 800px; background: white; z-index: 10005; box-shadow: 0 20px 50px rgba(0,0,0,0.3); border-radius: 15px; border-top: 5px solid #f1c40f; overflow: hidden;">
+<div id="mPanel" class="tali-panel-yeni" style="display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 90%; max-width: 900px; background: white; z-index: 10005; box-shadow: 0 20px 50px rgba(0,0,0,0.3); border-radius: 15px; border-top: 5px solid #f1c40f; overflow: hidden; font-family: sans-serif;">
     
     <div onclick="this.parentElement.style.display='none'" 
-         style="position: absolute; right: 15px; top: 10px; color: #ff4d4d; cursor: pointer; font-size: 32px; font-weight: bold; line-height: 1; transition: 0.3s; z-index: 10010; font-family: Arial, sans-serif;"
-         onmouseover="this.style.color='#ff1a1a'; this.style.transform='scale(1.1)';" 
-         onmouseout="this.style.color='#ff4d4d'; this.style.transform='scale(1)';">
+         style="position: absolute; right: 15px; top: 10px; color: #ff4d4d; cursor: pointer; font-size: 32px; font-weight: bold; line-height: 1; z-index: 10010;">
          ×
     </div>
+
+    <div style="padding: 20px;">
+        <h3 style="margin-top:0; color:#856404; font-size: 18px; border-bottom: 2px solid #fff3cd; padding-bottom: 10px; display: flex; align-items: center; gap: 10px;">
+            <span>🟡</span> Değerli Maden Analizleri
+        </h3>
+        
+        <div style="height:500px; border: 1px solid #ffeeba; border-radius: 8px; overflow: hidden;"> 
+            <iframe src="https://s.tradingview.com/embed-widget/markets/?locale=tr#%7B%22filter%22%3A%22commodities%22%2C%22colorTheme%22%3A%22light%22%2C%22isTransparent%22%3Afalse%2C%22width%22%3A%22100%25%22%2C%22height%22%3A%22100%25%22%7D" 
+                    style="width: 100%; height: 100%; border: none;"></iframe>
+        </div>
+    </div>
+</div>
 
     <div style="padding: 20px;">
         <h3 style="margin-top:0; color:#F3BA29; font-family: sans-serif; font-size: 18px; border-bottom: 1px solid rgba(243, 186, 41, 0.2); padding-bottom: 10px;">
@@ -801,6 +797,27 @@ function updatePaymentUI(el) {
         if(eB) { eB.style.borderColor = '#00d1ff'; eB.style.background = '#f0fbff'; }
         if(cB) { cB.style.borderColor = '#eee'; cB.style.background = '#fff'; }
         if(cD) cD.innerHTML = "IBAN: TR00 0000 0000... <br> (Açıklamaya kayıtlı emailinizi yazınız)";
+    }
+}
+function openP(id) {
+    // Önce tüm panelleri ve modalları gizleyelim
+    const allPanels = ['hPanel', 'iPanel', 'mPanel', 'kPanel', 'dPanel'];
+    allPanels.forEach(pId => {
+        const p = document.getElementById(pId);
+        if (p) p.style.display = 'none';
+    });
+
+    // İstenen paneli açalım
+    const hedef = document.getElementById(id);
+    if (hedef) {
+        hedef.style.display = 'block';
+        // Panelin görünür olduğundan emin olmak için flex kullanıyorsan flex yap
+        if(id === 'hPanel' || id === 'iPanel' || id === 'mPanel') {
+            hedef.style.display = 'block';
+        }
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    } else {
+        console.error("Panel bulunamadı: " + id);
     }
 }
 function openP(id) {
