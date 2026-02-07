@@ -696,27 +696,28 @@ function updatePaymentUI(el) {
         if(cD) cD.innerHTML = "IBAN: TR00 0000 0000... <br> (Açıklamaya kayıtlı emailinizi yazınız)";
     }
 }
+// Bu değişkeni sakın unutma, fonksiyonun hemen üstünde dursun
+let isLoggedIn = false; 
+
 function openP(id) {
-    // 1. Önce TÜM panelleri gizle (eski ve yeni fark etmeksizin)
-    const tumPaneller = ['hPanel', 'iPanel', 'mPanel', 'kPanel', 'dPanel', 'pPanel'];
-    tumPaneller.forEach(pId => {
-        const p = document.getElementById(pId);
-        if (p) p.style.display = 'none';
-    });
+    // 1. KONTROL: Takip Listem (pPanel) açılmak isteniyor ve kullanıcı giriş yapmamışsa
+    if (id === 'pPanel' && !isLoggedIn) {
+        // Her şeyi gizle
+        document.querySelectorAll('.tali-panel-yeni, .tali-panel').forEach(p => p.style.display = 'none');
+        // Giriş Gerekli uyarısını göster
+        document.getElementById('loginRequiredPanel').style.display = 'block';
+        return; // Fonksiyonu durdur
+    }
 
-    // 2. Yeni sınıf sistemini kullananları da gizle
-    document.querySelectorAll('.tali-panel-yeni, .tali-panel').forEach(panel => {
-        panel.style.display = 'none';
-    });
-
-    // 3. İstenen paneli aç
+    // 2. NORMAL AKIŞ: Diğer paneller için (h, i, m, k, d) veya giriş yapılmışsa
+    document.querySelectorAll('.tali-panel-yeni, .tali-panel').forEach(p => p.style.display = 'none');
+    
     const hedef = document.getElementById(id);
     if (hedef) {
         hedef.style.display = 'block';
         window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 }
-
 // PANEL KAPATMA FONKSİYONU
 function closeP(id) { 
     var p = document.getElementById(id);
@@ -811,7 +812,16 @@ function closeMembershipModal() {
         </div>
     </div>
 </div>
-
+<div id="loginRequiredPanel" class="tali-panel-yeni" style="display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 90%; max-width: 400px; background: white; z-index: 10020; border-radius: 20px; box-shadow: 0 0 40px rgba(0,0,0,0.5); text-align: center; padding: 30px; font-family: sans-serif;">
+    <div onclick="this.parentElement.style.display='none'" style="position: absolute; right: 15px; top: 10px; color: #999; cursor: pointer; font-size: 24px;">×</div>
+    
+    <div style="font-size: 50px; margin-bottom: 15px;">🔒</div>
+    <h3 style="margin-bottom: 10px; color: #333;">Takip Listesi Size Özeldir</h3>
+    <p style="color: #666; font-size: 14px; margin-bottom: 25px;">Kendi listenizi oluşturmak ve fiyatları anlık takip etmek için lütfen giriş yapın veya kayıt olun.</p>
+    
+    <button onclick="document.getElementById('loginRequiredPanel').style.display='none'; openModal('loginModal');" style="width: 100%; padding: 12px; margin-bottom: 10px; border-radius: 10px; border: none; background: #007bff; color: white; font-weight: bold; cursor: pointer;">Giriş Yap</button>
+    <button onclick="document.getElementById('loginRequiredPanel').style.display='none'; openModal('registerModal');" style="width: 100%; padding: 12px; border-radius: 10px; border: 1px solid #007bff; background: white; color: #007bff; font-weight: bold; cursor: pointer;">Ücretsiz Kayıt Ol</button>
+</div>
 <script>
 function openP(id) {
     console.log("Açılmak istenen panel:", id); // Tarayıcı konsolunda kontrol için
