@@ -838,11 +838,11 @@ function closeMembershipModal() {
     
     <div style="font-size: 50px; margin-bottom: 15px;">🔒</div>
     <h3 style="margin-bottom: 10px; color: #333;">Takip Listesi Üyelere Özeldir</h3>
-    <p style="color: #666; font-size: 14px; margin-bottom: 25px;">Kendi listenizi oluşturmak ve piyasayı takip etmek için lütfen hesabınıza giriş yapın veya yeni bir üyelik oluşturun.</p>
+    <p style="color: #666; font-size: 14px; margin-bottom: 25px;">Kendi listenizi oluşturmak ve piyasayı takip etmek için lütfen hesabınıza giriş yapın veya üye olun.</p>
     
-    <button onclick="document.getElementById('loginRequiredPanel').style.display='none'; openModal('loginModal');" style="width: 100%; padding: 12px; margin-bottom: 10px; border-radius: 10px; border: none; background: #007bff; color: white; font-weight: bold; cursor: pointer; transition: 0.3s;">Giriş Yap</button>
+    <button onclick="document.getElementById('loginRequiredPanel').style.display='none'; openSingleTab('login');" style="width: 100%; padding: 12px; margin-bottom: 10px; border-radius: 10px; border: none; background: #007bff; color: white; font-weight: bold; cursor: pointer;">Giriş Yap</button>
     
-    <button onclick="document.getElementById('loginRequiredPanel').style.display='none'; openModal('registerModal');" style="width: 100%; padding: 12px; border-radius: 10px; border: 1px solid #007bff; background: white; color: #007bff; font-weight: bold; cursor: pointer; transition: 0.3s;">Kayıt Ol / Üye Ol</button>
+    <button onclick="document.getElementById('loginRequiredPanel').style.display='none'; openSingleTab('register');" style="width: 100%; padding: 12px; border-radius: 10px; border: 1px solid #007bff; background: white; color: #007bff; font-weight: bold; cursor: pointer;">Kayıt Ol</button>
 </div>
 <script>
 let isLoggedIn = false;
