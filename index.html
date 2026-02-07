@@ -782,36 +782,60 @@ function closeMembershipModal() {
     if(tabArea) tabArea.style.display = 'flex'; 
 }
 </script>
+<div id="hPanel" class="tali-panel-yeni" style="display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 95%; max-width: 1100px; background: white; z-index: 10005; border-radius: 15px; border-top: 5px solid #00d1ff; box-shadow: 0 0 30px rgba(0,0,0,0.5); font-family: sans-serif; overflow: hidden;">
+    <div onclick="this.parentElement.style.display='none'" style="position: absolute; right: 15px; top: 12px; color: #ff4d4d; cursor: pointer; font-size: 32px; font-weight: bold; z-index: 10010;">×</div>
+    <div style="padding: 20px;">
+        <h3 style="margin-top:0; color:#0056b3;">📈 Borsa İstanbul Hisse Tarayıcı</h3>
+        <div style="height:500px; border: 1px solid #eee; border-radius: 8px; overflow: hidden;">
+            <iframe src="https://s.tradingview.com/embed-widget/screener/?locale=tr#%7B%22width%22%3A%22100%25%22%2C%22height%22%3A%22100%25%22%2C%22defaultColumn%22%3A%22overview%22%2C%22defaultScreen%22%3A%22most_capitalized%22%2C%22market%22%3A%22turkey%22%2C%22showToolbar%22%3Atrue%2C%22colorTheme%22%3A%22light%22%2C%22isTransparent%22%3Afalse%7D" style="width: 100%; height: 100%; border: none;"></iframe>
+        </div>
+    </div>
+</div>
+
+<div id="iPanel" class="tali-panel-yeni" style="display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 95%; max-width: 1100px; background: white; z-index: 10005; border-radius: 15px; border-top: 5px solid #ff4757; box-shadow: 0 0 30px rgba(0,0,0,0.5); font-family: sans-serif; overflow: hidden;">
+    <div onclick="this.parentElement.style.display='none'" style="position: absolute; right: 15px; top: 12px; color: #ff4d4d; cursor: pointer; font-size: 32px; font-weight: bold; z-index: 10010;">×</div>
+    <div style="padding: 20px;">
+        <h3 style="margin-top:0; color:#c0392b;">🔥 Piyasa Isı Haritası</h3>
+        <div style="height:500px; border: 1px solid #eee; border-radius: 8px; overflow: hidden;">
+            <iframe src="https://s.tradingview.com/embed-widget/stock-heatmap/?locale=tr#%7B%22dataSource%22%3A%22BIST%22%2C%22caption%22%3A%22Borsa%20%C4%B0stanbul%22%2C%22colorTheme%22%3A%22light%22%2C%22hasSymbolTooltip%22%3Atrue%2C%22displayMode%22%3A%22regular%22%2C%22showLegend%22%3Atrue%2C%22width%22%3A%22100%25%22%2C%22height%22%3A500%7D" style="width: 100%; height: 100%; border: none;"></iframe>
+        </div>
+    </div>
+</div>
+
+<div id="mPanel" class="tali-panel-yeni" style="display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 90%; max-width: 900px; background: white; z-index: 10005; border-radius: 15px; border-top: 5px solid #f1c40f; box-shadow: 0 0 30px rgba(0,0,0,0.5); font-family: sans-serif; overflow: hidden;">
+    <div onclick="this.parentElement.style.display='none'" style="position: absolute; right: 15px; top: 10px; color: #ff4d4d; cursor: pointer; font-size: 32px; font-weight: bold; z-index: 10010;">×</div>
+    <div style="padding: 20px;">
+        <h3 style="margin-top:0; color:#856404;">🟡 Değerli Maden Analizleri</h3>
+        <div style="height:500px; border: 1px solid #eee; border-radius: 8px; overflow: hidden;">
+            <iframe src="https://s.tradingview.com/embed-widget/market-overview/?locale=tr#%7B%22colorTheme%22%3A%22light%22%2C%22dateRange%22%3A%2212M%22%2C%22showChart%22%3Atrue%2C%22width%22%3A%22100%25%22%2C%22height%22%3A%22100%25%22%2C%22isTransparent%22%3Afalse%2C%22showSymbolLogo%22%3Atrue%2C%22tabs%22%3A%5B%7B%22title%22%3A%22Madenler%22%2C%22symbols%22%3A%5B%7B%22s%22%3A%22OANDA%3AXAUUSD%22%2C%22d%22%3A%22Ons%20Alt%C4%B1n%22%7D%2C%7B%22s%22%3A%22OANDA%3AXAGUSD%22%2C%22d%22%3A%22Ons%20G%C3%BCm%C3%BC%C5%9F%22%7D%2C%7B%22s%22%3A%22TVC%3AUKOIL%22%2C%22d%22%3A%22Brent%20Petrol%22%7D%5D%7D%5D%7D" style="width: 100%; height: 100%; border: none;"></iframe>
+        </div>
+    </div>
+</div>
+
 <script>
-// PANELLERİ AÇAN ANA FONKSİYON
 function openP(id) {
-    // 1. Önce sayfadaki tüm olası panelleri gizle (Çakışma önleyici)
+    console.log("Açılmak istenen panel:", id); // Tarayıcı konsolunda kontrol için
+    
+    // 1. Önce TÜM panelleri gizle
     const paneller = ['hPanel', 'iPanel', 'mPanel', 'kPanel', 'dPanel', 'pPanel'];
     paneller.forEach(pId => {
         const p = document.getElementById(pId);
         if (p) p.style.display = 'none';
     });
 
-    // 2. Yeni eklediğimiz 'tali-panel-yeni' sınıfına sahip her şeyi gizle
+    // 2. Yeni sınıfı gizle
     document.querySelectorAll('.tali-panel-yeni').forEach(panel => {
         panel.style.display = 'none';
     });
 
-    // 3. Şimdi sadece tıklanan butona ait ID'yi görünür yap
+    // 3. Hedef paneli aç
     const hedef = document.getElementById(id);
     if (hedef) {
         hedef.style.display = 'block';
-        // Sayfayı hafifçe yukarı kaydır ki panel net görünsün
         window.scrollTo({ top: 0, behavior: 'smooth' });
     } else {
-        console.error("Hata: " + id + " ID'li panel bulunamadı!");
+        alert("Sistem hatası: " + id + " paneli dosyada bulunamadı!");
     }
-}
-
-// PANELLERİ KAPATAN FONKSİYON
-function closeP(id) {
-    const p = document.getElementById(id);
-    if (p) p.style.display = 'none';
 }
 </script>
 </body>
