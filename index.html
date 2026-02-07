@@ -317,29 +317,34 @@ nav {
     }
 </style>
 
-<div id="hPanel" class="tali-panel-yeni" style="display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 95%; max-width: 1100px; background: white; z-index: 10005; border-radius: 15px; border-top: 5px solid #00d1ff; overflow: hidden; font-family: sans-serif; box-shadow: 0 0 30px rgba(0, 0, 0, 0.4);">
-    
-    <div onclick="this.parentElement.style.display='none'" 
-         style="position: absolute; right: 15px; top: 12px; color: #ff4d4d; cursor: pointer; font-size: 32px; font-weight: bold; line-height: 1; z-index: 10010;">
-         ×
-    </div>
-
-    <div style="padding: 20px; background: white;">
-        <h3 style="margin-top:0; color:#0056b3; font-size: 18px; border-bottom: 2px solid #f0f7ff; padding-bottom: 10px; display: flex; align-items: center; gap: 10px;">
-            <span style="font-size: 20px;">📈</span> Borsa İstanbul Hisse Tarayıcı
-        </h3>
-        
-        <div style="height:500px; border: 1px solid #e0eefb; border-radius: 8px; overflow: hidden;"> 
-            <iframe src="https://s.tradingview.com/embed-widget/screener/?locale=tr#%7B%22width%22%3A%22100%25%22%2C%22height%22%3A%22100%25%22%2C%22defaultColumn%22%3A%22overview%22%2C%22defaultScreen%22%3A%22most_capitalized%22%2C%22market%22%3A%22turkey%22%2C%22showToolbar%22%3Atrue%2C%22colorTheme%22%3A%22light%22%2C%22isTransparent%22%3Afalse%7D" 
-                    style="width: 100%; height: 100%; border: none;"></iframe>
+<div id="hPanel" class="tali-panel-yeni" style="display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 95%; max-width: 1100px; background: white; z-index: 10005; border-radius: 15px; border-top: 5px solid #00d1ff; box-shadow: 0 0 30px rgba(0,0,0,0.5); font-family: sans-serif;">
+    <div onclick="this.parentElement.style.display='none'" style="position: absolute; right: 15px; top: 12px; color: #ff4d4d; cursor: pointer; font-size: 32px; font-weight: bold; z-index: 10010;">×</div>
+    <div style="padding: 20px;">
+        <h3 style="margin-top:0; color:#0056b3;">📈 Borsa İstanbul Hisse Tarayıcı</h3>
+        <div style="height:500px; border: 1px solid #eee; border-radius: 8px; overflow: hidden;">
+            <iframe src="https://s.tradingview.com/embed-widget/screener/?locale=tr#%7B%22width%22%3A%22100%25%22%2C%22height%22%3A%22100%25%22%2C%22defaultColumn%22%3A%22overview%22%2C%22defaultScreen%22%3A%22most_capitalized%22%2C%22market%22%3A%22turkey%22%2C%22showToolbar%22%3Atrue%2C%22colorTheme%22%3A%22light%22%2C%22isTransparent%22%3Afalse%7D" style="width: 100%; height: 100%; border: none;"></iframe>
         </div>
     </div>
 </div>
-        <p style="color: #007bff; font-size: 11px; text-align: right; margin-top: 10px; font-weight: bold; opacity: 0.7;">
-            SinyalizeHub Veri Akışı • BIST Canlı Veri
-        </p>
+
+<div id="iPanel" class="tali-panel-yeni" style="display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 95%; max-width: 1100px; background: white; z-index: 10005; border-radius: 15px; border-top: 5px solid #ff4757; box-shadow: 0 0 30px rgba(0,0,0,0.5); font-family: sans-serif;">
+    <div onclick="this.parentElement.style.display='none'" style="position: absolute; right: 15px; top: 12px; color: #ff4d4d; cursor: pointer; font-size: 32px; font-weight: bold; z-index: 10010;">×</div>
+    <div style="padding: 20px;">
+        <h3 style="margin-top:0; color:#c0392b;">🔥 Piyasa Isı Haritası</h3>
+        <div style="height:500px; border: 1px solid #eee; border-radius: 8px; overflow: hidden;">
+            <iframe src="https://s.tradingview.com/embed-widget/crypto-mkt-screener/?locale=tr#%7B%22width%22%3A%22100%25%22%2C%22height%22%3A%22100%25%22%2C%22defaultColumn%22%3A%22overview%22%2C%22market%22%3A%22crypto%22%2C%22colorTheme%22%3A%22light%22%2C%22isTransparent%22%3Afalse%7D" style="width: 100%; height: 100%; border: none;"></iframe>
+        </div>
     </div>
 </div>
+
+<div id="mPanel" class="tali-panel-yeni" style="display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 90%; max-width: 900px; background: white; z-index: 10005; border-radius: 15px; border-top: 5px solid #f1c40f; box-shadow: 0 0 30px rgba(0,0,0,0.5); font-family: sans-serif;">
+    <div onclick="this.parentElement.style.display='none'" style="position: absolute; right: 15px; top: 10px; color: #ff4d4d; cursor: pointer; font-size: 32px; font-weight: bold; z-index: 10010;">×</div>
+    <div style="padding: 20px;">
+        <h3 style="margin-top:0; color:#856404;">🟡 Değerli Maden Analizleri</h3>
+        <div style="height:500px; border: 1px solid #eee; border-radius: 8px; overflow: hidden;">
+            <iframe src="https://s.tradingview.com/embed-widget/markets/?locale=tr#%7B%22filter%22%3A%22commodities%22%2C%22colorTheme%22%3A%22light%22%2C%22isTransparent%22%3Afalse%2C%22width%22%3A%22100%25%22%2C%22height%22%3A%22100%25%22%7D" style="width: 100%; height: 100%; border: none;"></iframe>
+        </div>
+    </div>
 </div>
 <div id="uyeOzelPanel" style="max-width: 1200px; margin: 20px auto; padding: 0; background: rgba(255, 255, 255, 0.05); border-radius: 12px; border: 1px solid rgba(255, 255, 255, 0.1); overflow: hidden; font-family: sans-serif;">
     
@@ -396,87 +401,8 @@ nav {
     100% { opacity: 1; }
 }
 </style>
-<div id="iPanel" class="tali-panel-yeni" style="display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 95%; max-width: 1200px; background: #131722; z-index: 10005; box-shadow: 0 0 40px rgba(0,0,0,0.8); border-radius: 20px; border: 1px solid #333; overflow: hidden;">
-    
-    <div onclick="this.parentElement.style.display='none'" 
-         style="position: absolute; right: 20px; top: 15px; color: #ff4d4d; cursor: pointer; font-size: 35px; font-weight: bold; line-height: 1; transition: 0.3s; z-index: 10010; text-shadow: 0 0 10px rgba(0,0,0,0.9); font-family: Arial, sans-serif;"
-         onmouseover="this.style.color='#ff1a1a'; this.style.transform='scale(1.2)';" 
-         onmouseout="this.style.color='#ff4d4d'; this.style.transform='scale(1)';"
-         title="Kapat">
-         ×
-    </div>
 
-    <div style="padding: 25px;">
-        <h3 style="margin-top:0; color:#ffffff; font-family: sans-serif; font-size: 18px; border-bottom: 1px solid #333; padding-bottom: 15px; display: flex; align-items: center; gap: 10px;">
-            <span style="font-size: 22px;">🌡️</span> Borsa İstanbul Isı Haritası
-        </h3>
-        
-        <div style="height: 500px; width: 100%; background: #131722; border-radius: 10px; overflow: hidden;">
-            <iframe 
-                src="https://s.tradingview.com/embed-widget/stock-heatmap/?locale=tr#%7B%22dataSource%22%3A%22BIST%22%2C%22caption%22%3A%22Borsa%20%C4%B0stanbul%22%2C%22colorTheme%22%3A%22dark%22%2C%22hasSymbolTooltip%22%3Atrue%2C%22displayMode%22%3A%22regular%22%2C%22showLegend%22%3Atrue%2C%22width%22%3A%22100%25%22%2C%22height%22%3A500%2C%22utm_source%22%3A%22user%22%2C%22utm_medium%22%3A%22widget%22%2C%22utm_campaign%22%3A%22stock-heatmap%22%7D" 
-                style="width: 100%; height: 500px; border: none; display: block;" 
-                frameborder="0">
-            </iframe>
-        </div>
-        <p style="color: #555; font-size: 11px; text-align: center; margin-top: 15px;">
-            SinyalizeHub • Piyasa Yoğunluk Haritası
-        </p>
-    </div>
-</div>
-<div id="mPanel" class="tali-panel-yeni" style="display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 90%; max-width: 900px; background: white; z-index: 10005; box-shadow: 0 20px 50px rgba(0,0,0,0.3); border-radius: 15px; border-top: 5px solid #f1c40f; overflow: hidden; font-family: sans-serif;">
-    
-    <div onclick="this.parentElement.style.display='none'" 
-         style="position: absolute; right: 15px; top: 10px; color: #ff4d4d; cursor: pointer; font-size: 32px; font-weight: bold; line-height: 1; z-index: 10010;">
-         ×
-    </div>
 
-    <div style="padding: 20px;">
-        <h3 style="margin-top:0; color:#856404; font-size: 18px; border-bottom: 2px solid #fff3cd; padding-bottom: 10px; display: flex; align-items: center; gap: 10px;">
-            <span>🟡</span> Değerli Maden Analizleri
-        </h3>
-        
-        <div style="height:500px; border: 1px solid #ffeeba; border-radius: 8px; overflow: hidden;"> 
-            <iframe src="https://s.tradingview.com/embed-widget/markets/?locale=tr#%7B%22filter%22%3A%22commodities%22%2C%22colorTheme%22%3A%22light%22%2C%22isTransparent%22%3Afalse%2C%22width%22%3A%22100%25%22%2C%22height%22%3A%22100%25%22%7D" 
-                    style="width: 100%; height: 100%; border: none;"></iframe>
-        </div>
-    </div>
-</div>
-
-    <div style="padding: 20px;">
-        <h3 style="margin-top:0; color:#F3BA29; font-family: sans-serif; font-size: 18px; border-bottom: 1px solid rgba(243, 186, 41, 0.2); padding-bottom: 10px;">
-    🟡 Değerli Maden Analizi
-</h3>
-        <div style="height:450px;"> 
-            <div class="tradingview-widget-container">
-                <div class="tradingview-widget-container__widget"></div>
-                <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-market-overview.js" async>
-                {
-                  "colorTheme": "light",
-                  "dateRange": "12M",
-                  "showChart": true,
-                  "locale": "tr",
-                  "width": "100%",
-                  "height": "100%",
-                  "largeChartUrl": "",
-                  "isTransparent": false,
-                  "showSymbolLogo": true,
-                  "showFloatingTooltip": false,
-                  "tabs": [
-                    {
-                      "title": "Maden",
-                      "symbols": [
-                        { "s": "OANDA:XAUUSD", "d": "Ons Altın" },
-                        { "s": "FX_IDC:XAUTRY", "d": "Gram Altın" },
-                        { "s": "OANDA:XAGUSD", "d": "Gümüş Ons" }
-                      ]
-                    }
-                  ]
-                }
-                </script>
-            </div>
-        </div>
-        </div>
-</div>
 <div id="kPanel" class="tali-panel-yeni" style="display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 450px; background: #121212; z-index: 10005; box-shadow: 0 25px 50px rgba(0,0,0,0.6); border-radius: 20px; border: 1px solid #333; overflow: hidden;">
     
     <div style="background: #1a1a1a; padding: 15px 20px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #333;">
@@ -799,41 +725,34 @@ function updatePaymentUI(el) {
         if(cD) cD.innerHTML = "IBAN: TR00 0000 0000... <br> (Açıklamaya kayıtlı emailinizi yazınız)";
     }
 }
+// TÜM PANELLERİ YÖNETEN TEK FONKSİYON
 function openP(id) {
-    // Önce tüm panelleri ve modalları gizleyelim
-    const allPanels = ['hPanel', 'iPanel', 'mPanel', 'kPanel', 'dPanel'];
-    allPanels.forEach(pId => {
+    // 1. Önce piyasadaki tüm panelleri gizle
+    const paneller = ['hPanel', 'iPanel', 'mPanel', 'kPanel', 'dPanel', 'pPanel'];
+    paneller.forEach(pId => {
         const p = document.getElementById(pId);
         if (p) p.style.display = 'none';
     });
 
-    // İstenen paneli açalım
+    // 2. Sınıf bazlı çalışan panelleri de gizle (ekstra güvenlik)
+    document.querySelectorAll('.tali-panel, .tali-panel-yeni').forEach(el => { 
+        el.style.display = 'none'; 
+    });
+
+    // 3. Sadece tıklanan paneli aç
     const hedef = document.getElementById(id);
-    if (hedef) {
-        hedef.style.display = 'block';
-        // Panelin görünür olduğundan emin olmak için flex kullanıyorsan flex yap
-        if(id === 'hPanel' || id === 'iPanel' || id === 'mPanel') {
-            hedef.style.display = 'block';
-        }
-        window.scrollTo({ top: 0, behavior: 'smooth' });
+    if (hedef) { 
+        hedef.style.display = 'block'; 
+        window.scrollTo({ top: 0, behavior: 'smooth' }); 
     } else {
         console.error("Panel bulunamadı: " + id);
     }
 }
-function openP(id) {
-    ['kPanel', 'dPanel', 'mPanel', 'hPanel', 'pPanel'].forEach(pId => {
-        const p = document.getElementById(pId);
-        if (p) p.style.display = 'none';
-    });
-    document.querySelectorAll('.tali-panel, .tali-panel-yeni').forEach(el => { el.style.display = 'none'; });
-    const hedef = document.getElementById(id);
-    if (hedef) { hedef.style.display = 'block'; window.scrollTo({ top: 0, behavior: 'smooth' }); }
-}
 
+// PANEL KAPATMA FONKSİYONU
 function closeP(id) { 
     var p = document.getElementById(id);
     if(p) p.style.display = 'none'; 
-    window.scrollTo({ top: 0, behavior: 'smooth' }); 
 }
 </script>
 <script>
