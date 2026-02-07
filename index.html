@@ -855,87 +855,94 @@ function updatePaymentUI(el) {
     }
 }
 <script>
-/**
- * HUB ÜYELİK SİSTEMİ ANA KONTROL MERKEZİ
- */
+/* HUB SİSTEMİ KURTARMA SCRİPTİ 
+   Bu kod tüm butonları (Giriş, Kayıt, Takip Listesi) modal'a bağlar.
+*/
 
-// 1. MODALI AÇAN KÖPRÜ FONKSİYONLAR
+// 1. ÜST BUTONLAR VE TAKİP LİSTESİ İÇİN ANA GİRİŞ KAPISI
 function handleMembership() {
-    // Takip listesi butonları burayı tetikler
     openModalWithTab('login');
 }
 
 function openModalWithTab(tabName) {
-    const modal = document.getElementById('membershipModal');
+    // Modal'ı bul
+    var modal = document.getElementById('membershipModal');
+    
     if (modal) {
-        modal.style.display = 'flex'; // Paneli görünür yapar
-        switchTab(tabName);          // Doğru sekmeye (Giriş veya Kayıt) odaklar
+        modal.style.display = 'flex'; // Modalı açar
+        switchTab(tabName);          // Doğru sekmeyi (Giriş/Kayıt) seçer
     } else {
-        alert("Hata: 'membershipModal' ID'li panel bulunamadı!");
+        // Eğer modal açılmıyorsa ID hatası vardır, test için alert ekledim
+        alert("Sistem Hatası: 'membershipModal' bulunamadı. Lütfen ID ismini kontrol edin.");
     }
 }
 
-// 2. MODALI KAPATAN FONKSİYON
-function closeMembershipModal() {
-    const modal = document.getElementById('membershipModal');
-    if (modal) modal.style.display = 'none';
-}
-
-// 3. SEKMELER VE RENK YÖNETİMİ (TURKUAZ SABİTLEME)
+// 2. MODAL İÇİNDEKİ SEKMELER VE RENKLER
 function switchTab(tab) {
-    const loginArea = document.getElementById('loginFormArea');
-    const regArea = document.getElementById('registerFormArea');
-    const tabL = document.getElementById('tabLogin');
-    const tabR = document.getElementById('tabRegister');
+    var loginArea = document.getElementById('loginFormArea');
+    var regArea = document.getElementById('registerFormArea');
+    var tabL = document.getElementById('tabLogin');
+    var tabR = document.getElementById('tabRegister');
 
     if (tab === 'login') {
         if(loginArea) loginArea.style.display = 'block';
         if(regArea) regArea.style.display = 'none';
-        // Giriş Sekmesi: Aktif (Turkuaz)
-        tabL.style.color = '#00d1ff'; 
-        tabL.style.borderBottom = '3px solid #00d1ff';
-        tabL.style.background = '#fff';
-        // Kayıt Sekmesi: Pasif
-        tabR.style.color = '#999';
-        tabR.style.borderBottom = 'none';
-        tabR.style.background = '#f8f9fa';
+        
+        // Giriş Sekmesi: Turkuaz & Aktif
+        if(tabL) {
+            tabL.style.color = '#00d1ff';
+            tabL.style.background = '#ffffff';
+            tabL.style.borderBottom = '3px solid #00d1ff';
+        }
+        // Kayıt Sekmesi: Gri & Pasif
+        if(tabR) {
+            tabR.style.color = '#999';
+            tabR.style.background = '#f8f9fa';
+            tabR.style.borderBottom = 'none';
+        }
     } else {
         if(loginArea) loginArea.style.display = 'none';
         if(regArea) regArea.style.display = 'block';
-        // Kayıt Sekmesi: Aktif (Turkuaz)
-        tabR.style.color = '#00d1ff'; 
-        tabR.style.borderBottom = '3px solid #00d1ff';
-        tabR.style.background = '#fff';
-        // Giriş Sekmesi: Pasif
-        tabL.style.color = '#999';
-        tabL.style.borderBottom = 'none';
-        tabL.style.background = '#f8f9fa';
+        
+        // Kayıt Sekmesi: Turkuaz & Aktif
+        if(tabR) {
+            tabR.style.color = '#00d1ff';
+            tabR.style.background = '#ffffff';
+            tabR.style.borderBottom = '3px solid #00d1ff';
+        }
+        // Giriş Sekmesi: Gri & Pasif
+        if(tabL) {
+            tabL.style.color = '#999';
+            tabL.style.background = '#f8f9fa';
+            tabL.style.borderBottom = 'none';
+        }
     }
 }
 
-// 4. ÖDEME SEÇENEĞİ UI GÜNCELLEME
+// 3. MODAL KAPATMA
+function closeMembershipModal() {
+    var modal = document.getElementById('membershipModal');
+    if (modal) {
+        modal.style.display = 'none';
+    }
+}
+
+// 4. ÖDEME SEÇENEĞİ GÜNCELLEME
 function updatePaymentUI(el) {
-    const cardBox = document.getElementById('cardBox');
-    const eftBox = document.getElementById('eftBox');
-    const cardDetails = document.getElementById('cardDetails');
+    var cardBox = document.getElementById('cardBox');
+    var eftBox = document.getElementById('eftBox');
+    var cardDetails = document.getElementById('cardDetails');
 
     if (el.value === 'card') {
-        cardBox.style.borderColor = '#00d1ff';
-        cardBox.style.background = '#f0fbff';
-        eftBox.style.borderColor = '#eee';
-        eftBox.style.background = '#fff';
-        cardDetails.innerHTML = "Ödeme işleminiz 256-bit SSL sertifikalı güvenli altyapı ile tamamlanacaktır.";
+        if(cardBox) cardBox.style.borderColor = '#00d1ff';
+        if(eftBox) eftBox.style.borderColor = '#eee';
+        if(cardDetails) cardDetails.innerHTML = "Ödeme işleminiz 256-bit SSL sertifikalı güvenli altyapı ile tamamlanacaktır.";
     } else {
-        eftBox.style.borderColor = '#00d1ff';
-        eftBox.style.background = '#f0fbff';
-        cardBox.style.borderColor = '#eee';
-        cardBox.style.background = '#fff';
-        cardDetails.innerHTML = "<strong>IBAN Bilgileri:</strong> TR00 0000 0000 0000... <br> (Lütfen açıklama kısmına e-posta adresinizi yazınız.)";
+        if(eftBox) eftBox.style.borderColor = '#00d1ff';
+        if(cardBox) cardBox.style.borderColor = '#eee';
+        if(cardDetails) cardDetails.innerHTML = "<strong>IBAN Bilgileri:</strong> TR00 0000 0000 0000... <br> (Lütfen açıklama kısmına e-posta adresinizi yazınız.)";
     }
 }
-</script>
-</body>
-</html>
 </script>
 </body>
 </html>
