@@ -664,10 +664,9 @@ nav {
     </script>
 </div>
 <div id="membershipModal" style="display:none; position: fixed; z-index: 99999; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.5); backdrop-filter: blur(8px); align-items: center; justify-content: center;">
-    
     <div style="background: #ffffff; width: 420px; border-radius: 20px; overflow: hidden; font-family: sans-serif; box-shadow: 0 25px 50px rgba(0,0,0,0.2); border: 1px solid #ddd;">
         
-        <div style="display: flex; background: #f8f9fa; border-bottom: 1px solid #eee;">
+        <div id="modalTabArea" style="display: flex; background: #f8f9fa; border-bottom: 1px solid #eee;">
             <button id="tabLogin" onclick="switchTab('login')" style="flex: 1; padding: 18px; border: none; background: #fff; color: #00d1ff; cursor: pointer; font-weight: bold; font-size: 14px; outline: none; border-bottom: 3px solid #00d1ff;">GİRİŞ YAP</button>
             <button id="tabRegister" onclick="switchTab('register')" style="flex: 1; padding: 18px; border: none; background: #f8f9fa; color: #999; cursor: pointer; font-weight: bold; font-size: 14px; outline: none;">KAYIT OL</button>
         </div>
@@ -682,54 +681,55 @@ nav {
                     <input type="password" required class="smart-input">
                     <label class="floating-label">Şifre</label>
                 </div>
-                                <p style="color: #00d1ff; font-size: 12px; text-align: center; margin-top: 20px; cursor: pointer;">Şifremi Unuttum?</p>
+                <p style="color: #00d1ff; font-size: 12px; text-align: center; margin-top: 20px; cursor: pointer;">Şifremi Unuttum?</p>
+                <button style="width: 100%; background: #00d1ff; color: white; border: none; padding: 12px; border-radius: 10px; font-weight: bold; cursor: pointer; margin-top: 10px;">GİRİŞ YAP</button>
             </div>
 
-    <div class="input-group">
-        <input type="text" required class="smart-input">
-        <label class="floating-label">Kullanıcı Adı</label>
-    </div>
-    <div style="display: flex !important; gap: 10px; margin-bottom: 20px;">
-        <div style="width: 110px;">
-            <select style="width: 100%; padding: 12px; border-radius: 10px; border: 1px solid #ddd; background: #f9f9f9; font-size: 13px;">
-                <option>🇹🇷 +90</option>
-            </select>
-        </div>
-        <div class="input-group" style="flex: 1; margin-bottom: 0;">
-            <input type="tel" required class="smart-input">
-            <label class="floating-label">Telefon</label>
-        </div>
-    </div>
-    <div class="input-group">
-        <input type="email" required class="smart-input">
-        <label class="floating-label">E-posta</label>
-    </div>
-    <div style="display: flex !important; gap: 10px; margin-bottom: 20px;">
-        <div class="input-group" style="flex: 1; margin-bottom: 0;">
-            <input type="password" required class="smart-input">
-            <label class="floating-label">Şifre</label>
-        </div>
-        <div class="input-group" style="flex: 1; margin-bottom: 0;">
-            <input type="password" required class="smart-input">
-            <label class="floating-label">Şifre (Tekrar)</label>
-        </div>
-    </div>
-    <div style="margin-top: 10px; margin-bottom: 20px;">
-        <div style="display: flex !important; gap: 10px;">
-            <label style="flex: 1; cursor: pointer;">
-                <input type="radio" name="payment" value="card" checked onchange="updatePaymentUI(this)" style="display:none;">
-                <div id="cardBox" style="border: 2px solid #00d1ff; background: #f0fbff; padding: 10px; border-radius: 10px; text-align: center;">💳<br>Kart</div>
-            </label>
-            <label style="flex: 1; cursor: pointer;">
-                <input type="radio" name="payment" value="eft" onchange="updatePaymentUI(this)" style="display:none;">
-                <div id="eftBox" style="border: 2px solid #eee; background: #fff; padding: 10px; border-radius: 10px; text-align: center;">🏦<br>Havale</div>
-            </label>
-        </div>
-    </div>
-    <div id="cardDetails" style="background: #f9f9f9; padding: 12px; border-radius: 8px; margin-bottom: 20px; font-size: 11px; text-align: center;">Ödemeniz 256-bit SSL ile korunmaktadır.</div>
-    </div>
+            <div id="registerFormArea" style="display:none;">
+                <div class="input-group">
+                    <input type="text" required class="smart-input">
+                    <label class="floating-label">Kullanıcı Adı</label>
+                </div>
+                <div style="display: flex !important; gap: 10px; margin-bottom: 20px;">
+                    <div style="width: 110px;">
+                        <select style="width: 100%; padding: 12px; border-radius: 10px; border: 1px solid #ddd; background: #f9f9f9; font-size: 13px;">
+                            <option>🇹🇷 +90</option>
+                        </select>
+                    </div>
+                    <div class="input-group" style="flex: 1; margin-bottom: 0;">
+                        <input type="tel" required class="smart-input">
+                        <label class="floating-label">Telefon</label>
+                    </div>
+                </div>
+                <div class="input-group">
+                    <input type="email" required class="smart-input">
+                    <label class="floating-label">E-posta</label>
+                </div>
+                <div style="display: flex !important; gap: 10px; margin-bottom: 20px;">
+                    <div class="input-group" style="flex: 1; margin-bottom: 0;">
+                        <input type="password" required class="smart-input">
+                        <label class="floating-label">Şifre</label>
+                    </div>
+                    <div class="input-group" style="flex: 1; margin-bottom: 0;">
+                        <input type="password" required class="smart-input">
+                        <label class="floating-label">Şifre (Tekrar)</label>
+                    </div>
+                </div>
+                
+                <div style="display: flex !important; gap: 10px; margin-bottom: 15px;">
+                    <label style="flex: 1; cursor: pointer;">
+                        <input type="radio" name="payment" value="card" checked onchange="updatePaymentUI(this)" style="display:none;">
+                        <div id="cardBox" style="border: 2px solid #00d1ff; background: #f0fbff; padding: 10px; border-radius: 10px; text-align: center;">💳<br>Kart</div>
+                    </label>
+                    <label style="flex: 1; cursor: pointer;">
+                        <input type="radio" name="payment" value="eft" onchange="updatePaymentUI(this)" style="display:none;">
+                        <div id="eftBox" style="border: 2px solid #eee; background: #fff; padding: 10px; border-radius: 10px; text-align: center;">🏦<br>Havale</div>
+                    </label>
+                </div>
+                <div id="cardDetails" style="background: #f9f9f9; padding: 12px; border-radius: 8px; font-size: 11px; text-align: center;">Ödemeniz 256-bit SSL ile korunmaktadır.</div>
+                <button style="width: 100%; background: #00d1ff; color: white; border: none; padding: 12px; border-radius: 10px; font-weight: bold; cursor: pointer; margin-top: 15px;">KAYIT OL VE ÖDE</button>
+            </div>
              
-    
             <button onclick="closeMembershipModal()" style="width: 100%; margin-top: 25px; background: none; border: none; color: #bbb; cursor: pointer; font-size: 12px;">Vazgeç ve Kapat</button>
         </div>
     </div>
@@ -759,18 +759,7 @@ function toggleTimePopup() {
         }, 5000);
     }
 }
-// --- YENİ ÜYELİK SİSTEMİ (ÇAKIŞMASIZ) ---
 
-function openSingleTab(type) {
-    const modal = document.getElementById('membershipModal');
-    // Üstteki gri sekmeleri bul ve gizle
-    const tabArea = modal.querySelector('div[style*="background: #f8f9fa"]') || 
-                    modal.querySelector('div[style*="background-color: rgb(248, 249, 250)"]');
-    
-    if(modal) {
-        modal.style.display = 'flex';
-        if(tabArea) tabArea.style.setProperty('display', 'none', 'important');
-        
         // Hangi formun açılacağını belirle
         const lArea = document.getElementById('loginFormArea');
         const rArea = document.getElementById('registerFormArea');
@@ -785,25 +774,7 @@ function openSingleTab(type) {
     }
 }
 
-function switchTab(tab) {
-    // Bu fonksiyon modal içindeki sekmeler arası geçişi sağlar
-    const lArea = document.getElementById('loginFormArea');
-    const rArea = document.getElementById('registerFormArea');
-    const tL = document.getElementById('tabLogin');
-    const tR = document.getElementById('tabRegister');
 
-    if (tab === 'login') {
-        if(lArea) lArea.style.display = 'block';
-        if(rArea) rArea.style.display = 'none';
-        if(tL) { tL.style.color = '#00d1ff'; tL.style.background = '#ffffff'; tL.style.borderBottom = '3px solid #00d1ff'; }
-        if(tR) { tR.style.color = '#999'; tR.style.background = '#f8f9fa'; tR.style.borderBottom = 'none'; }
-    } else {
-        if(lArea) lArea.style.display = 'none';
-        if(rArea) rArea.style.display = 'block';
-        if(tR) { tR.style.color = '#00d1ff'; tR.style.background = '#ffffff'; tR.style.borderBottom = '3px solid #00d1ff'; }
-        if(tL) { tL.style.color = '#999'; tL.style.background = '#f8f9fa'; tL.style.borderBottom = 'none'; }
-    }
-}
 
 function closeMembershipModal() {
     const modal = document.getElementById('membershipModal');
@@ -845,21 +816,36 @@ function closeP(id) {
 }
 </script>
 <script>
-// 1. MODAL VE SEKME YÖNETİMİ
+// --- TÜMÜYLE YENİLENMİŞ MERKEZİ YÖNETİM SİSTEMİ ---
+
 function openSingleTab(type) {
     const modal = document.getElementById('membershipModal');
-    // Sadece gri sekme çubuğunu gizle
+    // Gri sekme barını her ihtimale karşı seçiyoruz
     const tabArea = modal.querySelector('div[style*="background: #f8f9fa"]') || 
                     modal.querySelector('div[style*="background-color: rgb(248, 249, 250)"]');
     
     if(modal) {
         modal.style.display = 'flex';
+        
+        // Eğer dışarıdaki ana butonlardan birine basıldıysa sekmeleri gizle (Temiz görünüm)
         if(tabArea) tabArea.style.setProperty('display', 'none', 'important');
-        switchTab(type);
+        
+        // Formları temizle ve sadece isteneni aç
+        const lArea = document.getElementById('loginFormArea');
+        const rArea = document.getElementById('registerFormArea');
+        
+        if (type === 'login') {
+            if(lArea) lArea.style.display = 'block';
+            if(rArea) rArea.style.display = 'none';
+        } else {
+            if(lArea) lArea.style.display = 'none';
+            if(rArea) rArea.style.display = 'block';
+        }
     }
 }
 
 function switchTab(tab) {
+    // Bu fonksiyon sadece modal açıkken içindeki sekmelerle geçiş yapmak içindir
     const lArea = document.getElementById('loginFormArea');
     const rArea = document.getElementById('registerFormArea');
     const tL = document.getElementById('tabLogin');
@@ -880,37 +866,12 @@ function switchTab(tab) {
 
 function closeMembershipModal() {
     const modal = document.getElementById('membershipModal');
+    if(modal) modal.style.display = 'none';
+    
+    // Modal kapanınca sekmeleri bir sonraki açılış için sıfırla
     const tabArea = modal.querySelector('div[style*="background: #f8f9fa"]') || 
                     modal.querySelector('div[style*="background-color: rgb(248, 249, 250)"]');
-    if(modal) modal.style.display = 'none';
-    if(tabArea) tabArea.style.display = 'flex'; // Reset
-}
-
-// 2. ÖDEME SİSTEMİ RENKLERİ
-function updatePaymentUI(el) {
-    const cB = document.getElementById('cardBox');
-    const eB = document.getElementById('eftBox');
-    const cD = document.getElementById('cardDetails');
-    if (el.value === 'card') {
-        cB.style.borderColor = '#00d1ff'; cB.style.background = '#f0fbff';
-        eB.style.borderColor = '#eee'; eB.style.background = '#fff';
-        cD.innerText = "Ödeme işleminiz 256-bit SSL sertifikalı güvenli altyapı ile tamamlanacaktır.";
-    } else {
-        eB.style.borderColor = '#00d1ff'; eB.style.background = '#f0fbff';
-        cB.style.borderColor = '#eee'; cB.style.background = '#fff';
-        cD.innerHTML = "<strong>IBAN Bilgileri:</strong> TR00 0000 0000... <br> (Lütfen açıklamaya emailinizi yazınız.)";
-    }
-}
-
-// 3. TAKİP LİSTESİNDEN GELEN TETİKLEME
-function handleMembership() {
-    const modal = document.getElementById('membershipModal');
-    const tabArea = modal.querySelector('div[style*="background: #f8f9fa"]');
-    if(modal) {
-        modal.style.display = 'flex';
-        if(tabArea) tabArea.style.display = 'flex';
-        switchTab('login');
-    }
+    if(tabArea) tabArea.style.display = 'flex'; 
 }
 </script>
 </body>
