@@ -696,6 +696,26 @@ function updatePaymentUI(el) {
         if(cD) cD.innerHTML = "IBAN: TR00 0000 0000... <br> (Açıklamaya kayıtlı emailinizi yazınız)";
     }
 }
+function handleMembership(kategori) {
+    console.log(kategori + " için takip listesi açılmak istendi.");
+
+    // Eğer kullanıcı giriş yapmamışsa (isLoggedIn değişkenine bakıyoruz)
+    if (!isLoggedIn) {
+        // Tüm panelleri gizle
+        document.querySelectorAll('.tali-panel-yeni, .tali-panel').forEach(p => p.style.display = 'none');
+        
+        // Senin hazırladığın "Giriş Yap" uyarısını göster
+        const uyari = document.getElementById('loginRequiredPanel');
+        if (uyari) {
+            uyari.style.display = 'block';
+        } else {
+            alert("Bu özelliği kullanmak için lütfen giriş yapın veya kayıt olun.");
+        }
+    } else {
+        // Eğer kullanıcı giriş yapmışsa, Takip Listesi panelini (pPanel) aç
+        openP('pPanel');
+    }
+}
 // Bu değişkeni sakın unutma, fonksiyonun hemen üstünde dursun
 let isLoggedIn = false; 
 
@@ -823,6 +843,7 @@ function closeMembershipModal() {
     <button onclick="document.getElementById('loginRequiredPanel').style.display='none'; openModal('registerModal');" style="width: 100%; padding: 12px; border-radius: 10px; border: 1px solid #007bff; background: white; color: #007bff; font-weight: bold; cursor: pointer;">Ücretsiz Kayıt Ol</button>
 </div>
 <script>
+let isLoggedIn = false;
 function openP(id) {
     console.log("Açılmak istenen panel:", id); // Tarayıcı konsolunda kontrol için
     
@@ -845,6 +866,22 @@ function openP(id) {
         window.scrollTo({ top: 0, behavior: 'smooth' });
     } else {
         alert("Sistem hatası: " + id + " paneli dosyada bulunamadı!");
+    }
+}
+// Bu fonksiyon olmazsa "Takip Listem" butonları asla çalışmaz
+function handleMembership(kategori) {
+    // Giriş yapılmamışsa (isLoggedIn false ise)
+    if (!isLoggedIn) {
+        // Senin hazırladığın uyarı panelini aç
+        const uyari = document.getElementById('loginRequiredPanel');
+        if (uyari) {
+            uyari.style.display = 'block';
+        } else {
+            alert("Lütfen giriş yapın.");
+        }
+    } else {
+        // Giriş yapılmışsa takip listesini aç
+        openP('pPanel');
     }
 }
 </script>
