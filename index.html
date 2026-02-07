@@ -812,23 +812,35 @@ function handleMembership(kategori) {
     }
 
     function switchTab(tab) {
-        const loginArea = document.getElementById('loginFormArea');
-        const regArea = document.getElementById('registerFormArea');
-        const tabL = document.getElementById('tabLogin');
-        const tabR = document.getElementById('tabRegister');
+    const loginArea = document.getElementById('loginFormArea');
+    const regArea = document.getElementById('registerFormArea');
+    const tabL = document.getElementById('tabLogin');
+    const tabR = document.getElementById('tabRegister');
 
-        if(tab === 'login') {
-            loginArea.style.display = 'block';
-            regArea.style.display = 'none';
-            tabL.style.background = '#fff'; tabL.style.color = '#00d1ff';
-            tabR.style.background = '#f8f9fa'; tabR.style.color = '#999';
-        } else {
-            loginArea.style.display = 'none';
-            regArea.style.display = 'block';
-            tabL.style.background = '#f8f9fa'; tabL.style.color = '#999';
-            tabR.style.background = '#fff'; tabR.style.color = '#2ecc71';
-        }
+    if(tab === 'login') {
+        loginArea.style.display = 'block';
+        regArea.style.display = 'none';
+        // Giriş Sekmesi Aktif
+        tabL.style.background = '#fff'; 
+        tabL.style.color = '#00d1ff';
+        tabL.style.borderBottom = '2px solid #00d1ff'; // Alt çizgi vurgusu
+        // Kayıt Sekmesi Pasif
+        tabR.style.background = '#f8f9fa'; 
+        tabR.style.color = '#999';
+        tabR.style.borderBottom = 'none';
+    } else {
+        loginArea.style.display = 'none';
+        regArea.style.display = 'block';
+        // Kayıt Sekmesi Aktif (YEŞİLDEN TURKUAZA DÖNDÜ)
+        tabR.style.background = '#fff'; 
+        tabR.style.color = '#00d1ff'; 
+        tabR.style.borderBottom = '2px solid #00d1ff';
+        // Giriş Sekmesi Pasif
+        tabL.style.background = '#f8f9fa'; 
+        tabL.style.color = '#999';
+        tabL.style.borderBottom = 'none';
     }
+}
 function updatePaymentUI(el) {
     const cardBox = document.getElementById('cardBox');
     const eftBox = document.getElementById('eftBox');
