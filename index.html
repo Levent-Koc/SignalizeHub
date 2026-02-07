@@ -372,36 +372,38 @@ nav {
     100% { opacity: 1; }
 }
 </style>
-
-
 <div id="kPanel" class="tali-panel-yeni" style="display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 450px; background: #121212; z-index: 10005; box-shadow: 0 25px 50px rgba(0,0,0,0.6); border-radius: 20px; border: 1px solid #333; overflow: hidden;">
     
     <div style="background: #1a1a1a; padding: 15px 20px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #333;">
         <span style="color: #f3ba2f; font-weight: bold; font-size: 15px; letter-spacing: 1px;">₿ BTC TEKNİK ANALİZ</span>
         <div onclick="this.parentElement.parentElement.style.display='none'" 
-     style="color: #ff4d4d; cursor: pointer; font-size: 28px; font-weight: bold; line-height: 1; transition: 0.3s;"
-     onmouseover="this.style.color='#ff1a1a'" 
-     onmouseout="this.style.color='#ff4d4d'">
-     ×
-</div>
+             style="color: #ff4d4d; cursor: pointer; font-size: 28px; font-weight: bold; line-height: 1; transition: 0.3s;"
+             onmouseover="this.style.color='#ff1a1a'" 
+             onmouseout="this.style.color='#ff4d4d'">×</div>
     </div>
 
     <div style="padding: 20px; background: #121212;">
-        <div class="tradingview-widget-container" style="margin: 0 auto;">
-            <div class="tradingview-widget-container__widget"></div>
-            <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-technical-analysis.js" async>
-            {
-              "interval": "1h",
-              "width": "100%",
-              "isTransparent": true,
-              "height": 380,
-              "symbol": "BINANCE:BTCUSDT",
-              "showIntervalTabs": true,
-              "displayMode": "single",
-              "locale": "tr",
-              "colorTheme": "dark"
-            }
-            </script>
+        <div style="position: relative; margin: 0 auto; border-radius: 8px; overflow: hidden;">
+            
+            <div id="btcLock" onclick="checkBtcAccess()" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 10008; cursor: pointer; background: rgba(0,0,0,0);">
+                </div>
+
+            <div class="tradingview-widget-container">
+                <div class="tradingview-widget-container__widget"></div>
+                <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-technical-analysis.js" async>
+                {
+                  "interval": "1h",
+                  "width": "100%",
+                  "isTransparent": true,
+                  "height": 380,
+                  "symbol": "BINANCE:BTCUSDT",
+                  "showIntervalTabs": true,
+                  "displayMode": "single",
+                  "locale": "tr",
+                  "colorTheme": "dark"
+                }
+                </script>
+            </div>
         </div>
         
         <p style="color: #555; font-size: 11px; text-align: center; margin-top: 10px;">
@@ -410,6 +412,23 @@ nav {
     </div>
 </div>
 
+<script>
+function checkBtcAccess() {
+    if (typeof isLoggedIn !== 'undefined' && !isLoggedIn) {
+        // Giriş yapılmamışsa uyarıyı göster
+        document.getElementById('loginRequiredPanel').style.display = 'block';
+    } else {
+        // Giriş yapılmışsa perdeyi kaldır
+        document.getElementById('btcLock').style.display = 'none';
+    }
+}
+
+// Giriş kontrolü (Sayfa yüklendiğinde/giriş yapıldığında)
+if (typeof isLoggedIn !== 'undefined' && isLoggedIn) {
+    var btcLock = document.getElementById('btcLock');
+    if(btcLock) btcLock.style.display = 'none';
+}
+</script>
 <div id="dPanel" class="tali-panel-yeni" style="display: none; background: white !important; color: #333; padding: 20px; border-radius: 12px; border: 2px solid #3498db; margin: 20px 0;">
     <div onclick="this.parentElement.style.display='none'" 
      style="position: absolute; right: 20px; top: 10px; color: #ff4d4d; cursor: pointer; font-size: 32px; font-weight: bold; line-height: 1; transition: 0.3s; z-index: 10006; font-family: Arial, sans-serif;"
