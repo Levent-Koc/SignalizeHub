@@ -759,7 +759,75 @@ function toggleTimePopup() {
         }, 5000);
     }
 }
+// --- YENİ ÜYELİK SİSTEMİ (ÇAKIŞMASIZ) ---
 
+function openSingleTab(type) {
+    const modal = document.getElementById('membershipModal');
+    // Üstteki gri sekmeleri bul ve gizle
+    const tabArea = modal.querySelector('div[style*="background: #f8f9fa"]') || 
+                    modal.querySelector('div[style*="background-color: rgb(248, 249, 250)"]');
+    
+    if(modal) {
+        modal.style.display = 'flex';
+        if(tabArea) tabArea.style.setProperty('display', 'none', 'important');
+        
+        // Hangi formun açılacağını belirle
+        const lArea = document.getElementById('loginFormArea');
+        const rArea = document.getElementById('registerFormArea');
+        
+        if (type === 'login') {
+            if(lArea) lArea.style.display = 'block';
+            if(rArea) rArea.style.display = 'none';
+        } else {
+            if(lArea) lArea.style.display = 'none';
+            if(rArea) rArea.style.display = 'block';
+        }
+    }
+}
+
+function switchTab(tab) {
+    // Bu fonksiyon modal içindeki sekmeler arası geçişi sağlar
+    const lArea = document.getElementById('loginFormArea');
+    const rArea = document.getElementById('registerFormArea');
+    const tL = document.getElementById('tabLogin');
+    const tR = document.getElementById('tabRegister');
+
+    if (tab === 'login') {
+        if(lArea) lArea.style.display = 'block';
+        if(rArea) rArea.style.display = 'none';
+        if(tL) { tL.style.color = '#00d1ff'; tL.style.background = '#ffffff'; tL.style.borderBottom = '3px solid #00d1ff'; }
+        if(tR) { tR.style.color = '#999'; tR.style.background = '#f8f9fa'; tR.style.borderBottom = 'none'; }
+    } else {
+        if(lArea) lArea.style.display = 'none';
+        if(rArea) rArea.style.display = 'block';
+        if(tR) { tR.style.color = '#00d1ff'; tR.style.background = '#ffffff'; tR.style.borderBottom = '3px solid #00d1ff'; }
+        if(tL) { tL.style.color = '#999'; tL.style.background = '#f8f9fa'; tL.style.borderBottom = 'none'; }
+    }
+}
+
+function closeMembershipModal() {
+    const modal = document.getElementById('membershipModal');
+    const tabArea = modal.querySelector('div[style*="background: #f8f9fa"]') || 
+                    modal.querySelector('div[style*="background-color: rgb(248, 249, 250)"]');
+    
+    if(modal) modal.style.display = 'none';
+    if(tabArea) tabArea.style.display = 'flex'; // Kapatınca sekmeleri geri getir
+}
+
+function updatePaymentUI(el) {
+    const cB = document.getElementById('cardBox');
+    const eB = document.getElementById('eftBox');
+    const cD = document.getElementById('cardDetails');
+    if (el.value === 'card') {
+        if(cB) { cB.style.borderColor = '#00d1ff'; cB.style.background = '#f0fbff'; }
+        if(eB) { eB.style.borderColor = '#eee'; eB.style.background = '#fff'; }
+        if(cD) cD.innerText = "Ödemeniz 256-bit SSL ile korunmaktadır.";
+    } else {
+        if(eB) { eB.style.borderColor = '#00d1ff'; eB.style.background = '#f0fbff'; }
+        if(cB) { cB.style.borderColor = '#eee'; cB.style.background = '#fff'; }
+        if(cD) cD.innerHTML = "IBAN: TR00 0000 0000... <br> (Açıklamaya kayıtlı emailinizi yazınız)";
+    }
+}
 function openP(id) {
     ['kPanel', 'dPanel', 'mPanel', 'hPanel', 'pPanel'].forEach(pId => {
         const p = document.getElementById(pId);
