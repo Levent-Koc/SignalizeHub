@@ -379,12 +379,13 @@ nav {
             <div style="text-align: center;">
                 <p style="color: #fff; font-size: 15px; margin-bottom: 20px; font-weight: 300;">Bu alandaki analizler sadece üyelerimize özeldir.</p>
                 <div style="display: flex; gap: 10px; justify-content: center;">
-                    <button style="background: #ffffff; color: #000; border: none; padding: 10px 25px; border-radius: 4px; font-size: 13px; font-weight: bold; cursor: pointer;">
-                        Giriş Yap
-                    </button>
-                    <button style="background: transparent; color: #ffffff; border: 1px solid #ffffff; padding: 10px 25px; border-radius: 4px; font-size: 13px; font-weight: bold; cursor: pointer;">
-                        Kayıt Ol
-                    </button>
+                   <button onclick="openModalWithTab('login')" style="background: #ffffff; color: #000; border: none; padding: 10px 25px; border-radius: 4px; font-size: 13px; font-weight: bold; cursor: pointer;">
+    Giriş Yap
+</button>
+
+<button onclick="openModalWithTab('register')" style="background: transparent; color: #ffffff; border: 1px solid #ffffff; padding: 10px 25px; border-radius: 4px; font-size: 13px; font-weight: bold; cursor: pointer;">
+    Kayıt Ol
+</button>
                 </div>
             </div>
         </div>
@@ -704,10 +705,7 @@ function openP(id) {
         document.getElementById('res').innerText = (a * b).toLocaleString('tr-TR') + " TL";
     }
     window.onload = cc;
-function handleMembership(kategori) {
-    // Şimdilik basit bir uyarı, bir sonraki adımda şık panele çevireceğiz
-    alert(kategori + " Takip Listesi sadece üyelerimize özeldir. Lütfen Giriş Yapın veya Kayıt Olun.");
-}
+
 </script>
 <div id="membershipModal" style="display:none; position: fixed; z-index: 99999; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.5); backdrop-filter: blur(8px); align-items: center; justify-content: center; display: none;">
     
@@ -801,11 +799,7 @@ function handleMembership(kategori) {
 </style>
 
 <script>
-    // ANA TETİKLEYİCİ (Butonlara basınca burası çalışır)
-    function handleMembership(kategori) {
-        const modal = document.getElementById('membershipModal');
-        modal.style.display = 'flex'; // Paneli görünür yap
-    }
+   
 
     function closeMembershipModal() {
         document.getElementById('membershipModal').style.display = 'none';
@@ -860,6 +854,78 @@ function updatePaymentUI(el) {
         cardDetails.innerHTML = "<strong>IBAN Bilgileri:</strong> TR00 0000 0000... (Kayıt sonrası aktivasyon için açıklama kısmına e-posta adresinizi yazınız.)";
     }
 }
+<script>
+        // 1. Üstteki butonlardan gelen isteği yakalayan fonksiyon
+        function openModalWithTab(tabName) {
+            document.getElementById('membershipModal').style.display = 'flex';
+            switchTab(tabName);
+        }
+
+        // 2. Sekmeler arası geçiş ve RENK YÖNETİMİ
+        function switchTab(tab) {
+            const loginArea = document.getElementById('loginFormArea');
+            const regArea = document.getElementById('registerFormArea');
+            const tabL = document.getElementById('tabLogin');
+            const tabR = document.getElementById('tabRegister');
+
+            if(tab === 'login') {
+                loginArea.style.display = 'block';
+                regArea.style.display = 'none';
+                // Giriş Sekmesi: Aktif Turkuaz
+                tabL.style.background = '#fff'; 
+                tabL.style.color = '#00d1ff'; 
+                tabL.style.borderBottom = '3px solid #00d1ff';
+                // Kayıt Sekmesi: Pasif Gri
+                tabR.style.background = '#f8f9fa'; 
+                tabR.style.color = '#999';
+                tabR.style.borderBottom = 'none';
+            } else {
+                loginArea.style.display = 'none';
+                regArea.style.display = 'block';
+                // Kayıt Sekmesi: Aktif Turkuaz (Burayı sabitledik!)
+                tabR.style.background = '#fff'; 
+                tabR.style.color = '#00d1ff'; 
+                tabR.style.borderBottom = '3px solid #00d1ff';
+                // Giriş Sekmesi: Pasif Gri
+                tabL.style.background = '#f8f9fa'; 
+                tabL.style.color = '#999';
+                tabL.style.borderBottom = 'none';
+            }
+        }
+
+        // 3. Modalı Kapatma
+        function closeMembershipModal() {
+            document.getElementById('membershipModal').style.display = 'none';
+        }
+
+        // 4. Takip Listesi butonları için (Varsayılan olarak girişi açar)
+        function handleMembership() {
+            openModalWithTab('login');
+        }
+
+        // 5. Ödeme UI Güncelleme (Bunu da buraya ekle)
+        function updatePaymentUI(el) {
+            const cardBox = document.getElementById('cardBox');
+            const eftBox = document.getElementById('eftBox');
+            const cardDetails = document.getElementById('cardDetails');
+
+            if (el.value === 'card') {
+                cardBox.style.borderColor = '#00d1ff';
+                cardBox.style.background = '#f0fbff';
+                eftBox.style.borderColor = '#eee';
+                eftBox.style.background = '#fff';
+                cardDetails.innerHTML = "Ödeme işleminiz 256-bit SSL sertifikalı güvenli altyapı ile tamamlanacaktır.";
+            } else {
+                eftBox.style.borderColor = '#00d1ff';
+                eftBox.style.background = '#f0fbff';
+                cardBox.style.borderColor = '#eee';
+                cardBox.style.background = '#fff';
+                cardDetails.innerHTML = "<strong>IBAN Bilgileri:</strong> TR00 0000 0000 0000... <br> (Lütfen açıklama kısmına e-posta adresinizi yazınız.)";
+            }
+        }
+    </script>
+</body>
+</html>
 </script>
 </body>
 </html>
