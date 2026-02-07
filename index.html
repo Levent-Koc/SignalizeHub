@@ -86,8 +86,20 @@ h2 span, h1 span {
         .dropdown-content a:hover { background: var(--primary); color: white !important; }
 
         .auth { display: flex; align-items: center; gap: 15px; }
-        .btn-reg { background: var(--primary); color: white !important; padding: 8px 15px; border-radius: 6px; text-decoration: none; font-weight: bold; font-size: 13px; }
-
+        .btn-reg { 
+    background: #00d1ff !important; /* Yeşilden Turkuaza döndü */
+    color: white !important; 
+    padding: 8px 18px; 
+    border-radius: 6px; 
+    text-decoration: none; 
+    font-weight: bold; 
+    font-size: 13px; 
+    transition: 0.3s;
+}
+.btn-reg:hover {
+    background: #00b8e6 !important; /* Hover rengi */
+    box-shadow: 0 4px 12px rgba(0, 209, 255, 0.3);
+}
         .container { max-width: 1200px; margin: 20px auto; padding: 0 20px; }
         
         .card { background: var(--card-bg); border: 1px solid var(--border); border-radius: 12px; margin-bottom: 20px; position: relative; overflow: hidden; }
@@ -188,10 +200,10 @@ body.dark-mode .hub-text {
     </nav>
 
     <div class="auth">
-        <button onclick="document.body.classList.toggle('dark-mode')" style="background:none; border:1px solid var(--border); border-radius:5px; cursor:pointer; padding:5px 8px;">🌓</button>
-        <a href="javascript:void(0)" onclick="openModalWithTab('login')" class="btn-login">Giriş Yap</a>
-<a href="javascript:void(0)" onclick="openModalWithTab('register')" class="btn-reg">Kayıt Ol</a>
-    </div>
+    <button onclick="document.body.classList.toggle('dark-mode')" style="background:none; border:1px solid var(--border); border-radius:5px; cursor:pointer; padding:5px 8px;">🌓</button>
+    <a href="javascript:void(0)" onclick="openSingleTab('login')" class="btn-login">Giriş Yap</a>
+    <a href="javascript:void(0)" onclick="openSingleTab('register')" class="btn-reg">Kayıt Ol</a>
+</div>
 </header>
 
 <div class="container">
@@ -383,7 +395,7 @@ nav {
     Giriş Yap
 </button>
 
-<button onclick="openModalWithTab('register')" style="background: transparent; color: #ffffff; border: 1px solid #ffffff; padding: 10px 25px; border-radius: 4px; font-size: 13px; font-weight: bold; cursor: pointer;">
+<button onclick="openSingleTab('register')" style="background: #00d1ff; color: #ffffff; border: none; padding: 10px 25px; border-radius: 4px; font-size: 13px; font-weight: bold; cursor: pointer;">
     Kayıt Ol
 </button>
                 </div>
@@ -741,6 +753,28 @@ nav {
 </style>
 
 <script>
+function openSingleTab(type) {
+    var modal = document.getElementById('membershipModal');
+    var tabArea = modal.querySelector('div[style*="display: flex"]'); // Üstteki sekme butonlarının olduğu alan
+    
+    modal.style.display = 'flex';
+    
+    if (type === 'login') {
+        switchTab('login');
+        tabArea.style.display = 'none'; // Üstteki sekmeleri gizle
+    } else {
+        switchTab('register');
+        tabArea.style.display = 'none'; // Üstteki sekmeleri gizle
+    }
+}
+
+// "Vazgeç ve Kapat" butonu basıldığında sekmeleri tekrar görünür yapması için:
+function closeMembershipModal() {
+    var modal = document.getElementById('membershipModal');
+    var tabArea = modal.querySelector('div[style*="display: flex"]');
+    modal.style.display = 'none';
+    if(tabArea) tabArea.style.display = 'flex'; // Bir sonraki açılış için sıfırla
+}
 // 1. ANA MODAL KONTROLÜ
 function openModalWithTab(tabName) {
     var modal = document.getElementById('membershipModal');
