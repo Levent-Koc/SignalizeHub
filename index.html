@@ -163,6 +163,8 @@ body.dark-mode .hub-text {
             <span class="nav-item">🪙 Değerli Maden ▼</span>
             <div class="dropdown-content">
                 <a href="javascript:void(0)" onclick="openP('mPanel')">🟡 Maden Analizi</a>
+<hr style="border: 0; border-top: 1px solid rgba(0,0,0,0.1); margin: 5px 0;">
+<a href="javascript:void(0)" onclick="handleMembership('Değerli Maden')" style="color: #00d1ff; font-weight: bold;">⭐ Takip Listem</a>
             </div>
         </div>
 
@@ -170,12 +172,16 @@ body.dark-mode .hub-text {
             <span class="nav-item">₿ Kripto ▼</span>
             <div class="dropdown-content">
                 <a href="javascript:void(0)" onclick="document.getElementById('dPanel').style.display='none'; document.getElementById('kPanel').style.display='block';">📊 Açgözlülük Endeksi</a>
+<hr style="border: 0; border-top: 1px solid rgba(0,0,0,0.1); margin: 5px 0;">
+<a href="javascript:void(0)" onclick="handleMembership('Kripto')" style="color: #00d1ff; font-weight: bold;">⭐ Takip Listem</a>
             </div>
         </div>
 <div class="dropdown">
     <span class="nav-item">💵 Döviz ▼</span>
     <div class="dropdown-content">
    <a href="javascript:void(0)" onclick="document.getElementById('kPanel').style.display='none'; document.getElementById('dPanel').style.display='block';">🏦 Canlı Kurlar & Pariteler</a>
+<hr style="border: 0; border-top: 1px solid rgba(0,0,0,0.1); margin: 5px 0;">
+<a href="javascript:void(0)" onclick="handleMembership('Döviz')" style="color: #00d1ff; font-weight: bold;">⭐ Takip Listem</a>
    </div>
 </div>       
         </div>
@@ -741,6 +747,10 @@ function openP(id) {
         document.getElementById('res').innerText = (a * b).toLocaleString('tr-TR') + " TL";
     }
     window.onload = cc;
+function handleMembership(kategori) {
+    // Şimdilik basit bir uyarı, bir sonraki adımda şık panele çevireceğiz
+    alert(kategori + " Takip Listesi sadece üyelerimize özeldir. Lütfen Giriş Yapın veya Kayıt Olun.");
+}
 </script>
 </body>
 </html>
