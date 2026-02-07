@@ -692,6 +692,11 @@ nav {
         <input type="text" required class="smart-input">
         <label class="floating-label">Ad Soyad</label>
     </div>
+
+    <div class="input-group">
+        <input type="text" required class="smart-input">
+        <label class="floating-label">Kullanıcı Adı</label>
+    </div>
     
     <div style="display: flex; gap: 10px; margin-bottom: 20px;">
         <div style="width: 110px;">
@@ -710,6 +715,17 @@ nav {
     <div class="input-group">
         <input type="email" required class="smart-input">
         <label class="floating-label">E-posta</label>
+    </div>
+
+    <div style="display: flex; gap: 10px; margin-bottom: 20px;">
+        <div class="input-group" style="flex: 1; margin-bottom: 0;">
+            <input type="password" required class="smart-input">
+            <label class="floating-label">Şifre</label>
+        </div>
+        <div class="input-group" style="flex: 1; margin-bottom: 0;">
+            <input type="password" required class="smart-input">
+            <label class="floating-label">Şifre (Tekrar)</label>
+        </div>
     </div>
 
     <div style="margin-top: 10px; margin-bottom: 20px;">
@@ -738,7 +754,6 @@ nav {
 
     <button style="width: 100%; padding: 14px; border-radius: 10px; border: none; background: #00d1ff; color: #fff; font-weight: bold; cursor: pointer; box-shadow: 0 4px 15px rgba(0,209,255,0.2);">Kayıt Ol ve Devam Et</button>
 </div>
-
             <button onclick="closeMembershipModal()" style="width: 100%; margin-top: 25px; background: none; border: none; color: #bbb; cursor: pointer; font-size: 12px;">Vazgeç ve Kapat</button>
         </div>
     </div>
@@ -755,28 +770,51 @@ nav {
 <script>
 function openSingleTab(type) {
     var modal = document.getElementById('membershipModal');
-    // Tab butonlarını (GİRİŞ YAP/KAYIT OL yazan barı) seç
-    var tabArea = modal.querySelector('div[style*="display: flex"]'); 
+    // Üstteki GİRİŞ YAP / KAYIT OL barını bulalım
+    var tabArea = modal.querySelector('div[style*="background: #f8f9fa"]')|| modal.querySelector('div[style*="display: flex"]'); 
     
     modal.style.display = 'flex';
     
+    // Her açılışta barı gizle (Senin istediğin: giriş açıldıysa sadece giriş kalsın)
+    if(tabArea) tabArea.style.display = 'none';
+
     if (type === 'login') {
         switchTab('login');
-        if(tabArea) tabArea.style.display = 'none'; // Sekme barını gizle
     } else {
         switchTab('register');
-        if(tabArea) tabArea.style.display = 'none'; // Sekme barını gizle
     }
 }
-
-// Kapatırken her şeyi eski haline getirir (Bir sonraki kullanım için)
 function closeMembershipModal() {
     var modal = document.getElementById('membershipModal');
-    var tabArea = modal.querySelector('div[style*="display: flex"]');
+    // Hem renk hem de flex yapısından yakalamak için daha genel bir seçici
+    var tabArea = modal.querySelector('div[style*="background: #f8f9fa"]') || modal.querySelector('div[style*="display: flex"]');
+    
     modal.style.display = 'none';
-    if(tabArea) tabArea.style.display = 'flex'; // Sekme barını tekrar aç
+    
+    // Bir sonraki açılışta sekmelerin (varsa) görünmesi için barı geri getir
+    if(tabArea) {
+        tabArea.style.display = 'flex';
+    }
 }
+// Sekme geçiş fonksiyonunu da garantiye alalım
+function switchTab(tab) {
+    var loginArea = document.getElementById('loginFormArea');
+    var regArea = document.getElementById('registerFormArea');
+    var tabL = document.getElementById('tabLogin');
+    var tabR = document.getElementById('tabRegister');
 
+    if (tab === 'login') {
+        if(loginArea) loginArea.style.display = 'block';
+        if(regArea) regArea.style.display = 'none';
+        tabL.style.color = '#00d1ff'; tabL.style.background = '#ffffff'; tabL.style.borderBottom = '3px solid #00d1ff';
+        tabR.style.color = '#999'; tabR.style.background = '#f8f9fa'; tabR.style.borderBottom = 'none';
+    } else {
+        if(loginArea) loginArea.style.display = 'none';
+        if(regArea) regArea.style.display = 'block';
+        tabR.style.color = '#00d1ff'; tabR.style.background = '#ffffff'; tabR.style.borderBottom = '3px solid #00d1ff';
+        tabL.style.color = '#999'; tabL.style.background = '#f8f9fa'; tabL.style.borderBottom = 'none';
+    }
+}
 // Ödeme kutularının renk değişimi
 function updatePaymentUI(el) {
     var cardBox = document.getElementById('cardBox');
