@@ -617,22 +617,22 @@ if (typeof isLoggedIn !== 'undefined' && isLoggedIn) {
     <button onclick="closeMembershipModal()" style="width: 100%; background: transparent; color: #999; border: none; padding: 10px; margin-top: 10px; cursor: pointer; font-size: 13px;">Vazgeç</button>
 </div>
         <div style="padding: 35px;">
-            <div id="loginFormArea">
-    <div class="input-group">
-        <input type="text" id="loginUser" required class="smart-input">
-        <label class="floating-label">E-posta veya Kullanıcı Adı</label>
-    </div>
-    
-    <div class="input-group">
-        <input type="password" id="loginPass" required class="smart-input">
-        <label class="floating-label">Şifre</label>
+ <div id="loginFormArea" style="padding: 20px;">
+    <div class="input-group" style="margin-bottom: 20px; position: relative;">
+        <input type="text" id="loginUser" required class="smart-input" style="width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 8px; outline: none;">
+        <label class="floating-label" style="position: absolute; left: 10px; top: -10px; background: white; padding: 0 5px; font-size: 12px; color: #00d1ff;">Kullanıcı Adı</label>
     </div>
 
-    <p id="loginError" style="color: #ff4757; font-size: 12px; text-align: center; margin-top: 10px; display: none; font-weight: bold;">❌ Hatalı kullanıcı adı veya şifre!</p>
+    <div class="input-group" style="margin-bottom: 10px; position: relative;">
+        <input type="password" id="loginPass" required class="smart-input" style="width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 8px; outline: none;">
+        <label class="floating-label" style="position: absolute; left: 10px; top: -10px; background: white; padding: 0 5px; font-size: 12px; color: #00d1ff;">Şifre</label>
+    </div>
 
-    <p style="color: #00d1ff; font-size: 12px; text-align: center; margin-top: 20px; cursor: pointer;">Şifremi Unuttum?</p>
-    
-    <button onclick="checkLogin()" style="width: 100%; background: #00d1ff; color: white; border: none; padding: 12px; border-radius: 10px; font-weight: bold; cursor: pointer; margin-top: 10px;">GİRİŞ YAP</button>
+    <p id="loginError" style="color: #ff4757; font-size: 12px; text-align: center; margin: 10px 0; display: none; font-weight: bold;">❌ Hatalı kullanıcı adı veya şifre!</p>
+
+    <p style="color: #00d1ff; font-size: 11px; text-align: center; margin-bottom: 15px; cursor: pointer;">Şifremi mi unuttun?</p>
+
+    <button onclick="checkLogin()" style="width: 100%; background: #00d1ff; color: white; border: none; padding: 14px; border-radius: 10px; font-weight: bold; cursor: pointer; transition: 0.3s;">GİRİŞ YAP</button>
 </div>
 
             <div id="registerFormArea" style="display:none;">
