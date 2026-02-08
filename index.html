@@ -14,14 +14,28 @@
     --primary: #00d1ff !important; 
 }
 
+/* Hub kelimesinin rengini garantiye alalım */
 h2 span, h1 span {
     color: var(--primary) !important;
 }
 
+/* Giriş butonu ve Takip Ettiklerim yıldızı için */
 .btn-login:hover {
     border-color: var(--primary) !important;
     color: var(--primary) !important;
 }
+
+.track-star {
+    color: var(--primary) !important;
+}
+        :root {
+            --bg: #f8fafc;
+            --header-bg: #ffffff;
+            --card-bg: #ffffff;
+            --text: #1a1a1a;
+            --border: #e1e8ed;
+            --primary: #00b894;
+        }
 
         body.dark-mode {
             --bg: #0f172a;
@@ -31,13 +45,12 @@ h2 span, h1 span {
             --border: #334155;
         }
 
-        body {
-            background-color: var(--bg);
-            color: var(--text);
-            margin: 0;
-            font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
+        body { 
+            background-color: var(--bg); 
+            color: var(--text); 
+            margin: 0; 
+            font-family: 'Segoe UI', sans-serif;
             padding-bottom: 60px;
-            transition: background-color 0.3s, color 0.3s;
         }
 
         header {
@@ -52,275 +65,954 @@ h2 span, h1 span {
             z-index: 1000;
         }
 
-        .logo-area { display: flex; align-items: center; gap: 12px; }
-        .logo-area img { height: 40px; }
+        .logo-area { display: flex; align-items: center; gap: 10px; }
+        .logo-box { background: #1a1a1a; width: 35px; height: 35px; border-radius: 8px; display: flex; align-items: center; justify-content: center; border: 2px solid var(--primary); color: white; font-weight: bold; }
 
-        nav { display: flex; gap: 5px; flex-grow: 1; justify-content: center; }
+        nav { display: flex; gap: 5px; }
         .dropdown { position: relative; }
-        .nav-item {
-            text-decoration: none;
-            color: var(--text);
-            font-weight: 600;
-            font-size: 14px;
-            padding: 10px 15px;
-            cursor: pointer;
-            display: inline-block;
-            transition: 0.2s;
+        .nav-item { 
+            text-decoration: none; color: var(--text); font-weight: 600; font-size: 14px; 
+            padding: 10px 15px; cursor: pointer; display: inline-block; transition: 0.2s;
         }
+        .nav-item:hover { color: var(--primary); transform: translateY(-3px); }
 
         .dropdown-content {
-            display: none;
-            position: absolute;
-            background-color: var(--header-bg);
-            min-width: 220px;
-            border: 1px solid var(--border);
-            border-radius: 12px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
-            top: 100%;
-            left: 0;
-            z-index: 2000;
-            padding: 8px 0;
+            display: none; position: absolute; background: var(--header-bg); min-width: 200px;
+            border: 1px solid var(--border); border-radius: 8px; top: 100%; left: 0; z-index: 2000;
         }
         .dropdown:hover .dropdown-content { display: block; }
-        .dropdown-content a {
-            color: var(--text);
-            padding: 10px 20px;
-            text-decoration: none;
-            display: block;
-            font-size: 13px;
-            transition: 0.2s;
-        }
-        .dropdown-content a:hover { background-color: var(--primary); color: white !important; }
+        .dropdown-content a { color: var(--text); padding: 12px 20px; text-decoration: none; display: block; font-size: 13px; border-bottom: 1px solid rgba(0,0,0,0.05); }
+        .dropdown-content a:hover { background: var(--primary); color: white !important; }
 
-        .auth { display: flex; align-items: center; gap: 10px; min-width: 250px; justify-content: flex-end; }
-        .btn-login {
-            text-decoration: none;
-            color: var(--text);
-            font-weight: 600;
-            font-size: 13px;
-            padding: 8px 18px;
-            border: 1px solid var(--border);
-            border-radius: 8px;
-            transition: 0.3s;
-        }
-        .btn-reg {
-            background-color: var(--primary);
-            color: white;
-            padding: 8px 18px;
-            border-radius: 8px;
-            text-decoration: none;
-            font-weight: bold;
-            font-size: 13px;
-            border: none;
-            cursor: pointer;
-        }
+        .auth { display: flex; align-items: center; gap: 15px; }
+        .btn-reg { 
+    background: #00d1ff !important; 
+    color: white !important; 
+    padding: 8px 18px; 
+    border-radius: 6px; 
+    text-decoration: none; 
+    font-weight: bold; 
+    font-size: 13px; 
+    
+}
+.btn-reg:hover {
+    background: #00b8e6 !important; /* Hover rengi */
+    box-shadow: 0 4px 12px rgba(0, 209, 255, 0.3);
+}
+        .container { max-width: 1200px; margin: 20px auto; padding: 0 20px; }
+        
+        .card { background: var(--card-bg); border: 1px solid var(--border); border-radius: 12px; margin-bottom: 20px; position: relative; overflow: hidden; }
+        
+        /* Tali Paneller */
+        .tali-panel { display: none; padding: 20px; border-top: 4px solid var(--primary); box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
+        .close-btn { position: absolute; top: 15px; right: 15px; background: #ff4757; color: white; border: none; padding: 5px 12px; border-radius: 4px; cursor: pointer; font-weight: bold; z-index: 100; }
 
-        .container { max-width: 1300px; margin: 20px auto; padding: 0 20px; }
-        .card {
-            background-color: var(--card-bg);
-            border: 1px solid var(--border);
-            border-radius: 16px;
-            padding: 24px;
-            margin-bottom: 24px;
-            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);
-        }
+        /* Üçlü Izgara */
+        .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 20px; }
+        .cloud-title { padding: 12px; text-align: center; font-weight: 800; font-size: 13px; }
+        .c-green { background: rgba(0,184,148,0.1); color: #00b894; }
+        .c-red { background: rgba(255,77,77,0.1); color: #ff4d4d; }
+        .c-blue { background: rgba(52, 152, 219, 0.1); color: #3498db; }
 
-        /* MODAL VE GİRİŞ ALANI - TAMİR EDİLEN KISIM */
-        #membershipModal {
-            display:none; 
-            position: fixed; 
-            z-index: 10000; 
-            left: 0; top: 0; 
-            width: 100%; height: 100%; 
-            background-color: rgba(0,0,0,0.6); 
-            backdrop-filter: blur(8px); 
-            align-items: center; 
-            justify-content: center;
-        }
+        .ticker-bar { position: fixed; bottom: 0; left: 0; width: 100%; background: var(--header-bg); border-top: 1px solid var(--border); z-index: 3000; }
+        
+        @media (max-width: 800px) { .grid-3 { grid-template-columns: 1fr; } }
+  /* Giriş Butonu Kutucuk Hali */
+.btn-login {
+    text-decoration: none;
+    color: var(--text);
+    font-weight: 600;
+    font-size: 13px;
+    padding: 8px 18px;          /* Kutunun iç boşluğu */
+    border: 1px solid var(--border); /* İnce bir çerçeve */
+    border-radius: 6px;         /* Köşeleri hafif yuvarlat */
+    transition: all 0.3s ease;
+    display: inline-block;
+}
 
-        .modal-box {
-            background: #ffffff; 
-            width: 400px; 
-            border-radius: 20px; 
-            overflow: hidden; 
-            box-shadow: 0 25px 50px rgba(0,0,0,0.3);
-        }
+/* Üzerine gelindiğinde renk değişsin */
+.btn-login:hover {
+    border-color: var(--primary);
+    color: var(--primary);
+    background-color: rgba(0, 184, 148, 0.05); /* Çok hafif bir arka plan rengi */
+} 
+/* Hub kelimesi için özel baskın renk */
+.hub-text {
+    color: #00b894 !important;
+    display: inline-block; /* Rengin tam oturması için */
+}
 
-        .smart-input {
-            width: 100%; 
-            padding: 12px; 
-            border: 1px solid #ddd; 
-            border-radius: 8px; 
-            outline: none; 
-            box-sizing: border-box;
-        }
-
-        .input-group { margin-bottom: 15px; position: relative; }
-
-        /* Sinyal Takip Merkezi Görünümü */
-        #uyeOzelPanel {
-            margin-top: 20px; 
-            background: #1e293b; 
-            border-radius: 12px; 
-            border: 1px solid #334155; 
-            overflow: hidden; 
-            color: white;
-            position: relative;
-        }
-    </style>
+/* Koyu modda da rengin kaybolmaması için */
+body.dark-mode .hub-text {
+    color: #00b894 !important;
+}
+@keyframes highlight {
+    0% { transform: scale(0.9); opacity: 0; }
+    100% { transform: scale(1); opacity: 1; }
+}
+ </style>
 </head>
 <body>
-
 <header>
     <div class="logo-area">
-        <img src="logo.png" alt="Logo">
-        <h2 style="margin:0;">Signalize<span style="color:var(--primary)">Hub</span></h2>
+        <img src="logo.png" alt="SignalizeHub Logo">
+        <h2 style="margin:0; font-size: 18px;">Signalize<span class="hub-text">Hub</span></h2>
     </div>
+
     <nav>
         <div class="dropdown">
             <span class="nav-item">📈 Hisse Senedi ▼</span>
             <div class="dropdown-content">
-                <a href="#">🔍 Hisse Tarayıcı</a>
-                <a href="#">📊 Isı Haritası</a>
+                <a href="javascript:void(0)" onclick="openP('hPanel')">🔍 Hisse Tarayıcı</a>
+                <a href="javascript:void(0)" onclick="openP('iPanel')">📊 Isı Haritası</a>
+<hr style="border: 0; border-top: 1px solid rgba(0,0,0,0.05); margin: 5px 0;">
+<a href="javascript:void(0)" onclick="handleMembership('Hisse Senedi')" style="color: #00d1ff; font-weight: normal; font-size: 13px;">⭐ Takip Listem</a>
             </div>
         </div>
+
+        <div class="dropdown">
+            <span class="nav-item">🪙 Değerli Maden ▼</span>
+            <div class="dropdown-content">
+                <a href="javascript:void(0)" onclick="openP('mPanel')">🟡 Maden Analizi</a>
+<hr style="border: 0; border-top: 1px solid rgba(0,0,0,0.05); margin: 5px 0;">
+<a href="javascript:void(0)" onclick="handleMembership('Değerli Maden')" style="color: #00d1ff; font-weight: normal; font-size: 13px;">⭐ Takip Listem</a>
+            </div>
+        </div>
+
         <div class="dropdown">
             <span class="nav-item">₿ Kripto ▼</span>
             <div class="dropdown-content">
-                <a href="#">📊 BTC Analiz</a>
+                <a href="javascript:void(0)" onclick="document.getElementById('dPanel').style.display='none'; document.getElementById('kPanel').style.display='block';">📊 Açgözlülük Endeksi</a>
+<hr style="border: 0; border-top: 1px solid rgba(0,0,0,0.05); margin: 5px 0;">
+<a href="javascript:void(0)" onclick="handleMembership('Kripto')" style="color: #00d1ff; font-weight: normal; font-size: 13px;">⭐ Takip Listem</a>
             </div>
         </div>
+<div class="dropdown">
+    <span class="nav-item">💵 Döviz ▼</span>
+    <div class="dropdown-content">
+   <a href="javascript:void(0)" onclick="document.getElementById('kPanel').style.display='none'; document.getElementById('dPanel').style.display='block';">🏦 Canlı Kurlar & Pariteler</a>
+<hr style="border: 0; border-top: 1px solid rgba(0,0,0,0.05); margin: 5px 0;">
+<a href="javascript:void(0)" onclick="handleMembership('Döviz')" style="color: #00d1ff; font-weight: normal; font-size: 13px;">⭐ Takip Listem</a>
+   </div>
+</div>       
+        </div>
     </nav>
+
     <div class="auth">
-        <button onclick="document.body.classList.toggle('dark-mode')" style="background:none; border:none; cursor:pointer; font-size:20px;">🌓</button>
-        <a href="javascript:void(0)" onclick="openMembershipModal('login')" class="btn-login">Giriş Yap</a>
-        <a href="javascript:void(0)" onclick="openMembershipModal('register')" class="btn-reg">Kayıt Ol</a>
-    </div>
+    <button onclick="document.body.classList.toggle('dark-mode')" style="background:none; border:1px solid var(--border); border-radius:5px; cursor:pointer; padding:5px 8px;">🌓</button>
+    <a href="javascript:void(0)" onclick="openSingleTab('login')" class="btn-login">Giriş Yap</a>
+    <a href="javascript:void(0)" onclick="openSingleTab('register')" class="btn-reg">Kayıt Ol</a>
+</div>
 </header>
 
 <div class="container">
-    <div class="card" style="border-top: 4px solid var(--primary);">
-        <h3 style="text-align:center;">📜 Günlük Strateji Raporu</h3>
-        <div id="stratejiBlurArea" style="filter: blur(5px); opacity: 0.3; pointer-events: none;">
-            <p>Piyasa beklentileri ve teknik analiz verileri burada yer almaktadır...</p>
-        </div>
-        <div id="stratejiLockVisual" style="text-align:center; padding: 20px;">
-            <p>🔒 Bu rapor sadece üyelere özeldir.</p>
-            <button onclick="openMembershipModal('login')" class="btn-reg">İçeriği Gör</button>
-        </div>
-        <div id="stratejiData" style="display:none; color:green; text-align:center; font-weight:bold;">
-            ✅ Strateji raporu başarıyla açıldı!
+<div class="card" id="topCard" style="padding:40px 30px; border-top: 4px solid var(--primary); margin-bottom: 20px; text-align: center;">
+    
+    <div style="display: flex; flex-direction: column; align-items: center; gap: 15px; margin-bottom: 25px;">
+        <h3 style="margin: 0; font-size: 22px;">📜 Günlük Strateji Raporu</h3>
+        
+        <div style="position: relative; display: inline-flex; align-items: center;">
+            <button onclick="toggleTimePopup()" id="updateBtn" style="background: var(--primary); color: white; border: none; padding: 7px 18px; border-radius: 20px; cursor: pointer; font-weight: bold; font-size: 12px; transition: 0.3s; box-shadow: 0 4px 6px rgba(0,184,148,0.2);">
+                🔄 GÜNCELLENME
+            </button>
+            
+            <div id="timePopup" style="display: none; position: absolute; left: 110%; top: 50%; transform: translateY(-50%); background: var(--header-bg); border: 1px solid var(--primary); padding: 4px 12px; border-radius: 4px; box-shadow: 0 3px 10px rgba(0,0,0,0.1); z-index: 1000; white-space: nowrap; font-size: 11px; font-weight: 600; color: var(--text); opacity: 0; pointer-events: none;">
+                <span style="color: var(--primary);">✔</span> <span id="exactTime">--:--</span>
+            </div>
         </div>
     </div>
 
-    <div id="uyeOzelPanel">
-        <div style="padding: 20px; text-align: center; background: rgba(0,0,0,0.2);">
-            <h3 style="margin:0; color:var(--primary);">ÜYE ÖZEL SİNYAL TAKİP MERKEZİ</h3>
+    <div style="max-width: 800px; margin: 0 auto; line-height: 1.8; font-size: 16px; color: var(--text); border-top: 1px solid var(--border); padding-top: 20px;">
+        <p style="margin-bottom: 15px;">
+            BIST100 endeksi yeni güne küresel piyasalardaki pozitif seyrin etkisiyle alıcılı bir başlangıç yaptı. 
+            Teknik olarak 9.250 puan seviyesi güçlü bir direnç bölgesi olarak takip edilirken, bu seviyenin aşılması durumunda yukarı yönlü ivme kazanabilir. 
+            Özellikle bankacılık endeksindeki para girişi piyasayı domine etmeye devam ediyor...
+        </p>
+        
+        <div style="stratejiLockVisual" linear-gradient(to bottom, rgba(255,255,255,0) 0%, var(--header-bg) 100%); margin-top: -40px; padding-top: 40px; position: relative;">
+            <div style="padding: 20px; border: 1px dashed var(--primary); border-radius: 10px; background: rgba(0, 184, 148, 0.03); display: inline-block; margin-top: 10px;">
+                <span style="color: var(--primary); font-weight: bold;">🔒 Bu raporun devamı sadece Gold Üyelerimize özeldir.</span>
+                <br>
+                <small style="opacity: 0.7;">Raporun tamamını görmek ve anlık sinyalleri yakalamak için giriş yapın.</small>
+            </div>
         </div>
-        <div style="padding: 40px; position: relative;">
-            <div id="sinyalBlurArea" style="filter: blur(10px); opacity: 0.2; pointer-events: none; display: flex; gap: 20px; justify-content: center;">
-                <div style="background:white; padding:20px; border-radius:10px; color:black;">THYAO - AL</div>
-                <div style="background:white; padding:20px; border-radius:10px; color:black;">BTC - TUT</div>
+    </div>
+</div>
+        
+    </div>
+  <style>
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    background: var(--header-bg);
+    border-bottom: 1px solid var(--border);
+}
+
+nav {
+    display: flex;
+    align-items: center;
+    gap: 15px; /* Menüler arası boşluk */
+    flex-grow: 1;
+    justify-content: center; /* Menüleri ortaya toplar */
+}
+
+.logo-area {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    min-width: 200px;
+}
+
+.logo-area img {
+    height: 45px; /* Logoyu biraz daha belirgin yaptık */
+    width: auto;
+}
+
+.auth {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    min-width: 250px;
+    justify-content: flex-end;
+}
+    .tali-panel-yeni {
+        display: none; 
+        position: fixed; 
+        top: 50%; 
+        left: 50%; 
+        transform: translate(-50%, -50%); 
+        width: 80%;       /* Ekranın %80'ini kapla (Mobilde geniş kalması için) */
+        max-width: 750px;  /* AMA masaüstünde asla 750px'i geçme (İşte bu ufalatır) */
+        background: #131722 !important; 
+        border-radius: 20px; /* Köşeleri biraz daha yuvarlattık, daha modern oldu */
+        box-shadow: 0 30px 60px rgba(0, 0, 0, 0.8); 
+        z-index: 10001; 
+        overflow: hidden;
+        border: 1px solid #333;
+    }
+    
+    .panel-kapat-btn {
+        position: absolute; 
+        right: 15px; 
+        top: 15px; 
+        z-index: 999; 
+        background: #e74c3c; 
+        color: #ffffff; 
+        border: none; 
+        width: 32px; 
+        height: 32px; 
+        border-radius: 50%; 
+        cursor: pointer; 
+        font-weight: bold;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: transform 0.2s;
+    }
+    
+    .panel-kapat-btn:hover {
+        transform: scale(1.1); /* Üzerine gelince hafifçe büyür */
+    }
+</style>
+
+<div id="uyeOzelPanel" style="max-width: 1200px; margin: 20px auto; padding: 0; background: rgba(255, 255, 255, 0.05); border-radius: 12px; border: 1px solid rgba(255, 255, 255, 0.1); overflow: hidden; font-family: sans-serif;">
+    
+    <div style="background: rgba(255, 255, 255, 0.1); padding: 15px 20px; border-bottom: 1px solid rgba(255, 255, 255, 0.1); display: flex; align-items: center; justify-content: center; position: relative;">
+        
+        <h3 style="color: #00d1ff; margin: 0; font-size: 16px; font-weight: bold; letter-spacing: 1.5px; text-align: center; text-shadow: 0 0 10px rgba(0, 209, 255, 0.3);">
+             ÜYE ÖZEL GÜNLÜK VE HAFTALIK SİNYAL TAKİP MERKEZİ
+        </h3>
+
+        <div style="position: absolute; right: 20px; display: flex; align-items: center; gap: 8px;">
+            <span style="display: inline-block; width: 8px; height: 8px; background: #00ff88; border-radius: 50%; box-shadow: 0 0 8px #00ff88; animation: blink 1.5s infinite;"></span>
+            <span style="color: #00ff88; font-size: 11px; font-weight: bold; letter-spacing: 0.5px;">CANLI VERİ</span>
+        </div>
+    </div>
+
+    <div style="position: relative; padding: 30px;">
+        
+        <div style="sinyalBlurArea" style="display: flex; flex-wrap: wrap; gap: 20px; justify-content: center; filter: blur(7px); opacity: 0.3; pointer-events: none;">
+            <div style="background: #ffffff; border-radius: 8px; padding: 20px; width: 220px; text-align: center;">
+                <div style="font-size: 18px; font-weight: bold; color: #333;">XXXXX</div>
+                <div style="font-size: 13px; color: #0088ff; margin-top: 10px;">Giriş Bekleniyor</div>
             </div>
-            <div id="sinyalLockVisual" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); text-align: center;">
-                <p>⚠️ Sinyalleri görmek için giriş yapmalısınız.</p>
-                <button onclick="openMembershipModal('login')" class="btn-reg">Giriş Yap</button>
+            <div style="background: #ffffff; border-radius: 8px; padding: 20px; width: 220px; text-align: center;">
+                <div style="font-size: 18px; font-weight: bold; color: #333;">XXXXX</div>
+                <div style="font-size: 13px; color: #0088ff; margin-top: 10px;">Giriş Bekleniyor</div>
             </div>
-            <div id="sinyalData" style="display:none; text-align:center; color:#00ff88; font-weight:bold;">
-                THYAO Hedef: 315.00 | BTC Destek: 42.500
+            <div style="background: #ffffff; border-radius: 8px; padding: 20px; width: 220px; text-align: center;">
+                <div style="font-size: 18px; font-weight: bold; color: #333;">XXXXX</div>
+                <div style="font-size: 13px; color: #0088ff; margin-top: 10px;">Giriş Bekleniyor</div>
+            </div>
+        </div>
+
+        <div style="sinyalLockVisual" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; background: rgba(15, 17, 26, 0.1);">
+            <div style="text-align: center;">
+                <p style="color: #fff; font-size: 15px; margin-bottom: 20px; font-weight: 300;">Bu alandaki analizler sadece üyelerimize özeldir.</p>
+                <div style="display: flex; gap: 10px; justify-content: center;">
+                   <button onclick="openSingleTab('login')" style="background: #ffffff; color: #000; border: none; padding: 10px 25px; border-radius: 4px; font-size: 13px; font-weight: bold; cursor: pointer;">
+    Giriş Yap
+</button>
+
+<button onclick="openSingleTab('register')" style="background: #00d1ff; color: #ffffff; border: none; padding: 10px 25px; border-radius: 4px; font-size: 13px; font-weight: bold; cursor: pointer;">
+    Kayıt Ol
+</button>
+                </div>
+<div id="sinyalData" style="display: none; width: 100%;">
+    <div style="display: flex; flex-wrap: wrap; gap: 20px; justify-content: center; padding: 10px;">
+        <div style="background: white; border: 1px solid var(--primary); border-radius: 12px; padding: 15px; width: 200px; text-align: center; box-shadow: 0 4px 6px rgba(0,0,0,0.05);">
+            <div style="font-weight: bold; color: var(--text);">THYAO</div>
+            <div style="color: #2ecc71; font-size: 14px; margin-top: 5px;">HEDEF: 312.50</div>
+            <div style="font-size: 12px; opacity: 0.6;">Sinyal: GÜÇLÜ AL</div>
+        </div>
+        <div style="background: white; border: 1px solid var(--primary); border-radius: 12px; padding: 15px; width: 200px; text-align: center; box-shadow: 0 4px 6px rgba(0,0,0,0.05);">
+            <div style="font-weight: bold; color: var(--text);">EREGL</div>
+            <div style="color: #2ecc71; font-size: 14px; margin-top: 5px;">HEDEF: 54.20</div>
+            <div style="font-size: 12px; opacity: 0.6;">Sinyal: AL</div>
+        </div>
+    </div>
+</div>
             </div>
         </div>
     </div>
 </div>
 
-<div id="membershipModal">
-    <div class="modal-box">
-        <div style="display: flex; background: #f8f9fa; border-bottom: 1px solid #eee;">
-            <button id="tabLogin" onclick="switchTab('login')" style="flex:1; padding:15px; border:none; background:white; color:var(--primary); font-weight:bold; border-bottom: 3px solid var(--primary); cursor:pointer;">GİRİŞ YAP</button>
-            <button id="tabRegister" onclick="switchTab('register')" style="flex:1; padding:15px; border:none; background:#f8f9fa; color:#999; font-weight:bold; cursor:pointer;">KAYIT OL</button>
+<style>
+@keyframes blink {
+    0% { opacity: 1; }
+    50% { opacity: 0.3; }
+    100% { opacity: 1; }
+}
+</style>
+<div id="kPanel" class="tali-panel-yeni" style="display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 450px; background: #121212; z-index: 10005; box-shadow: 0 25px 50px rgba(0,0,0,0.6); border-radius: 20px; border: 1px solid #333; overflow: hidden;">
+    
+    <div style="background: #1a1a1a; padding: 15px 20px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #333;">
+        <span style="color: #f3ba2f; font-weight: bold; font-size: 15px; letter-spacing: 1px;">₿ BTC TEKNİK ANALİZ</span>
+        <div onclick="this.parentElement.parentElement.style.display='none'" 
+             style="color: #ff4d4d; cursor: pointer; font-size: 28px; font-weight: bold; line-height: 1; transition: 0.3s;"
+             onmouseover="this.style.color='#ff1a1a'" 
+             onmouseout="this.style.color='#ff4d4d'">×</div>
+    </div>
+
+    <div style="padding: 20px; background: #121212;">
+        <div style="position: relative; margin: 0 auto; border-radius: 8px; overflow: hidden;">
+            
+            <div id="btcLock" onclick="checkBtcAccess()" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 10008; cursor: pointer; background: rgba(0,0,0,0);">
+                </div>
+
+            <div class="tradingview-widget-container">
+                <div class="tradingview-widget-container__widget"></div>
+                <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-technical-analysis.js" async>
+                {
+                  "interval": "1h",
+                  "width": "100%",
+                  "isTransparent": true,
+                  "height": 380,
+                  "symbol": "BINANCE:BTCUSDT",
+                  "showIntervalTabs": true,
+                  "displayMode": "single",
+                  "locale": "tr",
+                  "colorTheme": "dark"
+                }
+                </script>
+            </div>
+        </div>
+        
+        <p style="color: #555; font-size: 11px; text-align: center; margin-top: 10px;">
+            Veriler 1 saatlik periyotta teknik indikatörleri temsil eder.
+        </p>
+    </div>
+</div>
+
+<script>
+function checkBtcAccess() {
+    if (typeof isLoggedIn !== 'undefined' && !isLoggedIn) {
+        // Giriş yapılmamışsa uyarıyı göster
+        document.getElementById('loginRequiredPanel').style.display = 'block';
+    } else {
+        // Giriş yapılmışsa perdeyi kaldır
+        document.getElementById('btcLock').style.display = 'none';
+    }
+}
+
+// Giriş kontrolü (Sayfa yüklendiğinde/giriş yapıldığında)
+if (typeof isLoggedIn !== 'undefined' && isLoggedIn) {
+    var btcLock = document.getElementById('btcLock');
+    if(btcLock) btcLock.style.display = 'none';
+}
+</script>
+<div id="dPanel" class="tali-panel-yeni" style="display: none; background: white !important; color: #333; padding: 20px; border-radius: 12px; border: 2px solid #3498db; margin: 20px 0;">
+    <div onclick="this.parentElement.style.display='none'" 
+     style="position: absolute; right: 20px; top: 10px; color: #ff4d4d; cursor: pointer; font-size: 32px; font-weight: bold; line-height: 1; transition: 0.3s; z-index: 10006; font-family: Arial, sans-serif;"
+     onmouseover="this.style.color='#ff1a1a'; this.style.transform='scale(1.2)';" 
+     onmouseout="this.style.color='#ff4d4d'; this.style.transform='scale(1)';">
+     ×
+</div>
+    <h3 style="color: #2c3e50;">🏦 Canlı Döviz ve Parite Takibi</h3>
+    <div class="tradingview-widget-container" style="height: 400px;">
+        <div class="tradingview-widget-container__widget"></div>
+        <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-market-overview.js" async>
+        {
+          "colorTheme": "light",
+          "showChart": false,
+          "locale": "tr",
+          "width": "100%",
+          "height": "100%",
+          "tabs": [
+            {
+              "title": "Döviz",
+              "symbols": [
+                { "s": "FX_IDC:USDTRY", "d": "Dolar/TL" },
+                { "s": "FX_IDC:EURTRY", "d": "Euro/TL" },
+                { "s": "FX:EURUSD", "d": "EUR/USD" }
+              ]
+            }
+          ]
+        }
+        </script>
+    </div>
+</div>
+    </div>
+</div>
+        <div style="height: 100%;">
+            <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-cryptocurrency-market.js" async>
+            { "width": "100%", "height": "100%", "defaultColumn": "overview", "screener_type": "crypto_mkt", "displayMode": "adaptive", "colorTheme": "dark", "locale": "tr" }
+            </script>
+        </div>
+    </div>
+</div>
+<div class="grid-3">
+    <div class="card" style="padding:0; border-top: 4px solid #2ecc71; height: 420px; overflow: hidden;">
+        <div class="cloud-title c-green" style="margin:0; border-radius: 8px 8px 0 0; padding: 10px;">🚀 EN ÇOK YÜKSELENLER</div>
+        <div style="height: 380px;">
+            <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-screener.js" async>
+            {
+              "width": "100%",
+              "height": 380,
+              "defaultColumn": "overview",
+              "defaultScreen": "top_gainers",
+              "market": "turkey",
+              "showToolbar": false,
+              "colorTheme": "light",
+              "locale": "tr",
+              "isTransparent": true
+            }
+            </script>
+        </div>
+    </div>
+    <div class="card" style="padding:0; border-top: 4px solid #e74c3c; height: 420px; overflow: hidden;">
+        <div class="cloud-title c-red" style="margin:0; border-radius: 8px 8px 0 0; padding: 10px;">📉 EN ÇOK DÜŞENLER</div>
+        <div style="height: 380px;">
+            <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-screener.js" async>
+            {
+              "width": "100%",
+              "height": 380,
+              "defaultColumn": "overview",
+              "defaultScreen": "top_losers",
+              "market": "turkey",
+              "showToolbar": false,
+              "colorTheme": "light",
+              "locale": "tr",
+              "isTransparent": true
+            }
+            </script>
+        </div>
+    </div>
+ <div class="card" style="padding:0; border-top: 4px solid #3498db; height: 420px; overflow: hidden; display: flex; flex-direction: column; box-shadow: 0 4px 15px rgba(0,0,0,0.05);">
+    <div class="cloud-title c-blue" style="margin:0; border-radius: 8px 8px 0 0; padding: 10px;">🧮 CANLI DÖNÜŞTÜRÜCÜ & DÖVİZ</div>
+    
+    <div style="flex-grow: 1; overflow: hidden;">
+        <div class="tradingview-widget-container" style="width: 100%; height: 100%;">
+            <div class="tradingview-widget-container__widget"></div>
+            <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-market-overview.js" async>
+            {
+              "colorTheme": "light",
+              "showChart": false,
+              "locale": "tr",
+              "width": "100%",
+              "height": "100%",
+              "isTransparent": true,
+              "tabs": [
+                {
+                  "title": "Piyasa",
+                  "symbols": [
+                    { "s": "FX_IDC:USDTRY", "d": "Dolar / TL" },
+                    { "s": "FX_IDC:EURTRY", "d": "Euro / TL" },
+                    { "s": "FX_IDC:GBPTRY", "d": "Sterlin / TL" },
+                    { "s": "OANDA:XAUUSD", "d": "Ons Altın" },
+                    { "s": "FX_IDC:XAUTRY", "d": "Gram Altın" },
+                    { "s": "BINANCE:BTCUSDT", "d": "Bitcoin / USDT" }
+                  ]
+                }
+              ]
+            }
+            </script>
+        </div>
+    </div>
+</div>
+        <div style="padding: 10px; font-size: 11px; color: #7f8c8d; border-top: 1px solid var(--border); background: rgba(0,0,0,0.01); text-align: center;">
+            Anlık veriler TradingView üzerinden sağlanmaktadır.
+        </div>
+    </div>
+    </div>
+</div>
+     </div>
+</div>
+<div class="ticker-bar">
+    <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-ticker-tape.js" async>
+    {
+      "symbols": [
+        { "proName": "BITSTAMP:BTCUSD", "description": "Bitcoin" },
+        { "proName": "BITSTAMP:ETHUSD", "description": "Ethereum" },
+        { "proName": "BINANCE:SOLUSD", "description": "Solana" },
+        { "proName": "BITSTAMP:XRPUSD", "description": "Ripple" },
+        { "proName": "BINANCE:ADAUSD", "description": "Cardano" },
+        { "proName": "OANDA:XAUUSD", "description": "Ons Altın" },
+        { "proName": "FX_IDC:XAUTRY", "description": "Gram Altın" },
+        { "proName": "OANDA:XAGUSD", "description": "Gümüş" },
+        { "proName": "OANDA:XPTUSD", "description": "Platin" },
+        { "proName": "FX_IDC:EURUSD", "description": "EUR / USD" },
+        { "proName": "FX_IDC:EURTRY", "description": "EUR / TL" },
+        { "proName": "FX_IDC:USDTRY", "description": "USD / TL" },
+        { "proName": "BIST:XU100", "description": "BIST 100" },
+        { "proName": "BIST:XU030", "description": "BIST 30" },
+        { "proName": "TVC:UKOIL", "description": "Brent Petrol" },
+        { "proName": "NASDAQ:NDX", "description": "Nasdaq 100" }
+      ],
+      "showSymbolLogo": true,
+      "colorTheme": "light",
+      "isTransparent": false,
+      "displayMode": "adaptive",
+      "locale": "tr"
+    }
+    </script>
+</div>
+<div id="membershipModal" style="display:none; position: fixed; z-index: 99999; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.5); backdrop-filter: blur(8px); align-items: center; justify-content: center;">
+    <div style="background: #ffffff; width: 420px; border-radius: 20px; overflow: hidden; font-family: sans-serif; box-shadow: 0 25px 50px rgba(0,0,0,0.2); border: 1px solid #ddd;">
+        
+        <div id="modalTabArea" style="display: flex; background: #f8f9fa; border-bottom: 1px solid #eee;">
+            <button id="tabLogin" onclick="switchTab('login')" style="flex: 1; padding: 18px; border: none; background: #fff; color: #00d1ff; cursor: pointer; font-weight: bold; font-size: 14px; outline: none; border-bottom: 3px solid #00d1ff;">GİRİŞ YAP</button>
+            <button id="tabRegister" onclick="switchTab('register')" style="flex: 1; padding: 18px; border: none; background: #f8f9fa; color: #999; cursor: pointer; font-weight: bold; font-size: 14px; outline: none;">KAYIT OL</button>
         </div>
 
-        <div id="loginFormArea" style="padding: 30px;">
-            <div class="input-group">
-                <label style="font-size:12px; font-weight:bold; color:#555;">KULLANICI ADI</label>
-                <input type="text" id="loginUser" class="smart-input" placeholder="admin">
+        <div style="padding: 35px;">
+            <div id="loginFormArea">
+                <div class="input-group">
+                    <input type="text" required class="smart-input">
+                    <label class="floating-label">E-posta veya Kullanıcı Adı</label>
+                </div>
+                <div class="input-group">
+                    <input type="password" required class="smart-input">
+                    <label class="floating-label">Şifre</label>
+                </div>
+                <p style="color: #00d1ff; font-size: 12px; text-align: center; margin-top: 20px; cursor: pointer;">Şifremi Unuttum?</p>
+                <button onclick="unlockEverything()" style="width: 100%; background: #00d1ff; color: white; border: none; padding: 12px; border-radius: 10px; font-weight: bold; cursor: pointer; margin-top: 10px;">GİRİŞ YAP</button>
             </div>
-            <div class="input-group">
-                <label style="font-size:12px; font-weight:bold; color:#555;">ŞİFRE</label>
-                <input type="password" id="loginPass" class="smart-input" placeholder="1234">
-            </div>
-            <p id="loginError" style="color:red; font-size:12px; display:none; text-align:center;">❌ Hatalı giriş!</p>
-            <button onclick="checkLogin()" style="width:100%; background:var(--primary); color:white; border:none; padding:12px; border-radius:8px; font-weight:bold; cursor:pointer;">GİRİŞ YAP</button>
-            <p onclick="closeMembershipModal()" style="text-align:center; color:#999; cursor:pointer; font-size:12px; margin-top:15px;">Kapat</p>
-        </div>
 
-        <div id="registerFormArea" style="padding: 30px; display:none; text-align:center;">
-            <p>Kayıt sistemi geçici olarak kapalıdır.</p>
-            <button onclick="switchTab('login')" style="color:var(--primary); background:none; border:none; cursor:pointer;">Giriş Yap'a Dön</button>
+            <div id="registerFormArea" style="display:none;">
+<div class="input-group">
+    <input type="text" required class="smart-input">
+    <label class="floating-label">Ad Soyad</label>
+</div>
+                <div class="input-group">
+                    <input type="text" required class="smart-input">
+                    <label class="floating-label">Kullanıcı Adı</label>
+                </div>
+ <div class="input-group">
+                    <input type="email" required class="smart-input">
+                    <label class="floating-label">E-posta</label>
+                </div>
+                <div style="display: flex !important; gap: 10px; margin-bottom: 20px;">
+                    <div style="width: 110px;">
+                        <select style="width: 100%; padding: 12px; border-radius: 10px; border: 1px solid #ddd; background: #f9f9f9; font-size: 13px;">
+                            <option>🇹🇷 +90</option>
+                        </select>
+                    </div>
+                    <div class="input-group" style="flex: 1; margin-bottom: 0;">
+                        <input type="tel" required class="smart-input">
+                        <label class="floating-label">Telefon</label>
+                    </div>
+                </div>
+                <div class="input-group">
+                    <input type="email" required class="smart-input">
+                    <label class="floating-label">E-posta</label>
+                </div>
+                <div style="display: flex !important; gap: 10px; margin-bottom: 20px;">
+                    <div class="input-group" style="flex: 1; margin-bottom: 0;">
+                        <input type="password" required class="smart-input">
+                        <label class="floating-label">Şifre</label>
+                    </div>
+                    <div class="input-group" style="flex: 1; margin-bottom: 0;">
+                        <input type="password" required class="smart-input">
+                        <label class="floating-label">Şifre (Tekrar)</label>
+                    </div>
+                </div>
+                
+                <div style="display: flex !important; gap: 10px; margin-bottom: 15px;">
+                    <label style="flex: 1; cursor: pointer;">
+                        <input type="radio" name="payment" value="card" checked onchange="updatePaymentUI(this)" style="display:none;">
+                        <div id="cardBox" style="border: 2px solid #00d1ff; background: #f0fbff; padding: 10px; border-radius: 10px; text-align: center;">💳<br>Kart</div>
+                    </label>
+                    <label style="flex: 1; cursor: pointer;">
+                        <input type="radio" name="payment" value="eft" onchange="updatePaymentUI(this)" style="display:none;">
+                        <div id="eftBox" style="border: 2px solid #eee; background: #fff; padding: 10px; border-radius: 10px; text-align: center;">🏦<br>Havale</div>
+                    </label>
+                </div>
+                <div id="cardDetails" style="background: #f9f9f9; padding: 12px; border-radius: 8px; font-size: 11px; text-align: center;">Ödemeniz 256-bit SSL ile korunmaktadır.</div>
+                <button style="width: 100%; background: #00d1ff; color: white; border: none; padding: 12px; border-radius: 10px; font-weight: bold; cursor: pointer; margin-top: 15px;">KAYIT OL VE ÖDE</button>
+            </div>
+             
+            <button onclick="closeMembershipModal()" style="width: 100%; margin-top: 25px; background: none; border: none; color: #bbb; cursor: pointer; font-size: 12px;">Vazgeç ve Kapat</button>
+        </div>
+    </div>
+</div>
+
+<style>
+.input-group { position: relative; margin-bottom: 20px; }
+.smart-input { width: 100%; padding: 12px; border-radius: 10px; border: 1px solid #ddd; background: #fff; outline: none; transition: 0.3s; font-size: 14px; box-sizing: border-box; }
+.smart-input:focus { border-color: #00d1ff; background: #f0fbff; }
+.floating-label { position: absolute; left: 12px; top: 12px; color: #aaa; transition: 0.2s ease all; pointer-events: none; font-size: 14px; }
+.smart-input:focus ~ .floating-label, .smart-input:valid ~ .floating-label { top: -20px; left: 5px; font-size: 11px; color: #00d1ff; font-weight: bold; }
+</style>
+
+<script>
+// 6. PANEL VE ZAMAN FONKSİYONLARI
+function toggleTimePopup() {
+    const popup = document.getElementById('timePopup');
+    const timeSpan = document.getElementById('exactTime');
+    const simdi = new Date();
+    if(timeSpan) timeSpan.innerText = `Güncelleme / ${simdi.toLocaleDateString('tr-TR')} - ${simdi.getHours().toString().padStart(2, '0')}:${simdi.getMinutes().toString().padStart(2, '0')}`;
+    if(popup) {
+        popup.style.display = 'block';
+        setTimeout(() => { popup.style.opacity = '1'; }, 10);
+        setTimeout(() => {
+            popup.style.opacity = '0';
+            setTimeout(() => { popup.style.display = 'none'; }, 300);
+        }, 5000);
+    }
+}
+
+        // Hangi formun açılacağını belirle
+        const lArea = document.getElementById('loginFormArea');
+        const rArea = document.getElementById('registerFormArea');
+        
+        if (type === 'login') {
+            if(lArea) lArea.style.display = 'block';
+            if(rArea) rArea.style.display = 'none';
+        } else {
+            if(lArea) lArea.style.display = 'none';
+            if(rArea) rArea.style.display = 'block';
+        }
+    }
+}
+
+
+
+function closeMembershipModal() {
+    const modal = document.getElementById('membershipModal');
+    const tabArea = modal.querySelector('div[style*="background: #f8f9fa"]') || 
+                    modal.querySelector('div[style*="background-color: rgb(248, 249, 250)"]');
+    
+    if(modal) modal.style.display = 'none';
+    if(tabArea) tabArea.style.display = 'flex'; // Kapatınca sekmeleri geri getir
+}
+
+function updatePaymentUI(el) {
+    const cB = document.getElementById('cardBox');
+    const eB = document.getElementById('eftBox');
+    const cD = document.getElementById('cardDetails');
+    if (el.value === 'card') {
+        if(cB) { cB.style.borderColor = '#00d1ff'; cB.style.background = '#f0fbff'; }
+        if(eB) { eB.style.borderColor = '#eee'; eB.style.background = '#fff'; }
+        if(cD) cD.innerText = "Ödemeniz 256-bit SSL ile korunmaktadır.";
+    } else {
+        if(eB) { eB.style.borderColor = '#00d1ff'; eB.style.background = '#f0fbff'; }
+        if(cB) { cB.style.borderColor = '#eee'; cB.style.background = '#fff'; }
+        if(cD) cD.innerHTML = "IBAN: TR00 0000 0000... <br> (Açıklamaya kayıtlı emailinizi yazınız)";
+    }
+}
+function handleMembership(kategori) {
+    console.log(kategori + " için takip listesi açılmak istendi.");
+
+    // Eğer kullanıcı giriş yapmamışsa (isLoggedIn değişkenine bakıyoruz)
+    if (!isLoggedIn) {
+        // Tüm panelleri gizle
+        document.querySelectorAll('.tali-panel-yeni, .tali-panel').forEach(p => p.style.display = 'none');
+        
+        // Senin hazırladığın "Giriş Yap" uyarısını göster
+        const uyari = document.getElementById('loginRequiredPanel');
+        if (uyari) {
+            uyari.style.display = 'block';
+        } else {
+            alert("Bu özelliği kullanmak için lütfen giriş yapın veya kayıt olun.");
+        }
+    } else {
+        // Eğer kullanıcı giriş yapmışsa, Takip Listesi panelini (pPanel) aç
+        openP('pPanel');
+    }
+}
+// Bu değişkeni sakın unutma, fonksiyonun hemen üstünde dursun
+let isLoggedIn = false; 
+
+function openP(id) {
+    // 1. KONTROL: Takip Listem (pPanel) açılmak isteniyor ve kullanıcı giriş yapmamışsa
+    if (id === 'pPanel' && !isLoggedIn) {
+        // Her şeyi gizle
+        document.querySelectorAll('.tali-panel-yeni, .tali-panel').forEach(p => p.style.display = 'none');
+        // Giriş Gerekli uyarısını göster
+        document.getElementById('loginRequiredPanel').style.display = 'block';
+        return; // Fonksiyonu durdur
+    }
+
+    // 2. NORMAL AKIŞ: Diğer paneller için (h, i, m, k, d) veya giriş yapılmışsa
+    document.querySelectorAll('.tali-panel-yeni, .tali-panel').forEach(p => p.style.display = 'none');
+    
+    const hedef = document.getElementById(id);
+    if (hedef) {
+        hedef.style.display = 'block';
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+}
+// PANEL KAPATMA FONKSİYONU
+function closeP(id) { 
+    var p = document.getElementById(id);
+    if(p) p.style.display = 'none'; 
+}
+</script>
+<script>
+// --- TÜMÜYLE YENİLENMİŞ MERKEZİ YÖNETİM SİSTEMİ ---
+
+function openSingleTab(type) {
+    const modal = document.getElementById('membershipModal');
+    // Gri sekme barını her ihtimale karşı seçiyoruz
+    const tabArea = modal.querySelector('div[style*="background: #f8f9fa"]') || 
+                    modal.querySelector('div[style*="background-color: rgb(248, 249, 250)"]');
+    
+    if(modal) {
+        modal.style.display = 'flex';
+        
+        // Eğer dışarıdaki ana butonlardan birine basıldıysa sekmeleri gizle (Temiz görünüm)
+        if(tabArea) tabArea.style.setProperty('display', 'none', 'important');
+        
+        // Formları temizle ve sadece isteneni aç
+        const lArea = document.getElementById('loginFormArea');
+        const rArea = document.getElementById('registerFormArea');
+        
+        if (type === 'login') {
+            if(lArea) lArea.style.display = 'block';
+            if(rArea) rArea.style.display = 'none';
+        } else {
+            if(lArea) lArea.style.display = 'none';
+            if(rArea) rArea.style.display = 'block';
+        }
+    }
+}
+
+function switchTab(tab) {
+    // Bu fonksiyon sadece modal açıkken içindeki sekmelerle geçiş yapmak içindir
+    const lArea = document.getElementById('loginFormArea');
+    const rArea = document.getElementById('registerFormArea');
+    const tL = document.getElementById('tabLogin');
+    const tR = document.getElementById('tabRegister');
+
+    if (tab === 'login') {
+        if(lArea) lArea.style.display = 'block';
+        if(rArea) rArea.style.display = 'none';
+        if(tL) { tL.style.color = '#00d1ff'; tL.style.background = '#ffffff'; tL.style.borderBottom = '3px solid #00d1ff'; }
+        if(tR) { tR.style.color = '#999'; tR.style.background = '#f8f9fa'; tR.style.borderBottom = 'none'; }
+    } else {
+        if(lArea) lArea.style.display = 'none';
+        if(rArea) rArea.style.display = 'block';
+        if(tR) { tR.style.color = '#00d1ff'; tR.style.background = '#ffffff'; tR.style.borderBottom = '3px solid #00d1ff'; }
+        if(tL) { tL.style.color = '#999'; tL.style.background = '#f8f9fa'; tL.style.borderBottom = 'none'; }
+    }
+}
+
+function closeMembershipModal() {
+    const modal = document.getElementById('membershipModal');
+    if(modal) modal.style.display = 'none';
+    
+    // Modal kapanınca sekmeleri bir sonraki açılış için sıfırla
+    const tabArea = modal.querySelector('div[style*="background: #f8f9fa"]') || 
+                    modal.querySelector('div[style*="background-color: rgb(248, 249, 250)"]');
+    if(tabArea) tabArea.style.display = 'flex'; 
+}
+</script>
+<div id="hPanel" class="tali-panel-yeni" style="display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 95%; max-width: 1100px; background: white; z-index: 10005; border-radius: 15px; border-top: 5px solid #00d1ff; box-shadow: 0 0 30px rgba(0,0,0,0.5); font-family: sans-serif; overflow: hidden;">
+    
+    <div onclick="this.parentElement.style.display='none'" style="position: absolute; right: 15px; top: 12px; color: #ff4d4d; cursor: pointer; font-size: 32px; font-weight: bold; z-index: 10010;">×</div>
+    
+    <div style="padding: 20px;">
+        <h3 style="margin-top:0; color:#0088cc;">🔍 Hisse Tarayıcı</h3>
+        
+        <div style="position: relative; height:600px; border: 1px solid #eee; border-radius: 8px; overflow: hidden;">
+            
+            <div id="scannerLock" onclick="checkScannerAccess()" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 10008; cursor: pointer; background: rgba(255,255,255,0);">
+            </div>
+
+            <iframe src="https://s.tradingview.com/embed-widget/screener/?locale=tr#%7B%22width%22%3A%22100%25%22%2C%22height%22%3A600%2C%22defaultColumn%22%3A%22overview%22%2C%22defaultScreen%22%3A%22most_capitalized%22%2C%22market%22%3A%22turkey%22%2C%22showToolbar%22%3Atrue%2C%22colorTheme%22%3A%22light%22%7D" style="width: 100%; height: 100%; border: none;"></iframe>
         </div>
     </div>
 </div>
 
 <script>
-    function openMembershipModal(type) {
-        document.getElementById('membershipModal').style.display = 'flex';
-        switchTab(type);
+function checkScannerAccess() {
+    if (typeof isLoggedIn !== 'undefined' && !isLoggedIn) {
+        document.getElementById('loginRequiredPanel').style.display = 'block';
+    } else {
+        document.getElementById('scannerLock').style.display = 'none';
     }
+}
 
-    function closeMembershipModal() {
-        document.getElementById('membershipModal').style.display = 'none';
-    }
-
-    function switchTab(tab) {
-        const lArea = document.getElementById('loginFormArea');
-        const rArea = document.getElementById('registerFormArea');
-        const tL = document.getElementById('tabLogin');
-        const tR = document.getElementById('tabRegister');
-
-        if (tab === 'login') {
-            lArea.style.display = 'block';
-            rArea.style.display = 'none';
-            tL.style.background = 'white'; tL.style.borderBottom = '3px solid var(--primary)'; tL.style.color = 'var(--primary)';
-            tR.style.background = '#f8f9fa'; tR.style.borderBottom = 'none'; tR.style.color = '#999';
-        } else {
-            lArea.style.display = 'none';
-            rArea.style.display = 'block';
-            tR.style.background = 'white'; tR.style.borderBottom = '3px solid var(--primary)'; tR.style.color = 'var(--primary)';
-            tL.style.background = '#f8f9fa'; tL.style.borderBottom = 'none'; tL.style.color = '#999';
-        }
-    }
-
-    function checkLogin() {
-        const u = document.getElementById('loginUser').value;
-        const p = document.getElementById('loginPass').value;
-        const err = document.getElementById('loginError');
-
-        if (u === "admin" && p === "1234") {
-            err.style.display = 'none';
-            unlockEverything();
-        } else {
-            err.style.display = 'block';
-        }
-    }
-
-    function unlockEverything() {
-        closeMembershipModal();
-        
-        // Sinyal Takip Merkezi Kilidini Aç
-        document.getElementById('sinyalBlurArea').style.filter = 'none';
-        document.getElementById('sinyalBlurArea').style.opacity = '1';
-        document.getElementById('sinyalLockVisual').style.display = 'none';
-        document.getElementById('sinyalData').style.display = 'block';
-
-        // Strateji Raporu Kilidini Aç
-        document.getElementById('stratejiBlurArea').style.filter = 'none';
-        document.getElementById('stratejiBlurArea').style.opacity = '1';
-        document.getElementById('stratejiLockVisual').style.display = 'none';
-        document.getElementById('stratejiData').style.display = 'block';
-
-        alert("Giriş Başarılı! Tüm kilitler açıldı.");
-    }
+// Giriş yapılmışsa kilidi kaldır
+if (typeof isLoggedIn !== 'undefined' && isLoggedIn) {
+    var sLock = document.getElementById('scannerLock');
+    if(sLock) sLock.style.display = 'none';
+}
 </script>
 
+<div id="iPanel" class="tali-panel-yeni" style="display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 95%; max-width: 1100px; background: white; z-index: 10005; border-radius: 15px; border-top: 5px solid #ff4757; box-shadow: 0 0 30px rgba(0,0,0,0.5); font-family: sans-serif; overflow: hidden;">
+    
+    <div onclick="this.parentElement.style.display='none'" style="position: absolute; right: 15px; top: 12px; color: #ff4d4d; cursor: pointer; font-size: 32px; font-weight: bold; z-index: 10010;">×</div>
+    
+    <div style="padding: 20px;">
+        <h3 style="margin-top:0; color:#c0392b;">🔥 Piyasa Isı Haritası</h3>
+        
+        <div style="position: relative; height:500px; border: 1px solid #eee; border-radius: 8px; overflow: hidden;">
+            
+            <div id="heatmapLock" onclick="checkIsıHaritasiGiris()" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 10008; cursor: pointer; background: rgba(255,255,255,0);">
+                </div>
+
+            <iframe src="https://s.tradingview.com/embed-widget/stock-heatmap/?locale=tr#%7B%22dataSource%22%3A%22BIST%22%2C%22caption%22%3A%22Borsa%20%C4%B0stanbul%22%2C%22colorTheme%22%3A%22light%22%2C%22hasSymbolTooltip%22%3Atrue%2C%22displayMode%22%3A%22regular%22%2C%22showLegend%22%3Atrue%2C%22width%22%3A%22100%25%22%2C%22height%22%3A500%7D" style="width: 100%; height: 100%; border: none;"></iframe>
+        </div>
+    </div>
+</div>
+
+<script>
+function checkIsıHaritasiGiris() {
+    if (typeof isLoggedIn !== 'undefined' && !isLoggedIn) {
+        // Giriş yapmamışsa bizim meşhur uyarıyı aç
+        document.getElementById('loginRequiredPanel').style.display = 'block';
+    } else {
+        // Giriş yapmışsa (veya test için) kilidi kaldır
+        document.getElementById('heatmapLock').style.display = 'none';
+    }
+}
+
+// Sayfa yenilendiğinde kullanıcı giriş yapmışsa kilit otomatik kalksın
+if (typeof isLoggedIn !== 'undefined' && isLoggedIn) {
+    var lock = document.getElementById('heatmapLock');
+    if(lock) lock.style.display = 'none';
+}
+</script>
+
+<div id="mPanel" class="tali-panel-yeni" style="display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 90%; max-width: 900px; background: white; z-index: 10005; border-radius: 15px; border-top: 5px solid #f1c40f; box-shadow: 0 0 30px rgba(0,0,0,0.5); font-family: sans-serif; overflow: hidden;">
+    <div onclick="this.parentElement.style.display='none'" style="position: absolute; right: 15px; top: 10px; color: #ff4d4d; cursor: pointer; font-size: 32px; font-weight: bold; z-index: 10010;">×</div>
+    <div style="padding: 20px;">
+        <h3 style="margin-top:0; color:#856404;">🟡 Değerli Maden Analizleri</h3>
+        <div style="height:500px; border: 1px solid #eee; border-radius: 8px; overflow: hidden;">
+            <iframe src="https://s.tradingview.com/embed-widget/market-overview/?locale=tr#%7B%22colorTheme%22%3A%22light%22%2C%22dateRange%22%3A%2212M%22%2C%22showChart%22%3Atrue%2C%22width%22%3A%22100%25%22%2C%22height%22%3A%22100%25%22%2C%22isTransparent%22%3Afalse%2C%22showSymbolLogo%22%3Atrue%2C%22tabs%22%3A%5B%7B%22title%22%3A%22Madenler%22%2C%22symbols%22%3A%5B%7B%22s%22%3A%22OANDA%3AXAUUSD%22%2C%22d%22%3A%22Ons%20Alt%C4%B1n%22%7D%2C%7B%22s%22%3A%22OANDA%3AXAGUSD%22%2C%22d%22%3A%22Ons%20G%C3%BCm%C3%BC%C5%9F%22%7D%2C%7B%22s%22%3A%22TVC%3AUKOIL%22%2C%22d%22%3A%22Brent%20Petrol%22%7D%5D%7D%5D%7D" style="width: 100%; height: 100%; border: none;"></iframe>
+        </div>
+    </div>
+</div>
+<div id="footer-legal-notice" style="clear: both; padding: 20px; margin-top: 40px; border-top: 1px solid #eee; font-family: sans-serif;">
+    <div style="max-width: 1000px; margin: 0 auto;">
+        <p style="font-size: 11px; color: #777; line-height: 1.6; text-align: justify; margin-bottom: 15px;">
+        <strong style="color: #444;">⚠️ YASAL UYARI:</strong> Burada yer alan yatırım bilgi, yorum ve tavsiyeleri yatırım danışmanlığı kapsamında değildir. Yatırım danışmanlığı hizmeti; aracı kurumlar, portföy yönetim şirketleri, mevduat kabul etmeyen bankalar ile müşteri arasında imzalanacak yatırım danışmanlığı sözleşmesi çerçevesinde sunulmaktadır. Burada yer alan yorum ve tavsiyeler, yorum ve tavsiyede bulunanların kişisel görüşlerine dayanmaktadır.    
+        </p>
+
+        <div style="text-align: right; border-top: 1px dashed #eee; padding-top: 10px;">
+            <span style="font-size: 10px; color: #999; font-style: italic;">
+                Piyasa verileri <a href="https://www.tradingview.com" target="_blank" rel="nofollow" style="color: #007bff; text-decoration: none; font-weight: bold;">TradingView</a> tarafından sağlanmaktadır.
+            </span>
+        </div>
+    </div>
+</div>
+<div id="loginRequiredPanel" class="tali-panel-yeni" style="display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 90%; max-width: 400px; background: white; z-index: 10020; border-radius: 20px; box-shadow: 0 0 40px rgba(0,0,0,0.5); text-align: center; padding: 30px; font-family: sans-serif;">
+    
+    <div onclick="this.parentElement.style.display='none'" style="position: absolute; right: 15px; top: 10px; color: #ff0000; cursor: pointer; font-size: 24px;">×</div>
+    
+    <div style="font-size: 50px; margin-bottom: 15px;">🔒</div>
+    <h3 style="margin-bottom: 10px; color: #333;">Takip Listesi Üyelere Özeldir</h3>
+    <p style="color: #666; font-size: 14px; margin-bottom: 25px;">Kendi listenizi oluşturmak ve piyasayı takip etmek için lütfen hesabınıza giriş yapın veya üye olun.</p>
+    
+    <button onclick="document.getElementById('loginRequiredPanel').style.display='none'; openSingleTab('login');" style="width: 100%; padding: 12px; margin-bottom: 10px; border-radius: 10px; border: none; background: #007bff; color: white; font-weight: bold; cursor: pointer;">Giriş Yap</button>
+    
+    <button onclick="document.getElementById('loginRequiredPanel').style.display='none'; openSingleTab('register');" style="width: 100%; padding: 12px; border-radius: 10px; border: 1px solid #007bff; background: white; color: #007bff; font-weight: bold; cursor: pointer;">Kayıt Ol</button>
+</div>
+<script>
+let isLoggedIn = false;
+function openP(id) {
+    console.log("Açılmak istenen panel:", id); // Tarayıcı konsolunda kontrol için
+    
+    // 1. Önce TÜM panelleri gizle
+    const paneller = ['hPanel', 'iPanel', 'mPanel', 'kPanel', 'dPanel', 'pPanel'];
+    paneller.forEach(pId => {
+        const p = document.getElementById(pId);
+        if (p) p.style.display = 'none';
+    });
+
+    // 2. Yeni sınıfı gizle
+    document.querySelectorAll('.tali-panel-yeni').forEach(panel => {
+        panel.style.display = 'none';
+    });
+
+    // 3. Hedef paneli aç
+    const hedef = document.getElementById(id);
+    if (hedef) {
+        hedef.style.display = 'block';
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    } else {
+        alert("Sistem hatası: " + id + " paneli dosyada bulunamadı!");
+    }
+}
+// TÜM KİLİTLERİ AÇAN MERKEZİ FONKSİYON
+function unlockEverything() {
+    isLoggedIn = true; // Sisteme anahtarı soktuk
+    
+    // 1. Hayalet perdeleri (Isı haritası, tarayıcı vb.) kaldır
+    const locks = ['heatmapLock', 'scannerLock', 'btcLock', 'greedLock'];
+    locks.forEach(id => {
+        let el = document.getElementById(id);
+        if(el) el.style.display = 'none';
+    });
+
+    // 2. STRATEJİ RAPORU: Kilidi kaldır, gizli metni göster
+    if(document.getElementById('stratejiLockVisual')) document.getElementById('stratejiLockVisual').style.display = 'none';
+    if(document.getElementById('stratejiData')) document.getElementById('stratejiData').style.display = 'block';
+
+    // 3. SİNYAL MERKEZİ: Bulanıklığı ve kilidi kaldır, tabloyu göster
+    if(document.getElementById('sinyalLockVisual')) document.getElementById('sinyalLockVisual').style.display = 'none';
+    if(document.getElementById('sinyalBlurArea')) {
+        document.getElementById('sinyalBlurArea').style.filter = 'none';
+        document.getElementById('sinyalBlurArea').style.opacity = '1';
+        document.getElementById('sinyalBlurArea').style.pointerEvents = 'auto';
+    }
+    if(document.getElementById('sinyalData')) document.getElementById('sinyalData').style.display = 'block';
+
+    // 4. Modal'ı (giriş panelini) kapat
+    closeMembershipModal();
+    
+    console.log("Tüm sistem başarıyla açıldı!");
+}
+// Bu fonksiyon olmazsa "Takip Listem" butonları asla çalışmaz
+function handleMembership(kategori) {
+    // Giriş yapılmamışsa (isLoggedIn false ise)
+    if (!isLoggedIn) {
+        // Senin hazırladığın uyarı panelini aç
+        const uyari = document.getElementById('loginRequiredPanel');
+        if (uyari) {
+            uyari.style.display = 'block';
+        } else {
+            alert("Lütfen giriş yapın.");
+        }
+    } else {
+        // Giriş yapılmışsa takip listesini aç
+        openP('pPanel');
+    }
+}
+</script>
 </body>
 </html>
