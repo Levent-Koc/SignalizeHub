@@ -618,17 +618,22 @@ if (typeof isLoggedIn !== 'undefined' && isLoggedIn) {
 </div>
         <div style="padding: 35px;">
             <div id="loginFormArea">
-                <div class="input-group">
-                    <input type="text" required class="smart-input">
-                    <label class="floating-label">E-posta veya Kullanıcı Adı</label>
-                </div>
-                <div class="input-group">
-                    <input type="password" required class="smart-input">
-                    <label class="floating-label">Şifre</label>
-                </div>
-                <p style="color: #00d1ff; font-size: 12px; text-align: center; margin-top: 20px; cursor: pointer;">Şifremi Unuttum?</p>
-                <button onclick="unlockEverything()" style="width: 100%; background: #00d1ff; color: white; border: none; padding: 12px; border-radius: 10px; font-weight: bold; cursor: pointer; margin-top: 10px;">GİRİŞ YAP</button>
-            </div>
+    <div class="input-group">
+        <input type="text" id="loginUser" required class="smart-input">
+        <label class="floating-label">E-posta veya Kullanıcı Adı</label>
+    </div>
+    
+    <div class="input-group">
+        <input type="password" id="loginPass" required class="smart-input">
+        <label class="floating-label">Şifre</label>
+    </div>
+
+    <p id="loginError" style="color: #ff4757; font-size: 12px; text-align: center; margin-top: 10px; display: none; font-weight: bold;">❌ Hatalı kullanıcı adı veya şifre!</p>
+
+    <p style="color: #00d1ff; font-size: 12px; text-align: center; margin-top: 20px; cursor: pointer;">Şifremi Unuttum?</p>
+    
+    <button onclick="checkLogin()" style="width: 100%; background: #00d1ff; color: white; border: none; padding: 12px; border-radius: 10px; font-weight: bold; cursor: pointer; margin-top: 10px;">GİRİŞ YAP</button>
+</div>
 
             <div id="registerFormArea" style="display:none;">
 <div class="input-group">
