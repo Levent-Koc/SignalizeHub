@@ -759,22 +759,23 @@ function handleMembership(kategori) {
 let isLoggedIn = false; 
 
 function openP(panelId) {
-    // 1. Önce sayfadaki tüm panelleri gizle (Üst üste binmesinler)
-    const tumPaneller = document.querySelectorAll('.tali-panel-yeni');
-    tumPaneller.forEach(p => {
-        p.style.display = 'none';
-    });
+    // 1. Önce tüm panelleri gizle
+    const panels = document.querySelectorAll('.tali-panel-yeni');
+    panels.forEach(p => p.style.display = 'none');
 
-    // 2. Tıklanan paneli ID'sine göre bul
-    const hedef = document.getElementById(panelId);
-    
-    // 3. Paneli göster
-    if (hedef) {
-        hedef.style.display = 'block';
-        console.log("Panel açıldı: " + panelId); // Test için konsola yazar
-    } else {
-        // Eğer menüdeki isimle panelin ID'si tutmazsa seni uyarır
-        console.error("HATA: '" + panelId + "' ID'li bir panel bulunamadı. Lütfen HTML içindeki ID'yi kontrol et.");
+    // 2. Hedef paneli bul
+    const target = document.getElementById(panelId);
+    if (target) {
+        target.style.display = 'block';
+        
+        // 3. TABLO ÇIKMAMA SORUNU ÇÖZÜMÜ:
+        // Eğer panel içinde kilit (scannerLock) varsa ve giriş yapılmışsa kilidi kaldır
+        const lock = target.querySelector('[id$="Lock"]');
+        if (lock) {
+            lock.style.display = isLoggedIn ? 'none' : 'block';
+        }
+        
+        console.log(panelId + " tablosu yükleniyor...");
     }
 }
 </script>
@@ -845,10 +846,10 @@ function closeMembershipModal() {
         <h3 style="margin-top:0; color:#0088cc;">🔍 Hisse Tarayıcı</h3>
         
         <div style="position: relative; height:600px; border: 1px solid #eee; border-radius: 8px; overflow: hidden;">
+           <div id="scannerLock" onclick="checkScannerAccess()" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 10008; cursor: pointer; background: rgba(255,255,255,0.7); display: flex; align-items: center; justify-content: center; font-weight: bold; color: #333; text-align: center; backdrop-filter: blur(4px);">
+   <span>🔒 Hisse Tarayıcıyı kullanmak için giriş yapın</span>
+</div>
             
-            <div id="scannerLock" onclick="checkScannerAccess()" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 10008; cursor: pointer; background: rgba(255,255,255,0);">
-            </div>
-
             <iframe src="https://s.tradingview.com/embed-widget/screener/?locale=tr#%7B%22width%22%3A%22100%25%22%2C%22height%22%3A600%2C%22defaultColumn%22%3A%22overview%22%2C%22defaultScreen%22%3A%22most_capitalized%22%2C%22market%22%3A%22turkey%22%2C%22showToolbar%22%3Atrue%2C%22colorTheme%22%3A%22light%22%7D" style="width: 100%; height: 100%; border: none;"></iframe>
         </div>
     </div>
@@ -878,30 +879,38 @@ if (typeof isLoggedIn !== 'undefined' && isLoggedIn) {
         <h3 style="margin-top:0; color:#c0392b;">🔥 Piyasa Isı Haritası</h3>
         
         <div style="position: relative; height:500px; border: 1px solid #eee; border-radius: 8px; overflow: hidden;">
+          <div id="heatmapLock" onclick="checkScannerAccess()" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 10008; cursor: pointer; background: rgba(255,255,255,0.7); display: flex; align-items: center; justify-content: center; font-weight: bold; color: #333; text-align: center; backdrop-filter: blur(4px);">
+   <span>🔒 Isı Haritasını görmek için giriş yapın</span>
+</div> 
             
-            <div id="heatmapLock" onclick="checkIsıHaritasiGiris()" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 10008; cursor: pointer; background: rgba(255,255,255,0);">
-                </div>
-
             <iframe src="https://s.tradingview.com/embed-widget/stock-heatmap/?locale=tr#%7B%22dataSource%22%3A%22BIST%22%2C%22caption%22%3A%22Borsa%20%C4%B0stanbul%22%2C%22colorTheme%22%3A%22light%22%2C%22hasSymbolTooltip%22%3Atrue%2C%22displayMode%22%3A%22regular%22%2C%22showLegend%22%3Atrue%2C%22width%22%3A%22100%25%22%2C%22height%22%3A500%7D" style="width: 100%; height: 100%; border: none;"></iframe>
         </div>
     </div>
 </div>
 
 <script>
-function checkIsıHaritasiGiris() {
-    if (typeof isLoggedIn !== 'undefined' && !isLoggedIn) {
-        // Giriş yapmamışsa bizim meşhur uyarıyı aç
-        document.getElementById('loginRequiredPanel').style.display = 'block';
-    } else {
-        // Giriş yapmışsa (veya test için) kilidi kaldır
-        document.getElementById('heatmapLock').style.display = 'none';
+// Giriş kontrolü fonksiyonu (Ortak)
+function checkScannerAccess() {
+    if (!isLoggedIn) {
+        alert("Bu özelliği kullanmak için giriş yapmalısınız.");
+        openMembershipModal('login');
     }
 }
 
-// Sayfa yenilendiğinde kullanıcı giriş yapmışsa kilit otomatik kalksın
-if (typeof isLoggedIn !== 'undefined' && isLoggedIn) {
-    var lock = document.getElementById('heatmapLock');
-    if(lock) lock.style.display = 'none';
+// Giriş yapıldığında bu kilitleri açacak olan ana fonksiyon (Zaten sende var ama kontrol et)
+function unlockEverything() {
+    isLoggedIn = true;
+    
+    // Ana sayfa kilitlerini açar
+    document.getElementById('stratejiBlurArea').style.filter = 'none';
+    document.getElementById('stratejiBlurArea').style.opacity = '1';
+    document.getElementById('stratejiBlurArea').style.pointerEvents = 'auto';
+    
+    // PANELLERDEKİ KİLİTLERİ KALDIRIR
+    if(document.getElementById('scannerLock')) document.getElementById('scannerLock').style.display = 'none';
+    if(document.getElementById('heatmapLock')) document.getElementById('heatmapLock').style.display = 'none';
+    
+    closeMembershipModal();
 }
 </script>
 
