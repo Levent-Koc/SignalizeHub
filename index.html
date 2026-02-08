@@ -206,39 +206,41 @@ body.dark-mode .hub-text {
 </header>
 
 <div class="container">
-<div class="card" id="topCard" style="padding:40px 30px; border-top: 4px solid var(--primary); margin-bottom: 20px; text-align: center;">
-    
-    <div style="display: flex; flex-direction: column; align-items: center; gap: 15px; margin-bottom: 25px;">
-        <h3 style="margin: 0; font-size: 22px;">📜 Günlük Strateji Raporu</h3>
+    <div class="card" id="topCard" style="padding:40px 30px; border-top: 4px solid var(--primary); margin-bottom: 20px; text-align: center;">
         
-        <div style="position: relative; display: inline-flex; align-items: center;">
-            <button onclick="toggleTimePopup()" id="updateBtn" style="background: var(--primary); color: white; border: none; padding: 7px 18px; border-radius: 20px; cursor: pointer; font-weight: bold; font-size: 12px; transition: 0.3s; box-shadow: 0 4px 6px rgba(0,184,148,0.2);">
-                🔄 GÜNCELLENME
-            </button>
-            
-            <div id="timePopup" style="display: none; position: absolute; left: 110%; top: 50%; transform: translateY(-50%); background: var(--header-bg); border: 1px solid var(--primary); padding: 4px 12px; border-radius: 4px; box-shadow: 0 3px 10px rgba(0,0,0,0.1); z-index: 1000; white-space: nowrap; font-size: 11px; font-weight: 600; color: var(--text); opacity: 0; pointer-events: none;">
-                <span style="color: var(--primary);">✔</span> <span id="exactTime">--:--</span>
+        <div style="display: flex; flex-direction: column; align-items: center; gap: 15px; margin-bottom: 25px;">
+            <h3 style="margin: 0; font-size: 22px;">📜 Günlük Strateji Raporu</h3>
+            <div style="position: relative; display: inline-flex; align-items: center;">
+                <button onclick="toggleTimePopup()" id="updateBtn" style="background: var(--primary); color: white; border: none; padding: 7px 18px; border-radius: 20px; cursor: pointer; font-weight: bold; font-size: 12px; transition: 0.3s; box-shadow: 0 4px 6px rgba(0,184,148,0.2);">
+                    🔄 GÜNCELLENME
+                </button>
+                <div id="timePopup" style="display: none; position: absolute; left: 110%; top: 50%; transform: translateY(-50%); background: var(--header-bg); border: 1px solid var(--primary); padding: 4px 12px; border-radius: 4px; box-shadow: 0 3px 10px rgba(0,0,0,0.1); z-index: 1000; white-space: nowrap; font-size: 11px; font-weight: 600; color: var(--text); opacity: 0; pointer-events: none;">
+                    <span style="color: var(--primary);">✔</span> <span id="exactTime">--:--</span>
+                </div>
             </div>
         </div>
-    </div>
 
-    <div style="max-width: 800px; margin: 0 auto; line-height: 1.8; font-size: 16px; color: var(--text); border-top: 1px solid var(--border); padding-top: 20px;">
-        <p style="margin-bottom: 15px;">
-            BIST100 endeksi yeni güne küresel piyasalardaki pozitif seyrin etkisiyle alıcılı bir başlangıç yaptı. 
-            Teknik olarak 9.250 puan seviyesi güçlü bir direnç bölgesi olarak takip edilirken, bu seviyenin aşılması durumunda yukarı yönlü ivme kazanabilir. 
-            Özellikle bankacılık endeksindeki para girişi piyasayı domine etmeye devam ediyor...
-        </p>
-        
-        <div style="stratejiLockVisual" linear-gradient(to bottom, rgba(255,255,255,0) 0%, var(--header-bg) 100%); margin-top: -40px; padding-top: 40px; position: relative;">
-            <div style="padding: 20px; border: 1px dashed var(--primary); border-radius: 10px; background: rgba(0, 184, 148, 0.03); display: inline-block; margin-top: 10px;">
-                <span style="color: var(--primary); font-weight: bold;">🔒 Bu raporun devamı sadece Gold Üyelerimize özeldir.</span>
-                <br>
-                <small style="opacity: 0.7;">Raporun tamamını görmek ve anlık sinyalleri yakalamak için giriş yapın.</small>
-            </div>
+        <div id="stratejiBlurArea" style="filter: blur(8px); opacity: 0.3; pointer-events: none; margin-top: 20px; max-width: 800px; margin: 0 auto;">
+            <p style="line-height: 1.8; font-size: 16px;">
+                BIST100 endeksi yeni güne küresel piyasalardaki pozitif seyrin etkisiyle alıcılı bir başlangıç yaptı. 
+                Teknik olarak 9.250 puan seviyesi güçlü bir direnç bölgesi olarak takip edilirken, bu seviyenin aşılması durumunda yukarı yönlü ivme kazanabilir. 
+                Özellikle bankacılık endeksindeki para girişi piyasayı domine etmeye devam ediyor...
+            </p>
         </div>
+
+        <div id="stratejiLockVisual" style="margin-top: 15px; padding: 15px; border: 1px dashed var(--primary); border-radius: 8px; background: rgba(0, 209, 255, 0.05); display: inline-block;">
+            <span style="color: var(--primary); font-weight: bold; font-size: 14px;">🔒 Bu raporun devamı sadece üyelere özeldir.</span>
+            <br>
+            <button onclick="openMembershipModal('login')" style="margin-top:10px; background:var(--primary); color:white; border:none; padding:5px 15px; border-radius:5px; cursor:pointer; font-size:12px;">Giriş Yap ve Oku</button>
+        </div>
+
+        <div id="stratejiData" style="display: none; color: #2ecc71; font-weight: bold; margin-top: 15px; font-size: 14px;">
+            ✅ Raporun tamamı açıldı. İyi kazançlar!
+        </div>
+
     </div>
-</div>
-        
+</div>      
+               
     </div>
   <style>
 header {
@@ -333,7 +335,7 @@ nav {
 
     <div style="position: relative; padding: 30px;">
         
-        <div style="sinyalBlurArea" style="display: flex; flex-wrap: wrap; gap: 20px; justify-content: center; filter: blur(7px); opacity: 0.3; pointer-events: none;">
+        <div id="sinyalBlurArea" style="display: flex; flex-wrap: wrap; gap: 20px; justify-content: center; filter: blur(7px); opacity: 0.3; pointer-events: none;">
             <div style="background: #ffffff; border-radius: 8px; padding: 20px; width: 220px; text-align: center;">
                 <div style="font-size: 18px; font-weight: bold; color: #333;">XXXXX</div>
                 <div style="font-size: 13px; color: #0088ff; margin-top: 10px;">Giriş Bekleniyor</div>
@@ -757,28 +759,15 @@ function handleMembership(kategori) {
 let isLoggedIn = false; 
 
 function openP(id) {
-    // 1. KONTROL: Takip Listem (pPanel) açılmak isteniyor ve kullanıcı giriş yapmamışsa
-    if (id === 'pPanel' && !isLoggedIn) {
-        // Her şeyi gizle
-        document.querySelectorAll('.tali-panel-yeni, .tali-panel').forEach(p => p.style.display = 'none');
-        // Giriş Gerekli uyarısını göster
-        document.getElementById('loginRequiredPanel').style.display = 'block';
-        return; // Fonksiyonu durdur
-    }
-
-    // 2. NORMAL AKIŞ: Diğer paneller için (h, i, m, k, d) veya giriş yapılmışsa
-    document.querySelectorAll('.tali-panel-yeni, .tali-panel').forEach(p => p.style.display = 'none');
+    // Tüm panelleri gizle
+    const paneller = document.querySelectorAll('.tali-panel-yeni');
+    paneller.forEach(p => p.style.display = 'none');
     
+    // İlgili paneli göster
     const hedef = document.getElementById(id);
     if (hedef) {
         hedef.style.display = 'block';
-        window.scrollTo({ top: 0, behavior: 'smooth' });
     }
-}
-// PANEL KAPATMA FONKSİYONU
-function closeP(id) { 
-    var p = document.getElementById(id);
-    if(p) p.style.display = 'none'; 
 }
 </script>
 <script>
