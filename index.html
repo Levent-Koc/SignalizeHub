@@ -211,9 +211,9 @@ body.dark-mode .hub-text {
         <div style="display: flex; flex-direction: column; align-items: center; gap: 15px; margin-bottom: 25px;">
             <h3 style="margin: 0; font-size: 22px;">📜 Günlük Strateji Raporu</h3>
             <div style="position: relative; display: inline-flex; align-items: center;">
-                <button onclick="toggleTimePopup()" id="updateBtn" style="background: var(--primary); color: white; border: none; padding: 7px 18px; border-radius: 20px; cursor: pointer; font-weight: bold; font-size: 12px; transition: 0.3s; box-shadow: 0 4px 6px rgba(0,184,148,0.2);">
-                    🔄 GÜNCELLENME
-                </button>
+               <button onclick="showDateToast()" style="cursor: pointer; background: #f8f9fa; border: 1px solid #ddd; padding: 5px 12px; border-radius: 4px; font-size: 12px; color: #555; display: flex; align-items: center; gap: 5px;">
+    <i class="fas fa-sync-alt"></i> GÜNCELLE
+</button>
                 <div id="timePopup" style="display: none; position: absolute; left: 110%; top: 50%; transform: translateY(-50%); background: var(--header-bg); border: 1px solid var(--primary); padding: 4px 12px; border-radius: 4px; box-shadow: 0 3px 10px rgba(0,0,0,0.1); z-index: 1000; white-space: nowrap; font-size: 11px; font-weight: 600; color: var(--text); opacity: 0; pointer-events: none;">
                     <span style="color: var(--primary);">✔</span> <span id="exactTime">--:--</span>
                 </div>
@@ -1044,6 +1044,43 @@ function unlockEverything() {
         }
     }
 </script>
+<div id="dateToast" style="display: none; position: fixed; top: 85px; right: -350px; background: rgba(33, 37, 41, 0.95); color: white; padding: 15px 25px; border-radius: 12px 0 0 12px; border-left: 4px solid #00d1ff; box-shadow: -5px 5px 20px rgba(0,0,0,0.4); z-index: 99999; font-family: 'Segoe UI', sans-serif; transition: all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275); align-items: center; gap: 15px; backdrop-filter: blur(5px);">
+    <div style="background: rgba(0, 209, 255, 0.1); padding: 10px; border-radius: 50%;">
+        <i class="fas fa-clock" style="color: #00d1ff; font-size: 20px;"></i>
+    </div>
+    <div>
+        <div style="font-size: 11px; text-transform: uppercase; letter-spacing: 1px; color: #00d1ff; font-weight: bold; margin-bottom: 2px;">Sistem Durumu: Aktif</div>
+        <div id="toastTimeText" style="font-size: 15px; font-weight: 600; font-variant-numeric: tabular-nums;">08.02.2026 - 18:00</div>
+    </div>
+</div>
+<script>
+function showDateToast() {
+    const toast = document.getElementById('dateToast');
+    const timeText = document.getElementById('toastTimeText');
+    
+    // Tarih ve saati formatla (Örn: 08.02.2026 - 18:45:12)
+    const simdi = new Date();
+    const formatliZaman = simdi.toLocaleString('tr-TR', { 
+        day: '2-digit', month: '2-digit', year: 'numeric', 
+        hour: '2-digit', minute: '2-digit', second: '2-digit' 
+    });
+    
+    timeText.innerText = formatliZaman;
 
+    // Animasyonu başlat
+    toast.style.display = 'flex';
+    setTimeout(() => {
+        toast.style.right = '0px'; // Sağ kenara yapıştır
+    }, 100);
+
+    // 4 Saniye sonra otomatik kapat
+    setTimeout(() => {
+        toast.style.right = '-350px';
+        setTimeout(() => {
+            toast.style.display = 'none';
+        }, 600);
+    }, 4000);
+}
+</script>
 </body>
 </html>
