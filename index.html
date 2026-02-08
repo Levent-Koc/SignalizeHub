@@ -758,15 +758,23 @@ function handleMembership(kategori) {
 // Bu değişkeni sakın unutma, fonksiyonun hemen üstünde dursun
 let isLoggedIn = false; 
 
-function openP(id) {
-    // Tüm panelleri gizle
-    const paneller = document.querySelectorAll('.tali-panel-yeni');
-    paneller.forEach(p => p.style.display = 'none');
+function openP(panelId) {
+    // 1. Önce sayfadaki tüm panelleri gizle (Üst üste binmesinler)
+    const tumPaneller = document.querySelectorAll('.tali-panel-yeni');
+    tumPaneller.forEach(p => {
+        p.style.display = 'none';
+    });
+
+    // 2. Tıklanan paneli ID'sine göre bul
+    const hedef = document.getElementById(panelId);
     
-    // İlgili paneli göster
-    const hedef = document.getElementById(id);
+    // 3. Paneli göster
     if (hedef) {
         hedef.style.display = 'block';
+        console.log("Panel açıldı: " + panelId); // Test için konsola yazar
+    } else {
+        // Eğer menüdeki isimle panelin ID'si tutmazsa seni uyarır
+        console.error("HATA: '" + panelId + "' ID'li bir panel bulunamadı. Lütfen HTML içindeki ID'yi kontrol et.");
     }
 }
 </script>
