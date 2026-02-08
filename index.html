@@ -943,76 +943,100 @@ if (typeof isLoggedIn !== 'undefined' && isLoggedIn) {
     <button onclick="document.getElementById('loginRequiredPanel').style.display='none'; openSingleTab('register');" style="width: 100%; padding: 12px; border-radius: 10px; border: 1px solid #007bff; background: white; color: #007bff; font-weight: bold; cursor: pointer;">Kayıt Ol</button>
 </div>
 <script>
-let isLoggedIn = false;
-function openP(id) {
-    console.log("Açılmak istenen panel:", id); // Tarayıcı konsolunda kontrol için
-    
-    // 1. Önce TÜM panelleri gizle
-    const paneller = ['hPanel', 'iPanel', 'mPanel', 'kPanel', 'dPanel', 'pPanel'];
-    paneller.forEach(pId => {
-        const p = document.getElementById(pId);
-        if (p) p.style.display = 'none';
-    });
+<script>
+    let isLoggedIn = false;
 
-    // 2. Yeni sınıfı gizle
-    document.querySelectorAll('.tali-panel-yeni').forEach(panel => {
-        panel.style.display = 'none';
-    });
-
-    // 3. Hedef paneli aç
-    const hedef = document.getElementById(id);
-    if (hedef) {
-        hedef.style.display = 'block';
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-    } else {
-        alert("Sistem hatası: " + id + " paneli dosyada bulunamadı!");
-    }
-}
-// TÜM KİLİTLERİ AÇAN MERKEZİ FONKSİYON
-function unlockEverything() {
-    isLoggedIn = true; // Sisteme anahtarı soktuk
-    
-    // 1. Hayalet perdeleri (Isı haritası, tarayıcı vb.) kaldır
-    const locks = ['heatmapLock', 'scannerLock', 'btcLock', 'greedLock'];
-    locks.forEach(id => {
-        let el = document.getElementById(id);
-        if(el) el.style.display = 'none';
-    });
-
-    // 2. STRATEJİ RAPORU: Kilidi kaldır, gizli metni göster
-    if(document.getElementById('stratejiLockVisual')) document.getElementById('stratejiLockVisual').style.display = 'none';
-    if(document.getElementById('stratejiData')) document.getElementById('stratejiData').style.display = 'block';
-
-    // 3. SİNYAL MERKEZİ: Bulanıklığı ve kilidi kaldır, tabloyu göster
-    if(document.getElementById('sinyalLockVisual')) document.getElementById('sinyalLockVisual').style.display = 'none';
-    if(document.getElementById('sinyalBlurArea')) {
-        document.getElementById('sinyalBlurArea').style.filter = 'none';
-        document.getElementById('sinyalBlurArea').style.opacity = '1';
-        document.getElementById('sinyalBlurArea').style.pointerEvents = 'auto';
-    }
-    if(document.getElementById('sinyalData')) document.getElementById('sinyalData').style.display = 'block';
-
-    // 4. Modal'ı (giriş panelini) kapat
-    closeMembershipModal();
-    
-    console.log("Tüm sistem başarıyla açıldı!");
-}
-// Bu fonksiyon olmazsa "Takip Listem" butonları asla çalışmaz
-function handleMembership(kategori) {
-    // Giriş yapılmamışsa (isLoggedIn false ise)
-    if (!isLoggedIn) {
-        // Senin hazırladığın uyarı panelini aç
-        const uyari = document.getElementById('loginRequiredPanel');
-        if (uyari) {
-            uyari.style.display = 'block';
-        } else {
-            alert("Lütfen giriş yapın.");
+    // Modalı açma fonksiyonu
+    function openMembershipModal(type) {
+        const modal = document.getElementById('membershipModal');
+        if (modal) {
+            modal.style.display = 'flex';
+            switchTab(type);
         }
-    } else {
-        // Giriş yapılmışsa takip listesini aç
-        openP('pPanel');
     }
-}
+
+    // Modalı kapatma fonksiyonu
+    function closeMembershipModal() {
+        const modal = document.getElementById('membershipModal');
+        if (modal) modal.style.display = 'none';
+    }
+
+    // Sekme değiştirme (Login/Register)
+    function switchTab(tab) {
+        const lArea = document.getElementById('loginFormArea');
+        const rArea = document.getElementById('registerFormArea');
+        const tL = document.getElementById('tabLogin');
+        const tR = document.getElementById('tabRegister');
+
+        if (tab === 'login') {
+            if(lArea) lArea.style.display = 'block';
+            if(rArea) rArea.style.display = 'none';
+            tL.style.borderBottom = '3px solid #00d1ff';
+            tL.style.color = '#00d1ff';
+            tR.style.borderBottom = 'none';
+            tR.style.color = '#999';
+        } else {
+            if(lArea) lArea.style.display = 'none';
+            if(rArea) rArea.style.display = 'block';
+            tR.style.borderBottom = '3px solid #00d1ff';
+            tR.style.color = '#00d1ff';
+            tL.style.borderBottom = 'none';
+            tL.style.color = '#999';
+        }
+    }
+
+    // GİRİŞ KONTROLÜ
+    function checkLogin() {
+        // En üstteki kutuların ID'lerini alıyoruz
+        const u = document.getElementById('loginUser').value;
+        const p = document.getElementById('loginPass').value;
+        const errorMsg = document.getElementById('loginError');
+
+        if (u === "admin" && p === "1234") {
+            if(errorMsg) errorMsg.style.display = 'none';
+            unlockEverything();
+        } else {
+            if(errorMsg) errorMsg.style.display = 'block';
+        }
+    }
+
+    // KİLİTLERİ AÇAN ANA FONKSİYON
+    function unlockEverything() {
+        isLoggedIn = true;
+        
+        // 1. Strateji Raporu Kilidini Aç
+        const sBlur = document.getElementById('stratejiBlurArea');
+        const sLock = document.getElementById('stratejiLockVisual');
+        const sData = document.getElementById('stratejiData');
+        
+        if(sBlur) { sBlur.style.filter = 'none'; sBlur.style.opacity = '1'; sBlur.style.pointerEvents = 'auto'; }
+        if(sLock) sLock.style.display = 'none';
+        if(sData) sData.style.display = 'block';
+
+        // 2. Sinyal Takip Merkezi Kilidini Aç (Senin uyarın üzerine ekledim)
+        const sinyalBlur = document.getElementById('sinyalBlurArea');
+        const sinyalLock = document.getElementById('sinyalLockVisual');
+        const sinyalData = document.getElementById('sinyalData');
+
+        if(sinyalBlur) { sinyalBlur.style.filter = 'none'; sinyalBlur.style.opacity = '1'; sinyalBlur.style.pointerEvents = 'auto'; }
+        if(sinyalLock) sinyalLock.style.display = 'none';
+        if(sinyalData) sinyalData.style.display = 'block';
+
+        closeMembershipModal();
+        alert("Sisteme Başarıyla Giriş Yapıldı. Tüm kilitler açıldı!");
+    }
+
+    // Panelleri açma fonksiyonun (Hisse, Isı Haritası vb.)
+    function openP(panelId) {
+        // Tüm panelleri gizle
+        const panels = document.querySelectorAll('.tali-panel-yeni');
+        panels.forEach(p => p.style.display = 'none');
+        
+        // İstenen paneli göster
+        const target = document.getElementById(panelId);
+        if (target) target.style.display = 'block';
+    }
 </script>
+
 </body>
 </html>
