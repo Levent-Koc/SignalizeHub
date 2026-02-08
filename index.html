@@ -839,6 +839,30 @@ function closeMembershipModal() {
     if(tabArea) tabArea.style.display = 'flex'; 
 }
 </script>
+<div id="reportModal" class="tali-panel-yeni" style="display:none; position:fixed; top:50%; left:50%; transform:translate(-50%, -50%); width:95%; max-width:900px; height:85vh; background:white; z-index:20000; border-radius:15px; overflow:hidden; display:flex; flex-direction:column; box-shadow: 0 0 40px rgba(0,0,0,0.5); border-top: 5px solid #00d1ff;">
+    
+    <div style="background:#f8f9fa; padding:15px 25px; border-bottom:1px solid #eee; display:flex; justify-content:space-between; align-items:center;">
+        <div>
+            <h2 style="margin:0; font-size:18px; color:#333; font-family: sans-serif;">📈 Günlük Strateji Raporu</h2>
+            <span id="reportDate" style="font-size:12px; color:#888; font-family: sans-serif;">Yükleniyor...</span>
+        </div>
+        
+        <div style="display:flex; gap:15px; align-items:center;">
+            <button onclick="changeReportPage(-1)" style="padding:8px 15px; cursor:pointer; background:#eee; border:none; border-radius:5px; font-weight:bold;">◀ Geri</button>
+            <span id="pageIndicator" style="font-weight:bold; font-family: sans-serif; min-width:80px; text-align:center;">Sayfa 1 / 3</span>
+            <button onclick="changeReportPage(1)" style="padding:8px 15px; cursor:pointer; background:#00d1ff; color:white; border:none; border-radius:5px; font-weight:bold;">İleri ▶</button>
+        </div>
+
+        <div onclick="document.getElementById('reportModal').style.display='none'" style="cursor:pointer; font-size:30px; font-weight:bold; color:#ff4d4d; padding: 0 10px;">×</div>
+    </div>
+
+    <div id="reportContent" style="flex:1; overflow-y:auto; padding:40px; line-height:1.8; font-family:'Georgia', serif; color:#2c3e50; background:#fff;">
+        </div>
+
+    <div style="background:#f8f9fa; padding:10px 25px; border-top:1px solid #eee; text-align:center; font-size:11px; color:#999; font-style: italic;">
+        Yatırım tavsiyesi değildir. Sistem üzerinden otomatik üretilmiştir.
+    </div>
+</div>
 <div id="hPanel" class="tali-panel-yeni" style="display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 95%; max-width: 1100px; background: white; z-index: 10005; border-radius: 15px; border-top: 5px solid #00d1ff; box-shadow: 0 0 30px rgba(0,0,0,0.5); font-family: sans-serif; overflow: hidden;">
     
     <div onclick="document.getElementById('hPanel').style.display='none'" style="position: absolute; right: 15px; top: 12px; color: #ff4d4d; cursor: pointer; font-size: 32px; font-weight: bold; z-index: 10020;">×</div>    
@@ -890,6 +914,18 @@ if (typeof isLoggedIn !== 'undefined' && isLoggedIn) {
 <script>
 // Giriş kontrolü fonksiyonu (Ortak)
 function checkScannerAccess() {
+// Strateji Raporu için giriş kontrolü ve rapor açma
+function openStratejiRaporu() {
+    if (!isLoggedIn) {
+        // Giriş yapılmamışsa kilitli paneli göster
+        document.getElementById('loginRequiredPanel').style.display = 'flex';
+    } else {
+        // Giriş yapılmışsa raporu hazırla ve modalı aç
+        currentPage = 0;
+        renderReport();
+        document.getElementById('reportModal').style.display = 'flex';
+    }
+}
     if (!isLoggedIn) {
         alert("Bu özelliği kullanmak için giriş yapmalısınız.");
         openMembershipModal('login');
@@ -952,7 +988,61 @@ function unlockEverything() {
 </div>
 <script>
     let isLoggedIn = false;
+// 1. Raporun İçeriği (Burayı istediğin zaman güncelleyebilirsin)
+const dailyReportData = {
+    date: "08 Şubat 2026",
+    pages: [
+        {
+            title: "1. Piyasaya Genel Bakış",
+            content: `<h3>Küresel Görünüm</h3><p>ABD enflasyon verileri öncesi piyasalarda temkinli bir bekleyiş hakim. Asya tarafında teknoloji hisseleri öncülüğünde bir toparlanma izliyoruz.</p>
+                      <h3>BIST 100 Stratejisi</h3><p>Endekste 9.150 puan seviyesi kritik eşik. Bu seviyenin üzerinde kalıcılık sağlanması durumunda 9.400 hedefi güncelliğini koruyacaktır. Destek bölgemiz 8.850 seviyesidir.</p>`
+        },
+        {
+            title: "2. Takip Listesi & Sinyaller",
+            content: `<h3>Teknik Sinyal Verenler</h3><ul><li><strong>Hisse A:</strong> RSI uyumsuzluğu ile dipten dönüş çabasında.</li><li><strong>Hisse B:</strong> 200 günlük hareketli ortalamadan destek alıyor.</li></ul>
+                      <h3>Dikkat Edilmesi Gerekenler</h3><p>Enerji sektöründe kar realizasyonları görülebilir, bankacılık endeksi ise endeksi domine etmeye devam ediyor.</p>`
+        },
+        {
+            title: "3. Önemli Hatırlatmalar",
+            content: `<h3>Ekonomik Takvim</h3><p>Bugün saat 10:00'da sanayi üretim verileri takip edilecek. Akşam saatlerinde Fed üyelerinin konuşmaları volatiliteyi artırabilir.</p>
+                      <div style="background:#fff3cd; padding:15px; border-radius:10px; border:1px solid #ffeeba;">
+                        <strong>Analist Notu:</strong> Portföylerde nakit oranının %20 seviyesinde tutulması risk yönetimi açısından değerlidir.
+                      </div>`
+        }
+    ]
+};
 
+let currentPage = 0; // Mevcut sayfa takibi
+
+// 2. Raporu Ekrana Basan Fonksiyon
+function renderReport() {
+    const content = document.getElementById('reportContent');
+    const page = dailyReportData.pages[currentPage];
+    
+    // İçeriği temizle ve yeni sayfayı yaz
+    content.innerHTML = `
+        <div style="max-width:750px; margin:0 auto; animation: fadeIn 0.5s ease;">
+            <h1 style="border-bottom:3px solid #00d1ff; padding-bottom:15px; color:#1a252f;">${page.title}</h1>
+            <div style="font-size:16px; color:#34495e;">${page.content}</div>
+        </div>
+    `;
+    
+    // Göstergeleri güncelle
+    document.getElementById('pageIndicator').innerText = `Sayfa ${currentPage + 1} / ${dailyReportData.pages.length}`;
+    document.getElementById('reportDate').innerText = dailyReportData.date;
+}
+
+// 3. Sayfa Değiştirme Fonksiyonu
+function changeReportPage(direction) {
+    const newPage = currentPage + direction;
+    
+    // Sayfa sınırlarını kontrol et
+    if (newPage >= 0 && newPage < dailyReportData.pages.length) {
+        currentPage = newPage;
+        renderReport();
+        document.getElementById('reportContent').scrollTop = 0; // Sayfayı en üste kaydır
+    }
+}
     // Panelleri Açma/Kapama Fonksiyonu
     function openP(panelId) {
         // Tüm panelleri gizle
@@ -1048,6 +1138,30 @@ function unlockEverything() {
             document.getElementById('loginRequiredPanel').style.display = 'block';
         }
     }
+function unlockEverything() {
+    isLoggedIn = true;
+    
+    // 1. Ana sayfa kilitlerini açar
+    document.getElementById('stratejiBlurArea').style.filter = 'none';
+    document.getElementById('stratejiBlurArea').style.opacity = '1';
+    document.getElementById('stratejiBlurArea').style.pointerEvents = 'auto';
+    
+    // 2. Rapor Üyelik Paneli varsa onu gizle (Yeni Eklenen)
+    if(document.getElementById('loginRequiredPanel')) {
+        document.getElementById('loginRequiredPanel').style.display = 'none';
+    }
+    
+    // 3. PANELLERDEKİ KİLİTLERİ KALDIRIR
+    if(document.getElementById('scannerLock')) document.getElementById('scannerLock').style.display = 'none';
+    if(document.getElementById('heatmapLock')) document.getElementById('heatmapLock').style.display = 'none';
+    if(document.getElementById('madenLock')) document.getElementById('madenLock').style.display = 'none';
+    
+    // Üyelik modalını kapat
+    closeMembershipModal();
+
+    // 4. (Opsiyonel) Giriş yapar yapmaz raporu otomatik açsın istersen:
+    // openStratejiRaporu(); 
+}
 </script>
 <div id="dateToast" style="display: none; position: fixed; top: 85px; right: -350px; background: rgba(33, 37, 41, 0.95); color: white; padding: 15px 25px; border-radius: 12px 0 0 12px; border-left: 4px solid #00d1ff; box-shadow: -5px 5px 20px rgba(0,0,0,0.4); z-index: 99999; font-family: 'Segoe UI', sans-serif; transition: all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275); align-items: center; gap: 15px; backdrop-filter: blur(5px);">
     <div style="background: rgba(0, 209, 255, 0.1); padding: 10px; border-radius: 50%;">
