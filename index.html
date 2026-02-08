@@ -210,15 +210,20 @@ body.dark-mode .hub-text {
         
         <div style="display: flex; flex-direction: column; align-items: center; gap: 15px; margin-bottom: 25px;">
             <h3 style="margin: 0; font-size: 22px;">📜 Günlük Strateji Raporu</h3>
-            <div style="position: relative; display: inline-flex; align-items: center;">
-               <button onclick="showDateToast()" style="cursor: pointer; background: #f8f9fa; border: 1px solid #ddd; padding: 5px 12px; border-radius: 4px; font-size: 12px; color: #555; display: flex; align-items: center; gap: 5px;">
-    <i class="fas fa-sync-alt"></i> GÜNCELLE
-</button>
-                <div id="timePopup" style="display: none; position: absolute; left: 110%; top: 50%; transform: translateY(-50%); background: var(--header-bg); border: 1px solid var(--primary); padding: 4px 12px; border-radius: 4px; box-shadow: 0 3px 10px rgba(0,0,0,0.1); z-index: 1000; white-space: nowrap; font-size: 11px; font-weight: 600; color: var(--text); opacity: 0; pointer-events: none;">
-                    <span style="color: var(--primary);">✔</span> <span id="exactTime">--:--</span>
-                </div>
-            </div>
+            <div style="position: relative; display: inline-block;">
+    
+    <button onclick="toggleUpdateInfo()" style="cursor: pointer; background: #f8f9fa; border: 1px solid #ddd; padding: 6px 15px; border-radius: 6px; font-size: 13px; color: #333; display: flex; align-items: center; gap: 8px; font-weight: 500;">
+        <i class="fas fa-sync-alt"></i> Güncellenme
+    </button>
+
+    <div id="updateInfoPanel" style="max-height: 0; opacity: 0; overflow: hidden; position: absolute; top: 110%; left: 0; width: 220px; background: white; border-radius: 8px; box-shadow: 0 10px 25px rgba(0,0,0,0.15); border: 1px solid #eee; z-index: 1000; transition: all 0.4s ease-in-out;">
+        <div style="padding: 12px;">
+            <div style="font-size: 10px; color: #00d1ff; font-weight: bold; text-transform: uppercase; margin-bottom: 4px;">Sistem Durumu: Aktif</div>
+            <div id="panelTimeText" style="font-size: 13px; color: #444; font-weight: 600;">08.02.2026 - 18:30</div>
+            <div style="font-size: 10px; color: #999; margin-top: 5px;">Tüm veriler anlıktır.</div>
         </div>
+    </div>
+</div>
 
         <div id="stratejiBlurArea" style="filter: blur(8px); opacity: 0.3; pointer-events: none; margin-top: 20px; max-width: 800px; margin: 0 auto;">
             <p style="line-height: 1.8; font-size: 16px;">
@@ -1054,32 +1059,31 @@ function unlockEverything() {
     </div>
 </div>
 <script>
-function showDateToast() {
-    const toast = document.getElementById('dateToast');
-    const timeText = document.getElementById('toastTimeText');
+function toggleUpdateInfo() {
+    const panel = document.getElementById('updateInfoPanel');
+    const timeText = document.getElementById('panelTimeText');
     
-    // Tarih ve saati formatla (Örn: 08.02.2026 - 18:45:12)
+    // Zamanı güncelle
     const simdi = new Date();
-    const formatliZaman = simdi.toLocaleString('tr-TR', { 
-        day: '2-digit', month: '2-digit', year: 'numeric', 
-        hour: '2-digit', minute: '2-digit', second: '2-digit' 
-    });
-    
-    timeText.innerText = formatliZaman;
+    timeText.innerText = simdi.toLocaleString('tr-TR');
 
-    // Animasyonu başlat
-    toast.style.display = 'flex';
-    setTimeout(() => {
-        toast.style.right = '0px'; // Sağ kenara yapıştır
-    }, 100);
-
-    // 4 Saniye sonra otomatik kapat
-    setTimeout(() => {
-        toast.style.right = '-350px';
+    // Eğer kapalıysa aç, açıksa kapat
+    if (panel.style.maxHeight === "0px" || panel.style.maxHeight === "") {
+        panel.style.maxHeight = "100px"; // İçeriğin sığacağı kadar yükseklik
+        panel.style.opacity = "1";
+        panel.style.top = "120%"; // Hafif aşağı süzülme efekti için
+        
+        // 4 saniye sonra kendi kendine kapansın
         setTimeout(() => {
-            toast.style.display = 'none';
-        }, 600);
-    }, 4000);
+            panel.style.maxHeight = "0px";
+            panel.style.opacity = "0";
+            panel.style.top = "110%";
+        }, 4000);
+    } else {
+        panel.style.maxHeight = "0px";
+        panel.style.opacity = "0";
+        panel.style.top = "110%";
+    }
 }
 </script>
 </body>
