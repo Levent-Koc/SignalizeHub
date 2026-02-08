@@ -596,7 +596,26 @@ if (typeof isLoggedIn !== 'undefined' && isLoggedIn) {
             <button id="tabLogin" onclick="switchTab('login')" style="flex: 1; padding: 18px; border: none; background: #fff; color: #00d1ff; cursor: pointer; font-weight: bold; font-size: 14px; outline: none; border-bottom: 3px solid #00d1ff;">GİRİŞ YAP</button>
             <button id="tabRegister" onclick="switchTab('register')" style="flex: 1; padding: 18px; border: none; background: #f8f9fa; color: #999; cursor: pointer; font-weight: bold; font-size: 14px; outline: none;">KAYIT OL</button>
         </div>
+<div id="loginSection" style="padding: 30px;">
+    <h3 style="margin-top: 0; color: #333; font-size: 18px;">Tekrar Hoş Geldiniz!</h3>
+    <p style="color: #777; font-size: 13px; margin-bottom: 25px;">Lütfen hesap bilgilerinizle giriş yapın.</p>
 
+    <div style="margin-bottom: 15px;">
+        <label style="display: block; font-size: 12px; font-weight: bold; color: #555; margin-bottom: 5px;">KULLANICI ADI</label>
+        <input type="text" id="loginUser" placeholder="admin" style="width: 100%; padding: 12px; border-radius: 10px; border: 1px solid #ddd; background: #fdfdfd; outline: none; box-sizing: border-box;">
+    </div>
+
+    <div style="margin-bottom: 20px;">
+        <label style="display: block; font-size: 12px; font-weight: bold; color: #555; margin-bottom: 5px;">ŞİFRE</label>
+        <input type="password" id="loginPass" placeholder="1234" style="width: 100%; padding: 12px; border-radius: 10px; border: 1px solid #ddd; background: #fdfdfd; outline: none; box-sizing: border-box;">
+    </div>
+
+    <p id="loginError" style="color: #ff4757; font-size: 12px; margin-bottom: 15px; display: none; font-weight: bold;">❌ Hatalı kullanıcı adı veya şifre!</p>
+
+    <button onclick="checkLogin()" style="width: 100%; background: #00d1ff; color: white; border: none; padding: 14px; border-radius: 10px; font-weight: bold; cursor: pointer; font-size: 15px; transition: 0.3s;">SİSTEME GİRİŞ YAP</button>
+    
+    <button onclick="closeMembershipModal()" style="width: 100%; background: transparent; color: #999; border: none; padding: 10px; margin-top: 10px; cursor: pointer; font-size: 13px;">Vazgeç</button>
+</div>
         <div style="padding: 35px;">
             <div id="loginFormArea">
                 <div class="input-group">
@@ -1011,6 +1030,47 @@ function handleMembership(kategori) {
     } else {
         // Giriş yapılmışsa takip listesini aç
         openP('pPanel');
+    }
+}
+function checkLogin() {
+    // Kutulara yazılan yazıları alıyoruz
+    const girilenUser = document.getElementById('loginUser').value;
+    const girilenPass = document.getElementById('loginPass').value;
+    const hataMesaji = document.getElementById('loginError');
+
+    // SENİN BELİRLEDİĞİN ŞİFRE BİLGİLERİ
+    const dogruUser = "admin";
+    const dogruPass = "1234";
+
+    if (girilenUser === dogruUser && girilenPass === dogruPass) {
+        // Eğer her iki bilgi de doğruysa:
+        hataMesaji.style.display = 'none'; // Varsa hata mesajını gizle
+        unlockEverything();                // Kapıları açan sihirli fonksiyonu çalıştır
+        console.log("Giriş başarılı!");
+    } else {
+        // Eğer bilgilerden biri bile yanlışsa:
+        hataMesaji.style.display = 'block'; // Kırmızı hata mesajını göster
+        console.log("Hatalı giriş denemesi.");
+    }
+}
+function checkLogin() {
+    // Kutulardaki verileri alıyoruz
+    const girilenUser = document.getElementById('loginUser').value;
+    const girilenPass = document.getElementById('loginPass').value;
+    const hataMesaji = document.getElementById('loginError');
+
+    // BELİRLEDİĞİN ŞİFRE BİLGİLERİ
+    const dogruUser = "admin";
+    const dogruPass = "1234";
+
+    if (girilenUser === dogruUser && girilenPass === dogruPass) {
+        // EĞER DOĞRUYSA:
+        hataMesaji.style.display = 'none';
+        unlockEverything(); // İşte şimdi her şeyi açan fonksiyonu çağırıyoruz
+        alert("Giriş Başarılı! Hoş geldiniz.");
+    } else {
+        // EĞER YANLIŞSA:
+        hataMesaji.style.display = 'block';
     }
 }
 </script>
