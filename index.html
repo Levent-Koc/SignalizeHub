@@ -759,23 +759,27 @@ function handleMembership(kategori) {
 let isLoggedIn = false; 
 
 function openP(panelId) {
-    // 1. Önce tüm panelleri gizle
+    // 1. Tüm panelleri gizle
     const panels = document.querySelectorAll('.tali-panel-yeni');
     panels.forEach(p => p.style.display = 'none');
-
-    // 2. Hedef paneli bul
+    
+    // 2. İstenen paneli bul
     const target = document.getElementById(panelId);
     if (target) {
         target.style.display = 'block';
         
-        // 3. TABLO ÇIKMAMA SORUNU ÇÖZÜMÜ:
-        // Eğer panel içinde kilit (scannerLock) varsa ve giriş yapılmışsa kilidi kaldır
+        // 3. Tabloyu "Uyandırma": Iframe varsa içeriğini tekrar tetikler
+        const iframe = target.querySelector('iframe');
+        if (iframe && !iframe.src.includes('t=')) {
+            // Küçük bir hile: src sonuna anlık zaman ekleyerek tabloyu yüklemeye zorlarız
+            iframe.src = iframe.src; 
+        }
+
+        // 4. Kilit Durumu: Giriş yapılmışsa kilidi otomatik kaldır
         const lock = target.querySelector('[id$="Lock"]');
         if (lock) {
-            lock.style.display = isLoggedIn ? 'none' : 'block';
+            lock.style.display = isLoggedIn ? 'none' : 'flex';
         }
-        
-        console.log(panelId + " tablosu yükleniyor...");
     }
 }
 </script>
@@ -840,7 +844,7 @@ function closeMembershipModal() {
 </script>
 <div id="hPanel" class="tali-panel-yeni" style="display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 95%; max-width: 1100px; background: white; z-index: 10005; border-radius: 15px; border-top: 5px solid #00d1ff; box-shadow: 0 0 30px rgba(0,0,0,0.5); font-family: sans-serif; overflow: hidden;">
     
-    <div onclick="this.parentElement.style.display='none'" style="position: absolute; right: 15px; top: 12px; color: #ff4d4d; cursor: pointer; font-size: 32px; font-weight: bold; z-index: 10010;">×</div>
+    <div onclick="openP('hPanel')""this.parentElement.style.display='none'" style="position: absolute; right: 15px; top: 12px; color: #ff4d4d; cursor: pointer; font-size: 32px; font-weight: bold; z-index: 10010;">×</div>
     
     <div style="padding: 20px;">
         <h3 style="margin-top:0; color:#0088cc;">🔍 Hisse Tarayıcı</h3>
@@ -873,7 +877,7 @@ if (typeof isLoggedIn !== 'undefined' && isLoggedIn) {
 
 <div id="iPanel" class="tali-panel-yeni" style="display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 95%; max-width: 1100px; background: white; z-index: 10005; border-radius: 15px; border-top: 5px solid #ff4757; box-shadow: 0 0 30px rgba(0,0,0,0.5); font-family: sans-serif; overflow: hidden;">
     
-    <div onclick="this.parentElement.style.display='none'" style="position: absolute; right: 15px; top: 12px; color: #ff4d4d; cursor: pointer; font-size: 32px; font-weight: bold; z-index: 10010;">×</div>
+    <div onclick="openP('iPanel')""this.parentElement.style.display='none'" style="position: absolute; right: 15px; top: 12px; color: #ff4d4d; cursor: pointer; font-size: 32px; font-weight: bold; z-index: 10010;">×</div>
     
     <div style="padding: 20px;">
         <h3 style="margin-top:0; color:#c0392b;">🔥 Piyasa Isı Haritası</h3>
@@ -909,13 +913,13 @@ function unlockEverything() {
     // PANELLERDEKİ KİLİTLERİ KALDIRIR
     if(document.getElementById('scannerLock')) document.getElementById('scannerLock').style.display = 'none';
     if(document.getElementById('heatmapLock')) document.getElementById('heatmapLock').style.display = 'none';
-    
+    if(document.getElementById('madenLock')) document.getElementById('madenLock').style.display = 'none';
     closeMembershipModal();
 }
 </script>
 
 <div id="mPanel" class="tali-panel-yeni" style="display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 90%; max-width: 900px; background: white; z-index: 10005; border-radius: 15px; border-top: 5px solid #f1c40f; box-shadow: 0 0 30px rgba(0,0,0,0.5); font-family: sans-serif; overflow: hidden;">
-    <div onclick="this.parentElement.style.display='none'" style="position: absolute; right: 15px; top: 10px; color: #ff4d4d; cursor: pointer; font-size: 32px; font-weight: bold; z-index: 10010;">×</div>
+    <div onclick="openP('mPanel')""this.parentElement.style.display='none'" style="position: absolute; right: 15px; top: 10px; color: #ff4d4d; cursor: pointer; font-size: 32px; font-weight: bold; z-index: 10010;">×</div>
     <div style="padding: 20px;">
         <h3 style="margin-top:0; color:#856404;">🟡 Değerli Maden Analizleri</h3>
         <div style="position: relative; height:500px; border: 1px solid #eee; border-radius: 8px; overflow: hidden;">
@@ -952,25 +956,27 @@ function unlockEverything() {
     <button onclick="document.getElementById('loginRequiredPanel').style.display='none'; openSingleTab('register');" style="width: 100%; padding: 12px; border-radius: 10px; border: 1px solid #007bff; background: white; color: #007bff; font-weight: bold; cursor: pointer;">Kayıt Ol</button>
 </div>
 <script>
-<script>
     let isLoggedIn = false;
 
-    // Modalı açma fonksiyonu
-    function openMembershipModal(type) {
-        const modal = document.getElementById('membershipModal');
-        if (modal) {
-            modal.style.display = 'flex';
-            switchTab(type);
+    // Panelleri Açma/Kapama Fonksiyonu
+    function openP(panelId) {
+        // Tüm panelleri gizle
+        const panels = document.querySelectorAll('.tali-panel-yeni');
+        panels.forEach(p => p.style.display = 'none');
+        
+        // Hedef paneli göster
+        const target = document.getElementById(panelId);
+        if (target) {
+            target.style.display = 'block';
+            // Eğer giriş yapılmışsa panel açıldığında kilit katmanı gizli olmalı
+            const locks = target.querySelectorAll('[id$="Lock"]');
+            locks.forEach(lock => {
+                lock.style.display = isLoggedIn ? 'none' : 'flex';
+            });
         }
     }
 
-    // Modalı kapatma fonksiyonu
-    function closeMembershipModal() {
-        const modal = document.getElementById('membershipModal');
-        if (modal) modal.style.display = 'none';
-    }
-
-    // Sekme değiştirme (Login/Register)
+    // Modal Sekme Geçişleri
     function switchTab(tab) {
         const lArea = document.getElementById('loginFormArea');
         const rArea = document.getElementById('registerFormArea');
@@ -980,76 +986,72 @@ function unlockEverything() {
         if (tab === 'login') {
             if(lArea) lArea.style.display = 'block';
             if(rArea) rArea.style.display = 'none';
-            tL.style.borderBottom = '3px solid #00d1ff';
-            tL.style.color = '#00d1ff';
-            tR.style.borderBottom = 'none';
-            tR.style.color = '#999';
+            if(tL) { tL.style.borderBottom = '3px solid #00d1ff'; tL.style.color = '#00d1ff'; }
+            if(tR) { tR.style.borderBottom = 'none'; tR.style.color = '#999'; }
         } else {
             if(lArea) lArea.style.display = 'none';
             if(rArea) rArea.style.display = 'block';
-            tR.style.borderBottom = '3px solid #00d1ff';
-            tR.style.color = '#00d1ff';
-            tL.style.borderBottom = 'none';
-            tL.style.color = '#999';
+            if(tR) { tR.style.borderBottom = '3px solid #00d1ff'; tR.style.color = '#00d1ff'; }
+            if(tL) { tL.style.borderBottom = 'none'; tL.style.color = '#999'; }
         }
     }
 
-    // GİRİŞ KONTROLÜ
-    function checkLogin() {
-        // En üstteki kutuların ID'lerini alıyoruz
-        const u = document.getElementById('loginUser').value;
-        const p = document.getElementById('loginPass').value;
-        const errorMsg = document.getElementById('loginError');
-
-        if (u === "admin" && p === "1234") {
-            if(errorMsg) errorMsg.style.display = 'none';
-            unlockEverything();
-        } else {
-            if(errorMsg) errorMsg.style.display = 'block';
+    // Modal Açma Fonksiyonu
+    function openSingleTab(type) {
+        const modal = document.getElementById('membershipModal');
+        if(modal) {
+            modal.style.display = 'flex';
+            switchTab(type);
         }
     }
 
-    // KİLİTLERİ AÇAN ANA FONKSİYON
+    // Modal Kapatma
+    function closeMembershipModal() {
+        const modal = document.getElementById('membershipModal');
+        if(modal) modal.style.display = 'none';
+    }
+
+    // --- KRİTİK: TÜM KİLİTLERİ AÇAN TEK FONKSİYON ---
     function unlockEverything() {
-    isLoggedIn = true;
-    
-    // 1. Strateji Raporu Kilidini Aç
-    const sBlur = document.getElementById('stratejiBlurArea');
-    const sLock = document.getElementById('stratejiLockVisual');
-    const sData = document.getElementById('stratejiData');
-    
-    if(sBlur) { sBlur.style.filter = 'none'; sBlur.style.opacity = '1'; sBlur.style.pointerEvents = 'auto'; }
-    if(sLock) sLock.style.display = 'none';
-    if(sData) sData.style.display = 'block';
-
-    // 2. Sinyal Takip Merkezi Kilidini Aç
-    const sinyalBlur = document.getElementById('sinyalBlurArea');
-    const sinyalLock = document.getElementById('sinyalLockVisual');
-    const sinyalData = document.getElementById('sinyalData');
-
-    if(sinyalBlur) { sinyalBlur.style.filter = 'none'; sinyalBlur.style.opacity = '1'; sinyalBlur.style.pointerEvents = 'auto'; }
-    if(sinyalLock) sinyalLock.style.display = 'none';
-    if(sinyalData) sinyalData.style.display = 'block';
-
-    // 3. PANELLERDEKİ (Hisse, Isı Haritası, Maden) KİLİTLERİ AÇ
-    // Bu satırlar senin kodunda eksikti, şimdi ekledik:
-    if(document.getElementById('scannerLock')) document.getElementById('scannerLock').style.display = 'none';
-    if(document.getElementById('heatmapLock')) document.getElementById('heatmapLock').style.display = 'none';
-    if(document.getElementById('madenLock')) document.getElementById('madenLock').style.display = 'none';
-
-    closeMembershipModal();
-    alert("Sisteme Başarıyla Giriş Yapıldı. Tüm kilitler açıldı!");
-}
-
-    // Panelleri açma fonksiyonun (Hisse, Isı Haritası vb.)
-    function openP(panelId) {
-        // Tüm panelleri gizle
-        const panels = document.querySelectorAll('.tali-panel-yeni');
-        panels.forEach(p => p.style.display = 'none');
+        isLoggedIn = true;
         
-        // İstenen paneli göster
-        const target = document.getElementById(panelId);
-        if (target) target.style.display = 'block';
+        // 1. Ana Sayfa Kilitlerini Aç
+        const ids = ['stratejiBlurArea', 'sinyalBlurArea', 'stratejiData', 'sinyalData'];
+        ids.forEach(id => {
+            const el = document.getElementById(id);
+            if(el) {
+                if(id.includes('Blur')) {
+                    el.style.filter = 'none';
+                    el.style.opacity = '1';
+                    el.style.pointerEvents = 'auto';
+                } else {
+                    el.style.display = 'block';
+                }
+            }
+        });
+
+        const visuals = ['stratejiLockVisual', 'sinyalLockVisual'];
+        visuals.forEach(id => {
+            const el = document.getElementById(id);
+            if(el) el.style.display = 'none';
+        });
+
+        // 2. Gizli Tablo Panellerindeki (Hisse, Isı, Maden) Kilitleri Kaldır
+        const panelLocks = ['scannerLock', 'heatmapLock', 'madenLock', 'btcLock'];
+        panelLocks.forEach(id => {
+            const lock = document.getElementById(id);
+            if(lock) lock.style.display = 'none';
+        });
+
+        closeMembershipModal();
+        alert("Giriş Başarılı! Tüm tablolar ve sinyaller aktif.");
+    }
+
+    // Panel içi kilit tıklama kontrolü
+    function checkScannerAccess() {
+        if (!isLoggedIn) {
+            document.getElementById('loginRequiredPanel').style.display = 'block';
+        }
     }
 </script>
 
