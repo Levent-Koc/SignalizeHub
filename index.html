@@ -236,7 +236,7 @@ body.dark-mode .hub-text {
         <div id="stratejiLockVisual" style="margin-top: 15px; padding: 15px; border: 1px dashed var(--primary); border-radius: 8px; background: rgba(0, 209, 255, 0.05); display: inline-block;">
             <span style="color: var(--primary); font-weight: bold; font-size: 14px;">🔒 Bu raporun devamı sadece üyelere özeldir.</span>
             <br>
-           <button onclick="openSingleTab('login')" style="margin-top:10px; background:var(--primary); color:white; border:none; padding:8px 25px; border-radius:5px; cursor:pointer; font-size:13px; font-weight:bold;">Giriş</button>  
+        <button onclick="openStratejiRaporu()" style="margin-top:10px; background:var(--primary); color:white; border:none; padding:8px 25px; border-radius:5px; cursor:pointer; font-size:13px; font-weight:bold;">Giriş / Raporu Oku</button>   
         </div>
 
         <div id="stratejiData" style="display: none; color: #2ecc71; font-weight: bold; margin-top: 15px; font-size: 14px;">
@@ -1138,31 +1138,39 @@ function changeReportPage(direction) {
             document.getElementById('loginRequiredPanel').style.display = 'block';
         }
     }
-function unlockEverything() {
+
+</script>
+function unlockEverything() { // <-- İŞTE O EKSİK PARANTEZ BURADA OLMALI!
     isLoggedIn = true;
     
-    // 1. Ana sayfa kilitlerini açar
-    document.getElementById('stratejiBlurArea').style.filter = 'none';
-    document.getElementById('stratejiBlurArea').style.opacity = '1';
-    document.getElementById('stratejiBlurArea').style.pointerEvents = 'auto';
+    console.log("Sistem: Tüm kilitler açılıyor...");
+
+    // 1. Ana sayfa kilitlerini (bulanıklığı) kaldırır
+    const stratejiAlan = document.getElementById('stratejiBlurArea');
+    if (stratejiAlan) {
+        stratejiAlan.style.filter = 'none';
+        stratejiAlan.style.opacity = '1';
+        stratejiAlan.style.pointerEvents = 'auto';
+    }
     
-    // 2. Rapor Üyelik Paneli varsa onu gizle (Yeni Eklenen)
-    if(document.getElementById('loginRequiredPanel')) {
-        document.getElementById('loginRequiredPanel').style.display = 'none';
+    // 2. Rapor Üyelik Paneli varsa onu gizle
+    const loginPanel = document.getElementById('loginRequiredPanel');
+    if(loginPanel) {
+        loginPanel.style.display = 'none';
     }
     
     // 3. PANELLERDEKİ KİLİTLERİ KALDIRIR
     if(document.getElementById('scannerLock')) document.getElementById('scannerLock').style.display = 'none';
     if(document.getElementById('heatmapLock')) document.getElementById('heatmapLock').style.display = 'none';
     if(document.getElementById('madenLock')) document.getElementById('madenLock').style.display = 'none';
+    if(document.getElementById('btcLock')) document.getElementById('btcLock').style.display = 'none';
     
     // Üyelik modalını kapat
     closeMembershipModal();
 
-    // 4. (Opsiyonel) Giriş yapar yapmaz raporu otomatik açsın istersen:
-    // openStratejiRaporu(); 
-}
-</script>
+    // 4. Giriş yapar yapmaz raporun otomatik açılması için (BAŞINDAKİ // KALDIRDIK):
+    openStratejiRaporu(); 
+} // <-- KAPANIŞ PARANTEZİ
 <div id="dateToast" style="display: none; position: fixed; top: 85px; right: -350px; background: rgba(33, 37, 41, 0.95); color: white; padding: 15px 25px; border-radius: 12px 0 0 12px; border-left: 4px solid #00d1ff; box-shadow: -5px 5px 20px rgba(0,0,0,0.4); z-index: 99999; font-family: 'Segoe UI', sans-serif; transition: all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275); align-items: center; gap: 15px; backdrop-filter: blur(5px);">
     <div style="background: rgba(0, 209, 255, 0.1); padding: 10px; border-radius: 50%;">
         <i class="fas fa-clock" style="color: #00d1ff; font-size: 20px;"></i>
