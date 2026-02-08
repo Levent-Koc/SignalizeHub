@@ -220,7 +220,7 @@ body.dark-mode .hub-text {
                 <span style="color: var(--primary);">✔</span> <span id="exactTime">--:--</span>
             </div>
         </div>
-    </div>
+    </div>F
 
     <div style="max-width: 800px; margin: 0 auto; line-height: 1.8; font-size: 16px; color: var(--text); border-top: 1px solid var(--border); padding-top: 20px;">
         <p style="margin-bottom: 15px;">
@@ -229,7 +229,7 @@ body.dark-mode .hub-text {
             Özellikle bankacılık endeksindeki para girişi piyasayı domine etmeye devam ediyor...
         </p>
         
-        <div style="background: linear-gradient(to bottom, rgba(255,255,255,0) 0%, var(--header-bg) 100%); margin-top: -40px; padding-top: 40px; position: relative;">
+        <div style="stratejiLockVisual" linear-gradient(to bottom, rgba(255,255,255,0) 0%, var(--header-bg) 100%); margin-top: -40px; padding-top: 40px; position: relative;">
             <div style="padding: 20px; border: 1px dashed var(--primary); border-radius: 10px; background: rgba(0, 184, 148, 0.03); display: inline-block; margin-top: 10px;">
                 <span style="color: var(--primary); font-weight: bold;">🔒 Bu raporun devamı sadece Gold Üyelerimize özeldir.</span>
                 <br>
@@ -333,7 +333,7 @@ nav {
 
     <div style="position: relative; padding: 30px;">
         
-        <div style="display: flex; flex-wrap: wrap; gap: 20px; justify-content: center; filter: blur(7px); opacity: 0.3; pointer-events: none;">
+        <div style="sinyalBlurArea" style="display: flex; flex-wrap: wrap; gap: 20px; justify-content: center; filter: blur(7px); opacity: 0.3; pointer-events: none;">
             <div style="background: #ffffff; border-radius: 8px; padding: 20px; width: 220px; text-align: center;">
                 <div style="font-size: 18px; font-weight: bold; color: #333;">XXXXX</div>
                 <div style="font-size: 13px; color: #0088ff; margin-top: 10px;">Giriş Bekleniyor</div>
@@ -348,7 +348,7 @@ nav {
             </div>
         </div>
 
-        <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; background: rgba(15, 17, 26, 0.1);">
+        <div style="sinyalLockVisual" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; background: rgba(15, 17, 26, 0.1);">
             <div style="text-align: center;">
                 <p style="color: #fff; font-size: 15px; margin-bottom: 20px; font-weight: 300;">Bu alandaki analizler sadece üyelerimize özeldir.</p>
                 <div style="display: flex; gap: 10px; justify-content: center;">
@@ -360,6 +360,20 @@ nav {
     Kayıt Ol
 </button>
                 </div>
+<div id="sinyalData" style="display: none; width: 100%;">
+    <div style="display: flex; flex-wrap: wrap; gap: 20px; justify-content: center; padding: 10px;">
+        <div style="background: white; border: 1px solid var(--primary); border-radius: 12px; padding: 15px; width: 200px; text-align: center; box-shadow: 0 4px 6px rgba(0,0,0,0.05);">
+            <div style="font-weight: bold; color: var(--text);">THYAO</div>
+            <div style="color: #2ecc71; font-size: 14px; margin-top: 5px;">HEDEF: 312.50</div>
+            <div style="font-size: 12px; opacity: 0.6;">Sinyal: GÜÇLÜ AL</div>
+        </div>
+        <div style="background: white; border: 1px solid var(--primary); border-radius: 12px; padding: 15px; width: 200px; text-align: center; box-shadow: 0 4px 6px rgba(0,0,0,0.05);">
+            <div style="font-weight: bold; color: var(--text);">EREGL</div>
+            <div style="color: #2ecc71; font-size: 14px; margin-top: 5px;">HEDEF: 54.20</div>
+            <div style="font-size: 12px; opacity: 0.6;">Sinyal: AL</div>
+        </div>
+    </div>
+</div>
             </div>
         </div>
     </div>
@@ -594,7 +608,7 @@ if (typeof isLoggedIn !== 'undefined' && isLoggedIn) {
                     <label class="floating-label">Şifre</label>
                 </div>
                 <p style="color: #00d1ff; font-size: 12px; text-align: center; margin-top: 20px; cursor: pointer;">Şifremi Unuttum?</p>
-                <button style="width: 100%; background: #00d1ff; color: white; border: none; padding: 12px; border-radius: 10px; font-weight: bold; cursor: pointer; margin-top: 10px;">GİRİŞ YAP</button>
+                <button onclick="unlockEverything()" style="width: 100%; background: #00d1ff; color: white; border: none; padding: 12px; border-radius: 10px; font-weight: bold; cursor: pointer; margin-top: 10px;">GİRİŞ YAP</button>
             </div>
 
             <div id="registerFormArea" style="display:none;">
@@ -953,6 +967,35 @@ function openP(id) {
     } else {
         alert("Sistem hatası: " + id + " paneli dosyada bulunamadı!");
     }
+}
+// TÜM KİLİTLERİ AÇAN MERKEZİ FONKSİYON
+function unlockEverything() {
+    isLoggedIn = true; // Sisteme anahtarı soktuk
+    
+    // 1. Hayalet perdeleri (Isı haritası, tarayıcı vb.) kaldır
+    const locks = ['heatmapLock', 'scannerLock', 'btcLock', 'greedLock'];
+    locks.forEach(id => {
+        let el = document.getElementById(id);
+        if(el) el.style.display = 'none';
+    });
+
+    // 2. STRATEJİ RAPORU: Kilidi kaldır, gizli metni göster
+    if(document.getElementById('stratejiLockVisual')) document.getElementById('stratejiLockVisual').style.display = 'none';
+    if(document.getElementById('stratejiData')) document.getElementById('stratejiData').style.display = 'block';
+
+    // 3. SİNYAL MERKEZİ: Bulanıklığı ve kilidi kaldır, tabloyu göster
+    if(document.getElementById('sinyalLockVisual')) document.getElementById('sinyalLockVisual').style.display = 'none';
+    if(document.getElementById('sinyalBlurArea')) {
+        document.getElementById('sinyalBlurArea').style.filter = 'none';
+        document.getElementById('sinyalBlurArea').style.opacity = '1';
+        document.getElementById('sinyalBlurArea').style.pointerEvents = 'auto';
+    }
+    if(document.getElementById('sinyalData')) document.getElementById('sinyalData').style.display = 'block';
+
+    // 4. Modal'ı (giriş panelini) kapat
+    closeMembershipModal();
+    
+    console.log("Tüm sistem başarıyla açıldı!");
 }
 // Bu fonksiyon olmazsa "Takip Listem" butonları asla çalışmaz
 function handleMembership(kategori) {
