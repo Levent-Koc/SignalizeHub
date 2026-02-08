@@ -635,30 +635,32 @@ if (typeof isLoggedIn !== 'undefined' && isLoggedIn) {
     <button onclick="checkLogin()" style="width: 100%; background: #00d1ff; color: white; border: none; padding: 14px; border-radius: 10px; font-weight: bold; cursor: pointer; transition: 0.3s;">GİRİŞ YAP</button>
 </div>
 
-            <div id="registerFormArea" style="display:none;">
-<div class="input-group">
-    <input type="text" required class="smart-input">
-    <label class="floating-label">Ad Soyad</label>
+            <div id="registerFormArea" style="display:none; padding: 20px;">
+    <div class="input-group">
+        <input type="text" required class="smart-input">
+        <label class="floating-label">Ad Soyad</label>
+    </div>
+    <div class="input-group">
+        <input type="text" required class="smart-input">
+        <label class="floating-label">Kullanıcı Adı</label>
+    </div>
+    <div class="input-group">
+        <input type="email" required class="smart-input">
+        <label class="floating-label">E-posta</label>
+    </div>
+    <div style="display: flex !important; gap: 10px; margin-bottom: 20px;">
+        <div style="width: 110px;">
+            <select style="width: 100%; padding: 12px; border-radius: 10px; border: 1px solid #ddd; background: #f9f9f9; font-size: 13px;">
+                <option>🇹🇷 +90</option>
+            </select>
+        </div>
+        <div class="input-group" style="flex: 1; margin-bottom: 0;">
+            <input type="tel" required class="smart-input">
+            <label class="floating-label">Telefon</label>
+        </div>
+    </div>
+    <button style="width: 100%; background: #00d1ff; color: white; border: none; padding: 12px; border-radius: 10px; font-weight: bold; cursor: pointer;">KAYIT OL</button>
 </div>
-                <div class="input-group">
-                    <input type="text" required class="smart-input">
-                    <label class="floating-label">Kullanıcı Adı</label>
-                </div>
- <div class="input-group">
-                    <input type="email" required class="smart-input">
-                    <label class="floating-label">E-posta</label>
-                </div>
-                <div style="display: flex !important; gap: 10px; margin-bottom: 20px;">
-                    <div style="width: 110px;">
-                        <select style="width: 100%; padding: 12px; border-radius: 10px; border: 1px solid #ddd; background: #f9f9f9; font-size: 13px;">
-                            <option>🇹🇷 +90</option>
-                        </select>
-                    </div>
-                    <div class="input-group" style="flex: 1; margin-bottom: 0;">
-                        <input type="tel" required class="smart-input">
-                        <label class="floating-label">Telefon</label>
-                    </div>
-                </div>
                 <div class="input-group">
                     <input type="email" required class="smart-input">
                     <label class="floating-label">E-posta</label>
@@ -835,22 +837,29 @@ function openSingleTab(type) {
 }
 
 function switchTab(tab) {
-    // Bu fonksiyon sadece modal açıkken içindeki sekmelerle geçiş yapmak içindir
     const lArea = document.getElementById('loginFormArea');
     const rArea = document.getElementById('registerFormArea');
     const tL = document.getElementById('tabLogin');
     const tR = document.getElementById('tabRegister');
 
     if (tab === 'login') {
-        if(lArea) lArea.style.display = 'block';
-        if(rArea) rArea.style.display = 'none';
-        if(tL) { tL.style.color = '#00d1ff'; tL.style.background = '#ffffff'; tL.style.borderBottom = '3px solid #00d1ff'; }
-        if(tR) { tR.style.color = '#999'; tR.style.background = '#f8f9fa'; tR.style.borderBottom = 'none'; }
+        // Giriş formunu göster, Kayıt formunu gizle
+        lArea.style.display = 'block';
+        rArea.style.display = 'none';
+        // Buton renklerini ayarla
+        tL.style.borderBottom = '3px solid #00d1ff';
+        tL.style.color = '#00d1ff';
+        tR.style.borderBottom = 'none';
+        tR.style.color = '#999';
     } else {
-        if(lArea) lArea.style.display = 'none';
-        if(rArea) rArea.style.display = 'block';
-        if(tR) { tR.style.color = '#00d1ff'; tR.style.background = '#ffffff'; tR.style.borderBottom = '3px solid #00d1ff'; }
-        if(tL) { tL.style.color = '#999'; tL.style.background = '#f8f9fa'; tL.style.borderBottom = 'none'; }
+        // Kayıt formunu göster, Giriş formunu gizle
+        lArea.style.display = 'none';
+        rArea.style.display = 'block';
+        // Buton renklerini ayarla
+        tR.style.borderBottom = '3px solid #00d1ff';
+        tR.style.color = '#00d1ff';
+        tL.style.borderBottom = 'none';
+        tL.style.color = '#999';
     }
 }
 
