@@ -150,6 +150,16 @@ body.dark-mode .hub-text {
     0% { transform: scale(0.9); opacity: 0; }
     100% { transform: scale(1); opacity: 1; }
 }
+#reportModal {
+    display: none !important; /* Başlangıçta gizle */
+    position: fixed !important;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: rgba(0,0,0,0.8); /* Arka planı karartır */
+    z-index: 999999 !important; /* Her şeyin en üstüne koyar */
+    justify-content: center;
+    align-items: center;
+}
  </style>
 </head>
 <body>
@@ -224,7 +234,16 @@ body.dark-mode .hub-text {
         </div>
     </div>
 </div>
+<div id="reportModal">
+    <div style="background: white; width: 90%; max-width: 1000px; height: 80vh; border-radius: 20px; position: relative; overflow-y: auto; padding: 20px;">
+        
+        <span onclick="document.getElementById('reportModal').style.display='none'" style="position: absolute; right: 25px; top: 15px; font-size: 30px; cursor: pointer; color: #ff4757;">&times;</span>
 
+        <div id="reportContent">
+            </div>
+
+    </div>
+</div>
         <div id="stratejiBlurArea" style="filter: blur(8px); opacity: 0.3; pointer-events: none; margin-top: 20px; max-width: 800px; margin: 0 auto;">
             <p style="line-height: 1.8; font-size: 16px;">
                 BIST100 endeksi yeni güne küresel piyasalardaki pozitif seyrin etkisiyle alıcılı bir başlangıç yaptı. 
@@ -1300,6 +1319,23 @@ function prevPage() {
     if (currentPage > 0) {
         currentPage--;
         renderReport();
+    }
+}
+function openStratejiRaporu() {
+    console.log("Rapor komutu verildi.");
+    const modal = document.getElementById('reportModal');
+    
+    if (modal) {
+        // Gizli olan kutuyu ekranın ortasında açar
+        modal.style.display = 'flex'; 
+        
+        // Buzları çözmek istiyorsan bu satırı ekle
+        const blurArea = document.getElementById('stratejiBlurArea');
+        if(blurArea) blurArea.style.filter = 'none';
+        
+        console.log("Rapor başarıyla açıldı.");
+    } else {
+        alert("Hata: 'reportModal' bulunamadı! Lütfen HTML kısmına ID'yi eklediğinizden emin olun.");
     }
 }
 </script>
