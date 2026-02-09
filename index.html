@@ -706,6 +706,28 @@ if (typeof isLoggedIn !== 'undefined' && isLoggedIn) {
     cursor: pointer;
     font-weight: bold;
 }
+<div id="raporIcerikGovdesi">
+    <h3 id="raporBaslik" style="color: #00d1ff; margin-bottom: 15px; border-bottom: 1px solid #eee; padding-bottom: 10px;">
+        📜 Günlük Strateji Raporu
+    </h3>
+    
+    <div id="reportContent" style="min-height: 150px; color: #333; line-height: 1.8; font-size: 15px;">
+        Analizleri görüntülemek için lütfen giriş yapın.
+    </div>
+
+    <div id="raporSayfalamaNav" style="display: none; justify-content: center; align-items: center; gap: 20px; margin-top: 20px; padding-top: 15px; border-top: 1px solid #eee;">
+        <button onclick="prevReportPage()" style="background:#f1f5f9; border:none; padding:8px 15px; border-radius:8px; cursor:pointer; font-weight:bold;">◀ Geri</button>
+        <span id="sayfaBilgiNotu" style="font-weight:bold; color:#00d1ff;">Sayfa 1 / 3</span>
+        <button onclick="nextReportPage()" style="background:#f1f5f9; border:none; padding:8px 15px; border-radius:8px; cursor:pointer; font-weight:bold;">İleri ▶</button>
+    </div>
+</div>
+<div id="stratejiLockOverlay" style="text-align: center; margin-top: -200px; position: relative; z-index: 10;">
+    <div style="font-size: 40px; margin-bottom: 10px;">🔒</div>
+    <div style="font-weight: bold; color: #333; margin-bottom: 15px; font-family: sans-serif;">Bu sayfanın devamı üyelere özeldir</div>
+    <button onclick="unlockEverything()" style="background: #00d1ff; color: white; border: none; padding: 12px 25px; border-radius: 10px; font-weight: bold; cursor: pointer; box-shadow: 0 4px 12px rgba(0,209,255,0.2);">
+        Giriş Yap / Raporu Oku
+    </button>
+</div>
 </style>
 
 <script>
