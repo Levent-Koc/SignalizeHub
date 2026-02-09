@@ -210,8 +210,7 @@ body.dark-mode .hub-text {
     <div class="card" id="topCard" style="padding:40px 30px; border-top: 4px solid var(--primary); margin-bottom: 20px; text-align: center;">
         
         <div style="display: flex; flex-direction: column; align-items: center; gap: 15px; margin-bottom: 25px;">
-            <h3 style="margin: 0; font-size: 22px;">📜 Günlük Strateji Raporu</h3>
-            <div style="position: relative; display: inline-block;">
+                        <div style="position: relative; display: inline-block;">
     
     <button onclick="toggleUpdateInfo()" style="cursor: pointer; background: #f8f9fa; border: 1px solid #ddd; padding: 6px 15px; border-radius: 6px; font-size: 13px; color: #333; display: flex; align-items: center; gap: 8px; font-weight: 500;">
         <i class="fas fa-sync-alt"></i> Güncellenme
@@ -225,11 +224,24 @@ body.dark-mode .hub-text {
         </div>
     </div>
 </div>
-
-       <div id="stratejiBlurArea" style="filter: blur(8px); opacity: 0.3; pointer-events: none; transition: all 0.5s ease;">
-    <div id="raporGövdesi">
-        <h3 id="raporBaslik" style="color: #00d1ff; margin-bottom: 10px;">📜 Günlük Strateji Raporu</h3>
+         
+    <div id="anaRaporOdasi">
+        <h3 id="raporBaslik" style="color: #00d1ff; font-size: 22px; margin-bottom: 15px; border-bottom: 2px solid #f0f0f0; padding-bottom: 10px;">
+            📜 Günlük Strateji Raporu
+        </h3>
         
+        <div id="reportContent" style="min-height: 180px; color: #333; line-height: 1.8; font-size: 16px;">
+            Rapor detaylarını görmek için lütfen giriş yapın.
+        </div>
+
+        <div id="sayfalamaElemanları" style="display: none; justify-content: space-between; align-items: center; margin-top: 25px; border-top: 1px solid #eee; padding-top: 20px;">
+            <button onclick="prevPage()" style="background:#00d1ff; color:white; border:none; padding:10px 20px; border-radius:8px; cursor:pointer; font-weight:bold;">◀ Geri</button>
+            <span id="sayfaNoText" style="font-weight:bold; color:#555; font-size: 16px;">Sayfa 1 / 3</span>
+            <button onclick="nextPage()" style="background:#00d1ff; color:white; border:none; padding:10px 20px; border-radius:8px; cursor:pointer; font-weight:bold;">İleri ▶</button>
+        </div>
+    </div>
+</div>
+                
         <div id="reportContent" style="line-height: 1.6; font-size: 15px;">
             BIST100 endeksi yeni güne küresel piyasalardaki pozitif seyrin etkisiyle alıcılı bir başlangıç yaptı. 
             Teknik olarak 9.250 puan seviyesi güçlü bir direnç bölgesi olarak takip edilirken...
@@ -294,21 +306,7 @@ nav {
     min-width: 250px;
     justify-content: flex-end;
 }
-    .tali-panel-yeni {
-        display: none; 
-        position: fixed; 
-        top: 50%; 
-        left: 50%; 
-        transform: translate(-50%, -50%); 
-        width: 80%;       /* Ekranın %80'ini kapla (Mobilde geniş kalması için) */
-        max-width: 750px;  /* AMA masaüstünde asla 750px'i geçme (İşte bu ufalatır) */
-        background: #131722 !important; 
-        border-radius: 20px; /* Köşeleri biraz daha yuvarlattık, daha modern oldu */
-        box-shadow: 0 30px 60px rgba(0, 0, 0, 0.8); 
-        z-index: 10001; 
-        overflow: hidden;
-        border: 1px solid #333;
-    }
+   
     
     .panel-kapat-btn {
         position: absolute; 
@@ -875,8 +873,7 @@ function closeMembershipModal() {
 </script>
      <div style="background:#f8f9fa; padding:15px 25px; border-bottom:1px solid #eee; display:flex; justify-content:space-between; align-items:center;">
         <div>
-            <h2 style="margin:0; font-size:18px; color:#333; font-family: sans-serif;">📈 Günlük Strateji Raporu</h2>
-            <span id="reportDate" style="font-size:12px; color:#888; font-family: sans-serif;">Yükleniyor...</span>
+                        <span id="reportDate" style="font-size:12px; color:#888; font-family: sans-serif;">Yükleniyor...</span>
         </div>
         
         <div style="display:flex; gap:15px; align-items:center;">
@@ -1238,7 +1235,7 @@ function prevPage() {
         currentPage--;
         renderReport();
     }
-}
+}f
 function toggleUpdateInfo() {
     const panel = document.getElementById('updateInfoPanel');
     const timeText = document.getElementById('panelTimeText');
@@ -1290,46 +1287,9 @@ function unlockEverything() {
     // 3. Raporu otomatik aç
     openStratejiRaporu();
 }
-function openStratejiRaporu() {
-    console.log("Rapor aranıyor...");
-    const modal = document.getElementById('reportModal');
-    
-    if (modal) {
-        // Raporu görünür yap
-        modal.style.display = 'flex';
-        console.log("Rapor bulundu ve açıldı!");
-    } else {
-        // Eğer hala açılmıyorsa bu uyarıyı verir
-        alert("Hata: Kodda hala 'reportModal' ID'si eksik!");
-    }
-}
-// Eski sürümleri sildiysen, bunu tek bir kez yapıştır:
-function openStratejiRaporu() {
-    console.log("Raporu açma komutu başarıyla tetiklendi.");
-    
-    // HTML içindeki o 6-7 yerden biri olan ana kutuyu bulur
-    const modal = document.getElementById('reportModal');
-    
-    if (modal) {
-        // Eğer giriş yapılmadıysa önce giriş panelini göster (Güvenlik)
-        if (typeof isLoggedIn !== 'undefined' && !isLoggedIn) {
-            const loginPanel = document.getElementById('loginRequiredPanel');
-            if (loginPanel) loginPanel.style.display = 'flex';
-            return;
-        }
 
-        // Giriş tamamsa raporu göster
-        modal.style.display = 'flex'; 
-        modal.style.zIndex = '10001'; // Her şeyin en üstünde olduğundan emin olalım
-        
-        // Eğer raporun içindeki tabloları dolduran bir fonksiyonun varsa onu çağır
-        if (typeof renderReport === 'function') {
-            renderReport();
-        }
-    } else {
-        console.error("Hata: Sayfada 'reportModal' ID'sine sahip bir kutu bulunamadı!");
-    }
-}
+// Eski sürümleri sildiysen, bunu tek bir kez yapıştır:
+
 let currentPage = 0;
 const reportData = [
     { title: "Strateji Sayfa 1", content: "Buraya 1. sayfa verileri gelecek..." },
@@ -1342,6 +1302,51 @@ function renderReport() {
     if (contentDiv) {
         // Senin taslağına göre burayı güncelliyoruz
         contentDiv.innerHTML = `<h3>${reportData[currentPage].title}</h3><p>${reportData[currentPage].content}</p>`;
+    }
+}
+let currentPage = 0;
+const reportData = [
+    { title: "📊 Piyasa Analizi (Sayfa 1)", content: "BIST100 endeksi güne pozitif başladı. 9.200 puan seviyesi destek olarak izleniyor. Hacim artışı sinyallerin gücünü onaylıyor." },
+    { title: "🚀 Hisse Sinyalleri (Sayfa 2)", content: "EREGL: Hedef 54.20, Stop 49.50. <br>THYAO: Global hava trafiğindeki artışla hedef 310.00. <br>TUPRS: Marjlardaki iyileşme pozitif." },
+    { title: "🌍 Küresel Görünüm (Sayfa 3)", content: "ABD enflasyon verisi sonrası FED faiz beklentileri sabitlendi. Ons altın tarafında 2040$ direnci kırılmaya çalışılıyor." }
+];
+
+function unlockEverything() {
+    // 1. Buzları Çöz
+    const blurArea = document.getElementById('stratejiBlurArea');
+    if(blurArea) {
+        blurArea.style.filter = 'none';
+        blurArea.style.opacity = '1';
+        blurArea.style.pointerEvents = 'auto';
+    }
+
+    // 2. Sayfalamayı Getir
+    const sayfalama = document.getElementById('sayfalamaElemanları');
+    if(sayfalama) {
+        sayfalama.style.display = 'flex';
+    }
+
+    // 3. Giriş Panelini Gizle
+    if(document.getElementById('loginRequiredPanel')) {
+        document.getElementById('loginRequiredPanel').style.display = 'none';
+    }
+    if(document.getElementById('stratejiLockVisual')) {
+        document.getElementById('stratejiLockVisual').style.display = 'none';
+    }
+
+    // 4. İlk Sayfayı Yazdır
+    renderReport();
+}
+
+function renderReport() {
+    const title = document.getElementById('raporBaslik');
+    const content = document.getElementById('reportContent');
+    const pageText = document.getElementById('sayfaNoText');
+
+    if (content && reportData[currentPage]) {
+        title.innerHTML = `📜 ${reportData[currentPage].title}`;
+        content.innerHTML = reportData[currentPage].content;
+        pageText.innerText = `Sayfa ${currentPage + 1} / ${reportData.length}`;
     }
 }
 
@@ -1358,23 +1363,20 @@ function prevPage() {
         renderReport();
     }
 }
-function openStratejiRaporu() {
-    console.log("Rapor komutu verildi.");
-    const modal = document.getElementById('reportModal');
-    
-    if (modal) {
-        // Gizli olan kutuyu ekranın ortasında açar
-        modal.style.display = 'flex'; 
-        
-        // Buzları çözmek istiyorsan bu satırı ekle
-        const blurArea = document.getElementById('stratejiBlurArea');
-        if(blurArea) blurArea.style.filter = 'none';
-        
-        console.log("Rapor başarıyla açıldı.");
-    } else {
-        alert("Hata: 'reportModal' bulunamadı! Lütfen HTML kısmına ID'yi eklediğinizden emin olun.");
+function nextPage() {
+    if (currentPage < reportData.length - 1) {
+        currentPage++;
+        renderReport();
     }
 }
+
+function prevPage() {
+    if (currentPage > 0) {
+        currentPage--;
+        renderReport();
+    }
+}
+
 </script>
 </body>
 </html>
