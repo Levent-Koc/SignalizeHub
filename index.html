@@ -839,8 +839,7 @@ function closeMembershipModal() {
     if(tabArea) tabArea.style.display = 'flex'; 
 }
 </script>
-<div id="reportModal" class="tali-panel-yeni" style="display:none; position:fixed; top:50%; left:50%; transform:translate(-50%, -50%); width:95%; max-width:900px; height:85vh; background:white; z-index:20000; border-radius:15px; overflow:hidden; flex-direction:column; box-shadow: 0 0 40px rgba(0,0,0,0.5); border-top: 5px solid #00d1ff;">    
-    <div style="background:#f8f9fa; padding:15px 25px; border-bottom:1px solid #eee; display:flex; justify-content:space-between; align-items:center;">
+     <div style="background:#f8f9fa; padding:15px 25px; border-bottom:1px solid #eee; display:flex; justify-content:space-between; align-items:center;">
         <div>
             <h2 style="margin:0; font-size:18px; color:#333; font-family: sans-serif;">📈 Günlük Strateji Raporu</h2>
             <span id="reportDate" style="font-size:12px; color:#888; font-family: sans-serif;">Yükleniyor...</span>
@@ -914,22 +913,7 @@ if (typeof isLoggedIn !== 'undefined' && isLoggedIn) {
 // Giriş kontrolü fonksiyonu (Ortak)
 function checkScannerAccess() {
 // Strateji Raporu için giriş kontrolü ve rapor açma
-function openStratejiRaporu() {
-    if (!isLoggedIn) {
-        // Giriş yapılmamışsa kilitli paneli göster
-        document.getElementById('loginRequiredPanel').style.display = 'flex';
-    } else {
-        // Giriş yapılmışsa raporu hazırla ve modalı aç
-        currentPage = 0;
-        renderReport();
-        document.getElementById('reportModal').style.display = 'flex';
-    }
-}
-    if (!isLoggedIn) {
-        alert("Bu özelliği kullanmak için giriş yapmalısınız.");
-        openMembershipModal('login');
-    }
-}
+
 
 // Giriş yapıldığında bu kilitleri açacak olan ana fonksiyon (Zaten sende var ama kontrol et)
 function unlockEverything() {
@@ -1212,20 +1196,7 @@ function toggleUpdateInfo() {
 
 let isLoggedIn = false; // Giriş durumunu kontrol eder
 
-function openStratejiRaporu() {
-    console.log("Rapor açma denemesi...");
-    if (!isLoggedIn) {
-        // Eğer giriş yapılmamışsa kilitli paneli göster
-        const loginPanel = document.getElementById('loginRequiredPanel');
-        if (loginPanel) loginPanel.style.display = 'flex';
-    } else {
-        // Giriş yapılmışsa raporu aç
-        currentPage = 0;
-        if (typeof renderReport === 'function') renderReport();
-        const modal = document.getElementById('reportModal');
-        if (modal) modal.style.display = 'flex';
-    }
-}
+
 
 function unlockEverything() {
     isLoggedIn = true;
@@ -1246,27 +1217,31 @@ function unlockEverything() {
     // 3. Raporu otomatik aç
     openStratejiRaporu();
 }
-// --- EKLEMEN GEREKEN KISIM BİTİŞİ ---
+// Eski sürümleri sildiysen, bunu tek bir kez yapıştır:
 function openStratejiRaporu() {
-    console.log("Rapor açma komutu alındı...");
+    console.log("Raporu açma komutu başarıyla tetiklendi.");
     
-    // 1. Raporun ana kutusunu buluyoruz
+    // HTML içindeki o 6-7 yerden biri olan ana kutuyu bulur
     const modal = document.getElementById('reportModal');
     
     if (modal) {
-        // 2. Raporun içeriğini (sayfalarını) oluşturuyoruz
-        if (typeof renderReport === 'function') {
-            currentPage = 0; // İlk sayfadan başla
-            renderReport(); 
+        // Eğer giriş yapılmadıysa önce giriş panelini göster (Güvenlik)
+        if (typeof isLoggedIn !== 'undefined' && !isLoggedIn) {
+            const loginPanel = document.getElementById('loginRequiredPanel');
+            if (loginPanel) loginPanel.style.display = 'flex';
+            return;
         }
-        
-        // 3. Gizli olan raporu görünür yapıyoruz
+
+        // Giriş tamamsa raporu göster
         modal.style.display = 'flex'; 
-        console.log("Rapor modalı şu an görünür olmalı.");
+        modal.style.zIndex = '10001'; // Her şeyin en üstünde olduğundan emin olalım
+        
+        // Eğer raporun içindeki tabloları dolduran bir fonksiyonun varsa onu çağır
+        if (typeof renderReport === 'function') {
+            renderReport();
+        }
     } else {
-        // Eğer bu hatayı alırsan HTML içinde reportModal div'i eksik demektir
-        console.error("Hata: 'reportModal' ID'li rapor paneli bulunamadı!");
-        alert("Rapor paneli sistemde bulunamadı. Lütfen HTML yapısını kontrol edin.");
+        console.error("Hata: Sayfada 'reportModal' ID'sine sahip bir kutu bulunamadı!");
     }
 }
 </script>
