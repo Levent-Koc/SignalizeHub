@@ -150,7 +150,6 @@ body.dark-mode .hub-text {
     0% { transform: scale(0.9); opacity: 0; }
     100% { transform: scale(1); opacity: 1; }
 }
-}
  </style>
 </head>
 <body>
@@ -1209,6 +1208,45 @@ function toggleUpdateInfo() {
         panel.style.top = "110%";
     }
 }
+// --- EKLEMEN GEREKEN KISIM BAŞLIĞI ---
+
+let isLoggedIn = false; // Giriş durumunu kontrol eder
+
+function openStratejiRaporu() {
+    console.log("Rapor açma denemesi...");
+    if (!isLoggedIn) {
+        // Eğer giriş yapılmamışsa kilitli paneli göster
+        const loginPanel = document.getElementById('loginRequiredPanel');
+        if (loginPanel) loginPanel.style.display = 'flex';
+    } else {
+        // Giriş yapılmışsa raporu aç
+        currentPage = 0;
+        if (typeof renderReport === 'function') renderReport();
+        const modal = document.getElementById('reportModal');
+        if (modal) modal.style.display = 'flex';
+    }
+}
+
+function unlockEverything() {
+    isLoggedIn = true;
+    console.log("Sistem: Giriş başarılı!");
+
+    // 1. Bulanıklığı kaldır
+    const blurArea = document.getElementById('stratejiBlurArea');
+    if (blurArea) {
+        blurArea.style.filter = 'none';
+        blurArea.style.opacity = '1';
+        blurArea.style.pointerEvents = 'auto';
+    }
+
+    // 2. Kilit panelini gizle
+    const loginPanel = document.getElementById('loginRequiredPanel');
+    if (loginPanel) loginPanel.style.display = 'none';
+
+    // 3. Raporu otomatik aç
+    openStratejiRaporu();
+}
+// --- EKLEMEN GEREKEN KISIM BİTİŞİ ---
 </script>
 </body>
 </html>
