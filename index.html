@@ -150,7 +150,37 @@ body.dark-mode .hub-text {
     0% { transform: scale(0.9); opacity: 0; }
     100% { transform: scale(1); opacity: 1; }
 }
+/* --- SADECE STRATEJİ RAPORU TASARIMI --- */
+#stratejiBlurArea {
+    filter: blur(12px) !important;
+    opacity: 0.4 !important;
+    pointer-events: none !important;
+    transition: all 0.6s ease;
+    position: relative;
+    background: white;
+    padding: 25px;
+    border-radius: 15px;
+    border: 1px solid #e1e8ed;
+}
 
+/* Sayfalama butonları için düzen */
+.rapor-nav-paneli {
+    display: none; 
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+    margin-top: 20px;
+    padding-top: 15px;
+    border-top: 1px solid #eee;
+}
+
+/* Kilit görselinin pozisyonu */
+#stratejiLockVisual {
+    text-align: center;
+    margin-top: -180px; /* Buzun üzerine çıkması için */
+    position: relative;
+    z-index: 10;
+}
  </style>
 </head>
 <body>
@@ -225,11 +255,29 @@ body.dark-mode .hub-text {
     </div>
 </div>
          
-    <div id="anaRaporOdasi">
-        <h3 id="raporBaslik" style="color: #00d1ff; font-size: 22px; margin-bottom: 15px; border-bottom: 2px solid #f0f0f0; padding-bottom: 10px;">
-            📜 Günlük Strateji Raporu
-        </h3>
-        
+   <div id="stratejiBlurArea">
+    <h3 id="raporBaslik" style="color: #00d1ff; font-size: 22px; margin-bottom: 15px; border-bottom: 2px solid #f0f0f0; padding-bottom: 10px;">
+        📜 Günlük Strateji Raporu
+    </h3>
+    
+    <div id="reportContent" style="min-height: 150px; line-height: 1.8; color: #333;">
+        Analizleri görüntülemek için lütfen giriş yapın.
+    </div>
+
+    <div id="sayfalamaElemanları" class="rapor-nav-paneli">
+        <button onclick="prevPage()" style="cursor:pointer; padding: 5px 12px; border-radius: 5px; border: 1px solid #ddd;">◀ Geri</button>
+        <span id="sayfaNoText" style="font-weight: bold; color: #00d1ff;">Sayfa 1 / 3</span>
+        <button onclick="nextPage()" style="cursor:pointer; padding: 5px 12px; border-radius: 5px; border: 1px solid #ddd;">İleri ▶</button>
+    </div>
+</div>
+
+<div id="stratejiLockVisual">
+    <div style="font-size: 40px; margin-bottom: 10px;">🔒</div>
+    <div style="font-weight: bold; color: #333; margin-bottom: 15px;">Bu sayfanın devamı üyelere özeldir</div>
+    <button onclick="unlockEverything()" style="background: #00d1ff; color: white; border: none; padding: 12px 25px; border-radius: 10px; font-weight: bold; cursor: pointer;">
+        Giriş Yap / Raporu Oku
+    </button>
+</div>
         <div id="reportContent" style="min-height: 180px; color: #333; line-height: 1.8; font-size: 16px;">
             Rapor detaylarını görmek için lütfen giriş yapın.
         </div>
@@ -1032,56 +1080,8 @@ const dailyReportData = {
                       </div>`
         }
     ]
-};
-
-let currentPage = 0; // Mevcut sayfa takibi
-
-// 2. Raporu Ekrana Basan Fonksiyon
-function renderReport() {
-    const content = document.getElementById('reportContent');
-    const page = dailyReportData.pages[currentPage];
-    
-    // İçeriği temizle ve yeni sayfayı yaz
-    content.innerHTML = `
-        <div style="max-width:750px; margin:0 auto; animation: fadeIn 0.5s ease;">
-            <h1 style="border-bottom:3px solid #00d1ff; padding-bottom:15px; color:#1a252f;">${page.title}</h1>
-            <div style="font-size:16px; color:#34495e;">${page.content}</div>
-        </div>
-    `;
-    
-    // Göstergeleri güncelle
-    document.getElementById('pageIndicator').innerText = `Sayfa ${currentPage + 1} / ${dailyReportData.pages.length}`;
-    document.getElementById('reportDate').innerText = dailyReportData.date;
 }
 
-// 3. Sayfa Değiştirme Fonksiyonu
-function changeReportPage(direction) {
-    const newPage = currentPage + direction;
-    
-    // Sayfa sınırlarını kontrol et
-    if (newPage >= 0 && newPage < dailyReportData.pages.length) {
-        currentPage = newPage;
-        renderReport();
-        document.getElementById('reportContent').scrollTop = 0; // Sayfayı en üste kaydır
-    }
-}
-    // Panelleri Açma/Kapama Fonksiyonu
-    function openP(panelId) {
-        // Tüm panelleri gizle
-        const panels = document.querySelectorAll('.tali-panel-yeni');
-        panels.forEach(p => p.style.display = 'none');
-        
-        // Hedef paneli göster
-        const target = document.getElementById(panelId);
-        if (target) {
-            target.style.display = 'block';
-            // Eğer giriş yapılmışsa panel açıldığında kilit katmanı gizli olmalı
-            const locks = target.querySelectorAll('[id$="Lock"]');
-            locks.forEach(lock => {
-                lock.style.display = isLoggedIn ? 'none' : 'flex';
-            });
-        }
-    }
 
     // Modal Sekme Geçişleri
     function switchTab(tab) {
@@ -1204,25 +1204,63 @@ function unlockEverything() { // <-- İŞTE O EKSİK PARANTEZ BURADA OLMALI!
     </div>
 </div>
 <script>
+// --- GÜNLÜK STRATEJİ RAPORU VERİ MERKEZİ ---
 let currentPage = 0;
 const reportData = [
-    { title: "Piyasa Özeti (Sayfa 1)", content: "BIST100 analizi: 9.250 direnci kritik önemde. Bankacılık endeksinde güçlü alımlar izleniyor." },
-    { title: "Hisse Sinyalleri (Sayfa 2)", content: "EREGL: 54.20 hedefle takibimizde. THYAO: Geri çekilmeler alım fırsatı olarak değerlendirilebilir." },
-    { title: "Küresel Piyasalar (Sayfa 3)", content: "S&P 500 rekor tazelerken, Ons Altın tarafında FED faiz kararı öncesi yatay seyir hakim." }
+    { 
+        title: "Piyasa Analizi & Beklentiler", 
+        content: "BIST100 endeksi 9.200 ana destek seviyesinin üzerinde kalıcılık sağlamaya çalışıyor. Küresel risk iştahındaki artış, yerel piyasada bankacılık ve holding hisselerine olan ilgiyi canlı tutabilir. 9.400-9.500 bandı ilk direnç bölgesi." 
+    },
+    { 
+        title: "Öne Çıkan Hisse Sinyalleri", 
+        content: "<b>EREGL:</b> 54.20 hedef fiyatla teknik görünüm pozitif.<br><b>THYAO:</b> Güçlü hacimle 310 TL seviyesini test ediyor.<br><b>TUPRS:</b> Orta vadeli trend desteği üzerinde alımların güçlenmesi bekleniyor." 
+    },
+    { 
+        title: "Küresel Piyasalar ve Makro", 
+        content: "ABD'den gelecek olan istihdam verileri FED'in faiz patikası için belirleyici olacak. Ons altın 2030$ seviyesinde dengelenirken, emtia piyasalarında Çin kaynaklı talep endişeleri baskı yaratmaya devam ediyor." 
+    }
 ];
 
-function renderReport() {
-    const titleDiv = document.getElementById('raporBaslik');
-    const contentDiv = document.getElementById('reportContent');
-    const pageNoDiv = document.getElementById('sayfaNoText');
+// --- KİLİDİ AÇAN VE BUZLARI ÇÖZEN ANA FONKSİYON ---
+function unlockEverything() {
+    // 1. Buzlanmayı kaldır
+    const blurArea = document.getElementById('stratejiBlurArea');
+    if(blurArea) {
+        blurArea.style.filter = 'none';
+        blurArea.style.opacity = '1';
+        blurArea.style.pointerEvents = 'auto';
+    }
 
-    if (contentDiv) {
-        titleDiv.innerText = reportData[currentPage].title;
-        contentDiv.innerText = reportData[currentPage].content;
-        pageNoDiv.innerText = `Sayfa ${currentPage + 1} / ${reportData.length}`;
+    // 2. Sayfalama butonlarını (ileri/geri) göster
+    const sayfalama = document.getElementById('sayfalamaElemanları');
+    if(sayfalama) {
+        sayfalama.style.display = 'flex';
+    }
+
+    // 3. Kilit görselini gizle
+    const lockVisual = document.getElementById('stratejiLockVisual');
+    if(lockVisual) {
+        lockVisual.style.display = 'none';
+    }
+
+    // 4. İçeriği yükle
+    renderReport();
+}
+
+// --- RAPORU EKRANA YAZDIRAN FONKSİYON ---
+function renderReport() {
+    const title = document.getElementById('raporBaslik');
+    const content = document.getElementById('reportContent');
+    const pageText = document.getElementById('sayfaNoText');
+
+    if (content && reportData[currentPage]) {
+        title.innerHTML = `📜 ${reportData[currentPage].title}`;
+        content.innerHTML = reportData[currentPage].content;
+        pageText.innerText = `Sayfa ${currentPage + 1} / ${reportData.length}`;
     }
 }
 
+// --- SAYFA DEĞİŞTİRME FONKSİYONLARI ---
 function nextPage() {
     if (currentPage < reportData.length - 1) {
         currentPage++;
@@ -1235,7 +1273,7 @@ function prevPage() {
         currentPage--;
         renderReport();
     }
-}f
+}
 function toggleUpdateInfo() {
     const panel = document.getElementById('updateInfoPanel');
     const timeText = document.getElementById('panelTimeText');
@@ -1290,35 +1328,7 @@ function unlockEverything() {
 
 // Eski sürümleri sildiysen, bunu tek bir kez yapıştır:
 
-let currentPage = 0;
-const reportData = [
-    { title: "Strateji Sayfa 1", content: "Buraya 1. sayfa verileri gelecek..." },
-    { title: "Strateji Sayfa 2", content: "Buraya 2. sayfa verileri gelecek..." },
-    { title: "Strateji Sayfa 3", content: "Buraya 3. sayfa verileri gelecek..." }
-];
 
-function renderReport() {
-    const contentDiv = document.getElementById('reportContent');
-    if (contentDiv) {
-        // Senin taslağına göre burayı güncelliyoruz
-        contentDiv.innerHTML = `<h3>${reportData[currentPage].title}</h3><p>${reportData[currentPage].content}</p>`;
-    }
-}
-let currentPage = 0;
-const reportData = [
-    { title: "📊 Piyasa Analizi (Sayfa 1)", content: "BIST100 endeksi güne pozitif başladı. 9.200 puan seviyesi destek olarak izleniyor. Hacim artışı sinyallerin gücünü onaylıyor." },
-    { title: "🚀 Hisse Sinyalleri (Sayfa 2)", content: "EREGL: Hedef 54.20, Stop 49.50. <br>THYAO: Global hava trafiğindeki artışla hedef 310.00. <br>TUPRS: Marjlardaki iyileşme pozitif." },
-    { title: "🌍 Küresel Görünüm (Sayfa 3)", content: "ABD enflasyon verisi sonrası FED faiz beklentileri sabitlendi. Ons altın tarafında 2040$ direnci kırılmaya çalışılıyor." }
-];
-
-function unlockEverything() {
-    // 1. Buzları Çöz
-    const blurArea = document.getElementById('stratejiBlurArea');
-    if(blurArea) {
-        blurArea.style.filter = 'none';
-        blurArea.style.opacity = '1';
-        blurArea.style.pointerEvents = 'auto';
-    }
 
     // 2. Sayfalamayı Getir
     const sayfalama = document.getElementById('sayfalamaElemanları');
@@ -1338,44 +1348,6 @@ function unlockEverything() {
     renderReport();
 }
 
-function renderReport() {
-    const title = document.getElementById('raporBaslik');
-    const content = document.getElementById('reportContent');
-    const pageText = document.getElementById('sayfaNoText');
-
-    if (content && reportData[currentPage]) {
-        title.innerHTML = `📜 ${reportData[currentPage].title}`;
-        content.innerHTML = reportData[currentPage].content;
-        pageText.innerText = `Sayfa ${currentPage + 1} / ${reportData.length}`;
-    }
-}
-
-function nextPage() {
-    if (currentPage < reportData.length - 1) {
-        currentPage++;
-        renderReport();
-    }
-}
-
-function prevPage() {
-    if (currentPage > 0) {
-        currentPage--;
-        renderReport();
-    }
-}
-function nextPage() {
-    if (currentPage < reportData.length - 1) {
-        currentPage++;
-        renderReport();
-    }
-}
-
-function prevPage() {
-    if (currentPage > 0) {
-        currentPage--;
-        renderReport();
-    }
-}
 
 </script>
 </body>
