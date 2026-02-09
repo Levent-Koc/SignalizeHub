@@ -1247,6 +1247,28 @@ function unlockEverything() {
     openStratejiRaporu();
 }
 // --- EKLEMEN GEREKEN KISIM BİTİŞİ ---
+function openStratejiRaporu() {
+    console.log("Rapor açma komutu alındı...");
+    
+    // 1. Raporun ana kutusunu buluyoruz
+    const modal = document.getElementById('reportModal');
+    
+    if (modal) {
+        // 2. Raporun içeriğini (sayfalarını) oluşturuyoruz
+        if (typeof renderReport === 'function') {
+            currentPage = 0; // İlk sayfadan başla
+            renderReport(); 
+        }
+        
+        // 3. Gizli olan raporu görünür yapıyoruz
+        modal.style.display = 'flex'; 
+        console.log("Rapor modalı şu an görünür olmalı.");
+    } else {
+        // Eğer bu hatayı alırsan HTML içinde reportModal div'i eksik demektir
+        console.error("Hata: 'reportModal' ID'li rapor paneli bulunamadı!");
+        alert("Rapor paneli sistemde bulunamadı. Lütfen HTML yapısını kontrol edin.");
+    }
+}
 </script>
 </body>
 </html>
