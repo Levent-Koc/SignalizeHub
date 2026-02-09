@@ -2,16 +2,37 @@
 <html lang="tr">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SignalizeHub | Finansal Terminal</title>
     <style>
-        /* Sadece Strateji Raporu için gerekli ek stiller, diğerleri korundu */
-        #stratejiBlurArea {
-            transition: all 0.6s ease;
-            position: relative;
-            min-height: 300px;
+        :root {
+            --bg: #f8fafc;
+            --header-bg: #ffffff;
+            --card-bg: #ffffff;
+            --text: #1a1a1a;
+            --border: #e1e8ed;
+            --primary: #00d1ff !important; 
         }
-        .rapor-nav-paneli {
-            display: none; /* Girişten sonra JS ile açılacak */
+
+        /* Mevcut CSS'lerin tamamı korunmuştur */
+        body { font-family: 'Inter', sans-serif; background-color: var(--bg); color: var(--text); margin: 0; }
+        
+        /* Strateji Raporu Özel Alanı */
+        #stratejiBlurArea {
+            filter: blur(10px);
+            opacity: 0.4;
+            pointer-events: none;
+            transition: all 0.6s ease;
+            background: white;
+            padding: 25px;
+            border-radius: 15px;
+            border: 1px solid #e1e8ed;
+            position: relative;
+            min-height: 250px;
+        }
+
+        .rapor-nav {
+            display: none; /* Giriş yapınca açılacak */
             justify-content: center;
             align-items: center;
             gap: 20px;
@@ -19,52 +40,64 @@
             padding-top: 15px;
             border-top: 1px solid #eee;
         }
-        .rapor-btn {
-            background: #00d1ff;
+
+        .nav-button {
+            background: var(--primary);
             color: white;
             border: none;
-            padding: 8px 15px;
+            padding: 8px 16px;
             border-radius: 8px;
             cursor: pointer;
             font-weight: bold;
         }
-        /* Mükerrer hayalet panelleri gizleme kuralı */
+
+        #stratejiLockOverlay {
+            text-align: center;
+            margin-top: -180px;
+            position: relative;
+            z-index: 1000;
+        }
+
+        /* Mükerrerleri gizle */
         .tali-panel-yeni, #reportModal { display: none !important; }
     </style>
 </head>
 <body>
 
-    <div id="stratejiBlurArea" style="filter: blur(10px); opacity: 0.4; pointer-events: none; background: white; padding: 25px; border-radius: 15px; border: 1px solid #e1e8ed;">
-        <div id="stratejiIcerikGövdesi">
-            <h3 id="raporBaslik" style="color: #00d1ff; margin-bottom: 15px;">📜 Günlük Strateji Raporu</h3>
-            
-            <div id="reportContent" style="min-height: 150px; line-height: 1.8; color: #333;">
-                Rapor içeriği yükleniyor...
-            </div>
+    <div style="max-width: 1200px; margin: 20px auto; padding: 0 20px;">
+        
+        <div id="stratejiBlurArea">
+            <div id="raporIcerikModulu">
+                <h3 id="raporBaslik" style="color: var(--primary); margin-bottom: 15px;">📜 Günlük Strateji Raporu</h3>
+                <div id="reportContent" style="min-height: 120px; line-height: 1.8; color: #333;">
+                    Lütfen analizleri görüntülemek için giriş yapın.
+                </div>
 
-            <div id="raporSayfalama" class="rapor-nav-paneli">
-                <button class="rapor-btn" onclick="prevReportPage()">◀ Geri</button>
-                <span id="sayfaNoBilgi" style="font-weight: bold; color: #555;">Sayfa 1 / 3</span>
-                <button class="rapor-btn" onclick="nextReportPage()">İleri ▶</button>
+                <div id="raporNavigasyon" class="rapor-nav">
+                    <button class="nav-button" onclick="prevReportPage()">◀ Geri</button>
+                    <span id="sayfaBilgi" style="font-weight: bold; color: #555;">Sayfa 1 / 3</span>
+                    <button class="nav-button" onclick="nextReportPage()">İleri ▶</button>
+                </div>
             </div>
         </div>
-    </div>
 
-    <div id="stratejiLockOverlay" style="text-align: center; margin-top: -220px; position: relative; z-index: 100;">
-        <div style="font-size: 40px; margin-bottom: 10px;">🔒</div>
-        <div style="font-weight: bold; color: #333; margin-bottom: 15px;">Bu sayfanın devamı üyelere özeldir</div>
-        <button onclick="unlockEverything()" style="background: #00d1ff; color: white; border: none; padding: 12px 25px; border-radius: 10px; font-weight: bold; cursor: pointer; box-shadow: 0 4px 15px rgba(0,209,255,0.3);">
-            Giriş Yap / Raporu Oku
-        </button>
-    </div>
+        <div id="stratejiLockOverlay">
+            <div style="font-size: 40px; margin-bottom: 10px;">🔒</div>
+            <div style="font-weight: bold; color: #333; margin-bottom: 15px; font-family: sans-serif;">Bu sayfanın devamı üyelere özeldir</div>
+            <button onclick="unlockEverything()" style="background: var(--primary); color: white; border: none; padding: 12px 25px; border-radius: 10px; font-weight: bold; cursor: pointer; box-shadow: 0 4px 12px rgba(0,209,255,0.2);">
+                Giriş Yap / Raporu Oku
+            </button>
+        </div>
+
+        </div>
 
     <script>
         // --- SADECE STRATEJİ RAPORU FONKSİYONLARI ---
         let currentIdx = 0;
-        const stratejiVerileri = [
-            { t: "Piyasa Analizi (S1)", c: "BIST100 endeksi 9.200 desteği üzerinde güç topluyor. Küresel piyasalarda teknoloji rallisi devam ederken yerel piyasada bankacılık öncü." },
-            { t: "Hisse Sinyalleri (S2)", c: "<b>EREGL:</b> 54.20 hedef fiyatla takibimizde.<br><b>THYAO:</b> 310 TL direnci hacimli geçildi.<br><b>TUPRS:</b> Geri çekilmeler fırsat." },
-            { t: "Ekonomik Takvim (S3)", c: "Cuma günü açıklanacak enflasyon verisi piyasanın yönü için kritik olacak. FED tutanakları sonrası dolar endeksi yatay." }
+        const raporVerileri = [
+            { t: "Piyasa Özeti (Sayfa 1)", c: "BIST100 endeksi güne pozitif başladı. Teknik olarak 9.200 seviyesi ana destek olarak takip ediliyor." },
+            { t: "Hisse Sinyalleri (Sayfa 2)", c: "<b>EREGL:</b> 54.20 hedef fiyatla AL konumunda.<br><b>THYAO:</b> Yükselen trend kanalı içinde hareket ediyor." },
+            { t: "Küresel Piyasalar (Sayfa 3)", c: "FED kararı öncesi Ons Altın 2040$ seviyesinde dengeleniyor. S&P500 endeksinde alıcılı seyir hakim." }
         ];
 
         function unlockEverything() {
@@ -77,40 +110,32 @@
             }
             document.getElementById('stratejiLockOverlay').style.display = 'none';
 
-            // 2. Raporun içindeki sayfalamayı göster
-            document.getElementById('raporSayfalama').style.display = 'flex';
-            
-            // 3. Veriyi yükle
-            updateReportUI();
+            // 2. Sayfalamayı aç ve içeriği yükle
+            document.getElementById('raporNavigasyon').style.display = 'flex';
+            renderRaporData();
         }
 
-        function updateReportUI() {
+        function renderRaporData() {
             const content = document.getElementById('reportContent');
             const title = document.getElementById('raporBaslik');
-            const pageNo = document.getElementById('sayfaNoBilgi');
+            const info = document.getElementById('sayfaBilgi');
             
-            if(content) {
-                title.innerHTML = `📜 ${stratejiVerileri[currentIdx].t}`;
-                content.innerHTML = stratejiVerileri[currentIdx].c;
-                pageNo.innerText = `Sayfa ${currentIdx + 1} / ${stratejiVerileri.length}`;
+            if(content && raporVerileri[currentIdx]) {
+                title.innerHTML = `📜 ${raporVerileri[currentIdx].t}`;
+                content.innerHTML = raporVerileri[currentIdx].c;
+                info.innerText = `Sayfa ${currentIdx + 1} / ${raporVerileri.length}`;
             }
         }
 
         function nextReportPage() {
-            if (currentIdx < stratejiVerileri.length - 1) {
-                currentIdx++;
-                updateReportUI();
-            }
+            if (currentIdx < raporVerileri.length - 1) { currentIdx++; renderRaporData(); }
         }
 
         function prevReportPage() {
-            if (currentIdx > 0) {
-                currentIdx--;
-                updateReportUI();
-            }
+            if (currentIdx > 0) { currentIdx--; renderRaporData(); }
         }
 
-        // Mevcut diğer scriptlerin (Modlar, Tablar vb.) hepsi korunmuştur.
+        // DİĞER TÜM SCRİPTLERİNİZ (MOD DEĞİŞTİRME, TABLAR VB.) AŞAĞIDA AYNEN KALSIN
     </script>
 </body>
 </html>
