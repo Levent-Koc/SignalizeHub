@@ -375,16 +375,14 @@ nav {
         </div>
     </div>
 </div>
-            </div>
-        </div>
-    </div>
-</div>
-
 <style>
 @keyframes blink {
     0% { opacity: 1; }
     50% { opacity: 0.3; }
     100% { opacity: 1; }
+}
+#reportModal {
+    display: none !important;
 }
 </style>
 <div id="kPanel" class="tali-panel-yeni" style="display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 450px; background: #121212; z-index: 10005; box-shadow: 0 25px 50px rgba(0,0,0,0.6); border-radius: 20px; border: 1px solid #333; overflow: hidden;">
@@ -1242,6 +1240,34 @@ function openStratejiRaporu() {
         }
     } else {
         console.error("Hata: Sayfada 'reportModal' ID'sine sahip bir kutu bulunamadı!");
+    }
+}
+let currentPage = 0;
+const reportData = [
+    { title: "Strateji Sayfa 1", content: "Buraya 1. sayfa verileri gelecek..." },
+    { title: "Strateji Sayfa 2", content: "Buraya 2. sayfa verileri gelecek..." },
+    { title: "Strateji Sayfa 3", content: "Buraya 3. sayfa verileri gelecek..." }
+];
+
+function renderReport() {
+    const contentDiv = document.getElementById('reportContent');
+    if (contentDiv) {
+        // Senin taslağına göre burayı güncelliyoruz
+        contentDiv.innerHTML = `<h3>${reportData[currentPage].title}</h3><p>${reportData[currentPage].content}</p>`;
+    }
+}
+
+function nextPage() {
+    if (currentPage < reportData.length - 1) {
+        currentPage++;
+        renderReport();
+    }
+}
+
+function prevPage() {
+    if (currentPage > 0) {
+        currentPage--;
+        renderReport();
     }
 }
 </script>
