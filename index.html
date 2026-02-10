@@ -921,7 +921,7 @@ function closeMembershipModal() {
 <script>
 function updateSentiment(interval) {
     const wrapper = document.getElementById('sentiment-wrapper');
-    wrapper.innerHTML = ''; // İçini boşalt
+    wrapper.innerHTML = ''; // İçini temizle
     
     const container = document.createElement('div');
     container.className = 'tradingview-widget-container';
@@ -934,9 +934,12 @@ function updateSentiment(interval) {
     script.src = 'https://s3.tradingview.com/external-embedding/embed-widget-technical-analysis.js';
     script.async = true;
     
-    // TradingView standart formatına göre interval ayarları
+    // GÜNLÜK İÇİN "1d" YERİNE "D" KULLANIYORUZ (KESİN ÇÖZÜM)
+    let tvInterval = interval;
+    if(interval === '1d') tvInterval = 'D';
+
     script.innerHTML = JSON.stringify({
-        "interval": interval,
+        "interval": tvInterval,
         "width": "100%",
         "isTransparent": false,
         "height": "100%",
@@ -957,8 +960,9 @@ function updateSentiment(interval) {
     document.getElementById('btn-1d').style.background = (interval === '1d') ? '#a855f7' : '#333';
 }
 
-// Panel ilk açıldığında 1 saatlik veriyi yükle
-window.addEventListener('load', () => {
+// Panel ilk kez görünür olduğunda yüklenmesi için tetikleyici
+// Bu kısım sayfa yüklendiğinde panel kapalı olsa bile widget'ı hazır eder
+document.addEventListener('DOMContentLoaded', function() {
     updateSentiment('1h');
 });
 </script>
