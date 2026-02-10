@@ -6,190 +6,148 @@
     <title>SignalizeHub | Finansal Terminal</title>
     <style>
         :root {
-            --bg: #f8fafc;
-            --header-bg: #ffffff;
-            --card-bg: #ffffff;
-            --text: #1a1a1a;
-            --border: #e1e8ed;
-            --primary: #00d1ff; 
+            --bg: #f8fafc; --header-bg: #ffffff; --card-bg: #ffffff;
+            --text: #1a1a1a; --border: #e1e8ed; --primary: #00d1ff; 
         }
-
         body.dark-mode {
-            --bg: #0f172a;
-            --header-bg: #1e293b;
-            --card-bg: #1e293b;
-            --text: #f1f5f9;
-            --border: #334155;
+            --bg: #0f172a; --header-bg: #1e293b; --card-bg: #1e293b;
+            --text: #f1f5f9; --border: #334155;
         }
-
-        body { 
-            background-color: var(--bg); 
-            color: var(--text); 
-            margin: 0; 
-            font-family: 'Segoe UI', sans-serif;
-            padding-bottom: 100px; /* Alt bant için boşluk */
-            transition: 0.3s;
-        }
-
-        header {
-            background-color: var(--header-bg);
-            border-bottom: 1px solid var(--border);
-            padding: 10px 40px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            position: sticky;
-            top: 0;
-            z-index: 10000;
-        }
-
+        body { background-color: var(--bg); color: var(--text); margin: 0; font-family: 'Segoe UI', sans-serif; padding-bottom: 120px; transition: 0.3s; }
+        
+        header { background-color: var(--header-bg); border-bottom: 1px solid var(--border); padding: 10px 40px; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 10000; }
         .hub-text { color: var(--primary); font-weight: bold; }
 
-        nav { display: flex; gap: 10px; }
-        .dropdown { position: relative; }
-        .nav-item { 
-            text-decoration: none; color: var(--text); font-weight: 600; font-size: 14px; 
-            padding: 12px 15px; cursor: pointer; display: inline-block;
-        }
-
-        .dropdown-content {
-            display: none; position: absolute; background: var(--header-bg); min-width: 200px;
-            border: 1px solid var(--border); border-radius: 8px; top: 100%; left: 0; z-index: 10001;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
-        }
+        nav { display: flex; gap: 5px; }
+        .nav-item { text-decoration: none; color: var(--text); font-weight: 600; font-size: 14px; padding: 10px 15px; cursor: pointer; transition: 0.2s; }
+        .dropdown { position: relative; display: inline-block; }
+        .dropdown-content { display: none; position: absolute; background: var(--header-bg); min-width: 200px; border: 1px solid var(--border); border-radius: 8px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); z-index: 10001; }
         .dropdown:hover .dropdown-content { display: block; }
         .dropdown-content a { color: var(--text); padding: 12px 20px; text-decoration: none; display: block; font-size: 13px; border-bottom: 1px solid var(--border); }
         .dropdown-content a:hover { background: var(--primary); color: white !important; }
 
         .container { max-width: 1200px; margin: 20px auto; padding: 0 20px; }
         .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 20px; }
-        .card { background: var(--card-bg); border: 1px solid var(--border); border-radius: 12px; overflow: hidden; }
+        .card { background: var(--card-bg); border: 1px solid var(--border); border-radius: 12px; overflow: hidden; position: relative; }
 
-        /* Tali Paneller */
-        .tali-panel-yeni {
-            display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); 
-            width: 90%; max-width: 1000px; background: var(--card-bg); border-radius: 15px; 
-            box-shadow: 0 0 50px rgba(0,0,0,0.5); z-index: 11000; border: 1px solid var(--border);
-        }
-        .panel-header { padding: 15px 20px; background: var(--header-bg); display: flex; justify-content: space-between; border-bottom: 1px solid var(--border); }
-        .close-btn { color: #ff4757; cursor: pointer; font-size: 24px; font-weight: bold; }
+        /* Strateji Raporu - Buzlama Etkisi (Sadece Görsel) */
+        .report-blur { filter: blur(4px); opacity: 0.6; pointer-events: none; user-select: none; }
 
-        @media (max-width: 800px) { .grid-3 { grid-template-columns: 1fr; } }
+        .tali-panel-yeni { display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 90%; max-width: 1100px; background: var(--card-bg); border-radius: 15px; box-shadow: 0 0 50px rgba(0,0,0,0.5); z-index: 11000; border: 1px solid var(--border); }
+        .panel-header { padding: 15px 20px; background: var(--header-bg); display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border); }
+        .close-btn { color: #ff4757; cursor: pointer; font-size: 26px; font-weight: bold; }
     </style>
 </head>
-<body class="dark-mode"> <header>
-    <div class="logo-area">
-        <h2 style="margin:0; font-size: 20px;">Signalize<span class="hub-text">Hub</span></h2>
-    </div>
+<body class="dark-mode">
 
+<header>
+    <div class="logo-area">
+        <h2 style="margin:0; font-size: 22px;">Signalize<span class="hub-text">Hub</span></h2>
+    </div>
     <nav>
-        <div class="dropdown">
-            <span class="nav-item">📈 Hisse Senedi ▼</span>
+        <div class="dropdown"><span class="nav-item">📈 Hisse Senedi ▼</span>
             <div class="dropdown-content">
                 <a href="javascript:void(0)" onclick="openP('hPanel')">🔍 Hisse Tarayıcı</a>
                 <a href="javascript:void(0)" onclick="openP('iPanel')">📊 Isı Haritası</a>
             </div>
         </div>
-        <div class="dropdown">
-            <span class="nav-item">🪙 Maden ▼</span>
+        <div class="dropdown"><span class="nav-item">🪙 Maden ▼</span>
             <div class="dropdown-content">
                 <a href="javascript:void(0)" onclick="openP('mPanel')">🟡 Maden Analizi</a>
             </div>
         </div>
-        <div class="dropdown">
-            <span class="nav-item">₿ Kripto ▼</span>
+        <div class="dropdown"><span class="nav-item">₿ Kripto ▼</span>
             <div class="dropdown-content">
-                <a href="javascript:void(0)" onclick="openP('kPanel')">📊 BTC Teknik Analiz</a>
+                <a href="javascript:void(0)" onclick="openP('kPanel')">📊 Teknik Analiz</a>
+            </div>
+        </div>
+        <div class="dropdown"><span class="nav-item">💵 Döviz ▼</span>
+            <div class="dropdown-content">
+                <a href="javascript:void(0)" onclick="openP('dPanel')">🏦 Canlı Kurlar & Pariteler</a>
             </div>
         </div>
     </nav>
-
     <div class="auth">
-        <button onclick="document.body.classList.toggle('dark-mode')" style="cursor:pointer; padding:8px; border-radius:5px; border:1px solid var(--border); background:none; color:var(--text);">🌓 Tema</button>
+        <button onclick="document.body.classList.toggle('dark-mode')" style="cursor:pointer; padding:8px 15px; border-radius:6px; border:1px solid var(--border); background:none; color:var(--text); font-weight:600;">🌓 Tema Değiştir</button>
     </div>
 </header>
 
 <div class="container">
+    <div class="card" style="padding:25px; margin-bottom: 30px; border-top: 4px solid var(--primary);">
+        <h3 style="text-align:center; margin-top:0;">📜 Günlük Strateji Raporu</h3>
+        <div class="report-blur">
+            <p>BIST100 endeksinde teknik görünüm pozitif sinyaller üretmeye devam ediyor. Özellikle bankacılık endeksindeki hacim artışı dikkat çekici. Küresel piyasalarda ise enflasyon verileri bekleniyor...</p>
+            <p>Hisse bazlı hareketlerde enerji ve perakende sektörleri ön plana çıkabilir. Destek seviyesi 9.100, direnç seviyesi ise 9.450 olarak takip edilmelidir.</p>
+        </div>
+        <div style="position:absolute; top:50%; left:50%; transform:translate(-50%, -50%); text-align:center;">
+            <span style="background:var(--primary); color:white; padding:10px 20px; border-radius:30px; font-weight:bold; box-shadow: 0 4px 15px rgba(0,0,0,0.2);">🔒 VIP Üyelere Özel</span>
+        </div>
+    </div>
+
     <div class="grid-3">
         <div class="card">
-            <div style="padding:10px; text-align:center; font-weight:bold; background:rgba(0,184,148,0.1); color:#00b894;">🚀 Yükselenler</div>
-            <div style="height:400px;">
+            <div style="padding:12px; text-align:center; font-weight:800; background:rgba(0,184,148,0.1); color:#00b894;">🚀 EN ÇOK YÜKSELENLER</div>
+            <div style="height:450px;">
                 <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-screener.js" async>
-                { "width": "100%", "height": "100%", "defaultColumn": "overview", "market": "turkey", "showToolbar": false, "colorTheme": "dark", "locale": "tr" }
+                { "width": "100%", "height": "100%", "defaultColumn": "overview", "defaultScreen": "top_gainers", "market": "turkey", "showToolbar": false, "colorTheme": "dark", "locale": "tr" }
                 </script>
             </div>
         </div>
-
         <div class="card">
-            <div style="padding:10px; text-align:center; font-weight:bold; background:rgba(255,77,77,0.1); color:#ff4d4d;">📉 Düşenler</div>
-            <div style="height:400px;">
+            <div style="padding:12px; text-align:center; font-weight:800; background:rgba(255,77,77,0.1); color:#ff4d4d;">📉 EN ÇOK DÜŞENLER</div>
+            <div style="height:450px;">
                 <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-screener.js" async>
                 { "width": "100%", "height": "100%", "defaultColumn": "overview", "defaultScreen": "top_losers", "market": "turkey", "showToolbar": false, "colorTheme": "dark", "locale": "tr" }
                 </script>
             </div>
         </div>
-
         <div class="card">
-            <div style="padding:10px; text-align:center; font-weight:bold; background:rgba(0,209,255,0.1); color:#00d1ff;">💵 Döviz Çevirici</div>
-            <iframe src="https://www.xe.com/currencyconverter/" style="width:100%; height:400px; border:none;"></iframe>
+            <div style="padding:12px; text-align:center; font-weight:800; background:rgba(0,209,255,0.1); color:#00d1ff;">💵 DÖVİZ ÇEVİRİCİ</div>
+            <iframe src="https://www.bing.com/search?q=dolar+tl+çevirici" style="width:100%; height:450px; border:none; margin-top:-100px;"></iframe>
         </div>
     </div>
 
-    <div style="margin-top: 40px; padding: 20px; border: 1px solid var(--border); border-radius: 12px; font-size: 12px; color: #888; text-align: center;">
-        <p>⚠️ <strong>YASAL UYARI:</strong> Burada yer alan yatırım bilgi, yorum ve tavsiyeleri yatırım danışmanlığı kapsamında değildir. Veriler TradingView tarafından sağlanmaktadır.</p>
+    <div style="margin-top:50px; padding:30px; background:var(--header-bg); border:1px solid var(--border); border-radius:15px; text-align:center;">
+        <p style="font-size:13px; color:var(--text); line-height:1.6; max-width:900px; margin: 0 auto;">
+            ⚠️ <strong>YASAL UYARI:</strong> Burada yer alan yatırım bilgi, yorum ve tavsiyeleri yatırım danışmanlığı kapsamında değildir. Yatırım danışmanlığı hizmeti, kişilerin risk ve getiri tercihleri dikkate alınarak kişiye özel sunulmaktadır. Burada yer alan bilgilere dayanılarak yatırım kararı verilmesi beklentilerinize uygun sonuçlar doğurmayabilir.
+        </p>
+        <div style="margin-top:20px; border-top:1px solid var(--border); pt-15px; font-size:11px; color:#888;">
+            Grafikler ve veriler <a href="https://tr.tradingview.com/" target="_blank" style="color:var(--primary); text-decoration:none;">TradingView</a> tarafından sağlanmaktadır.
+        </div>
     </div>
 </div>
 
-<div id="iPanel" class="tali-panel-yeni">
-    <div class="panel-header"><span>📊 Isı Haritası</span><span class="close-btn" onclick="closeP('iPanel')">×</span></div>
-    <div style="height:550px;">
-        <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-stock-heatmap.js" async>
-        { "exchanges": [], "dataSource": "S_P_500", "grouping": "sector", "blockSize": "market_cap", "blockColor": "change", "locale": "tr", "symbolUrl": "", "colorTheme": "dark", "hasTopBar": false, "isTransparent": false, "width": "100%", "height": "100%" }
-        </script>
-    </div>
-</div>
+<div id="hPanel" class="tali-panel-yeni"><div class="panel-header"><span>🔍 Hisse Tarayıcı</span><span class="close-btn" onclick="closeP('hPanel')">×</span></div><div style="height:600px;">
+    <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-screener.js" async>{ "width": "100%", "height": "100%", "defaultColumn": "overview", "market": "turkey", "showToolbar": true, "colorTheme": "dark", "locale": "tr" }</script>
+</div></div>
 
-<div id="mPanel" class="tali-panel-yeni">
-    <div class="panel-header"><span>🟡 Maden Analizi</span><span class="close-btn" onclick="closeP('mPanel')">×</span></div>
-    <div style="height:550px;">
-        <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-forex-cross-rates.js" async>
-        { "width": "100%", "height": "100%", "currencies": ["XAU", "XAG", "XPD", "XPT", "USD", "EUR"], "isTransparent": false, "colorTheme": "dark", "locale": "tr" }
-        </script>
-    </div>
-</div>
+<div id="iPanel" class="tali-panel-yeni"><div class="panel-header"><span>📊 Isı Haritası</span><span class="close-btn" onclick="closeP('iPanel')">×</span></div><div style="height:600px;">
+    <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-stock-heatmap.js" async>{ "dataSource": "S_P_500", "hasTopBar": true, "colorTheme": "dark", "width": "100%", "height": "100%" }</script>
+</div></div>
 
-<div id="kPanel" class="tali-panel-yeni">
-    <div class="panel-header"><span>₿ BTC Teknik Analiz</span><span class="close-btn" onclick="closeP('kPanel')">×</span></div>
-    <div style="height:550px;">
-        <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-technical-analysis.js" async>
-        { "interval": "1h", "width": "100%", "height": "100%", "symbol": "BINANCE:BTCUSDT", "showIntervalTabs": true, "displayMode": "single", "locale": "tr", "colorTheme": "dark" }
-        </script>
-    </div>
-</div>
+<div id="mPanel" class="tali-panel-yeni"><div class="panel-header"><span>🟡 Maden Analizi</span><span class="close-btn" onclick="closeP('mPanel')">×</span></div><div style="height:600px;">
+    <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-market-quotes.js" async>
+    { "width": "100%", "height": "100%", "symbolsGroups": [{ "name": "Metaller", "symbols": [{ "name": "TVC:GOLD" }, { "name": "TVC:SILVER" }, { "name": "TVC:PALLADIUM" }, { "name": "TVC:PLATINUM" }] }], "colorTheme": "dark", "locale": "tr" }
+    </script>
+</div></div>
 
-<div id="hPanel" class="tali-panel-yeni">
-    <div class="panel-header"><span>🔍 Hisse Tarayıcı</span><span class="close-btn" onclick="closeP('hPanel')">×</span></div>
-    <div style="height:550px;">
-        <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-screener.js" async>
-        { "width": "100%", "height": "100%", "defaultColumn": "overview", "market": "turkey", "showToolbar": true, "colorTheme": "dark", "locale": "tr" }
-        </script>
-    </div>
-</div>
+<div id="kPanel" class="tali-panel-yeni"><div class="panel-header"><span>₿ Kripto Teknik Analiz</span><span class="close-btn" onclick="closeP('kPanel')">×</span></div><div style="height:600px;">
+    <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-technical-analysis.js" async>{ "interval": "1h", "width": "100%", "height": "100%", "symbol": "BINANCE:BTCUSDT", "colorTheme": "dark", "locale": "tr" }</script>
+</div></div>
 
-<div style="position: fixed; bottom: 0; left: 0; width: 100%; z-index: 12000;">
+<div id="dPanel" class="tali-panel-yeni"><div class="panel-header"><span>🏦 Döviz & Pariteler</span><span class="close-btn" onclick="closeP('dPanel')">×</span></div><div style="height:600px;">
+    <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-forex-cross-rates.js" async>{ "width": "100%", "height": "100%", "currencies": ["EUR", "USD", "JPY", "GBP", "CHF", "AUD", "CAD", "TRY"], "colorTheme": "dark", "locale": "tr" }</script>
+</div></div>
+
+<div style="position: fixed; bottom: 0; left: 0; width: 100%; z-index: 12000; height: 46px;">
     <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-ticker-tape.js" async>
     { "symbols": [{"proName":"BIST:XU100","title":"BIST 100"},{"proName":"FX_IDC:USDTRY","title":"USD/TRY"},{"proName":"BITSTAMP:BTCUSD","title":"Bitcoin"}], "colorTheme": "dark", "isTransparent": false, "displayMode": "adaptive", "locale": "tr" }
     </script>
 </div>
 
 <script>
-    function openP(id) {
-        document.querySelectorAll('.tali-panel-yeni').forEach(p => p.style.display = 'none');
-        document.getElementById(id).style.display = 'block';
-    }
-    function closeP(id) {
-        document.getElementById(id).style.display = 'none';
-    }
+    function openP(id) { document.querySelectorAll('.tali-panel-yeni').forEach(p => p.style.display = 'none'); document.getElementById(id).style.display = 'block'; }
+    function closeP(id) { document.getElementById(id).style.display = 'none'; }
 </script>
 </body>
 </html>
