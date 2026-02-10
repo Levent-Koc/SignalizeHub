@@ -907,10 +907,10 @@ function closeMembershipModal() {
     </div>
 
     <div style="display: flex; background: #1e222d; padding: 8px; gap: 5px; border-bottom: 1px solid #333; justify-content: center;">
-        <button onclick="updateSentiment('5m')" id="btn-5m" style="flex: 1; padding: 8px; border: none; border-radius: 4px; background: #333; color: #fff; font-size: 12px; cursor: pointer; font-weight: bold;">5 DAKİKA</button>
-        <button onclick="updateSentiment('1h')" id="btn-1h" style="flex: 1; padding: 8px; border: none; border-radius: 4px; background: #a855f7; color: #fff; font-size: 12px; cursor: pointer; font-weight: bold;">1 SAAT</button>
-        <button onclick="updateSentiment('1d')" id="btn-1d" style="flex: 1; padding: 8px; border: none; border-radius: 4px; background: #333; color: #fff; font-size: 12px; cursor: pointer; font-weight: bold;">GÜNLÜK</button>
-    </div>
+    <button onclick="updateSentiment('5m')" id="btn-5m" style="flex: 1; padding: 8px; border: none; border-radius: 4px; background: #333; color: #fff; cursor: pointer;">5 DK</button>
+    <button onclick="updateSentiment('1h')" id="btn-1h" style="flex: 1; padding: 8px; border: none; border-radius: 4px; background: #a855f7; color: #fff; cursor: pointer;">1 SAAT</button>
+    <button onclick="updateSentiment('D')" id="btn-1d" style="flex: 1; padding: 8px; border: none; border-radius: 4px; background: #333; color: #fff; cursor: pointer;">GÜNLÜK</button>
+</div>
     
     <div class="panel-body" style="padding: 0; background: #0f172a; height: 420px; position: relative;">
     
@@ -971,7 +971,11 @@ function closeMembershipModal() {
         </div>
     </div>
 </div>
-
+<div class="dropdown-content">
+    <a href="javascript:void(0)" onclick="smartOpen('fPanel')">📊 Açgözlülük Endeksi</a>
+    <a href="javascript:void(0)" onclick="smartOpen('iPanel')">🔥 Isı Haritası</a>
+    <a href="javascript:void(0)" onclick="smartOpen('mPanel')">💎 Maden Analizi</a>
+</div>
 <script>
 function updateSentiment(interval) {
     // Önce tüm katmanları gizle
@@ -1357,6 +1361,31 @@ function unlockEverything() { // <-- İŞTE O EKSİK PARANTEZ BURADA OLMALI!
     </div>
 </div>
 <script>
+function smartOpen(targetId) {
+    // 1. Tüm panelleri listele
+    const panels = ['hPanel', 'iPanel', 'mPanel', 'fPanel'];
+    
+    // 2. Hepsini kapat ve z-index değerlerini sıfırla
+    panels.forEach(id => {
+        const p = document.getElementById(id);
+        if(p) {
+            p.style.display = 'none';
+            p.style.zIndex = "1000"; 
+        }
+    });
+
+    // 3. İstenen paneli aç ve en öne al (z-index: 9999)
+    const target = document.getElementById(targetId);
+    if(target) {
+        target.style.display = 'block';
+        target.style.zIndex = "9999";
+        
+        // Eğer açılan panel Açgözlülük Endeksi ise, widget'ları tazelemek için tetikle
+        if(targetId === 'fPanel') {
+            updateSentiment('1h'); 
+        }
+    }
+}
 function toggleUpdateInfo() {
     const panel = document.getElementById('updateInfoPanel');
     const timeText = document.getElementById('panelTimeText');
