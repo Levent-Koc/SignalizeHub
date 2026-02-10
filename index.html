@@ -1414,5 +1414,29 @@ function toggleUpdateInfo() {
     }
 }
 </script>
+function smartOpen(targetId) {
+    // 1. Tüm panelleri kapat
+    const panels = ['hPanel', 'iPanel', 'mPanel', 'fPanel', 'kPanel'];
+    panels.forEach(id => {
+        const p = document.getElementById(id);
+        if(p) {
+            p.style.display = 'none';
+            p.style.zIndex = "1000";
+        }
+    });
+
+    // 2. Hedef paneli bul ve canlandır
+    const target = document.getElementById(targetId);
+    if(target) {
+        target.style.display = 'block';
+        target.style.zIndex = "9999"; // En üste getir
+        target.style.position = "fixed"; // Ekranda sabitler
+        
+        // Isı Haritası veya Maden açıldığında widgetları yenilemek için küçük bir 'scroll' tetikleyicisi
+        window.dispatchEvent(new Event('resize'));
+    } else {
+        console.error("Panel bulunamadı: " + targetId);
+    }
+}
 </body>
 </html>
