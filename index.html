@@ -862,12 +862,12 @@ function closeMembershipModal() {
         Yatırım tavsiyesi değildir. Sistem üzerinden otomatik üretilmiştir.
     </div>
 </div>
-<div id="hPanel" class="tali-panel-yeni">
-    <div class="panel-header">
-        <span><i class="fas fa-search"></i> Hisse Senedi Takipçisi</span>
-        <span class="close-btn" onclick="closeP('hPanel')">&times;</span>
+<div id="hPanel" class="tali-panel-yeni" style="border: 1px solid var(--border); box-shadow: 0 10px 30px rgba(0,0,0,0.3);">
+    <div class="panel-header" style="display: flex; justify-content: space-between; align-items: center; padding: 15px 20px; border-bottom: 1px solid var(--border); background: var(--header-bg);">
+        <span><i class="fas fa-search" style="color: var(--primary); margin-right: 10px;"></i> Hisse Senedi Takipçisi</span>
+        <span class="close-btn" onclick="closeP('hPanel')" style="cursor: pointer; font-size: 24px; color: #ff4757; font-weight: bold;">&times;</span>
     </div>
-    <div class="panel-body">
+    <div class="panel-body" style="padding: 0;">
         <div style="height: 550px; width: 100%;">
             <div class="tradingview-widget-container">
                 <div class="tradingview-widget-container__widget"></div>
