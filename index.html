@@ -983,20 +983,30 @@ function closeMembershipModal() {
     
     <div class="panel-header" style="display: flex; justify-content: space-between; align-items: center; padding: 15px 20px; border-bottom: 1px solid #333; background: #1e222d;">
         <span style="font-weight: 700; color: white; font-size: 16px;">
-            <i class="fas fa-gauge-high" style="color: #a855f7; margin-right: 10px;"></i> Korku ve Açgözlülük Endeksi
+            <i class="fas fa-gauge-high" style="color: #a855f7; margin-right: 10px;"></i> Piyasa Duyarlılık Analizi
         </span>
         <div onclick="document.getElementById('fPanel').style.display='none'" style="cursor: pointer; padding: 5px;">
             <span style="color: #ff4d4d; font-size: 32px; font-weight: bold;">&times;</span>
         </div>
     </div>
 
-    <div class="panel-body" style="padding: 20px; background: #0f172a; height: 350px; display: flex; align-items: center; justify-content: center; min-height: 200px;">
-        <a href="https://alternative.me/crypto/fear-and-greed-index/" target="_blank" style="display: block; width: 100%; text-align: center;">
-            <img src="https://api.alternative.me/fng/crypto-fear-and-greed-index.png" 
-                 alt="Korku ve Açgözlülük Endeksi" 
-                 loading="lazy"
-                 style="width: 100%; max-width: 400px; height: auto; border-radius: 10px; border: none;">
-        </a>
+    <div class="panel-body" style="padding: 10px; background: #0f172a; height: 380px;">
+        <div class="tradingview-widget-container" style="width: 100%; height: 100%;">
+            <div class="tradingview-widget-container__widget"></div>
+            <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-technical-analysis.js" async>
+            {
+              "interval": "1D",
+              "width": "100%",
+              "isTransparent": false,
+              "height": "100%",
+              "symbol": "BINANCE:BTCUSDT",
+              "showIntervalTabs": true,
+              "displayMode": "single",
+              "locale": "tr",
+              "colorTheme": "dark"
+            }
+            </script>
+        </div>
     </div>
 </div>
 
