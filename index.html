@@ -5,246 +5,145 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SignalizeHub | Finansal Terminal</title>
     <style>
-/* Menü Konteyner Ayarları */
-header nav {
-    display: flex;
-    gap: 15px;
-}
-
-/* Dropdown (Açılır Menü) Tasarımı */
-.dropdown {
-    position: relative;
-    display: inline-block;
-}
-
-.nav-item {
-    cursor: pointer;
-    padding: 10px 15px;
-    font-family: sans-serif;
-    font-size: 14px;
-    color: #333;
-    display: block;
-}
-
-/* Başlangıçta gizli olan alt menü */
-.dropdown-content {
-    display: none; /* Başlangıçta gizle */
-    position: absolute;
-    background-color: #ffffff;
-    min-width: 200px;
-    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.1);
-    z-index: 10050; /* Diğer her şeyin üstünde olsun */
-    border-radius: 8px;
-    border: 1px solid #eee;
-    padding: 10px 0;
-}
-
-/* Alt menü linkleri */
-.dropdown-content a {
-    color: #333;
-    padding: 10px 16px;
-    text-decoration: none;
-    display: block;
-    font-size: 13px;
-    font-family: sans-serif;
-    transition: background 0.2s;
-}
-
-/* Fare üzerine gelince link rengi */
-.dropdown-content a:hover {
-    background-color: #f8f9fa;
-    color: #00d1ff;
-}
-
-/* İŞTE SİHİRLİ DOKUNUŞ: Fare üzerine gelince menüyü göster */
-.dropdown:hover .dropdown-content {
-    display: block;
-}
-
-/* Menü öğesi üzerine gelince renk değişimi */
-.dropdown:hover .nav-item {
-    color: #00d1ff;
-}
+/* 1. RENK VE TEMEL AYARLAR */
 :root {
     --bg: #f8fafc;
     --header-bg: #ffffff;
     --card-bg: #ffffff;
     --text: #1a1a1a;
     --border: #e1e8ed;
-    --primary: #00d1ff !important; 
+    --primary: #00d1ff; /* Senin istediğin canlı mavi */
 }
 
-/* Hub kelimesinin rengini garantiye alalım */
-h2 span, h1 span {
-    color: var(--primary) !important;
+body.dark-mode {
+    --bg: #0f172a;
+    --header-bg: #1e293b;
+    --card-bg: #1e293b;
+    --text: #f1f5f9;
+    --border: #334155;
 }
 
-/* Giriş butonu ve Takip Ettiklerim yıldızı için */
-.btn-login:hover {
-    border-color: var(--primary) !important;
-    color: var(--primary) !important;
+body { 
+    background-color: var(--bg); 
+    color: var(--text); 
+    margin: 0; 
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    padding-bottom: 60px;
 }
 
-.track-star {
-    color: var(--primary) !important;
+/* 2. HEADER VE LOGO */
+header {
+    background-color: var(--header-bg);
+    border-bottom: 1px solid var(--border);
+    padding: 10px 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: sticky;
+    top: 0;
+    z-index: 10000; /* Çok yüksek tutuyoruz ki her şeyin üstünde kalsın */
 }
-        :root {
-            --bg: #f8fafc;
-            --header-bg: #ffffff;
-            --card-bg: #ffffff;
-            --text: #1a1a1a;
-            --border: #e1e8ed;
-            --primary: #00b894;
-        }
 
-        body.dark-mode {
-            --bg: #0f172a;
-            --header-bg: #1e293b;
-            --card-bg: #1e293b;
-            --text: #f1f5f9;
-            --border: #334155;
-        }
+.hub-text { color: var(--primary) !important; font-weight: bold; }
 
-        body { 
-            background-color: var(--bg); 
-            color: var(--text); 
-            margin: 0; 
-            font-family: 'Segoe UI', sans-serif;
-            padding-bottom: 60px;
-        }
+/* 3. MENÜ (NAV) VE DROPDOWN SİSTEMİ */
+nav { display: flex; gap: 10px; }
 
-        header {
-            background-color: var(--header-bg);
-            border-bottom: 1px solid var(--border);
-            padding: 10px 40px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-        }
+.dropdown { position: relative; display: inline-block; }
 
-        .logo-area { display: flex; align-items: center; gap: 10px; }
-        .logo-box { background: #1a1a1a; width: 35px; height: 35px; border-radius: 8px; display: flex; align-items: center; justify-content: center; border: 2px solid var(--primary); color: white; font-weight: bold; }
-
-        nav { display: flex; gap: 5px; }
-        .dropdown { position: relative; }
-        .nav-item { 
-            text-decoration: none; color: var(--text); font-weight: 600; font-size: 14px; 
-            padding: 10px 15px; cursor: pointer; display: inline-block; transition: 0.2s;
-        }
-        .nav-item:hover { color: var(--primary); transform: translateY(-3px); }
-
-        .dropdown-content {
-            display: none; position: absolute; background: var(--header-bg); min-width: 200px;
-            border: 1px solid var(--border); border-radius: 8px; top: 100%; left: 0; z-index: 2000;
-        }
-        .dropdown:hover .dropdown-content { display: block; }
-        .dropdown-content a { color: var(--text); padding: 12px 20px; text-decoration: none; display: block; font-size: 13px; border-bottom: 1px solid rgba(0,0,0,0.05); }
-        .dropdown-content a:hover { background: var(--primary); color: white !important; }
-
-        .auth { display: flex; align-items: center; gap: 15px; }
-        .btn-reg { 
-    background: #00d1ff !important; 
-    color: white !important; 
-    padding: 8px 18px; 
-    border-radius: 6px; 
+.nav-item { 
     text-decoration: none; 
-    font-weight: bold; 
-    font-size: 13px; 
-    
+    color: var(--text); 
+    font-weight: 600; 
+    font-size: 14px; 
+    padding: 12px 15px; 
+    cursor: pointer; 
+    display: block;
+    transition: 0.2s;
 }
-.btn-reg:hover {
-    background: #00b8e6 !important; /* Hover rengi */
-    box-shadow: 0 4px 12px rgba(0, 209, 255, 0.3);
+
+/* Alt Menü Kutusu */
+.dropdown-content {
+    display: none; 
+    position: absolute; 
+    background: var(--header-bg); 
+    min-width: 220px;
+    border: 1px solid var(--border); 
+    border-radius: 8px; 
+    top: 100%; 
+    left: 0; 
+    z-index: 10001;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+    padding: 8px 0;
 }
-        .container { max-width: 1200px; margin: 20px auto; padding: 0 20px; }
-        
-        .card { background: var(--card-bg); border: 1px solid var(--border); border-radius: 12px; margin-bottom: 20px; position: relative; overflow: hidden; }
-        
-        /* Tali Paneller */
-        .tali-panel { display: none; padding: 20px; border-top: 4px solid var(--primary); box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
-        .close-btn { position: absolute; top: 15px; right: 15px; background: #ff4757; color: white; border: none; padding: 5px 12px; border-radius: 4px; cursor: pointer; font-weight: bold; z-index: 100; }
 
-        /* Üçlü Izgara */
-        .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 20px; }
-        .cloud-title { padding: 12px; text-align: center; font-weight: 800; font-size: 13px; }
-        .c-green { background: rgba(0,184,148,0.1); color: #00b894; }
-        .c-red { background: rgba(255,77,77,0.1); color: #ff4d4d; }
-        .c-blue { background: rgba(52, 152, 219, 0.1); color: #3498db; }
+/* Mouse Üzerine Gelince Göster - ASIL SİHİR BURADA */
+.dropdown:hover .dropdown-content { 
+    display: block !important; 
+}
 
-        .ticker-bar { position: fixed; bottom: 0; left: 0; width: 100%; background: var(--header-bg); border-top: 1px solid var(--border); z-index: 3000; }
-        
-        @media (max-width: 800px) { .grid-3 { grid-template-columns: 1fr; } }
-  /* Giriş Butonu Kutucuk Hali */
+.dropdown:hover .nav-item {
+    color: var(--primary);
+}
+
+.dropdown-content a { 
+    color: var(--text); 
+    padding: 10px 20px; 
+    text-decoration: none; 
+    display: block; 
+    font-size: 13px;
+    transition: 0.2s;
+}
+
+.dropdown-content a:hover { 
+    background: var(--primary); 
+    color: white !important; 
+}
+
+/* 4. BUTONLAR */
+.auth { display: flex; align-items: center; gap: 12px; }
+
 .btn-login {
     text-decoration: none;
     color: var(--text);
     font-weight: 600;
     font-size: 13px;
-    padding: 8px 18px;          /* Kutunun iç boşluğu */
-    border: 1px solid var(--border); /* İnce bir çerçeve */
-    border-radius: 6px;         /* Köşeleri hafif yuvarlat */
-    transition: all 0.3s ease;
-    display: inline-block;
+    padding: 8px 18px;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    transition: 0.3s;
 }
 
-/* Üzerine gelindiğinde renk değişsin */
 .btn-login:hover {
     border-color: var(--primary);
     color: var(--primary);
-    background-color: rgba(0, 184, 148, 0.05); /* Çok hafif bir arka plan rengi */
-} 
-/* Hub kelimesi için özel baskın renk */
-.hub-text {
-    color: #00b894 !important;
-    display: inline-block; /* Rengin tam oturması için */
 }
 
-/* Koyu modda da rengin kaybolmaması için */
-body.dark-mode .hub-text {
-    color: #00b894 !important;
+.btn-reg { 
+    background: var(--primary) !important; 
+    color: white !important; 
+    padding: 9px 20px; 
+    border-radius: 6px; 
+    text-decoration: none; 
+    font-weight: bold; 
+    font-size: 13px;
+    transition: 0.3s;
 }
-@keyframes highlight {
-    0% { transform: scale(0.9); opacity: 0; }
-    100% { transform: scale(1); opacity: 1; }
-}
-/* --- SADECE STRATEJİ RAPORU TASARIMI --- */
+
+/* 5. DİĞER TASARIMLAR (Buzlama vb.) */
 #stratejiBlurArea {
-    filter: blur(12px) !important;
-    opacity: 0.4 !important;
-    pointer-events: none !important;
-    transition: all 0.6s ease;
-    position: relative;
-    background: white;
-    padding: 25px;
-    border-radius: 15px;
-    border: 1px solid #e1e8ed;
+    filter: blur(12px);
+    opacity: 0.4;
+    pointer-events: none;
 }
 
-/* Sayfalama butonları için düzen */
-.rapor-nav-paneli {
-    display: none; 
-    justify-content: center;
-    align-items: center;
-    gap: 15px;
-    margin-top: 20px;
-    padding-top: 15px;
-    border-top: 1px solid #eee;
-}
-
-/* Kilit görselinin pozisyonu */
-#stratejiLockVisual {
-    text-align: center;
-    margin-top: -180px; /* Buzun üzerine çıkması için */
-    position: relative;
-    z-index: 10;
+.tali-panel-yeni {
+    display: none; /* Başlangıçta gizli */
 }
  </style>
 </head>
 <body>
-<header> style="display: flex; justify-content: space-between; align-items: center; padding: 10px 20px; background: #fff; border-bottom: 1px solid #eee;">
+<header style="display: flex; justify-content: space-between; align-items: center; padding: 10px 20px; background: #fff; border-bottom: 1px solid #eee;">
     <div class="logo-area" style="display: flex; align-items: center; gap: 10px;">
         <img src="logo.png" alt="SignalizeHub Logo" style="height: 35px;">
         <h2 style="margin:0; font-size: 18px; font-family: sans-serif;">Signalize<span class="hub-text" style="color: #00d1ff;">Hub</span></h2>
