@@ -964,7 +964,7 @@ function closeMembershipModal() {
     <div style="display: flex; background: #1e222d; padding: 8px; gap: 5px; border-bottom: 1px solid #333; justify-content: center;">
     <button onclick="updateSentiment('5m')" id="btn-5m" style="flex: 1; padding: 8px; border: none; border-radius: 4px; background: #333; color: #fff; cursor: pointer;">5 DK</button>
     <button onclick="updateSentiment('1h')" id="btn-1h" style="flex: 1; padding: 8px; border: none; border-radius: 4px; background: #a855f7; color: #fff; cursor: pointer;">1 SAAT</button>
-    <button onclick="updateSentiment('D')" id="btn-1d" style="flex: 1; padding: 8px; border: none; border-radius: 4px; background: #333; color: #fff; cursor: pointer;">GÜNLÜK</button>
+ <button onclick="updateSentiment('D')" id="btn-1d" style="flex: 1; padding: 8px; border: none; border-radius: 4px; background: #333; color: #fff; cursor: pointer; font-weight: bold;">GÜNLÜK</button>   
 </div>
     
     <div class="panel-body" style="padding: 0; background: #0f172a; height: 420px; position: relative;">
@@ -1100,8 +1100,7 @@ function unlockEverything() {
     closeMembershipModal();
 }
 </script>
-<div id="mPanel" class="tali-panel-yeni" style="display: none; border: 2px solid #FFD700 !important; box-shadow: 0 0 30px rgba(255, 215, 0, 0.6) !important; border-radius: 15px; overflow: hidden; background: #131722; top: 55% !important;">
-    
+  <div id="mPanel" class="tali-panel-yeni" style="display: none; border: 2px solid #facc15 !important; box-shadow: 0 0 30px rgba(250, 204, 21, 0.7) !important; border-radius: 15px; overflow: hidden; background: #131722; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 10005; width: 90%; max-width: 900px;"> 
     <div class="panel-header" style="display: flex; justify-content: space-between; align-items: center; padding: 15px 20px; border-bottom: 1px solid var(--border); background: var(--header-bg);">
         <span style="font-weight: 700; color: var(--text); font-size: 16px;">
             <i class="fas fa-gem" style="color: #FFD700; margin-right: 10px;"></i> Değerli Maden Analizi
