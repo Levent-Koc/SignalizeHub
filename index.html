@@ -165,9 +165,7 @@ body.dark-mode .hub-text {
             <div class="dropdown-content">
                 <a href="javascript:void(0)" onclick="openP('hPanel')">🔍 Hisse Tarayıcı</a>
                 <a href="javascript:void(0)" onclick="openP('iPanel')">📊 Isı Haritası</a>
-<a href="javascript:void(0)" onclick="handleMembership('Hisse Senedi')" style="color: #00d1ff; font-weight: normal; font-size: 13px;">⭐ Takip Listem</a>
- <hr style="border: 0; border-top: 1px solid rgba(0,0,0,0.05); margin: 5px 0;">
-           </div>
+ </div>
         </div>
 
      <div class="dropdown">
@@ -750,31 +748,57 @@ function handleMembership(kategori) {
         openP('pPanel');
     }
 }
-// Bu değişkeni sakın unutma, fonksiyonun hemen üstünde dursun
+
+</script>
+<script>
+// Giriş durumunu kontrol eden değişken
 let isLoggedIn = false; 
 
+/**
+ * Panelleri Yöneten Ana Fonksiyon
+ * Tüm çakışmaları önler ve grafikleri canlandırır.
+ */
 function openP(panelId) {
-    // 1. Tüm panelleri gizle
+    // 1. Sayfadaki tüm panelleri bul ve gizle
     const panels = document.querySelectorAll('.tali-panel-yeni');
-    panels.forEach(p => p.style.display = 'none');
+    panels.forEach(p => {
+        p.style.display = 'none';
+        p.style.zIndex = "1000"; // Hepsini arka plana it
+    });
     
-    // 2. İstenen paneli bul
+    // 2. Tıklanan (Hedef) paneli bul
     const target = document.getElementById(panelId);
+    
     if (target) {
+        // 3. Paneli görünür yap ve en öne çıkar
         target.style.display = 'block';
-        
-        // 3. Tabloyu "Uyandırma": Iframe varsa içeriğini tekrar tetikler
+        target.style.zIndex = "10001"; 
+
+        // 4. Tabloları ve Grafikleri Uyandır (Iframe yenileme)
         const iframe = target.querySelector('iframe');
-        if (iframe && !iframe.src.includes('t=')) {
-            // Küçük bir hile: src sonuna anlık zaman ekleyerek tabloyu yüklemeye zorlarız
+        if (iframe) {
             iframe.src = iframe.src; 
         }
 
-        // 4. Kilit Durumu: Giriş yapılmışsa kilidi otomatik kaldır
-        const lock = target.querySelector('[id$="Lock"]');
-        if (lock) {
-            lock.style.display = isLoggedIn ? 'none' : 'flex';
+        // 5. Boyutlandırma ve Yerleşim Tamiri
+        // Özellikle Isı Haritası ve Maden grafikleri için kritik
+        setTimeout(() => {
+            window.dispatchEvent(new Event('resize'));
+        }, 150);
+
+        // 6. Açgözlülük Endeksi (fPanel) Özel Tetikleyici
+        if(panelId === 'fPanel' && typeof updateSentiment === 'function') {
+            // Panel her açıldığında varsayılan olarak 1 Saatliği göster (Siyah ekranı önler)
+            updateSentiment('1h');
         }
+
+        // 7. Kilit/Buz Katmanlarını Gizle
+        const locks = target.querySelectorAll('[id$="Lock"]');
+        locks.forEach(lock => {
+            lock.style.display = 'none'; 
+        });
+    } else {
+        console.error("Hata: " + panelId + " ID'li panel bulunamadı.");
     }
 }
 </script>
@@ -1005,9 +1029,7 @@ if (typeof isLoggedIn !== 'undefined' && isLoggedIn) {
     if(sLock) sLock.style.display = 'none';
 }
 </script>
-
-<div id="iPanel" class="tali-panel-yeni" style="display: none; border: 2px solid #ff4d4d !important; box-shadow: 0 0 30px rgba(255, 77, 77, 0.7) !important; border-radius: 15px; overflow: hidden; background: var(--card-bg);">
-    
+ <div id="iPanel" class="tali-panel-yeni" style="display: none; border: 2px solid #ff4d4d !important; box-shadow: 0 0 30px rgba(255, 77, 77, 0.7) !important; border-radius: 15px; overflow: hidden; background: #131722; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 9999; width: 90%; max-width: 900px;">
     <div class="panel-header" style="display: flex; justify-content: space-between; align-items: center; padding: 15px 20px; border-bottom: 1px solid var(--border); background: var(--header-bg);">
         <span style="font-weight: 700; color: var(--text); font-size: 16px;">
             <i class="fas fa-th" style="color: #ff4d4d; margin-right: 10px;"></i> Piyasa Isı Haritası
@@ -1222,25 +1244,7 @@ function changeReportPage(direction) {
         document.getElementById('reportContent').scrollTop = 0; // Sayfayı en üste kaydır
     }
 }
-    // Panelleri Açma/Kapama Fonksiyonu
-    function openP(panelId) {
-        // Tüm panelleri gizle
-        const panels = document.querySelectorAll('.tali-panel-yeni');
-        panels.forEach(p => p.style.display = 'none');
-        
-        // Hedef paneli göster
-        const target = document.getElementById(panelId);
-        if (target) {
-            target.style.display = 'block';
-            // Eğer giriş yapılmışsa panel açıldığında kilit katmanı gizli olmalı
-            const locks = target.querySelectorAll('[id$="Lock"]');
-            locks.forEach(lock => {
-                lock.style.display = isLoggedIn ? 'none' : 'flex';
-            });
-        }
-    }
-
-    // Modal Sekme Geçişleri
+      // Modal Sekme Geçişleri
     function switchTab(tab) {
         const lArea = document.getElementById('loginFormArea');
         const rArea = document.getElementById('registerFormArea');
