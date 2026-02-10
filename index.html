@@ -1008,6 +1008,7 @@ function closeMembershipModal() {
     <a href="javascript:void(0)" onclick="openP('fPanel')">📊 Açgözlülük Endeksi</a>
     <a href="javascript:void(0)" onclick="openP('iPanel')">🔥 Isı Haritası</a>
     <a href="javascript:void(0)" onclick="openP('mPanel')">💎 Maden Analizi</a>
+    <a href="javascript:void(0)" onclick="openP('hPanel')">📈 Hisse Tarayıcı</a>
 </div>
 <script>
 function changeSentiment(time) {
@@ -1323,31 +1324,9 @@ function unlockEverything() { // <-- İŞTE O EKSİK PARANTEZ BURADA OLMALI!
     </div>
 </div>
 <script>
-function smartOpen(targetId) {
-    // 1. Tüm panelleri listele
-    const panels = ['hPanel', 'iPanel', 'mPanel', 'fPanel'];
-    
-    // 2. Hepsini kapat ve z-index değerlerini sıfırla
-    panels.forEach(id => {
-        const p = document.getElementById(id);
-        if(p) {
-            p.style.display = 'none';
-            p.style.zIndex = "1000"; 
-        }
-    });
 
-    // 3. İstenen paneli aç ve en öne al (z-index: 9999)
-    const target = document.getElementById(targetId);
-    if(target) {
-        target.style.display = 'block';
-        target.style.zIndex = "9999";
-        
-        // Eğer açılan panel Açgözlülük Endeksi ise, widget'ları tazelemek için tetikle
-        if(targetId === 'fPanel') {
-            updateSentiment('1h'); 
-        }
-    }
-}
+
+  
 function toggleUpdateInfo() {
     const panel = document.getElementById('updateInfoPanel');
     const timeText = document.getElementById('panelTimeText');
@@ -1374,16 +1353,37 @@ function toggleUpdateInfo() {
         panel.style.top = "110%";
     }
 }
-function smartOpen(targetId) {
-    // 1. Tüm panelleri kapat
+function openP(targetId) {
+    // 1. Tüm panelleri listele ve HEPSİNİ kapat
     const panels = ['hPanel', 'iPanel', 'mPanel', 'fPanel', 'kPanel'];
+    
     panels.forEach(id => {
         const p = document.getElementById(id);
         if(p) {
             p.style.display = 'none';
-            p.style.zIndex = "1000";
+            p.style.zIndex = "1000"; // Hepsini arka plana at
         }
     });
+
+    // 2. Sadece istenen paneli bul
+    const target = document.getElementById(targetId);
+    if(target) {
+        target.style.display = 'block'; // Görünür yap
+        target.style.zIndex = "10005"; // Diğer her şeyin en üstüne çıkar
+        
+        // 3. Eğer açılan panel Açgözlülük (fPanel) ise grafiği GÜNCELLE
+        if(targetId === 'fPanel') {
+            // Grafiği uyandırmak için 200ms bekle (Panelin açılması için)
+            setTimeout(() => {
+                if (typeof updateSentiment === "function") {
+                    updateSentiment('1h');
+                } else if (typeof changeSentiment === "function") {
+                    changeSentiment('60');
+                }
+            }, 200);
+        }
+    }
+}
 
     // 2. Hedef paneli bul ve canlandır
     const target = document.getElementById(targetId);
