@@ -986,47 +986,41 @@ function unlockEverything() {
 }
 </script>
 
-<div id="mPanel" class="tali-panel-yeni" style="display: none; border: 2px solid #FFD700 !important; box-shadow: 0 0 30px rgba(255, 215, 0, 0.6) !important; border-radius: 15px; overflow: hidden; background: var(--card-bg);">
+<div id="mPanel" class="tali-panel-yeni" style="display: none; border: 2px solid #FFD700 !important; box-shadow: 0 0 30px rgba(255, 215, 0, 0.6) !important; border-radius: 15px; overflow: hidden; background: #131722;">
     
     <div class="panel-header" style="display: flex; justify-content: space-between; align-items: center; padding: 15px 20px; border-bottom: 1px solid var(--border); background: var(--header-bg);">
         <span style="font-weight: 700; color: var(--text); font-size: 16px;">
-            <i class="fas fa-coins" style="color: #FFD700; margin-right: 10px;"></i> Değerli Maden Analizi
+            <i class="fas fa-chart-line" style="color: #FFD700; margin-right: 10px;"></i> Canlı Maden Analiz Grafikleri
         </span>
         
         <div onclick="document.getElementById('mPanel').style.display='none'" 
-             style="cursor: pointer; width: 30px; height: 30px; display: flex; align-items: center; justify-content: center; transition: 0.3s;">
+             style="cursor: pointer; width: 30px; height: 30px; display: flex; align-items: center; justify-content: center;">
             <span style="color: #ff4d4d; font-size: 32px; font-weight: bold; line-height: 1;">&times;</span>
         </div>
     </div>
     
-    <div class="panel-body" style="padding: 0; background: #131722;">
-        <div style="height: 550px; width: 100%;">
-            <div class="tradingview-widget-container">
-                <div class="tradingview-widget-container__widget"></div>
-                <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-market-quotes.js" async>
-                {
-                  "width": "100%",
-                  "height": "100%",
-                  "symbolsGroups": [
-                    {
-                      "name": "Metaller",
-                      "originalName": "Metals",
-                      "symbols": [
-                        { "name": "TVC:GOLD", "displayName": "Altın" },
-                        { "name": "TVC:SILVER", "displayName": "Gümüş" },
-                        { "name": "TVC:PLATINUM", "displayName": "Platin" },
-                        { "name": "TVC:PALLADIUM", "displayName": "Palladyum" }
-                      ]
-                    }
-                  ],
-                  "showSymbolLogo": true,
-                  "colorTheme": "dark",
-                  "isTransparent": false,
-                  "locale": "tr"
-                }
-                </script>
-            </div>
+    <div class="panel-body" style="padding: 10px; display: grid; grid-template-columns: 1fr 1fr; gap: 10px; height: 600px; overflow-y: auto;">
+        
+        <div style="height: 280px; border: 1px solid #333; border-radius: 8px; overflow: hidden;">
+            <div style="background: #1e222d; color: #FFD700; padding: 5px 10px; font-size: 12px; font-weight: bold;">ONS ALTIN (XAUUSD)</div>
+            <iframe src="https://s.tradingview.com/widgetembed/?frameElementId=tradingview_1&symbol=TVC:GOLD&interval=60&hidesidetoolbar=1&symboledit=0&saveimage=1&toolbarbg=f1f3f6&studies=[]&theme=dark&style=1&timezone=Europe/Istanbul" style="width: 100%; height: calc(100% - 25px); border: none;"></iframe>
         </div>
+
+        <div style="height: 280px; border: 1px solid #333; border-radius: 8px; overflow: hidden;">
+            <div style="background: #1e222d; color: #C0C0C0; padding: 5px 10px; font-size: 12px; font-weight: bold;">GÜMÜŞ (XAGUSD)</div>
+            <iframe src="https://s.tradingview.com/widgetembed/?frameElementId=tradingview_2&symbol=TVC:SILVER&interval=60&hidesidetoolbar=1&symboledit=0&saveimage=1&toolbarbg=f1f3f6&studies=[]&theme=dark&style=1&timezone=Europe/Istanbul" style="width: 100%; height: calc(100% - 25px); border: none;"></iframe>
+        </div>
+
+        <div style="height: 280px; border: 1px solid #333; border-radius: 8px; overflow: hidden;">
+            <div style="background: #1e222d; color: #E5E4E2; padding: 5px 10px; font-size: 12px; font-weight: bold;">PLATİN (PLATINUM)</div>
+            <iframe src="https://s.tradingview.com/widgetembed/?frameElementId=tradingview_3&symbol=TVC:PLATINUM&interval=60&hidesidetoolbar=1&symboledit=0&saveimage=1&toolbarbg=f1f3f6&studies=[]&theme=dark&style=1&timezone=Europe/Istanbul" style="width: 100%; height: calc(100% - 25px); border: none;"></iframe>
+        </div>
+
+        <div style="height: 280px; border: 1px solid #333; border-radius: 8px; overflow: hidden;">
+            <div style="background: #1e222d; color: #B87333; padding: 5px 10px; font-size: 12px; font-weight: bold;">BAKIR (COPPER)</div>
+            <iframe src="https://s.tradingview.com/widgetembed/?frameElementId=tradingview_4&symbol=COMEX:HG1!&interval=60&hidesidetoolbar=1&symboledit=0&saveimage=1&toolbarbg=f1f3f6&studies=[]&theme=dark&style=1&timezone=Europe/Istanbul" style="width: 100%; height: calc(100% - 25px); border: none;"></iframe>
+        </div>
+
     </div>
 </div>
 <div id="footer-legal-notice" style="clear: both; padding: 20px; margin-top: 40px; border-top: 1px solid #eee; font-family: sans-serif;">
