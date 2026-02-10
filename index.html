@@ -119,12 +119,37 @@
               "locale": "tr",
               "columns": ["base_currency_logoid", "       
 
-    <div style="margin-top:50px; padding:30px; background:var(--header-bg); border:1px solid var(--border); border-radius:15px; text-align:center;">
-        <p style="font-size:13px; color:var(--text); line-height:1.6; max-width:900px; margin: 0 auto;">
-            ⚠️ <strong>YASAL UYARI:</strong> Burada yer alan yatırım bilgi, yorum ve tavsiyeleri yatırım danışmanlığı kapsamında değildir. Yatırım danışmanlığı hizmeti, kişilerin risk ve getiri tercihleri dikkate alınarak kişiye özel sunulmaktadır. Burada yer alan bilgilere dayanılarak yatırım kararı verilmesi beklentilerinize uygun sonuçlar doğurmayabilir.
+<div style="background: #ffffff; border-top: 1px solid #e1e8ed; margin-top: 50px;">
+    
+    <div style="max-width: 1100px; margin: 0 auto; padding: 40px 20px; text-align: center;">
+        <p style="font-size: 13px; color: #666; line-height: 1.8; margin-bottom: 20px; font-family: 'Segoe UI', sans-serif;">
+            ⚠️ <strong>YASAL UYARI:</strong> Burada yer alan yatırım bilgi, yorum ve tavsiyeleri yatırım danışmanlığı kapsamında değildir. Yatırım danışmanlığı hizmeti, yetkili kuruluşlar tarafından kişilerin risk ve getiri tercihleri dikkate alınarak kişiye özel sunulmaktadır. Burada yer alan bilgilere dayanılarak yatırım kararı verilmesi beklentilerinize uygun sonuçlar doğurmayabilir.
         </p>
-        <div style="margin-top:20px; border-top:1px solid var(--border); pt-15px; font-size:11px; color:#888;">
-            Grafikler ve veriler <a href="https://tr.tradingview.com/" target="_blank" style="color:var(--primary); text-decoration:none;">TradingView</a> tarafından sağlanmaktadır.
+        <div style="border-top: 1px solid #eee; padding-top: 15px; font-size: 12px; color: #999;">
+            Grafikler ve veriler <a href="https://tr.tradingview.com/" target="_blank" style="color: #00d1ff; text-decoration: none; font-weight: bold;">TradingView</a> tarafından sağlanmaktadır.
+        </div>
+    </div>
+
+    <div style="height: 46px; border-top: 1px solid #eee;">
+        <div class="tradingview-widget-container">
+            <div class="tradingview-widget-container__widget"></div>
+            <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-ticker-tape.js" async>
+            {
+              "symbols": [
+                { "proName": "BIST:XU100", "title": "BIST 100" },
+                { "proName": "FX_IDC:USDTRY", "title": "USD/TRY" },
+                { "proName": "FX_IDC:EURTRY", "title": "EUR/TRY" },
+                { "proName": "BITSTAMP:BTCUSD", "title": "Bitcoin" },
+                { "proName": "BITSTAMP:ETHUSD", "title": "Ethereum" },
+                { "proName": "TVC:GOLD", "title": "Altın" }
+              ],
+              "showSymbolLogo": true,
+              "colorTheme": "light", /* BEYAZ TEMA */
+              "isTransparent": false,
+              "displayMode": "adaptive",
+              "locale": "tr"
+            }
+            </script>
         </div>
     </div>
 </div>
