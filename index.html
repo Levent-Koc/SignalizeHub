@@ -179,14 +179,14 @@ body.dark-mode .hub-text {
             </div>
         </div>
 
-        <div class="dropdown">
-            <span class="nav-item">₿ Kripto ▼</span>
-            <div class="dropdown-content">
-                <a href="javascript:void(0)" onclick="document.getElementById('dPanel').style.display='none'; document.getElementById('kPanel').style.display='block';">📊 Açgözlülük Endeksi</a>
-<hr style="border: 0; border-top: 1px solid rgba(0,0,0,0.05); margin: 5px 0;">
-<a href="javascript:void(0)" onclick="handleMembership('Kripto')" style="color: #00d1ff; font-weight: normal; font-size: 13px;">⭐ Takip Listem</a>
-            </div>
-        </div>
+       <div class="dropdown">
+    <span class="nav-item">₿ Kripto ▼</span>
+    <div class="dropdown-content">
+        <a href="javascript:void(0)" onclick="document.getElementById('fPanel').style.display='block';">📊 Açgözlülük Endeksi</a>
+        <hr style="border: 0; border-top: 1px solid rgba(0,0,0,0.05); margin: 5px 0;">
+        <a href="javascript:void(0)" onclick="handleMembership('Kripto')" style="color: #00d1ff; font-weight: normal; font-size: 13px;">⭐ Takip Listem</a>
+    </div>
+</div>
 <div class="dropdown">
     <span class="nav-item">💵 Döviz ▼</span>
     <div class="dropdown-content">
@@ -892,6 +892,30 @@ function closeMembershipModal() {
                 }
                 </script>
             </div>
+        </div>
+    </div>
+</div>
+<div id="fPanel" class="tali-panel-yeni" style="display: none; border: 2px solid #a855f7 !important; box-shadow: 0 0 30px rgba(168, 85, 247, 0.7) !important; border-radius: 15px; overflow: hidden; background: #131722; position: fixed; top: 55%; left: 50%; transform: translate(-50%, -50%); z-index: 9999; width: 90%; max-width: 500px;">
+    
+    <div class="panel-header" style="display: flex; justify-content: space-between; align-items: center; padding: 15px 20px; border-bottom: 1px solid var(--border); background: var(--header-bg);">
+        <span style="font-weight: 700; color: var(--text); font-size: 16px;">
+            <i class="fas fa-brain" style="color: #a855f7; margin-right: 10px;"></i> Piyasa Duyarlılığı
+        </span>
+        
+        <div onclick="document.getElementById('fPanel').style.display='none'" 
+             style="cursor: pointer; width: 30px; height: 30px; display: flex; align-items: center; justify-content: center;">
+            <span style="color: #ff4d4d; font-size: 32px; font-weight: bold; line-height: 1;">&times;</span>
+        </div>
+    </div>
+    
+    <div class="panel-body" style="padding: 20px; text-align: center; background: #0f172a;">
+        <div style="width: 100%; border-radius: 10px; overflow: hidden;">
+            <img src="https://alternative.me/crypto/fear-and-greed-index.png" alt="Fear and Greed Index" style="width: 100%; height: auto; border-radius: 8px;">
+        </div>
+        
+        <div style="margin-top: 15px; color: #e2e8f0; font-size: 13px; line-height: 1.4;">
+            <p style="margin: 0;">Bu endeks; volatilite, hacim ve sosyal medya analizini birleştirir.</p>
+            <p style="margin: 5px 0 0 0; color: #a855f7; font-weight: bold;">Mor Renk: Psikolojik Analiz Modu Aktif</p>
         </div>
     </div>
 </div>
