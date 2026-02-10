@@ -782,6 +782,64 @@ if (typeof isLoggedIn !== 'undefined' && isLoggedIn) {
     cursor: pointer;
     font-weight: bold;
 }
+/* --- MENÜ SİSTEMİ TAMİRİ --- */
+
+/* Dropdown Konteyner */
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+/* Menü Başlıkları (Hisse Senedi, Kripto vb.) */
+.nav-item {
+    cursor: pointer;
+    padding: 10px 15px;
+    font-weight: 500;
+    color: #333;
+    display: block;
+}
+
+/* Alt Menü Kutusu (Başlangıçta Gizli) */
+.dropdown-content {
+    display: none; /* Gizli tut */
+    position: absolute;
+    background-color: #ffffff;
+    min-width: 200px;
+    box-shadow: 0px 8px 16px rgba(0,0,0,0.15);
+    z-index: 11000; /* Her şeyin üstünde olması için çok yüksek değer */
+    border-radius: 8px;
+    border: 1px solid #eee;
+    padding: 10px 0;
+    top: 100%; /* Menünün tam altında başlasın */
+    left: 0;
+}
+
+/* Alt Menü İçindeki Linkler */
+.dropdown-content a {
+    color: #333;
+    padding: 10px 20px;
+    text-decoration: none;
+    display: block;
+    font-size: 14px;
+    transition: 0.2s;
+}
+
+/* Mouse ile üzerine gelince linklerin rengi değişsin */
+.dropdown-content a:hover {
+    background-color: #f1f3f5;
+    color: #00d1ff;
+}
+
+/* KRİTİK KOMUT: Mouse üzerine gelince alt menüyü göster */
+.dropdown:hover .dropdown-content {
+    display: block !important;
+}
+
+/* Header Hizalaması için Destek */
+header {
+    z-index: 10000;
+    position: relative;
+}
 </style>
 
 <script>
