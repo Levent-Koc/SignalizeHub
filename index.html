@@ -176,12 +176,12 @@ body.dark-mode .hub-text {
             </div>
 </div>
 
-       <div class="dropdown">
+     <div class="dropdown">
     <span class="nav-item">₿ Kripto ▼</span>
     <div class="dropdown-content">
-      <a href="javascript:void(0)" onclick="fPanelGuncelle('60')">📊 Açgözlülük Endeksi</a>  
+        <a href="javascript:void(0)" onclick="document.getElementById('fPanel').style.display='block'; document.getElementById('fPanel').style.zIndex='10007';">📊 Açgözlülük Endeksi</a>
         <hr style="border: 0; border-top: 1px solid rgba(0,0,0,0.05); margin: 5px 0;">
-          </div>
+    </div>
 </div>
 <div class="dropdown">
     <span class="nav-item">💵 Döviz ▼</span>
@@ -983,23 +983,22 @@ function closeMembershipModal() {
     
     <div class="panel-header" style="display: flex; justify-content: space-between; align-items: center; padding: 15px 20px; border-bottom: 1px solid #333; background: #1e222d;">
         <span style="font-weight: 700; color: white; font-size: 16px;">
-            <i class="fas fa-microchip" style="color: #a855f7; margin-right: 10px;"></i> Piyasa Duyarliligi ve Trend
+            <i class="fas fa-gauge-high" style="color: #a855f7; margin-right: 10px;"></i> Korku ve Açgözlülük Endeksi
         </span>
         <div onclick="document.getElementById('fPanel').style.display='none'" style="cursor: pointer; padding: 5px;">
             <span style="color: #ff4d4d; font-size: 32px; font-weight: bold;">&times;</span>
         </div>
     </div>
 
-    <div style="display: flex; background: #1e222d; padding: 10px; gap: 8px; border-bottom: 1px solid #333;">
-        <button onclick="fPanelGuncelle('5')" id="btn-5m" style="flex: 1; padding: 10px; border: none; border-radius: 5px; background: #333; color: #fff; cursor: pointer; font-weight: bold;">5 DK</button>
-        <button onclick="fPanelGuncelle('60')" id="btn-1h" style="flex: 1; padding: 10px; border: none; border-radius: 5px; background: #a855f7; color: #fff; cursor: pointer; font-weight: bold;">1 SAAT</button>
-        <button onclick="fPanelGuncelle('D')" id="btn-1d" style="flex: 1; padding: 10px; border: none; border-radius: 5px; background: #333; color: #fff; cursor: pointer; font-weight: bold;">GUNLUK</button>
+    <div class="panel-body" style="padding: 20px; background: #0f172a; height: 350px; display: flex; align-items: center; justify-content: center;">
+        <a href="https://alternative.me/crypto/fear-and-greed-index/" target="_blank">
+            <img src="https://api.alternative.me/fng/crypto-fear-and-greed-index.png" 
+                 alt="Latest Crypto Fear & Greed Index" 
+                 style="width: 100%; max-width: 400px; height: auto; border-radius: 10px;"
+                 onerror="this.src='https://www.tradingview.com/x/uY5uU6uG/';" 
+            />
+        </a>
     </div>
-    <div class="panel-body" style="padding: 10px; background: #0f172a; height: 420px; display: flex; align-items: center; justify-content: center;">
-    <img src="https://api.alternative.me/fng/crypto-fear-and-greed-index.png" 
-         alt="Korku ve Açgözlülük Endeksi" 
-         style="max-width: 100%; max-height: 100%; border-radius: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.5);">
-</div>   
 </div>
 
 <div class="dropdown-content">
