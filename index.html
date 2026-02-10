@@ -996,49 +996,13 @@ function closeMembershipModal() {
         <button onclick="changeSentiment('D')" id="btn-1d" style="flex: 1; padding: 10px; border: none; border-radius: 5px; background: #333; color: #fff; cursor: pointer; font-weight: bold;">GÜNLÜK</button>
     </div>
     
-    <div class="panel-body" style="padding: 0; background: #0f172a; height: 400px;">
-        <iframe id="sentimentFrame" src="https://s3.tradingview.com/tv.html?symbol=BINANCE%3ABTCUSDT&interval=60&theme=dark" style="width: 100%; height: 100%; border: none;"></iframe>
-    </div>
+   <div class="panel-body" style="padding: 0; background: #0f172a; height: 420px;">
+    <iframe id="sentimentFrame" 
+            src="https://s3.tradingview.com/tv.html?symbol=BINANCE:BTCUSDT&interval=60&theme=dark" 
+            style="width: 100%; height: 100%; border: none;">
+    </iframe>
 </div>
-
-    <div id="layer-1h" class="sentiment-layer" style="display: block; height: 100%; width: 100%;">
-        <div class="tradingview-widget-container">
-            <div class="tradingview-widget-container__widget"></div>
-            <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-technical-analysis.js" async>
-            {
-              "interval": "1h",
-              "width": "100%",
-              "isTransparent": false,
-              "height": "100%",
-              "symbol": "BINANCE:BTCUSDT",
-              "showIntervalTabs": false,
-              "displayMode": "single",
-              "locale": "tr",
-              "colorTheme": "dark"
-            }
-            </script>
-        </div>
-    </div>
-
-    <div id="layer-1d" class="sentiment-layer" style="display: none; height: 100%; width: 100%;">
-        <div class="tradingview-widget-container">
-            <div class="tradingview-widget-container__widget"></div>
-            <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-technical-analysis.js" async>
-            {
-              "interval": "D",
-              "width": "100%",
-              "isTransparent": false,
-              "height": "100%",
-              "symbol": "BINANCE:BTCUSDT",
-              "showIntervalTabs": false,
-              "displayMode": "single",
-              "locale": "tr",
-              "colorTheme": "dark"
-            }
-            </script>
-        </div>
-    </div>
-</div>
+    
 <div class="dropdown-content">
     <a href="javascript:void(0)" onclick="smartOpen('fPanel')">📊 Açgözlülük Endeksi</a>
     <a href="javascript:void(0)" onclick="smartOpen('iPanel')">🔥 Isı Haritası</a>
