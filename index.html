@@ -5,6 +5,66 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SignalizeHub | Finansal Terminal</title>
     <style>
+/* Menü Konteyner Ayarları */
+header nav {
+    display: flex;
+    gap: 15px;
+}
+
+/* Dropdown (Açılır Menü) Tasarımı */
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.nav-item {
+    cursor: pointer;
+    padding: 10px 15px;
+    font-family: sans-serif;
+    font-size: 14px;
+    color: #333;
+    display: block;
+}
+
+/* Başlangıçta gizli olan alt menü */
+.dropdown-content {
+    display: none; /* Başlangıçta gizle */
+    position: absolute;
+    background-color: #ffffff;
+    min-width: 200px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.1);
+    z-index: 10050; /* Diğer her şeyin üstünde olsun */
+    border-radius: 8px;
+    border: 1px solid #eee;
+    padding: 10px 0;
+}
+
+/* Alt menü linkleri */
+.dropdown-content a {
+    color: #333;
+    padding: 10px 16px;
+    text-decoration: none;
+    display: block;
+    font-size: 13px;
+    font-family: sans-serif;
+    transition: background 0.2s;
+}
+
+/* Fare üzerine gelince link rengi */
+.dropdown-content a:hover {
+    background-color: #f8f9fa;
+    color: #00d1ff;
+}
+
+/* İŞTE SİHİRLİ DOKUNUŞ: Fare üzerine gelince menüyü göster */
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+/* Menü öğesi üzerine gelince renk değişimi */
+.dropdown:hover .nav-item {
+    color: #00d1ff;
+}
 :root {
     --bg: #f8fafc;
     --header-bg: #ffffff;
