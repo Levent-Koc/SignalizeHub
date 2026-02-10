@@ -197,7 +197,6 @@ body.dark-mode .hub-text {
                 <a href="javascript:void(0)" onclick="openP('hPanel')">🔍 Hisse Tarayıcı</a>
                 <a href="javascript:void(0)" onclick="openP('iPanel')">📊 Isı Haritası</a>
 <hr style="border: 0; border-top: 1px solid rgba(0,0,0,0.05); margin: 5px 0;">
-<a href="javascript:void(0)" onclick="handleMembership('Hisse Senedi')" style="color: #00d1ff; font-weight: normal; font-size: 13px;">⭐ Takip Listem</a>
             </div>
         </div>
 
@@ -206,7 +205,6 @@ body.dark-mode .hub-text {
             <div class="dropdown-content">
                 <a href="javascript:void(0)" onclick="openP('mPanel')">🟡 Maden Analizi</a>
 <hr style="border: 0; border-top: 1px solid rgba(0,0,0,0.05); margin: 5px 0;">
-<a href="javascript:void(0)" onclick="handleMembership('Değerli Maden')" style="color: #00d1ff; font-weight: normal; font-size: 13px;">⭐ Takip Listem</a>
             </div>
         </div>
 
@@ -215,7 +213,6 @@ body.dark-mode .hub-text {
             <div class="dropdown-content">
                 <a href="javascript:void(0)" onclick="document.getElementById('dPanel').style.display='none'; document.getElementById('kPanel').style.display='block';">📊 Açgözlülük Endeksi</a>
 <hr style="border: 0; border-top: 1px solid rgba(0,0,0,0.05); margin: 5px 0;">
-<a href="javascript:void(0)" onclick="handleMembership('Kripto')" style="color: #00d1ff; font-weight: normal; font-size: 13px;">⭐ Takip Listem</a>
             </div>
         </div>
 <div class="dropdown">
@@ -786,22 +783,7 @@ function updatePaymentUI(el) {
         if(cD) cD.innerHTML = "IBAN: TR00 0000 0000... <br> (Açıklamaya kayıtlı emailinizi yazınız)";
     }
 }
-function handleMembership(kategori) {
-    console.log(kategori + " için takip listesi açılmak istendi.");
-
-    // Eğer kullanıcı giriş yapmamışsa (isLoggedIn değişkenine bakıyoruz)
-    if (!isLoggedIn) {
-        // Tüm panelleri gizle
-        document.querySelectorAll('.tali-panel-yeni, .tali-panel').forEach(p => p.style.display = 'none');
-        
-        // Senin hazırladığın "Giriş Yap" uyarısını göster
-        const uyari = document.getElementById('loginRequiredPanel');
-        if (uyari) {
-            uyari.style.display = 'block';
-        } else {
-            alert("Bu özelliği kullanmak için lütfen giriş yapın veya kayıt olun.");
-        }
-    } else {
+ else {
         // Eğer kullanıcı giriş yapmışsa, Takip Listesi panelini (pPanel) aç
         openP('pPanel');
     }
@@ -905,13 +887,6 @@ function closeMembershipModal() {
 </div>
             
 <script>
-function checkScannerAccess() {
-    if (typeof isLoggedIn !== 'undefined' && !isLoggedIn) {
-        document.getElementById('loginRequiredPanel').style.display = 'block';
-    } else {
-        document.getElementById('scannerLock').style.display = 'none';
-    }
-}
 
 // Giriş yapılmışsa kilidi kaldır
 if (typeof isLoggedIn !== 'undefined' && isLoggedIn) {
@@ -949,35 +924,7 @@ if (typeof isLoggedIn !== 'undefined' && isLoggedIn) {
             </div>
     </div>
 </div>
-// Giriş kontrolü fonksiyonu (Ortak)
-function checkScannerAccess() {
-// Strateji Raporu için giriş kontrolü ve rapor açma
 
-
-// Giriş yapıldığında bu kilitleri açacak olan ana fonksiyon (Zaten sende var ama kontrol et)
-function unlockEverything() {
-    // 1. Buzları çöz
-    const blurArea = document.getElementById('stratejiBlurArea');
-    if(blurArea) {
-        blurArea.style.filter = 'none';
-        blurArea.style.opacity = '1';
-        blurArea.style.pointerEvents = 'auto';
-    }
-
-    // 2. Kilit görselini ve "Giriş Yap" butonunu kaldır
-    const lockVisual = document.getElementById('stratejiLockVisual');
-    if(lockVisual) lockVisual.style.display = 'none';
-
-    // 3. Sayfalama butonlarını getir
-    const pagination = document.getElementById('sayfalamaElemanları');
-    if(pagination) pagination.style.display = 'flex';
-
-    // 4. Raporun ilk sayfasını yükle
-    renderReport();
-
-    // Modal varsa kapat (opsiyonel)
-    closeMembershipModal();
-}
 </script>
 
 <div id="mPanel" class="tali-panel-yeni" style="display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 90%; max-width: 900px; background: white; z-index: 10005; border-radius: 15px; border-top: 5px solid #f1c40f; box-shadow: 0 0 30px rgba(0,0,0,0.5); font-family: sans-serif; overflow: hidden;">
@@ -985,9 +932,7 @@ function unlockEverything() {
     <div style="padding: 0;">
         
         <div style="position: relative; height:500px; border: 1px solid #eee; border-radius: 8px; overflow: hidden;">
-  <div id="madenLock" onclick="checkScannerAccess()" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 10008; cursor: pointer; background: rgba(0,0,0,0.5); display: flex; align-items: center; justify-content: center; color: white; font-weight: bold; backdrop-filter: blur(4px);">
-   <span>🔒 Maden Analizi İçin Giriş Yapın</span>
-</div>          
+           
 <iframe src="https://s.tradingview.com/embed-widget/market-overview/?locale=tr#%7B%22colorTheme%22%3A%22light%22%2C%22dateRange%22%3A%2212M%22%2C%22showChart%22%3Atrue%2C%22width%22%3A%22100%25%22%2C%22height%22%3A%22100%25%22%2C%22isTransparent%22%3Afalse%2C%22showSymbolLogo%22%3Atrue%2C%22tabs%22%3A%5B%7B%22title%22%3A%22Madenler%22%2C%22symbols%22%3A%5B%7B%22s%22%3A%22OANDA%3AXAUUSD%22%2C%22d%22%3A%22Ons%20Alt%C4%B1n%22%7D%2C%7B%22s%22%3A%22OANDA%3AXAGUSD%22%2C%22d%22%3A%22Ons%20G%C3%BCm%C3%BC%C5%9F%22%7D%2C%7B%22s%22%3A%22TVC%3AUKOIL%22%2C%22d%22%3A%22Brent%20Petrol%22%7D%5D%7D%5D%7D" style="width: 100%; height: 100%; border: none;"></iframe>
         </div>
     </div>
@@ -1104,13 +1049,7 @@ const dailyReportData = {
         alert("Giriş Başarılı! Tüm tablolar ve sinyaller aktif.");
     }
 
-    // Panel içi kilit tıklama kontrolü
-    function checkScannerAccess() {
-        if (!isLoggedIn) {
-            document.getElementById('loginRequiredPanel').style.display = 'block';
-        }
-    }
-
+   
 </script>
 <script>
 function unlockEverything() { // <-- İŞTE O EKSİK PARANTEZ BURADA OLMALI!
