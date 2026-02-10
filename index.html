@@ -979,7 +979,8 @@ function closeMembershipModal() {
         </div>
     </div>
 </div>
-<div id="fPanel" class="tali-panel-yeni" style="display: none; border: 2px solid #a855f7 !important; box-shadow: 0 0 30px rgba(168, 85, 247, 0.7) !important; border-radius: 15px; overflow: hidden; background: #131722; position: fixed; top: 55%; left: 50%; transform: translate(-50%, -50%); z-index: 9999; width: 90%; max-width: 550px;">
+
+<div id="fPanel" class="tali-panel-yeni" style="display: none; border: 2px solid #a855f7 !important; box-shadow: 0 0 30px rgba(168, 85, 247, 0.7) !important; border-radius: 15px; overflow: hidden; background: #131722; position: fixed; top: 55%; left: 50%; transform: translate(-50%, -50%); z-index: 10007; width: 90%; max-width: 550px;">
     
     <div class="panel-header" style="display: flex; justify-content: space-between; align-items: center; padding: 15px 20px; border-bottom: 1px solid var(--border); background: var(--header-bg);">
         <span style="font-weight: 700; color: var(--text); font-size: 16px;">
@@ -991,32 +992,25 @@ function closeMembershipModal() {
     </div>
 
     <div style="display: flex; background: #1e222d; padding: 8px; gap: 5px; border-bottom: 1px solid #333; justify-content: center;">
-    <button onclick="updateSentiment('5m')" id="btn-5m" style="flex: 1; padding: 8px; border: none; border-radius: 4px; background: #333; color: #fff; cursor: pointer;">5 DK</button>
-    <button onclick="updateSentiment('1h')" id="btn-1h" style="flex: 1; padding: 8px; border: none; border-radius: 4px; background: #a855f7; color: #fff; cursor: pointer;">1 SAAT</button>
- <button onclick="updateSentiment('D')" id="btn-1d" style="flex: 1; padding: 8px; border: none; border-radius: 4px; background: #333; color: #fff; cursor: pointer; font-weight: bold;">GÜNLÜK</button>   
-</div>
+        <button onclick="updateSentiment('5m')" id="btn-5m" style="flex: 1; padding: 8px; border: none; border-radius: 4px; background: #333; color: #fff; cursor: pointer;">5 DK</button>
+        <button onclick="updateSentiment('1h')" id="btn-1h" style="flex: 1; padding: 8px; border: none; border-radius: 4px; background: #a855f7; color: #fff; cursor: pointer;">1 SAAT</button>
+        <button onclick="updateSentiment('D')" id="btn-1d" style="flex: 1; padding: 8px; border: none; border-radius: 4px; background: #333; color: #fff; cursor: pointer; font-weight: bold;">GÜNLÜK</button>   
+    </div>
     
     <div class="panel-body" style="padding: 0; background: #0f172a; height: 420px; position: relative;">
-    
-    <div id="layer-5m" class="sentiment-layer" style="display: none; height: 100%; width: 100%;">
-        <div class="tradingview-widget-container">
-            <div class="tradingview-widget-container__widget"></div>
-            <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-technical-analysis.js" async>
-            {
-              "interval": "5m",
-              "width": "100%",
-              "isTransparent": false,
-              "height": "100%",
-              "symbol": "BINANCE:BTCUSDT",
-              "showIntervalTabs": false,
-              "displayMode": "single",
-              "locale": "tr",
-              "colorTheme": "dark"
-            }
-            </script>
+        <div id="layer-5m" class="sentiment-layer" style="display: none; height: 100%; width: 100%;">
+             <iframe src="https://s3.tradingview.com/tv.html?symbol=BINANCE%3ABTCUSDT&interval=5&theme=dark" style="width: 100%; height: 100%; border: none;"></iframe>
+        </div>
+
+        <div id="layer-1h" class="sentiment-layer" style="display: block; height: 100%; width: 100%;">
+             <iframe src="https://s3.tradingview.com/tv.html?symbol=BINANCE%3ABTCUSDT&interval=60&theme=dark" style="width: 100%; height: 100%; border: none;"></iframe>
+        </div>
+
+        <div id="layer-D" class="sentiment-layer" style="display: none; height: 100%; width: 100%;">
+             <iframe src="https://s3.tradingview.com/tv.html?symbol=BINANCE%3ABTCUSDT&interval=D&theme=dark" style="width: 100%; height: 100%; border: none;"></iframe>
         </div>
     </div>
-
+</div>
     <div id="layer-1h" class="sentiment-layer" style="display: block; height: 100%; width: 100%;">
         <div class="tradingview-widget-container">
             <div class="tradingview-widget-container__widget"></div>
@@ -1062,18 +1056,24 @@ function closeMembershipModal() {
 </div>
 <script>
 function updateSentiment(interval) {
-    // Önce tüm katmanları gizle
-    document.querySelectorAll('.sentiment-layer').forEach(div => {
-        div.style.display = 'none';
+    // 1. Tüm katmanları gizle
+    document.querySelectorAll('.sentiment-layer').forEach(layer => {
+        layer.style.display = 'none';
     });
 
-    // Sadece seçilen katmanı göster
-    document.getElementById('layer-' + interval).style.display = 'block';
+    // 2. Tıklanan katmanı göster
+    const targetLayer = document.getElementById('layer-' + interval);
+    if (targetLayer) {
+        targetLayer.style.display = 'block';
+    }
 
-    // Buton renklerini güncelle
-    document.getElementById('btn-5m').style.background = (interval === '5m') ? '#a855f7' : '#333';
-    document.getElementById('btn-1h').style.background = (interval === '1h') ? '#a855f7' : '#333';
-    document.getElementById('btn-1d').style.background = (interval === '1d') ? '#a855f7' : '#333';
+    // 3. Buton renklerini sıfırla ve seçileni mor yap
+    ['5m', '1h', 'D'].forEach(id => {
+        const btn = document.getElementById('btn-' + (id === 'D' ? '1d' : id));
+        if (btn) {
+            btn.style.background = (id === interval) ? '#a855f7' : '#333';
+        }
+    });
 }
 </script>
 <script>
