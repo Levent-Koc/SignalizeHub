@@ -991,22 +991,23 @@ function closeMembershipModal() {
     </div>
 
     <div style="display: flex; background: #1e222d; padding: 10px; gap: 8px; border-bottom: 1px solid #333;">
-        <button onclick="changeSentiment('5')" id="btn-5m" style="flex: 1; padding: 10px; border: none; border-radius: 5px; background: #333; color: #fff; cursor: pointer; font-weight: bold;">5 DK</button>
-        <button onclick="changeSentiment('60')" id="btn-1h" style="flex: 1; padding: 10px; border: none; border-radius: 5px; background: #a855f7; color: #fff; cursor: pointer; font-weight: bold;">1 SAAT</button>
-        <button onclick="changeSentiment('D')" id="btn-1d" style="flex: 1; padding: 10px; border: none; border-radius: 5px; background: #333; color: #fff; cursor: pointer; font-weight: bold;">GÜNLÜK</button>
+        <button onclick="updateSentiment('5')" id="btn-5m" style="flex: 1; padding: 10px; border: none; border-radius: 5px; background: #333; color: #fff; cursor: pointer; font-weight: bold;">5 DK</button>
+        <button onclick="updateSentiment('60')" id="btn-1h" style="flex: 1; padding: 10px; border: none; border-radius: 5px; background: #a855f7; color: #fff; cursor: pointer; font-weight: bold;">1 SAAT</button>
+        <button onclick="updateSentiment('D')" id="btn-1d" style="flex: 1; padding: 10px; border: none; border-radius: 5px; background: #333; color: #fff; cursor: pointer; font-weight: bold;">GÜNLÜK</button>
     </div>
     
-   <div class="panel-body" style="padding: 0; background: #0f172a; height: 420px;">
-    <iframe id="sentimentFrame" 
-            src="https://s3.tradingview.com/tv.html?symbol=BINANCE:BTCUSDT&interval=60&theme=dark" 
-            style="width: 100%; height: 100%; border: none;">
-    </iframe>
+    <div class="panel-body" style="padding: 0; background: #0f172a; height: 420px;">
+        <iframe id="sentimentFrame" 
+                src="https://s3.tradingview.com/tv.html?symbol=BINANCE:BTCUSDT&interval=60&theme=dark" 
+                style="width: 100%; height: 100%; border: none;">
+        </iframe>
+    </div>
 </div>
-    
+
 <div class="dropdown-content">
-    <a href="javascript:void(0)" onclick="smartOpen('fPanel')">📊 Açgözlülük Endeksi</a>
-    <a href="javascript:void(0)" onclick="smartOpen('iPanel')">🔥 Isı Haritası</a>
-    <a href="javascript:void(0)" onclick="smartOpen('mPanel')">💎 Maden Analizi</a>
+    <a href="javascript:void(0)" onclick="openP('fPanel')">📊 Açgözlülük Endeksi</a>
+    <a href="javascript:void(0)" onclick="openP('iPanel')">🔥 Isı Haritası</a>
+    <a href="javascript:void(0)" onclick="openP('mPanel')">💎 Maden Analizi</a>
 </div>
 <script>
 function changeSentiment(time) {
@@ -1022,6 +1023,22 @@ function changeSentiment(time) {
             if (btn) {
                 btn.style.background = (key === time) ? '#a855f7' : '#333';
             }
+        });
+    }
+}
+</script>
+<script>
+function updateSentiment(interval) {
+    const frame = document.getElementById('sentimentFrame');
+    if (frame) {
+        // Grafiği yeni zaman dilimiyle yükle
+        frame.src = `https://s3.tradingview.com/tv.html?symbol=BINANCE:BTCUSDT&interval=${interval}&theme=dark`;
+        
+        // Buton renklerini güncelle
+        const ids = { '5': 'btn-5m', '60': 'btn-1h', 'D': 'btn-1d' };
+        Object.keys(ids).forEach(key => {
+            const btn = document.getElementById(ids[key]);
+            if (btn) btn.style.background = (key === interval) ? '#a855f7' : '#333';
         });
     }
 }
