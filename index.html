@@ -1029,7 +1029,8 @@ if (typeof isLoggedIn !== 'undefined' && isLoggedIn) {
     if(sLock) sLock.style.display = 'none';
 }
 </script>
- <div id="iPanel" class="tali-panel-yeni" style="display: none; border: 2px solid #ff4d4d !important; box-shadow: 0 0 30px rgba(255, 77, 77, 0.7) !important; border-radius: 15px; overflow: hidden; background: #131722; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 9999; width: 90%; max-width: 900px;">
+<div id="iPanel" class="tali-panel-yeni" style="display: none; border: 2px solid #ff4d4d !important; box-shadow: 0 0 30px rgba(255, 77, 77, 0.7) !important; border-radius: 15px; overflow: hidden; background: var(--card-bg);">
+    
     <div class="panel-header" style="display: flex; justify-content: space-between; align-items: center; padding: 15px 20px; border-bottom: 1px solid var(--border); background: var(--header-bg);">
         <span style="font-weight: 700; color: var(--text); font-size: 16px;">
             <i class="fas fa-th" style="color: #ff4d4d; margin-right: 10px;"></i> Piyasa Isı Haritası
