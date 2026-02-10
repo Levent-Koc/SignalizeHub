@@ -862,19 +862,17 @@ function closeMembershipModal() {
         Yatırım tavsiyesi değildir. Sistem üzerinden otomatik üretilmiştir.
     </div>
 </div>
-<div id="hPanel" class="tali-panel-yeni" style="border: 1px solid var(--primary); box-shadow: 0 0 20px rgba(0, 209, 255, 0.4); border-radius: 12px; overflow: hidden;">
+<div id="hPanel" class="tali-panel-yeni" style="display: none; border: 2px solid #00d1ff !important; box-shadow: 0 0 30px rgba(0, 209, 255, 0.7) !important; border-radius: 15px; overflow: hidden; background: var(--card-bg);">
+    
     <div class="panel-header" style="display: flex; justify-content: space-between; align-items: center; padding: 15px 20px; border-bottom: 1px solid var(--border); background: var(--header-bg);">
-        <span style="font-weight: 600; color: var(--text);">
-            <i class="fas fa-search" style="color: var(--primary); margin-right: 10px;"></i> Hisse Senedi Takipçisi
+        <span style="font-weight: 700; color: var(--text); font-size: 16px;">
+            <i class="fas fa-search" style="color: #00d1ff; margin-right: 10px;"></i> Hisse Senedi Takipçisi
         </span>
         
-        <span class="close-btn" 
-              onclick="closeP('hPanel')" 
-              style="cursor: pointer; font-size: 26px; color: #ff4d4d; font-weight: bold; line-height: 1; transition: 0.2s; padding: 5px;"
-              onmouseover="this.style.opacity='0.7'" 
-              onmouseout="this.style.opacity='1'">
-            &times;
-        </span>
+        <div onclick="document.getElementById('hPanel').style.display='none'" 
+             style="cursor: pointer; width: 30px; height: 30px; display: flex; align-items: center; justify-content: center; transition: 0.3s;">
+            <span style="color: #ff4d4d; font-size: 32px; font-weight: bold; line-height: 1;">&times;</span>
+        </div>
     </div>
     
     <div class="panel-body" style="padding: 0; background: #131722;">
