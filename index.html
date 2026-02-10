@@ -181,3 +181,33 @@
         </div>
         <div class="card">
             <div style="padding:10px; background:rgba(52,152,219,0.1); color:#3498db; font
+<script>
+// MENÜ VE PANEL AÇMA SİSTEMİ
+function openP(panelId) {
+    console.log(panelId + " açılmaya çalışılıyor...");
+    
+    // 1. Önce açık olan tüm panelleri gizle
+    const panels = document.querySelectorAll('.tali-panel-yeni, .tali-panel');
+    panels.forEach(p => {
+        p.style.display = 'none';
+    });
+    
+    // 2. Hedef paneli bul
+    const target = document.getElementById(panelId);
+    
+    if (target) {
+        // 3. Paneli görünür yap ve ekranın ortasına sabitle
+        target.style.display = 'block';
+        target.style.position = 'fixed';
+        target.style.top = '50%';
+        target.style.left = '50%';
+        target.style.transform = 'translate(-50%, -50%)';
+        target.style.zIndex = '20000'; // Her şeyin en üstünde açılması için
+    } else {
+        console.error("Hata: " + panelId + " ID'li panel bulunamadı.");
+    }
+}
+</script>
+
+</body>
+</html>
