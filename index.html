@@ -204,44 +204,53 @@ body.dark-mode .hub-text {
     <a href="javascript:void(0)" onclick="openSingleTab('register')" class="btn-reg">Kayıt Ol</a>
 </div>
 </header>
-<div class="dial-container" style="position: relative; width: 340px; height: 340px; margin: 0 auto;">
+<div id="hub-center-area" style="background: #0f172a; padding: 50px 0; border-bottom: 1px solid rgba(255,255,255,0.05); text-align: center;">
     
-    <div id="signalize-dial" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; animation: rotateDial 120s linear infinite;">
-        <svg viewBox="0 0 100 100" style="width: 100%; height: 100%; display: block;">
-            <path d="M 50,50 L 50,0 A 50,50 0 0,1 100,50 Z" fill="none" stroke="rgba(168, 85, 247, 0.3)" stroke-width="0.5" />
-            <path d="M 50,50 L 100,50 A 50,50 0 0,1 50,100 Z" fill="none" stroke="rgba(34, 197, 94, 0.3)" stroke-width="0.5" />
-            <path d="M 50,50 L 50,100 A 50,50 0 0,1 0,50 Z" fill="none" stroke="rgba(59, 130, 246, 0.3)" stroke-width="0.5" />
-            <path d="M 50,50 L 0,50 A 50,50 0 0,1 50,0 Z" fill="none" stroke="rgba(234, 179, 8, 0.3)" stroke-width="0.5" />
+    <div class="dial-container" style="position: relative; width: 340px; height: 340px; margin: 0 auto;">
+        
+        <div id="signalize-dial" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; animation: rotateDial 120s linear infinite;">
+            <svg viewBox="0 0 100 100" style="width: 100%; height: 100%; display: block;">
+                <path d="M 50,50 L 50,0 A 50,50 0 0,1 100,50 Z" fill="none" stroke="rgba(168, 85, 247, 0.3)" stroke-width="0.5" />
+                <path d="M 50,50 L 100,50 A 50,50 0 0,1 50,100 Z" fill="none" stroke="rgba(34, 197, 94, 0.3)" stroke-width="0.5" />
+                <path d="M 50,50 L 50,100 A 50,50 0 0,1 0,50 Z" fill="none" stroke="rgba(59, 130, 246, 0.3)" stroke-width="0.5" />
+                <path d="M 50,50 L 0,50 A 50,50 0 0,1 50,0 Z" fill="none" stroke="rgba(234, 179, 8, 0.3)" stroke-width="0.5" />
+                
+                <circle cx="75" cy="25" r="1.5" fill="#a855f7"><animate attributeName="opacity" values="0.3;1;0.3" dur="3s" repeatCount="indefinite" /></circle>
+                <circle cx="75" cy="75" r="1.5" fill="#22c55e"><animate attributeName="opacity" values="0.3;1;0.3" dur="4s" repeatCount="indefinite" /></circle>
+                <circle cx="25" cy="75" r="1.5" fill="#3b82f6"><animate attributeName="opacity" values="0.3;1;0.3" dur="5s" repeatCount="indefinite" /></circle>
+                <circle cx="25" cy="25" r="1.5" fill="#eab308"><animate attributeName="opacity" values="0.3;1;0.3" dur="6s" repeatCount="indefinite" /></circle>
+            </svg>
+        </div>
+
+        <div class="dial-logo-center" style="
+            position: absolute; 
+            top: 50%; 
+            left: 50%; 
+            transform: translate(-50%, -50%); 
+            z-index: 30; 
+            width: 110px; 
+            height: 110px; 
+            background: #0f172a;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 0 40px rgba(168, 85, 247, 0.5);
+            border: 2px solid rgba(168, 85, 247, 0.4);
+        ">
+            <img src="DOSYA_YOLUN/image_66bce0.png" style="width: 70%; height: auto; filter: drop-shadow(0 0 10px rgba(168, 85, 247, 0.8));" alt="SignalizeHub S">
             
-            <circle cx="75" cy="25" r="1.5" fill="#a855f7" style="filter: drop-shadow(0 0 5px #a855f7);"><animate attributeName="opacity" values="0.3;1;0.3" dur="3s" repeatCount="indefinite" /></circle>
-            <circle cx="75" cy="75" r="1.5" fill="#22c55e" style="filter: drop-shadow(0 0 5px #22c55e);"><animate attributeName="opacity" values="0.3;1;0.3" dur="4s" repeatCount="indefinite" /></circle>
-            <circle cx="25" cy="75" r="1.5" fill="#3b82f6" style="filter: drop-shadow(0 0 5px #3b82f6);"><animate attributeName="opacity" values="0.3;1;0.3" dur="5s" repeatCount="indefinite" /></circle>
-            <circle cx="25" cy="25" r="1.5" fill="#eab308" style="filter: drop-shadow(0 0 5px #eab308);"><animate attributeName="opacity" values="0.3;1;0.3" dur="6s" repeatCount="indefinite" /></circle>
-        </svg>
+            <div style="position: absolute; width: 130%; height: 130%; border: 1px solid rgba(168, 85, 247, 0.1); border-radius: 50%; animation: rotateDial 20s linear infinite reverse;"></div>
+        </div>
     </div>
 
-    <div class="dial-logo-center" style="
-        position: absolute; 
-        top: 50%; 
-        left: 50%; 
-        transform: translate(-50%, -50%); 
-        z-index: 30; 
-        width: 100px; 
-        height: 100px; 
-        background: #0f172a;
-        border-radius: 50%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        box-shadow: 0 0 40px rgba(168, 85, 247, 0.6);
-        border: 2px solid rgba(168, 85, 247, 0.4);
-    ">
-        <img src="image_66bce0.png" style="width: 75%; height: auto; border-radius: 10px;" alt="SignalizeHub S">
-        
-        <div style="position: absolute; width: 100%; height: 100%; border-radius: 50%; box-shadow: inset 0 0 20px rgba(168, 85, 247, 0.3);"></div>
+    <div id="quick-filters" style="margin-top: 50px; display: flex; justify-content: center; gap: 15px; flex-wrap: wrap;">
+        <button class="pulse-filter" onclick="filterSignals('all')">Hub RADAR</button>
+        <button class="pulse-filter" onclick="filterSignals('crypto')">KRİPTO</button>
+        <button class="pulse-filter" onclick="filterSignals('bist')">BIST</button>
+        <button class="pulse-filter" onclick="filterSignals('forex')">FOREX</button>
     </div>
 </div>
-
   
 <div class="container">
     <div class="card" id="topCard" ...>
