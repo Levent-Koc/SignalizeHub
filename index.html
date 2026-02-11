@@ -345,16 +345,17 @@ Senin kodundaki `<style>` etiketinin içine şu "prestij" kodlarını ekle:
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    z-index: 10;
-    background: #1e293b;
-    width: 90px;
-    height: 90px;
+    z-index: 30; /* SVG'nin üstünde kalması için 30 yaptık */
+    background: #0f172a; /* Arka planla tam uyumlu koyu renk */
+    width: 100px; /* Görseli daha iyi göstermek için hafif büyüttük */
+    height: 100px;
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
-    border: 2px solid #a855f7;
-    box-shadow: 0 0 20px rgba(168, 85, 247, 0.5);
+    border: 2px solid rgba(168, 85, 247, 0.4);
+    box-shadow: 0 0 40px rgba(168, 85, 247, 0.6); /* Daha güçlü parlama */
+    overflow: hidden; /* Resim dışarı taşmasın diye */
 }
 
 /* Nabız Etkili Filtre Butonları */
