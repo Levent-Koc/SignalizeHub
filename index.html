@@ -1089,7 +1089,47 @@ function updateDialSignals() {
         led.style.filter = `drop-shadow(0 0 8px ${randomColor})`;
     });
 }
+function syncButtonSignals() {
+    // Çarktaki 4 ana bölgeyi (LED'leri) sırasıyla tanımlıyoruz
+    // 0: Üst(Kripto), 1: Sağ(Bist), 2: Alt(Forex), 3: Sol(Metals)
+    const leds = document.querySelectorAll('.dial-sector circle');
+    
+    // Eşleşecek butonların ID'leri
+    const buttons = [
+        { id: 'btn-crypto', index: 0 },
+        { id: 'btn-bist', index: 1 },
+        { id: 'btn-forex', index: 2 },
+        { id: 'btn-metals', index: 3 }
+    ];
 
+    buttons.forEach(item => {
+        const btn = document.getElementById(item.id);
+        const led = leds[item.index];
+
+        if (btn && led) {
+            const color = led.getAttribute('fill'); // Çarktaki rengi alıyoruz
+
+            // Önce tüm eski sinyal sınıflarını temizle
+            btn.classList.remove('glow-green', 'glow-yellow', 'glow-red');
+
+            // Çarktaki renge göre butona hare ekle
+            if (color === '#22c55e') {
+                btn.classList.add('glow-green');
+            } else if (color === '#eab308') {
+                btn.classList.add('glow-yellow');
+            } else if (color === '#ef4444') {
+                btn.classList.add('glow-red');
+            }
+        }
+    });
+}
+
+// Çarkın renklerini değiştiren fonksiyonunun içine veya hemen altına bu satırı ekle:
+// Bu fonksiyonu her 5-10 saniyede bir otomatik çalıştıralım:
+setInterval(syncButtonSignals, 5000); 
+
+// Sayfa ilk açıldığında da bir kez çalışsın
+window.addEventListener('load', syncButtonSignals);
 // Her 10 saniyede bir piyasa duyarlılığını güncelle
 setInterval(updateDialSignals, 10000);
 
