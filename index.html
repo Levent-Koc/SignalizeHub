@@ -835,9 +835,7 @@ function closeMembershipModal() {
 .glow-red { border: 1px solid #ef4444 !important; box-shadow: 0 0 20px #ef4444 !important; color: #ef4444 !important; }
 
 /* Butonlar arası geçişin yumuşak olması için */
-.pulse-filter {
-    transition: all 0.4s ease-in-out;
-}
+
 .opportunity-card {
     background: rgba(30, 41, 59, 0.4);
     border-radius: 20px;
@@ -1031,8 +1029,8 @@ Senin kodundaki `<style>` etiketinin içine şu "prestij" kodlarını ekle:
     color: #00d1ff; /* "Hub" kısmının o meşhur turkuaz rengi */
 }
 
-/* Nabız Etkili Filtre Butonları */
 .pulse-filter {
+    /* Görsel Temel (İkinci Pulse'tan geldi) */
     background: #1e293b;
     color: #94a3b8;
     border: 1px solid rgba(255,255,255,0.1);
@@ -1041,14 +1039,20 @@ Senin kodundaki `<style>` etiketinin içine şu "prestij" kodlarını ekle:
     font-size: 12px;
     font-weight: 600;
     cursor: pointer;
-    transition: 0.3s;
+
+    /* Geçiş Efekti (Üçüncü Pulse ve senin istediğin yumuşatma) */
+    /* 0.3s yerine 0.6s yaparak o "akışkan" geçişi sağlıyoruz */
+    transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
+/* Hover Efekti (Birinci Pulse) */
 .pulse-filter:hover {
-    border-color: #a855f7;
-    color: white;
-    box-shadow: 0 0 15px rgba(168, 85, 247, 0.3);
+    filter: brightness(1.2); /* Mor yerine rengi parlatır, daha modern durur */
+    transform: translateY(-2px); /* Hafif yukarı kalkma hissi */
 }
+
+
+
 
 header {
     display: flex;
