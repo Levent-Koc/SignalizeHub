@@ -1086,11 +1086,15 @@ function updateDialSignals() {
     const colors = ['#22c55e', '#eab308', '#ef4444']; // Yeşil, Sarı, Kırmızı
     
     sectors.forEach(led => {
-        // Rastgele bir sinyal rengi ata (Simülasyon)
         const randomColor = colors[Math.floor(Math.random() * colors.length)];
         led.setAttribute('fill', randomColor);
         led.style.filter = `drop-shadow(0 0 8px ${randomColor})`;
     });
+
+    // RENKLER DEĞİŞİNCE BUTONLARI DA TETİKLE
+    if (typeof syncButtonSignals === "function") {
+        syncButtonSignals();
+    }
 }
 function syncButtonSignals() {
     const sectors = document.querySelectorAll('.dial-sector');
@@ -1103,22 +1107,21 @@ function syncButtonSignals() {
     ];
 
     sectors.forEach(sector => {
-        const textElement = sector.querySelector('text');
-        const circleElement = sector.querySelector('circle');
+        const textEl = sector.querySelector('text');
+        const circleEl = sector.querySelector('circle');
         
-        if (textElement && circleElement) {
-            const label = textElement.textContent.trim();
-            const color = circleElement.getAttribute('fill');
+        if (textEl && circleEl) {
+            const label = textEl.textContent.trim();
+            const color = circleEl.getAttribute('fill');
             
-            // İlgili butonu bul
-            const map = mapping.find(m => m.label === label);
-            if (map) {
-                const btn = document.getElementById(map.id);
+            const match = mapping.find(m => m.label === label);
+            if (match) {
+                const btn = document.getElementById(match.id);
                 if (btn) {
-                    // Tüm sınıfları temizle
+                    // Mevcut tüm sınıfları temizle
                     btn.classList.remove('glow-green', 'glow-yellow', 'glow-red');
                     
-                    // Renk koduna göre tam eşleşme
+                    // Çarktaki renge göre yeni sınıfı ekle
                     if (color === '#22c55e') btn.classList.add('glow-green');
                     else if (color === '#eab308') btn.classList.add('glow-yellow');
                     else if (color === '#ef4444') btn.classList.add('glow-red');
@@ -1813,6 +1816,15 @@ function openP(targetId) {
         console.error("Panel bulunamadı: " + targetId);
     }
 }
+// Sayfa açıldığında ve her 5 saniyede bir döngüyü başlat
+window.addEventListener('load', () => {
+    // Önce çarkı bir kez renklendir
+    updateDialSignals();
+    // Sonra her 5 saniyede bir çarkı ve butonları güncelle
+    setInterval(() => {
+        updateDialSignals();
+    }, 5000);
+});
 </script>
 </body>
 </html>
