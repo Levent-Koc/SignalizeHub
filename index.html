@@ -376,20 +376,23 @@ function repairLogo(img) {
     color: #00d1ff !important;
 }
 
-/* Dinamik Sinyal Hareleri */
+/* Dinamik Sinyal Hareleri - Güçlendirilmiş Versiyon */
 .glow-green {
     border: 1px solid #22c55e !important;
-    box-shadow: 0 0 15px rgba(34, 197, 94, 0.5);
+    box-shadow: 0 0 20px rgba(34, 197, 94, 0.8), inset 0 0 8px rgba(34, 197, 94, 0.3) !important;
+    color: #22c55e !important;
 }
 
 .glow-yellow {
     border: 1px solid #eab308 !important;
-    box-shadow: 0 0 15px rgba(234, 179, 8, 0.5);
+    box-shadow: 0 0 20px rgba(234, 179, 8, 0.8), inset 0 0 8px rgba(234, 179, 8, 0.3) !important;
+    color: #eab308 !important;
 }
 
 .glow-red {
     border: 1px solid #ef4444 !important;
-    box-shadow: 0 0 15px rgba(239, 68, 68, 0.5);
+    box-shadow: 0 0 20px rgba(239, 68, 68, 0.8), inset 0 0 8px rgba(239, 68, 68, 0.3) !important;
+    color: #ef4444 !important;
 }
 
 /* Butonlar arası geçişin yumuşak olması için */
@@ -1090,56 +1093,47 @@ function updateDialSignals() {
     });
 }
 function syncButtonSignals() {
-    // Çarktaki tüm sektörleri (g etiketlerini) alıyoruz
     const sectors = document.querySelectorAll('.dial-sector');
     
-    // Buton ID'leri ve çarktaki karşılık gelen metinler
-    const mappings = [
+    const mapping = [
         { id: 'btn-crypto', label: 'KRİPTO' },
         { id: 'btn-bist', label: 'BIST' },
         { id: 'btn-forex', label: 'FOREX' },
         { id: 'btn-metals', label: 'METALS' }
     ];
 
-    mappings.forEach(map => {
-        const btn = document.getElementById(map.id);
-        if (!btn) return;
-
-        // İlgili sektörü içindeki metne (label) göre buluyoruz (Daha garantidir)
-        let targetCircle = null;
-        sectors.forEach(sector => {
-            if (sector.textContent.includes(map.label)) {
-                targetCircle = sector.querySelector('circle');
-            }
-        });
-
-        if (targetCircle) {
-            const color = targetCircle.getAttribute('fill').toLowerCase();
-
-            // Önceki tüm sınıfları temizle
-            btn.classList.remove('glow-green', 'glow-yellow', 'glow-red');
-
-            // Renk eşleştirme
-            if (color === '#22c55e') {
-                btn.classList.add('glow-green');
-            } else if (color === '#eab308') {
-                btn.classList.add('glow-yellow');
-            } else if (color === '#ef4444') {
-                btn.classList.add('glow-red');
+    sectors.forEach(sector => {
+        const textElement = sector.querySelector('text');
+        const circleElement = sector.querySelector('circle');
+        
+        if (textElement && circleElement) {
+            const label = textElement.textContent.trim();
+            const color = circleElement.getAttribute('fill');
+            
+            // İlgili butonu bul
+            const map = mapping.find(m => m.label === label);
+            if (map) {
+                const btn = document.getElementById(map.id);
+                if (btn) {
+                    // Tüm sınıfları temizle
+                    btn.classList.remove('glow-green', 'glow-yellow', 'glow-red');
+                    
+                    // Renk koduna göre tam eşleşme
+                    if (color === '#22c55e') btn.classList.add('glow-green');
+                    else if (color === '#eab308') btn.classList.add('glow-yellow');
+                    else if (color === '#ef4444') btn.classList.add('glow-red');
+                }
             }
         }
     });
 }
 
-// 2 saniyede bir kontrol et
-setInterval(syncButtonSignals, 2000);
-// İlk açılışta çalıştır
-window.onload = syncButtonSignals;
-
-// Sayfa ilk açıldığında da bir kez çalışsın
-window.addEventListener('load', syncButtonSignals);
-// Her 10 saniyede bir piyasa duyarlılığını güncelle
-setInterval(updateDialSignals, 10000);
+// 1. ÖNEMLİ: Sayfa tamamen yüklendiğinde çalıştır
+window.addEventListener('load', () => {
+    syncButtonSignals();
+    // 2. ÖNEMLİ: Her 2 saniyede bir güncelle (Çark değiştikçe butonlar da değişsin)
+    setInterval(syncButtonSignals, 2000);
+});
 
 function updatePaymentUI(el) {
     const cB = document.getElementById('cardBox');
