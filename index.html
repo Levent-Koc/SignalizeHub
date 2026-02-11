@@ -226,14 +226,38 @@ body.dark-mode .hub-text {
     </div>
 <div class="dial-logo-center">
     <img src="images/image_66bce0.png" 
+         id="main-hub-logo"
+         style="width: 55px; height: auto; display: block; filter: drop-shadow(0 0 12px rgba(168, 85, 247, 0.9)); margin-bottom: 5px;" 
          alt="S" 
-         style="width: 55px; height: auto; display: block; filter: drop-shadow(0 0 12px rgba(168, 85, 247, 0.9)); margin-bottom: 5px;">
+         onerror="repairLogo(this)">
     
     <div class="dial-logo-text">
         Signalize<span>Hub</span>
     </div>
 </div>
-</div>
+
+<script>
+function repairLogo(img) {
+    // 1. Deneme: Eğer images klasöründe değilse, ana dizinde ara
+    if (!img.dataset.triedRoot) {
+        img.dataset.triedRoot = "true";
+        img.src = "image_66bce0.png"; 
+    } 
+    // 2. Deneme: Eğer isim hatalıysa, eski ismi (logo.png) dene
+    else if (!img.dataset.triedLogo) {
+        img.dataset.triedLogo = "true";
+        img.src = "images/logo.png";
+    }
+    // 3. Son Çare: Hiçbiri olmazsa şık bir harf koy ve resmi gizle
+    else {
+        img.style.display = "none";
+        const fallback = document.createElement("span");
+        fallback.innerHTML = "S";
+        fallback.style.cssText = "color:#a855f7; font-size:45px; font-weight:900; margin-bottom:5px; text-shadow: 0 0 15px rgba(168, 85, 247, 0.8);";
+        img.parentNode.insertBefore(fallback, img);
+    }
+}
+</script>
 </div>
 
     <div id="quick-filters" style="display: flex; justify-content: center; gap: 10px; margin-top: 20px;">
