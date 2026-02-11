@@ -1090,43 +1090,46 @@ function updateDialSignals() {
     });
 }
 function syncButtonSignals() {
-    // Çarktaki 4 ana bölgeyi (LED'leri) sırasıyla tanımlıyoruz
-    // 0: Üst(Kripto), 1: Sağ(Bist), 2: Alt(Forex), 3: Sol(Metals)
+    // Çarktaki 4 ana sektörü (KRİPTO, BIST, FOREX, METALS) temsil eden daireleri seçiyoruz
     const leds = document.querySelectorAll('.dial-sector circle');
     
-    // Eşleşecek butonların ID'leri
-    const buttons = [
+    // Buton ID'leri ve çarktaki LED eşleşmeleri
+    const config = [
         { id: 'btn-crypto', index: 0 },
         { id: 'btn-bist', index: 1 },
         { id: 'btn-forex', index: 2 },
         { id: 'btn-metals', index: 3 }
     ];
 
-    buttons.forEach(item => {
+    config.forEach(item => {
         const btn = document.getElementById(item.id);
         const led = leds[item.index];
 
         if (btn && led) {
-            const color = led.getAttribute('fill'); // Çarktaki rengi alıyoruz
+            // LED'in rengini al (inline style veya attribute olarak)
+            const color = led.getAttribute('fill') || led.style.fill;
 
-            // Önce tüm eski sinyal sınıflarını temizle
+            // Önceki tüm glow sınıflarını temizle
             btn.classList.remove('glow-green', 'glow-yellow', 'glow-red');
 
-            // Çarktaki renge göre butona hare ekle
-            if (color === '#22c55e') {
+            // Renk koduna göre ilgili sınıfı ekle
+            if (color.includes('#22c55e') || color.includes('rgb(34, 197, 94)')) {
                 btn.classList.add('glow-green');
-            } else if (color === '#eab308') {
+            } else if (color.includes('#eab308') || color.includes('rgb(234, 179, 8)')) {
                 btn.classList.add('glow-yellow');
-            } else if (color === '#ef4444') {
+            } else if (color.includes('#ef4444') || color.includes('rgb(239, 68, 68)')) {
                 btn.classList.add('glow-red');
             }
         }
     });
 }
 
-// Çarkın renklerini değiştiren fonksiyonunun içine veya hemen altına bu satırı ekle:
-// Bu fonksiyonu her 5-10 saniyede bir otomatik çalıştıralım:
-setInterval(syncButtonSignals, 5000); 
+// Çarkın renklerini rastgele değiştiren ana fonksiyonun (updateDialSignals) 
+// son satırına şu kodu ekle ki renk değiştiği an buton da değişsin:
+// syncButtonSignals();
+
+// Sürekli kontrol mekanizması (Hızı 1 saniyeye düşürdük)
+setInterval(syncButtonSignals, 1000);
 
 // Sayfa ilk açıldığında da bir kez çalışsın
 window.addEventListener('load', syncButtonSignals);
