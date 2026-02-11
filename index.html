@@ -380,22 +380,9 @@ function repairLogo(img) {
     color: #00d1ff !important;
 }
 
-/* Canlı Sinyal Hareleri - Hub RADAR ile Aynı Güçte */
-.glow-green { 
-    border: 1px solid #22c55e !important; 
-    box-shadow: 0 0 20px rgba(34, 197, 94, 0.7), inset 0 0 8px rgba(34, 197, 94, 0.2) !important; 
-    color: #22c55e !important; 
-}
-.glow-yellow { 
-    border: 1px solid #eab308 !important; 
-    box-shadow: 0 0 20px rgba(234, 179, 8, 0.7), inset 0 0 8px rgba(234, 179, 8, 0.2) !important; 
-    color: #eab308 !important; 
-}
-.glow-red { 
-    border: 1px solid #ef4444 !important; 
-    box-shadow: 0 0 20px rgba(239, 68, 68, 0.7), inset 0 0 8px rgba(239, 68, 68, 0.2) !important; 
-    color: #ef4444 !important; 
-}
+.glow-green { border: 1px solid #22c55e !important; box-shadow: 0 0 15px rgba(34, 197, 94, 0.7) !important; color: #22c55e !important; }
+.glow-yellow { border: 1px solid #eab308 !important; box-shadow: 0 0 15px rgba(234, 179, 8, 0.7) !important; color: #eab308 !important; }
+.glow-red { border: 1px solid #ef4444 !important; box-shadow: 0 0 15px rgba(239, 68, 68, 0.7) !important; color: #ef4444 !important; }
 /* Butonlar arası geçişin yumuşak olması için */
 .pulse-filter {
     transition: all 0.4s ease-in-out;
@@ -1081,48 +1068,57 @@ function closeMembershipModal() {
     if(modal) modal.style.display = 'none';
     if(tabArea) tabArea.style.display = 'flex'; // Kapatınca sekmeleri geri getir
 }
-
-function updateDialSignals() {
-    const sectors = document.querySelectorAll('.dial-sector circle');
+// 1. ÇARK RENKLERİNİ VE BUTON HARELERİNİ YÖNETEN ANA MOTOR
+function terminalSinyalMotoru() {
+    const sectors = document.querySelectorAll('.dial-sector');
     const colors = ['#22c55e', '#eab308', '#ef4444']; // Yeşil, Sarı, Kırmızı
     
-    sectors.forEach(led => {
-        const randomColor = colors[Math.floor(Math.random() * colors.length)];
-        led.setAttribute('fill', randomColor);
-        led.style.filter = `drop-shadow(0 0 8px ${randomColor})`;
-    });
-
-    // RENKLER DEĞİŞİNCE BUTONLARI DA TETİKLE
-    if (typeof syncButtonSignals === "function") {
-        syncButtonSignals();
-    }
-}
-// 1. Çark Renklerini Rastgele Değiştiren Mekanizma
-function updateDialSignals() {
-    const sectors = document.querySelectorAll('.dial-sector circle');
-    const colors = ['#22c55e', '#eab308', '#ef4444']; 
-    
-    sectors.forEach(led => {
-        const randomColor = colors[Math.floor(Math.random() * colors.length)];
-        led.setAttribute('fill', randomColor);
-        // Gölge (Neon) efektini de güncelle
-        led.style.filter = `drop-shadow(0 0 8px ${randomColor})`;
-    });
-    // Renkler değişince butonlara anında yansıt
-    syncButtonSignals();
-}
-
-function syncButtonSignals() {
-    // Çarktaki sektörleri alıyoruz
-    const sectors = document.querySelectorAll('.dial-sector');
-    
-    // Çarktaki isimler ile Buton ID'lerini birebir eşliyoruz
     const mapping = {
         'KRİPTO': 'btn-crypto',
         'BIST': 'btn-bist',
         'FOREX': 'btn-forex',
         'METALS': 'btn-metals'
     };
+
+    sectors.forEach(sector => {
+        const textEl = sector.querySelector('text');
+        const circleEl = sector.querySelector('circle');
+        
+        if (textEl && circleEl) {
+            const label = textEl.textContent.trim();
+            const btnId = mapping[label];
+            const btn = document.getElementById(btnId);
+
+            // A. Çarktaki rengi rastgele değiştir (Simülasyon)
+            const randomColor = colors[Math.floor(Math.random() * colors.length)];
+            circleEl.setAttribute('fill', randomColor);
+            circleEl.style.filter = `drop-shadow(0 0 5px ${randomColor})`;
+
+            // B. Eğer buton varsa, çarkın yeni rengini butona aktar
+            if (btn) {
+                // Önceki tüm hareli sınıfları temizle
+                btn.classList.remove('glow-green', 'glow-yellow', 'glow-red');
+                
+                // Yeni rengi Hub RADAR tarzında ekle
+                if (randomColor === '#22c55e') btn.classList.add('glow-green');
+                else if (randomColor === '#eab308') btn.classList.add('glow-yellow');
+                else if (randomColor === '#ef4444') btn.classList.add('glow-red');
+            }
+        }
+    });
+}
+
+// 2. SİSTEMİ ATEŞLE
+window.addEventListener('load', () => {
+    // İlk açılışta çalıştır
+    terminalSinyalMotoru();
+    
+    // Her 5 saniyede bir hem çarkı hem butonları aynı anda güncelle
+    setInterval(terminalSinyalMotoru, 5000);
+});
+
+// 1. Çark Renklerini Rastgele Değiştiren Mekanizma
+
 
     sectors.forEach(sector => {
         const textElement = sector.querySelector('text');
@@ -1153,25 +1149,10 @@ function syncButtonSignals() {
     });
 }
 
-// Sinyal Takibi: Çark değiştikçe butonların da saniyesinde değişmesi için:
-setInterval(syncButtonSignals, 500);
-// 3. SİSTEM BAŞLATICI
-window.addEventListener('DOMContentLoaded', () => {
-    // İlk açılışta renkleri ayarla
-    updateDialSignals();
+
+
     
-    // Her 5 saniyede bir sinyalleri (çarkı) değiştir
-    setInterval(updateDialSignals, 5000);
-    
-    // Her 500ms'de bir butonları kontrol et (Animasyonlu geçişler için tetikleyici)
-    setInterval(syncButtonSignals, 500);
-});
-// 1. ÖNEMLİ: Sayfa tamamen yüklendiğinde çalıştır
-window.addEventListener('load', () => {
-    syncButtonSignals();
-    // 2. ÖNEMLİ: Her 2 saniyede bir güncelle (Çark değiştikçe butonlar da değişsin)
-    setInterval(syncButtonSignals, 2000);
-});
+
 
 function updatePaymentUI(el) {
     const cB = document.getElementById('cardBox');
