@@ -217,11 +217,14 @@ body.dark-mode .hub-text {
     </div>
 
     <div id="quick-filters" style="margin-top: 40px; display: flex; justify-content: center; gap: 12px; flex-wrap: wrap;">
-        <button class="pulse-filter" onclick="filterSignals('all')">HEPSİ</button>
-        <button class="pulse-filter" onclick="filterSignals('crypto')">KRİPTO</button>
-        <button class="pulse-filter" onclick="filterSignals('bist')">BIST</button>
-        <button class="pulse-filter" onclick="filterSignals('forex')">FOREX</button>
-    </div>
+    <button class="pulse-filter active" onclick="filterSignals('all')" style="border: 2px solid #a855f7; color: white; background: rgba(168, 85, 247, 0.2); min-width: 140px;">
+        🔥 Hub Fırsatları
+    </button>
+    
+    <button class="pulse-filter" onclick="filterSignals('crypto')">KRİPTO</button>
+    <button class="pulse-filter" onclick="filterSignals('bist')">BIST</button>
+    <button class="pulse-filter" onclick="filterSignals('forex')">FOREX</button>
+</div>
 </div>
 <div class="container">
     <div class="card" id="topCard" ...>
