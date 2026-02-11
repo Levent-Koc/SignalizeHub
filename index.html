@@ -324,7 +324,70 @@ body.dark-mode .hub-text {
                
     </div>
   <style>
+.opportunity-card {
+    background: rgba(30, 41, 59, 0.4);
+    border-radius: 20px;
+    width: 250px;
+    padding: 2px; /* Renkli kenar efekti için */
+    overflow: hidden;
+    transition: all 0.4s ease;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+}
 
+.opportunity-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+}
+
+.card-header {
+    font-size: 11px;
+    font-weight: 800;
+    padding: 8px;
+    text-align: center;
+    color: white;
+    letter-spacing: 1px;
+}
+
+.crypto-border { border-bottom: 3px solid #a855f7; }
+.bist-border { border-bottom: 3px solid #22c55e; }
+.forex-border { border-bottom: 3px solid #3b82f6; }
+
+.card-body { padding: 20px; text-align: center; }
+.card-body h3 { color: white; margin: 0; font-size: 18px; }
+.live-price { color: #94a3b8; font-size: 22px; font-weight: bold; margin: 10px 0; }
+
+/* İşte o meşhur Buzlu Alan */
+.signal-preview {
+    background: rgba(255, 255, 255, 0.03);
+    padding: 15px;
+    border-radius: 12px;
+    margin: 15px 0;
+    position: relative;
+}
+
+.blur-overlay {
+    filter: blur(6px); /* Buzlama yoğunluğu */
+    color: #cbd5e1;
+    font-size: 12px;
+    font-weight: bold;
+    user-select: none;
+}
+
+.view-btn {
+    background: transparent;
+    border: 1px solid rgba(168, 85, 247, 0.5);
+    color: white;
+    padding: 8px 20px;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 12px;
+    transition: 0.3s;
+}
+
+.view-btn:hover {
+    background: #a855f7;
+    border-color: #a855f7;
+}
 /* Çarkın ve içindeki her şeyin dönmesi için */
 .dial-rotate-effect svg {
     animation: rotateDial 80s linear infinite; /* Dönme hızını buradan ayarlıyoruz */
