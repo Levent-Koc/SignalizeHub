@@ -354,8 +354,32 @@ body.dark-mode .hub-text {
 
 .card-body { padding: 20px; text-align: center; }
 .card-body h3 { color: white; margin: 0; font-size: 18px; }
-.live-price { color: #94a3b8; font-size: 22px; font-weight: bold; margin: 10px 0; }
+/* Rakamların her zeminde okunması için */
+.live-price {
+    color: #1e293b; /* Aydınlık modda koyu lacivert (Okunabilirlik artar) */
+    font-size: 24px;
+    font-weight: 800;
+    margin: 10px 0;
+    letter-spacing: -0.5px;
+}
 
+/* Eğer sayfa Dark Mode ise (Kapsayıcı class'ına göre): */
+[data-theme="dark"] .live-price, 
+body.dark-theme .live-price {
+    color: #f8fafc; /* Karanlık modda saf beyaza yakın (Işıldar) */
+}
+
+/* Buzlu metinlerin okunabilirliği */
+.blur-overlay {
+    filter: blur(6px);
+    color: #475569; /* Aydınlıkta daha koyu */
+    font-size: 13px;
+    font-weight: bold;
+}
+
+[data-theme="dark"] .blur-overlay {
+    color: #cbd5e1; /* Karanlıkta daha açık */
+}
 /* İşte o meşhur Buzlu Alan */
 .signal-preview {
     background: rgba(255, 255, 255, 0.03);
