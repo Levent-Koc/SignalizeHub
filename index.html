@@ -1090,46 +1090,51 @@ function updateDialSignals() {
     });
 }
 function syncButtonSignals() {
-    // Çarktaki 4 ana sektörü (KRİPTO, BIST, FOREX, METALS) temsil eden daireleri seçiyoruz
-    const leds = document.querySelectorAll('.dial-sector circle');
+    // Çarktaki tüm sektörleri (g etiketlerini) alıyoruz
+    const sectors = document.querySelectorAll('.dial-sector');
     
-    // Buton ID'leri ve çarktaki LED eşleşmeleri
-    const config = [
-        { id: 'btn-crypto', index: 0 },
-        { id: 'btn-bist', index: 1 },
-        { id: 'btn-forex', index: 2 },
-        { id: 'btn-metals', index: 3 }
+    // Buton ID'leri ve çarktaki karşılık gelen metinler
+    const mappings = [
+        { id: 'btn-crypto', label: 'KRİPTO' },
+        { id: 'btn-bist', label: 'BIST' },
+        { id: 'btn-forex', label: 'FOREX' },
+        { id: 'btn-metals', label: 'METALS' }
     ];
 
-    config.forEach(item => {
-        const btn = document.getElementById(item.id);
-        const led = leds[item.index];
+    mappings.forEach(map => {
+        const btn = document.getElementById(map.id);
+        if (!btn) return;
 
-        if (btn && led) {
-            // LED'in rengini al (inline style veya attribute olarak)
-            const color = led.getAttribute('fill') || led.style.fill;
+        // İlgili sektörü içindeki metne (label) göre buluyoruz (Daha garantidir)
+        let targetCircle = null;
+        sectors.forEach(sector => {
+            if (sector.textContent.includes(map.label)) {
+                targetCircle = sector.querySelector('circle');
+            }
+        });
 
-            // Önceki tüm glow sınıflarını temizle
+        if (targetCircle) {
+            const color = targetCircle.getAttribute('fill').toLowerCase();
+
+            // Önceki tüm sınıfları temizle
             btn.classList.remove('glow-green', 'glow-yellow', 'glow-red');
 
-            // Renk koduna göre ilgili sınıfı ekle
-            if (color.includes('#22c55e') || color.includes('rgb(34, 197, 94)')) {
+            // Renk eşleştirme
+            if (color === '#22c55e') {
                 btn.classList.add('glow-green');
-            } else if (color.includes('#eab308') || color.includes('rgb(234, 179, 8)')) {
+            } else if (color === '#eab308') {
                 btn.classList.add('glow-yellow');
-            } else if (color.includes('#ef4444') || color.includes('rgb(239, 68, 68)')) {
+            } else if (color === '#ef4444') {
                 btn.classList.add('glow-red');
             }
         }
     });
 }
 
-// Çarkın renklerini rastgele değiştiren ana fonksiyonun (updateDialSignals) 
-// son satırına şu kodu ekle ki renk değiştiği an buton da değişsin:
-// syncButtonSignals();
-
-// Sürekli kontrol mekanizması (Hızı 1 saniyeye düşürdük)
-setInterval(syncButtonSignals, 1000);
+// 2 saniyede bir kontrol et
+setInterval(syncButtonSignals, 2000);
+// İlk açılışta çalıştır
+window.onload = syncButtonSignals;
 
 // Sayfa ilk açıldığında da bir kez çalışsın
 window.addEventListener('load', syncButtonSignals);
