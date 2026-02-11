@@ -208,27 +208,40 @@ body.dark-mode .hub-text {
     
     <div class="dial-container" style="position: relative; width: 320px; height: 320px; margin: 0 auto;">
         
-        <div id="signalize-dial" class="dial-rotate-effect" style="position: relative;">
-   <svg viewBox="0 0 100 100" style="width: 100%; height: 100%; position: absolute; top: 0; left: 0;">
-    <path d="M 50,50 L 50,0 A 50,50 0 0,1 100,50 Z" fill="none" stroke="rgba(168, 85, 247, 0.4)" stroke-width="0.8" />
-    <path d="M 50,50 L 100,50 A 50,50 0 0,1 50,100 Z" fill="none" stroke="rgba(34, 197, 94, 0.4)" stroke-width="0.8" />
-    <path d="M 50,50 L 50,100 A 50,50 0 0,1 0,50 Z" fill="none" stroke="rgba(59, 130, 246, 0.4)" stroke-width="0.8" />
-    <path d="M 50,50 L 0,50 A 50,50 0 0,1 50,0 Z" fill="none" stroke="rgba(234, 179, 8, 0.4)" stroke-width="0.8" />
-    
-    <circle cx="75" cy="25" r="1.2" fill="#a855f7">
-        <animate attributeName="opacity" values="0.3;1;0.3" dur="2s" repeatCount="indefinite" />
-    </circle>
-    <circle cx="75" cy="75" r="1.2" fill="#22c55e">
-        <animate attributeName="opacity" values="0.3;1;0.3" dur="2.5s" repeatCount="indefinite" />
-    </circle>
-    <circle cx="25" cy="75" r="1.2" fill="#3b82f6">
-        <animate attributeName="opacity" values="0.3;1;0.3" dur="3s" repeatCount="indefinite" />
-    </circle>
-    <circle cx="25" cy="25" r="1.2" fill="#eab308">
-        <animate attributeName="opacity" values="0.3;1;0.3" dur="3.5s" repeatCount="indefinite" />
-    </circle>
-</svg> 
-       </div>
+        <div id="signalize-dial" class="dial-rotate-effect" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;">
+            <svg viewBox="0 0 100 100" style="width: 100%; height: 100%; display: block;">
+                <path d="M 50,50 L 50,0 A 50,50 0 0,1 100,50 Z" fill="none" stroke="rgba(168, 85, 247, 0.4)" stroke-width="0.8" />
+                <path d="M 50,50 L 100,50 A 50,50 0 0,1 50,100 Z" fill="none" stroke="rgba(34, 197, 94, 0.4)" stroke-width="0.8" />
+                <path d="M 50,50 L 50,100 A 50,50 0 0,1 0,50 Z" fill="none" stroke="rgba(59, 130, 246, 0.4)" stroke-width="0.8" />
+                <path d="M 50,50 L 0,50 A 50,50 0 0,1 50,0 Z" fill="none" stroke="rgba(234, 179, 8, 0.4)" stroke-width="0.8" />
+                
+                <circle cx="75" cy="25" r="1.5" fill="#a855f7">
+                    <animate attributeName="opacity" values="0.3;1;0.3" dur="2s" repeatCount="indefinite" />
+                </circle>
+                <circle cx="75" cy="75" r="1.5" fill="#22c55e">
+                    <animate attributeName="opacity" values="0.3;1;0.3" dur="2.5s" repeatCount="indefinite" />
+                </circle>
+                <circle cx="25" cy="75" r="1.5" fill="#3b82f6">
+                    <animate attributeName="opacity" values="0.3;1;0.3" dur="3s" repeatCount="indefinite" />
+                </circle>
+                <circle cx="25" cy="25" r="1.5" fill="#eab308">
+                    <animate attributeName="opacity" values="0.3;1;0.3" dur="3.5s" repeatCount="indefinite" />
+                </circle>
+            </svg>
+        </div>
+
+        <div class="dial-logo-center" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 10; background: #1e293b; width: 90px; height: 90px; border-radius: 50%; display: flex; align-items: center; justify-content: center; border: 2px solid #a855f7; box-shadow: 0 0 25px rgba(168, 85, 247, 0.5);">
+            <span style="color: white; font-weight: 800; font-size: 24px; letter-spacing: 1px;">SH</span>
+        </div>
+    </div>
+
+    <div id="quick-filters" style="margin-top: 40px; display: flex; justify-content: center; gap: 12px; flex-wrap: wrap;">
+        <button class="pulse-filter" onclick="filterSignals('all')">Hub RADAR</button>
+        <button class="pulse-filter" onclick="filterSignals('crypto')">KRİPTO</button>
+        <button class="pulse-filter" onclick="filterSignals('bist')">BIST</button>
+        <button class="pulse-filter" onclick="filterSignals('forex')">FOREX</button>
+    </div>
+</div>
         
         <div class="dial-logo-center">
             <span style="color: white; font-weight: 800; font-size: 24px; letter-spacing: 1px; filter: drop-shadow(0 0 10px #a855f7);">SH</span>
@@ -290,9 +303,21 @@ body.dark-mode .hub-text {
     </div>
   <style>
 
- ```
+/* Çarkın ve içindeki her şeyin dönmesi için */
+.dial-rotate-effect svg {
+    animation: rotateDial 80s linear infinite; /* Dönme hızını buradan ayarlıyoruz */
+    transform-origin: center;
+}
 
----
+/* Çizgilerin parlaması için (Canlılık katar) */
+path {
+    transition: stroke 0.5s ease;
+}
+
+path:hover {
+    stroke-width: 1.5;
+    filter: drop-shadow(0 0 5px rgba(255,255,255,0.5));
+}
 
 ### Bu Görünümü Canlandırmak İçin CSS (Style Bölümüne Ekleyin)
 
@@ -314,7 +339,9 @@ Senin kodundaki `<style>` etiketinin içine şu "prestij" kodlarını ekle:
     from { transform: rotate(0deg); }
     to { transform: rotate(360deg); }
 }
-
+.dial-rotate-effect {
+    animation: rotateDial 80s linear infinite;
+}
 /* Sabit Logo Pozisyonu */
 .dial-logo-center {
     position: absolute;
