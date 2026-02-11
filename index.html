@@ -226,23 +226,29 @@ body.dark-mode .hub-text {
     </div>
 
     <div class="dial-logo-center" style="
-        position: absolute; 
-        z-index: 30; 
-        background: radial-gradient(circle, #2e1065 0%, #0f172a 100%); 
-        width: 105px; 
-        height: 105px; 
-        border-radius: 50%; 
-        display: flex; 
-        align-items: center; 
-        justify-content: center; 
-        border: 2px solid rgba(168, 85, 247, 0.6); 
-        box-shadow: 0 0 40px rgba(168, 85, 247, 0.4), inset 0 0 20px rgba(0,0,0,0.8);
-    ">
-        <img src="images/image_66bce0.png" 
-style="width: 75%; height: auto; display: block; filter: drop-shadow(0 0 8px rgba(168, 85, 247, 0.6));" 
-     alt="Logo"
-     onerror="this.onerror=null; console.log('Resim bulunamadı!'); this.parentElement.innerHTML='<span style=color:white;font-weight:900;font-size:30px;>S</span>';">
-    </div>
+    position: absolute; 
+    top: 50%; 
+    left: 50%; 
+    transform: translate(-50%, -50%);
+    z-index: 100 !important; 
+    background: radial-gradient(circle, #2e1065 0%, #0f172a 100%); 
+    width: 105px; 
+    height: 105px; 
+    border-radius: 50%; 
+    display: flex; 
+    align-items: center; 
+    justify-content: center; 
+    border: 2px solid rgba(168, 85, 247, 0.6); 
+    box-shadow: 0 0 40px rgba(168, 85, 247, 0.4), inset 0 0 20px rgba(0,0,0,0.8);
+    overflow: hidden;
+">
+    <img src="images/image_66bce0.png" 
+         style="width: 80%; height: auto; display: block; filter: drop-shadow(0 0 8px rgba(168, 85, 247, 0.6));" 
+         alt="S" 
+         onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+    
+    <span style="display: none; color: #a855f7; font-weight: 900; font-size: 38px;">S</span>
+</div>
 </div>
 
     <div id="quick-filters" style="display: flex; justify-content: center; gap: 10px; margin-top: 20px;">
