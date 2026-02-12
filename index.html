@@ -981,7 +981,12 @@ function closeMembershipModal() {
     background: rgba(0, 0, 0, 0.2);
     border-radius: 12px;
 }
-
+/* Senin sistemini bozmadan sadece içindeki rakamları sığacak şekilde ufaltır */
+.live-price-container iframe {
+    transform: scale(0.85) !important; /* %15 küçültme yaparak parantezlere yer açar */
+    transform-origin: center center;
+    width: 118% !important; /* Küçülmeden kaynaklanan boşluğu kapatır */
+}
 /* Kart başlığı (BTC / USDT yazısı) ile widget arasını açıyoruz */
 .card-body h3 {
     margin-top: 10px !important;
