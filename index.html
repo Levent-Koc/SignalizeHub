@@ -784,52 +784,43 @@ function closeMembershipModal() {
     
   <div class="opportunity-card crypto-border" id="card-crypto">
     <div class="card-header">KRİPTO</div>
-    <div class="card-body" style="position: relative; padding: 0; min-height: 280px; display: flex; flex-direction: column; justify-content: space-between;">
+    <div class="card-body" style="padding: 15px; display: flex; flex-direction: column; gap: 10px;">
         
-        <div style="position: relative; z-index: 2; padding: 20px;">
-            <h3 style="margin-bottom: 10px;">BTC / USDT</h3>
-            <div class="live-price-container">
-                <div class="tradingview-widget-container">
-                    <div class="tradingview-widget-container__widget"></div>
-                    <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-single-quote.js" async>
-                    { 
-                        "symbol": "BINANCE:BTCUSDT", 
-                        "colorTheme": "dark", 
-                        "isTransparent": true, 
-                        "locale": "tr",
-                        "displayMode": "regular"
-                    }
-                    </script>
-                </div>
-            </div>
-        </div>
-
-        <div class="ghost-chart-area" onclick="openP('kPanel')" style="position: absolute; bottom: 0; left: 0; width: 100%; height: 60%; z-index: 1; opacity: 0.4; pointer-events: none;">
-            <div class="tradingview-widget-container">
-                <div class="tradingview-widget-container__widget"></div>
-                <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-mini-symbol-overview.js" async>
+        <div class="price-header" style="text-align: center; padding: 10px 0;">
+            <h3 style="margin: 0; font-size: 1.4rem; color: #fff;">BTC / USDT</h3>
+            <div class="tradingview-widget-container" style="height: 50px;">
+                <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-single-quote.js" async>
                 {
                   "symbol": "BINANCE:BTCUSDT",
-                  "width": "100%",
-                  "height": "100%",
-                  "locale": "tr",
-                  "dateRange": "1d",
                   "colorTheme": "dark",
                   "isTransparent": true,
-                  "autosize": true,
-                  "chartType": "area",
-                  "noTimeScale": true,
-                  "noPriceScale": true,
-                  "trendLineColor": "#9d4edd", /* Kartın mor sınır rengine uyumlu */
-                  "underLineColor": "rgba(157, 78, 221, 0.2)"
+                  "locale": "tr"
                 }
                 </script>
             </div>
         </div>
 
-        <div style="position: relative; z-index: 2; padding: 15px;">
-            <button class="view-btn" onclick="openP('kPanel')" style="width: 100%;">Analizi Gör</button>
+        <div class="mini-graph-box" onclick="openP('kPanel')" style="height: 140px; border-radius: 10px; overflow: hidden; background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.05);">
+            <div class="tradingview-widget-container">
+                <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-mini-symbol-overview.js" async>
+                {
+                  "symbol": "BINANCE:BTCUSDT",
+                  "width": "100%",
+                  "height": "140",
+                  "locale": "tr",
+                  "dateRange": "1d",
+                  "colorTheme": "dark",
+                  "isTransparent": true,
+                  "autosize": false,
+                  "chartType": "area",
+                  "noTimeScale": true,
+                  "noPriceScale": true
+                }
+                </script>
+            </div>
         </div>
+
+        <button class="view-btn" onclick="openP('kPanel')" style="width: 100%; margin-top: 5px;">Detaylı Analiz</button>
     </div>
 </div>
     <div class="opportunity-card bist-border" id="card-bist">
