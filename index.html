@@ -790,7 +790,13 @@ function closeMembershipModal() {
                 <div class="tradingview-widget-container">
                     <div class="tradingview-widget-container__widget"></div>
                     <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-single-quote.js" async>
-                    { "symbol": "BINANCE:BTCUSDT", "colorTheme": "dark", "isTransparent": true, "locale": "tr" }
+                    { 
+                        "symbol": "BINANCE:BTCUSDT", 
+                        "colorTheme": "dark", 
+                        "isTransparent": true, 
+                        "locale": "tr",
+                        "displayMode": "regular"
+                    }
                     </script>
                 </div>
             </div>
@@ -807,7 +813,13 @@ function closeMembershipModal() {
                 <div class="tradingview-widget-container">
                     <div class="tradingview-widget-container__widget"></div>
                     <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-single-quote.js" async>
-                    { "symbol": "THYAO", "colorTheme": "dark", "isTransparent": true, "locale": "tr" }
+                    { 
+                        "symbol": "THYAO", 
+                        "colorTheme": "dark", 
+                        "isTransparent": true, 
+                        "locale": "tr",
+                        "displayMode": "regular"
+                    }
                     </script>
                 </div>
             </div>
@@ -824,14 +836,14 @@ function closeMembershipModal() {
                 <div class="tradingview-widget-container">
                     <div class="tradingview-widget-container__widget"></div>
                     <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-single-quote.js" async>
-                  {
-  "symbol": "FX:EURUSD",
-  "width": "100%",
-  "locale": "tr",
-  "colorTheme": "dark",
-  "isTransparent": true,
-  "displayMode": "regular" 
-}
+                    {
+                        "symbol": "FX:EURUSD",
+                        "width": "100%",
+                        "locale": "tr",
+                        "colorTheme": "dark",
+                        "isTransparent": true,
+                        "displayMode": "regular" 
+                    }
                     </script>
                 </div>
             </div>
@@ -849,14 +861,13 @@ function closeMembershipModal() {
                     <div class="tradingview-widget-container__widget"></div>
                     <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-single-quote.js" async>
                     {
-  "symbol": "OANDA:XAUUSD",
-  "width": "100%",
-  "height": 125,
-  "colorTheme": "dark",
-  "isTransparent": true,
-  "locale": "tr",
-  "displayMode": "regular"
-}
+                        "symbol": "OANDA:XAUUSD",
+                        "width": "100%",
+                        "colorTheme": "dark",
+                        "isTransparent": true,
+                        "locale": "tr",
+                        "displayMode": "regular"
+                    }
                     </script>
                 </div>
             </div>
@@ -2221,9 +2232,9 @@ function fPanelGuncelle(sure) {
                 btn.style.background = (key === sure) ? '#a855f7' : '#333';
 
             }
-/* Widget'ı %60 oranında küçülterek ferahlatma */
+/* Widget'ı %90 oranında küçülterek ferahlatma */
 .tradingview-widget-container iframe {
-    transform: scale(0.6); /* %10 küçültme */
+    transform: scale(0.9); /* %10 küçültme */
     transform-origin: center center;
     width: 111% !important; /* Küçülmeden kaynaklanan boşluğu telafi etmek için genişliği artır */
 }
