@@ -289,7 +289,50 @@ function repairLogo(img) {
 }
 </script>
 <script>
+function updateMarketSignals() {
+    // ÖRNEK VERİ SETİ (Buradaki skorları piyasa durumuna göre değiştirebilirsin)
+    const marketData = [
+        { id: 'crypto', score: 85, price: 48240.50, symbol: '$' }, // %80 üstü -> GÜÇLÜ AL
+        { id: 'bist', score: 50, price: 285.40, symbol: '₺' },     // Orta değer -> NÖTR
+        { id: 'forex', score: 15, price: 2024.15, symbol: '$' }    // %20 altı -> GÜÇLÜ SAT
+    ];
 
+    marketData.forEach(data => {
+        const signalEl = document.getElementById(`signal-${data.id}`);
+        const cardEl = document.getElementById(`card-${data.id}`);
+        
+        let statusText = "";
+        let statusColor = "";
+        let resistance = (data.price * 1.03).toFixed(2); // Otomatik %3 direnç hesapla
+
+        // SENİN BELİRLEDİĞİN MANTIK:
+        if (data.score >= 80) {
+            statusText = "GÜÇLÜ AL SİNYALİ";
+            statusColor = "#22c55e"; // Yeşil
+        } else if (data.score <= 20) {
+            statusText = "GÜÇLÜ SAT SİNYALİ";
+            statusColor = "#ef4444"; // Kırmızı
+        } else {
+            statusText = "NÖTR / İZLEMEDE";
+            statusColor = "#eab308"; // Sarı
+        }
+
+        // Kartı Güncelle
+        if (signalEl) {
+            signalEl.innerHTML = `${statusText}<br><span style="font-size:10px; opacity:0.8;">DİRENÇ: ${data.symbol}${resistance}</span>`;
+            signalEl.style.color = statusColor;
+            signalEl.style.filter = "none"; // Buzlamayı kaldır
+        }
+        
+        // Kartın alt sınır rengini sinyale göre boya
+        if (cardEl) {
+            cardEl.style.borderBottom = `4px solid ${statusColor}`;
+        }
+    });
+}
+
+// Sayfa açıldığında motoru çalıştır
+window.addEventListener('DOMContentLoaded', updateMarketSignals);
 // Giriş durumunu kontrol eden değişken
 
 let isLoggedIn = false; 
@@ -739,41 +782,41 @@ function closeMembershipModal() {
 </div>
   <div id="hub-opportunities" style="display: flex; justify-content: center; gap: 20px; margin-top: 50px; flex-wrap: wrap; padding: 0 20px;">
     
-    <div class="opportunity-card crypto-border">
-        <div class="card-header">KRİPTO</div>
-        <div class="card-body">
-            <h3>BTC / USDT</h3>
-            <div class="live-price">$48,240.50</div>
-            <div class="signal-preview">
-                <div class="blur-overlay">GÜÇLÜ AL SİNYALİ</div>
-            </div>
-            <button class="view-btn">Analizi Gör</button>
+<div class="opportunity-card crypto-border" id="card-crypto">
+    <div class="card-header">KRİPTO</div>
+    <div class="card-body">
+        <h3>BTC / USDT</h3>
+        <div class="live-price" id="price-crypto">$48,240.50</div>
+        <div class="signal-preview">
+            <div class="blur-overlay" id="signal-crypto">ANALİZ EDİLİYOR...</div>
         </div>
+        <button class="view-btn" onclick="openP('kPanel')">Analizi Gör</button>
     </div>
+</div>
 
-    <div class="opportunity-card bist-border">
-        <div class="card-header">BIST</div>
-        <div class="card-body">
-            <h3>THYAO</h3>
-            <div class="live-price">₺285.40</div>
-            <div class="signal-preview">
-                <div class="blur-overlay">HEDEF FİYAT: ₺310</div>
-            </div>
-            <button class="view-btn">Analizi Gör</button>
+<div class="opportunity-card bist-border" id="card-bist">
+    <div class="card-header">BIST</div>
+    <div class="card-body">
+        <h3>THYAO</h3>
+        <div class="live-price" id="price-bist">₺285.40</div>
+        <div class="signal-preview">
+            <div class="blur-overlay" id="signal-bist">ANALİZ EDİLİYOR...</div>
         </div>
+        <button class="view-btn" onclick="openP('hPanel')">Analizi Gör</button>
     </div>
+</div>
 
-    <div class="opportunity-card forex-border">
-        <div class="card-header">FOREX</div>
-        <div class="card-body">
-            <h3>XAU / USD</h3>
-            <div class="live-price">$2,024.15</div>
-            <div class="signal-preview">
-                <div class="blur-overlay">KRİTİK DİRENÇ</div>
-            </div>
-            <button class="view-btn">Analizi Gör</button>
+<div class="opportunity-card forex-border" id="card-forex">
+    <div class="card-header">FOREX</div>
+    <div class="card-body">
+        <h3>XAU / USD</h3>
+        <div class="live-price" id="price-forex">$2,024.15</div>
+        <div class="signal-preview">
+            <div class="blur-overlay" id="signal-forex">ANALİZ EDİLİYOR...</div>
         </div>
+        <button class="view-btn" onclick="openP('mPanel')">Analizi Gör</button>
     </div>
+</div>
 
 </div>
 <div class="container">
@@ -1546,7 +1589,61 @@ function switchTab(tab) {
         lArea.style.display = 'none'; rArea.style.display = 'block';
     }
 }
+// --- ANALİZ VE SİNYAL ÜRETME MOTORU ---
+function generateSignalLogic(score, currentPrice) {
+    let result = {
+        status: "NÖTR / İZLE",
+        color: "#eab308",
+        resistance: (currentPrice * 1.05).toFixed(2), // Otomatik direnç hesaplama (+%5)
+        glowClass: "glow-yellow"
+    };
 
+    if (score >= 80) {
+        result.status = "GÜÇLÜ AL SİNYALİ";
+        result.color = "#22c55e";
+        result.glowClass = "glow-green";
+    } else if (score <= 20) {
+        result.status = "GÜÇLÜ SAT SİNYALİ";
+        result.color = "#ef4444";
+        result.glowClass = "glow-red";
+    }
+
+    return result;
+}
+
+// Kartları bu mantığa göre güncelleyen fonksiyon
+function refreshOpportunityCards() {
+    // Örnek Simülasyon Verileri (Burayı ilerde API'ye bağlayacağız)
+    const markets = [
+        { id: 'crypto-card', score: 85, price: 48240.50, name: 'BTC / USDT' },
+        { id: 'bist-card', score: 45, price: 285.40, name: 'THYAO' },
+        { id: 'forex-card', score: 15, price: 2024.15, name: 'XAU / USD' }
+    ];
+
+    markets.forEach(m => {
+        const signal = generateSignalLogic(m.score, m.price);
+        const card = document.querySelector(`.${m.id.split('-')[0]}-border`); // Kartı bul
+        
+        if (card) {
+            const statusEl = card.querySelector('.blur-overlay');
+            const priceEl = card.querySelector('.live-price');
+            
+            // Sinyal Metni ve Rengi
+            statusEl.innerText = signal.status;
+            statusEl.style.color = signal.color;
+            statusEl.style.filter = "none"; // Buzlamayı kesin kaldır
+            
+            // Fiyat ve Direnç Bilgisi
+            statusEl.innerHTML += `<br><span style="font-size:10px; opacity:0.7;">DİRENÇ: ${signal.resistance}</span>`;
+            
+            // Kartın alt çizgisini sinyal rengine boya
+            card.style.borderBottom = `4px solid ${signal.color}`;
+        }
+    });
+}
+
+// Sayfa yüklendiğinde çalıştır
+window.addEventListener('DOMContentLoaded', refreshOpportunityCards);
 function closeMembershipModal() {
     document.getElementById('membershipModal').style.display = 'none';
 }
