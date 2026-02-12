@@ -981,22 +981,19 @@ function closeMembershipModal() {
     background: rgba(0, 0, 0, 0.2);
     border-radius: 12px;
 }
-/* Rakamları sığdıran ve kutuyu tam ortalayan ayar */
 .live-price-container iframe {
-    /* %75 küçültme: BTC rakamlarına ve parantezlere yer açar */
-    transform: scale(0.75) !important; 
+    /* scale(0.75): Küçültme oranı */
+    /* translateX(-10%): Objeyi %10 oranında SOLA kaydırır (Bu değeri -15% yaparak daha da sola çekebilirsin) */
+    transform: scale(0.75) translateX(-12%) !important; 
     
-    /* ÖNEMLİ: Küçültme merkezini 'sol üst' yerine 'orta' yapar, böylece sağa kaymaz */
+    /* ÖNEMLİ: Küçültme merkezini 'orta' tutup kaydırmayı bunun üzerinden yapıyoruz */
     transform-origin: center center !important; 
     
-    /* Küçülmeden kaynaklanan boşluğu kapatmak için genişliği manuel artırıyoruz */
-    width: 133% !important; 
-    height: 133% !important;
+    /* Genişliği biraz daha artırarak sol tarafta alan açıyoruz */
+    width: 135% !important; 
+    height: 135% !important;
     
-    /* Hizalama hatalarını sıfırla */
     margin: 0 !important;
-    padding: 0 !important;
-    border: none !important;
 }
 /* Kart başlığı (BTC / USDT yazısı) ile widget arasını açıyoruz */
 .card-body h3 {
