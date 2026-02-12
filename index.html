@@ -1638,14 +1638,32 @@ if (typeof isLoggedIn !== 'undefined' && isLoggedIn) {
     </div>
 </div>
 <style>
-/* Ana Konteyner Ayarları */
+/* Ana Konteyner: Arka Plan ve Buzlu Cam Efekti */
 #hub-opportunities {
     display: flex !important;
     justify-content: center !important;
-    gap: 15px !important;
-    margin-top: 50px !important;
-    flex-wrap: wrap !important; /* Ekran sığmazsa aşağı iner, kaybolmaz */
+    flex-wrap: wrap !important;
     width: 100% !important;
+    margin-top: 50px !important;
+    padding: 40px 0 !important; /* Alt ve üstten biraz boşluk vererek ferahlattık */
+    transition: all 0.4s ease;
+    
+    /* Light Mode Ayarı: Buzlu Beyaz/Gri Zemin */
+    background: rgba(241, 245, 249, 0.7) !important; 
+    backdrop-filter: blur(15px) !important;
+    -webkit-backdrop-filter: blur(15px); /* Safari desteği */
+}
+
+/* Dark Mode Ayarı: Koyu Tema Aktifken Eski Haline Döner */
+[data-theme='dark'] #hub-opportunities {
+    background: transparent !important; /* Veya senin eski koyu rengin: #0f172a */
+    backdrop-filter: none !important;
+}
+
+/* İsteğe Bağlı: Kartların arasına senin o gap ayarını ekleyelim */
+.opportunity-card {
+    margin: 10px !important; /* Gap yerine margin daha güvenli bir çerçeve hissi verir */
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1); /* Beyaz zeminde kartlar havada süzülür */
 }
 
 /* Kart Genel Tasarımı */
