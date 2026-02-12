@@ -937,15 +937,29 @@ function closeMembershipModal() {
 }
 
 /* EK OLARAK: Widget alanını rakamlar görünecek şekilde açıyoruz */
+/* Rakamların ve logoların rahatça sığması için alanı büyütüyoruz */
 .live-price-container {
-    height: 80px !important; /* Rakamların kapanmasını engelleyen kritik satır */
+    height: 110px !important; /* 80px'den 110px'e çıkardık */
     overflow: hidden;
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-bottom: 5px;
+    margin: 10px 0;
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 12px;
 }
 
+/* Sinyal kutusunu biraz daha aşağı kaydırıyoruz */
+.signal-preview {
+    margin: 10px 10px 20px 10px !important; /* Üst boşluğu artırdık */
+    padding: 15px;
+    background: rgba(0, 209, 255, 0.05);
+}
+
+/* Kartın toplam boyunu her şeyin sığması için biraz artırabilirsin */
+.opportunity-card {
+    min-height: 480px !important;
+}
 .crypto-border { border-bottom: 3px solid #a855f7; }
 .bist-border { border-bottom: 3px solid #22c55e; }
 .forex-border { border-bottom: 3px solid #3b82f6; }
