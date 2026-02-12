@@ -784,10 +784,9 @@ function closeMembershipModal() {
     
     <div class="opportunity-card crypto-border" id="card-crypto" style="flex: 1; max-width: 350px;">
         <div class="card-header">KRİPTO</div>
-        <div class="card-body" style="padding: 15px; display: flex; flex-direction: column; align-items: center;">
-            <h3 style="margin: 5px 0; color: var(--text);">BTC / USDT</h3>
-            
-            <div class="live-price-container" style="height: 60px; width: 100%; overflow: hidden; display: flex; justify-content: center;">
+        <div class="card-body" style="padding: 15px; display: flex; flex-direction: column;">
+            <h3 style="margin: 5px 0; text-align: center;">BTC / USDT</h3>
+            <div class="live-price-container" style="height: 60px; overflow: hidden;">
                 <div class="tradingview-widget-container">
                     <div class="tradingview-widget-container__widget"></div>
                     <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-single-quote.js" async>
@@ -795,21 +794,18 @@ function closeMembershipModal() {
                     </script>
                 </div>
             </div>
-
-            <div class="signal-preview" style="width: 100%; text-align: center;">
-                <div class="blur-overlay" id="signal-crypto" style="filter:none; opacity:1; font-weight: 800;">ANALİZ EDİLİYOR...</div>
+            <div class="signal-preview">
+                <div class="blur-overlay" id="signal-crypto" style="filter:none; opacity:1; color:#22c55e;">GÜÇLÜ AL SİNYALİ</div>
             </div>
-
-            <button class="view-btn" onclick="openP('kPanel')" style="width: 100%; margin-top: 10px;">Analizi Gör</button>
+            <button class="view-btn" onclick="openP('kPanel')">Analizi Gör</button>
         </div>
     </div>
 
     <div class="opportunity-card bist-border" id="card-bist" style="flex: 1; max-width: 350px;">
         <div class="card-header">BIST</div>
-        <div class="card-body" style="padding: 15px; display: flex; flex-direction: column; align-items: center;">
-            <h3 style="margin: 5px 0; color: var(--text);">THYAO</h3>
-            
-            <div class="live-price-container" style="height: 60px; width: 100%; overflow: hidden; display: flex; justify-content: center;">
+        <div class="card-body" style="padding: 15px; display: flex; flex-direction: column;">
+            <h3 style="margin: 5px 0; text-align: center;">THYAO</h3>
+            <div class="live-price-container" style="height: 60px; overflow: hidden;">
                 <div class="tradingview-widget-container">
                     <div class="tradingview-widget-container__widget"></div>
                     <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-single-quote.js" async>
@@ -817,21 +813,18 @@ function closeMembershipModal() {
                     </script>
                 </div>
             </div>
-
-            <div class="signal-preview" style="width: 100%; text-align: center;">
-                <div class="blur-overlay" id="signal-bist" style="filter:none; opacity:1; font-weight: 800;">ANALİZ EDİLİYOR...</div>
+            <div class="signal-preview">
+                <div class="blur-overlay" id="signal-bist" style="filter:none; opacity:1; color:#eab308;">NÖTR / İZLE</div>
             </div>
-
-            <button class="view-btn" onclick="openP('hPanel')" style="width: 100%; margin-top: 10px;">Analizi Gör</button>
+            <button class="view-btn" onclick="openP('hPanel')">Analizi Gör</button>
         </div>
     </div>
 
     <div class="opportunity-card forex-border" id="card-forex" style="flex: 1; max-width: 350px;">
         <div class="card-header">FOREX</div>
-        <div class="card-body" style="padding: 15px; display: flex; flex-direction: column; align-items: center;">
-            <h3 style="margin: 5px 0; color: var(--text);">XAU / USD</h3>
-            
-            <div class="live-price-container" style="height: 60px; width: 100%; overflow: hidden; display: flex; justify-content: center;">
+        <div class="card-body" style="padding: 15px; display: flex; flex-direction: column;">
+            <h3 style="margin: 5px 0; text-align: center;">XAU / USD</h3>
+            <div class="live-price-container" style="height: 60px; overflow: hidden;">
                 <div class="tradingview-widget-container">
                     <div class="tradingview-widget-container__widget"></div>
                     <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-single-quote.js" async>
@@ -839,52 +832,15 @@ function closeMembershipModal() {
                     </script>
                 </div>
             </div>
-
-            <div class="signal-preview" style="width: 100%; text-align: center;">
-                <div class="blur-overlay" id="signal-forex" style="filter:none; opacity:1; font-weight: 800;">ANALİZ EDİLİYOR...</div>
+            <div class="signal-preview">
+                <div class="blur-overlay" id="signal-forex" style="filter:none; opacity:1; color:#ef4444;">GÜÇLÜ SAT SİNYALİ</div>
             </div>
-
-            <button class="view-btn" onclick="openP('mPanel')" style="width: 100%; margin-top: 10px;">Analizi Gör</button>
+            <button class="view-btn" onclick="openP('mPanel')">Analizi Gör</button>
         </div>
-    </div>
-
-</div>   
-   
-<div class="opportunity-card bist-border" id="card-bist">
-  
-
-<div class="opportunity-card forex-border" id="card-forex">
-    <div class="card-header">FOREX</div>
-    <div class="opportunity-card bist-border" id="card-bist">
-    <div class="card-header">BIST</div>
-   <div class="opportunity-card forex-border" id="card-forex">
-    <div class="card-header">FOREX</div>
-    <div class="card-body">
-        <h3>XAU / USD</h3>
-        
-        <div style="height: 50px; overflow: hidden; display: flex; justify-content: center; align-items: center;">
-            <div class="tradingview-widget-container">
-                <div class="tradingview-widget-container__widget"></div>
-                <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-single-quote.js" async>
-                {
-                  "symbol": "OANDA:XAUUSD",
-                  "colorTheme": "dark",
-                  "isTransparent": true,
-                  "locale": "tr"
-                }
-                </script>
-            </div>
-        </div>
-
-        <div class="signal-preview">
-            <div class="blur-overlay" id="signal-forex">ANALİZ EDİLİYOR...</div>
-        </div>
-        
-        <button class="view-btn" onclick="openP('mPanel')">Analizi Gör</button>
     </div>
 </div>
-
-<div class="container">
+          
+ <div class="container">
     <div class="card" id="topCard" style="padding:40px 30px; border-top: 4px solid var(--primary); margin-bottom: 20px; text-align: center;">
         
         <div style="display: flex; flex-direction: column; align-items: center; gap: 15px; margin-bottom: 25px;">
