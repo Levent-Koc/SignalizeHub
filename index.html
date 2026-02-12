@@ -783,23 +783,49 @@ function closeMembershipModal() {
  <div id="hub-opportunities">
     
     <div class="opportunity-card crypto-border" id="card-crypto">
-        <div class="card-header">KRİPTO</div>
-        <div class="card-body">
-            <h3>BTC / USDT</h3>
-            <div class="live-price-container">
-                <div class="tradingview-widget-container">
-                    <div class="tradingview-widget-container__widget"></div>
-                    <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-single-quote.js" async>
-                    { 
-                        "symbol": "BINANCE:BTCUSDT", 
-                        "colorTheme": "dark", 
-                        "isTransparent": true, 
-                        "locale": "tr",
-                        "displayMode": "regular"
-                    }
-                    </script>
-                </div>
+    <div class="card-header">KRİPTO</div>
+    <div class="card-body">
+        <h3>BTC / USDT</h3>
+        
+        <div class="live-price-container">
+            <div class="tradingview-widget-container">
+                <div class="tradingview-widget-container__widget"></div>
+                <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-single-quote.js" async>
+                { 
+                    "symbol": "BINANCE:BTCUSDT", 
+                    "colorTheme": "dark", 
+                    "isTransparent": true, 
+                    "locale": "tr",
+                    "displayMode": "regular"
+                }
+                </script>
             </div>
+        </div>
+
+        <div class="mini-graph-area" onclick="openP('kPanel')">
+            <div class="tradingview-widget-container">
+                <div class="tradingview-widget-container__widget"></div>
+                <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-mini-symbol-overview.js" async>
+                {
+                  "symbol": "BINANCE:BTCUSDT",
+                  "width": "100%",
+                  "height": "120",
+                  "locale": "tr",
+                  "dateRange": "1d",
+                  "colorTheme": "dark",
+                  "trendLineColor": "#37a6ef",
+                  "underLineColor": "rgba(55, 166, 239, 0.15)",
+                  "isTransparent": true,
+                  "autosize": false,
+                  "chartType": "area" 
+                }
+                </script>
+            </div>
+        </div>
+
+        <button class="view-btn" onclick="openP('kPanel')">Analizi Gör</button>
+    </div>
+</div>
             <div class="signal-preview"><div id="signal-crypto">ANALİZ EDİLİYOR...</div></div>
             <button class="view-btn" onclick="openP('kPanel')">Analizi Gör</button>
         </div>
@@ -1282,6 +1308,29 @@ nav {
     .panel-kapat-btn:hover {
         transform: scale(1.1); /* Üzerine gelince hafifçe büyür */
     }
+/* Grafik Konteynırı */
+.mini-graph-area {
+    cursor: pointer;
+    height: 120px;
+    margin: 15px 0;
+    overflow: hidden;
+    border-radius: 12px;
+    background: rgba(0, 0, 0, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    transition: all 0.3s ease;
+}
+
+/* Üzerine gelince hafif parlama ve büyüme efekti */
+.mini-graph-area:hover {
+    background: rgba(255, 255, 255, 0.05);
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+/* Widget içindeki iframe'in tıklamayı engellememesi için */
+.mini-graph-area iframe {
+    pointer-events: none;
+}
 </style>
 
 <div id="uyeOzelPanel" style="max-width: 1200px; margin: 20px auto; padding: 0; background: rgba(255, 255, 255, 0.05); border-radius: 12px; border: 1px solid rgba(255, 255, 255, 0.1); overflow: hidden; font-family: sans-serif;">
