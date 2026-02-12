@@ -1645,26 +1645,22 @@ if (typeof isLoggedIn !== 'undefined' && isLoggedIn) {
     flex-wrap: wrap !important;
     width: 100% !important;
     margin-top: 50px !important;
-    padding: 40px 0 !important;
-    transition: all 0.4s ease;
-    
-    /* Light Mode: Buzlu Beyaz */
-    background: rgba(241, 245, 249, 0.7) !important; 
+    padding: 60px 0 !important;
+    background: rgba(241, 245, 249, 0.7) !important; /* Gri/Beyaz buzlu cam */
     backdrop-filter: blur(15px) !important;
-    -webkit-backdrop-filter: blur(15px);
-    border-top: 1px solid rgba(255, 255, 255, 0.3);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+    transition: all 0.3s ease-in-out;
 }
 
 /* Dark Mode: Koyu Tema Aktifken Otomatik Uyalanma */
-[data-theme='dark'] #hub-opportunities {
-    /* Senin o derin lacivertine uygun çok koyu ve şeffaf bir ton */
-    background: transparent !important; 
-    backdrop-filter: none !important;
-    -webkit-backdrop-filter: none;
-    /* Karanlıkta çok hafif belli olan ince çizgiler */
+[data-theme='dark'] #hub-opportunities,
+body.dark #hub-opportunities,
+.dark-mode #hub-opportunities {
+    background: #000000 !important; /* Burayı tam siyah yapıyoruz */
+    background-color: #000000 !important;
+    backdrop-filter: none !important; /* Gri sise neden olan blur efektini kapattık */
+    -webkit-backdrop-filter: none !important;
     border: none !important;
-    padding: 60px 0 !important;
+    box-shadow: none !important;
 }
 
 /* Kartların Beyaz Zeminde "Uçuyormuş" Gibi Görünmesi İçin */
