@@ -880,33 +880,28 @@ function closeMembershipModal() {
 body.dark-theme .live-price {
     color: #f8fafc; /* Karanlık modda saf beyaza yakın (Işıldar) */
 }
-
-/* Buzlu metinlerin okunabilirliği */
+/* Buzlama Efekti Tamamen Kaldırıldı */
 .blur-overlay {
-    filter: blur(6px);
-    color: #475569; /* Aydınlıkta daha koyu */
+    filter: none !important; /* Buzlamayı yok eder */
+    color: #22c55e; /* Varsayılan olarak canlı bir yeşil (Sinyal rengi) */
     font-size: 13px;
-    font-weight: bold;
+    font-weight: 800;
+    letter-spacing: 0.5px;
+    user-select: auto; /* Yazı artık kopyalanabilir */
+    text-transform: uppercase;
 }
-
-[data-theme="dark"] .blur-overlay {
-    color: #cbd5e1; /* Karanlıkta daha açık */
+/* Karanlık Modda Renk Uyumu */
+body.dark-mode .blur-overlay {
+    color: #00ff88; /* Karanlıkta daha parlak bir yeşil */
 }
-/* İşte o meşhur Buzlu Alan */
+/* İçerik Kutusu (Buzsuz ama şık) */
 .signal-preview {
-    background: rgba(255, 255, 255, 0.03);
-    padding: 15px;
-    border-radius: 12px;
-    margin: 15px 0;
+    background: rgba(0, 209, 255, 0.05); /* Çok hafif bir mavi tonu */
+    padding: 12px;
+    border-radius: 10px;
+    margin: 10px 0;
+    border: 1px dashed rgba(0, 209, 255, 0.2); /* Kesikli çizgiler analiz havası katar */
     position: relative;
-}
-
-.blur-overlay {
-    filter: blur(6px); /* Buzlama yoğunluğu */
-    color: #cbd5e1;
-    font-size: 12px;
-    font-weight: bold;
-    user-select: none;
 }
 
 .view-btn {
@@ -1148,15 +1143,15 @@ nav {
         
         <div id="sinyalBlurArea" style="display: flex; flex-wrap: wrap; gap: 20px; justify-content: center; filter: blur(7px); opacity: 0.3; pointer-events: none;">
             <div style="background: #ffffff; border-radius: 8px; padding: 20px; width: 220px; text-align: center;">
-                <div style="font-size: 18px; font-weight: bold; color: #333;">XXXXX</div>
+                <div style="font-size: 18px; font-weight: bold; color: #333;">ASELS</div>
                 <div style="font-size: 13px; color: #0088ff; margin-top: 10px;">Giriş Bekleniyor</div>
             </div>
             <div style="background: #ffffff; border-radius: 8px; padding: 20px; width: 220px; text-align: center;">
-                <div style="font-size: 18px; font-weight: bold; color: #333;">XXXXX</div>
+                <div style="font-size: 18px; font-weight: bold; color: #333;">EREGL</div>
                 <div style="font-size: 13px; color: #0088ff; margin-top: 10px;">Giriş Bekleniyor</div>
             </div>
             <div style="background: #ffffff; border-radius: 8px; padding: 20px; width: 220px; text-align: center;">
-                <div style="font-size: 18px; font-weight: bold; color: #333;">XXXXX</div>
+                <div style="font-size: 18px; font-weight: bold; color: #333;">THYO</div>
                 <div style="font-size: 13px; color: #0088ff; margin-top: 10px;">Giriş Bekleniyor</div>
             </div>
         </div>
