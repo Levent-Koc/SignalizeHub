@@ -908,22 +908,24 @@ function closeMembershipModal() {
     flex-direction: column;
 }
 
-/* Sinyal metninin durduğu o şık kutu */
+/* Sinyal metninin durduğu kutuyu widget'tan uzaklaştırıp nefes aldırıyoruz */
 .signal-preview {
     background: rgba(0, 209, 255, 0.03);
-    padding: 15px;
+    padding: 12px; /* Padding'i biraz daralttık */
     border-radius: 12px;
-    margin: 15px 10px;
+    margin: 5px 10px 15px 10px; /* Üst boşluğu (5px) azalttık ki fiyat widget'ına yer açılsın */
     border: 1px dashed rgba(0, 209, 255, 0.2);
     text-align: center;
-    min-height: 50px; /* İçerik değişse de kutu boyu sabit kalır */
+    min-height: 45px; 
 }
 
+/* Kartın üzerine gelince olan o güzel yükselme etkisi kalsın */
 .opportunity-card:hover {
     transform: translateY(-10px);
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.6); /* Gölgeyi biraz daha derinleştirdik */
 }
 
+/* Başlık alanı zaten iyiydi, koruyoruz */
 .card-header {
     font-size: 11px;
     font-weight: 800;
@@ -931,6 +933,17 @@ function closeMembershipModal() {
     text-align: center;
     color: white;
     letter-spacing: 1px;
+    text-transform: uppercase;
+}
+
+/* EK OLARAK: Widget alanını rakamlar görünecek şekilde açıyoruz */
+.live-price-container {
+    height: 80px !important; /* Rakamların kapanmasını engelleyen kritik satır */
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 5px;
 }
 
 .crypto-border { border-bottom: 3px solid #a855f7; }
