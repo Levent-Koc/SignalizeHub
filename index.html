@@ -1579,12 +1579,11 @@ if (typeof isLoggedIn !== 'undefined' && isLoggedIn) {
 /* Fırsat Kartlarını Hizala */
 #hub-opportunities {
     display: flex;
-    justify-content: center;
-    gap: 20px;
-    align-items: stretch; /* Kart boylarını eşitler */
-    margin-top: 30px;
+    justify-content: flex-start; /* Sola yasla ki sağda rapor için yer kalsın */
+    gap: 15px; 
+    flex: 3; /* Toplam alanın 3 birimini kartlara ayır */
+    min-width: 0; /* İçeriğin taşmasını önler */
 }
-
 .opportunity-card {
     flex: 1; /* Kartların genişliğini eşit dağıtır */
     min-width: 280px;
@@ -1609,6 +1608,24 @@ if (typeof isLoggedIn !== 'undefined' && isLoggedIn) {
 .live-price iframe {
     width: 100% !important;
     height: 100% !important;
+}
+/* Strateji Raporu Bloğu - Kartların Yanına Sabitleme */
+.strategy-report {
+    flex: 1; /* Sağdaki alanı rapor doldursun */
+    min-width: 320px; /* Raporun çok daralıp okunmaz olmasını engeller */
+    background: rgba(30, 41, 59, 0.4);
+    border-radius: 20px;
+    padding: 20px;
+    margin-top: 50px; /* Kartların üst hizasıyla (margin-top: 50px) aynı yapıldı */
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    height: 380px; /* Kartların boyuyla (380px) tam eşitlendi */
+    overflow-y: auto; /* İçerik taşarsa kendi içinde kaydırılabilir olur */
+    transition: all 0.4s ease;
+}
+
+.strategy-report:hover {
+    border-color: rgba(0, 209, 255, 0.3);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
 }
 </style>
 <style>
