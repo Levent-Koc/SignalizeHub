@@ -802,7 +802,7 @@ function closeMembershipModal() {
             </div>
         </div>
 
-        <div class="mini-graph-area" onclick="openP('kPanel')" style="height: 150px; cursor: pointer; margin-top: 10px; border-radius: 8px; overflow: hidden;">
+        <div class="mini-graph-area" onclick="openP('kPanel')" style="height: 140px; cursor: pointer; margin-top: 10px; border-radius: 8px; overflow: hidden; background: rgba(0,0,0,0.1);">
     <div class="tradingview-widget-container">
         <div class="tradingview-widget-container__widget"></div>
         <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-mini-symbol-overview.js" async>
@@ -813,11 +813,12 @@ function closeMembershipModal() {
           "locale": "tr",
           "dateRange": "1d",
           "colorTheme": "dark",
-          "isTransparent": true,
+          "isTransparent": true, /* Arka planı tamamen yok eder, kartın rengini alır */
           "autosize": true,
           "largeChartUrl": "",
-          "chartType": "candles", /* Burayı "candles" yaparak mum grafiğe geçtik */
-          "noTimeScale": true /* Alttaki tarih rakamlarını gizler */
+          "chartType": "candles", /* Çizgi yerine mum grafik */
+          "noTimeScale": true, /* Alttaki tarihleri gizler */
+          "noPriceScale": true /* Sağdaki fiyat rakamlarını gizler (Çakışmayı önler) */
         }
         </script>
     </div>
