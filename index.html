@@ -1576,56 +1576,57 @@ if (typeof isLoggedIn !== 'undefined' && isLoggedIn) {
     </div>
 </div>
 <style>
-/* Fırsat Kartlarını Hizala */
+/* 1. Üst Katman: Fırsat Kartları Konteynırı */
 #hub-opportunities {
     display: flex;
-    justify-content: flex-start; /* Sola yasla ki sağda rapor için yer kalsın */
-    gap: 15px; 
-    flex: 3; /* Toplam alanın 3 birimini kartlara ayır */
-    min-width: 0; /* İçeriğin taşmasını önler */
-}
-.opportunity-card {
-    flex: 1; /* Kartların genişliğini eşit dağıtır */
-    min-width: 280px;
-    max-width: 320px;
-    height: auto;
-    display: flex;
-    flex-direction: column;
+    justify-content: center; /* Kartları sayfada ortalar */
+    gap: 20px;               /* Kartlar arası nefes alma alanı */
+    margin-top: 50px;
+    margin-bottom: 30px;    /* Altındaki raporla arasına boşluk */
+    width: 100%;            /* Sayfayı tam kaplasın */
+    flex-wrap: wrap;        /* Ekran küçülürse kartlar alt alta düzgünce iner */
 }
 
-/* Canlı Fiyat Alanını Widget'a Göre Kısıtla */
-.live-price {
-    height: 60px; /* Sabit yükseklik taşmaları önler */
+/* Kartların Kendi Yapısı */
+.opportunity-card {
+    background: #1e293b;
+    border-radius: 20px;
+    width: 280px;           /* Sabit genişlik kartları hizalı tutar */
+    height: 380px !important; 
+    display: flex;
+    flex-direction: column;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    transition: all 0.4s ease;
+}
+
+/* 2. Orta Katman: Canlı Fiyat Alanı */
+.live-price-container {
+    height: 100px !important;
     width: 100%;
     overflow: hidden;
     display: flex;
     justify-content: center;
     align-items: center;
-    margin: 5px 0;
+    margin: 10px 0;
+    padding-top: 30px; /* Rakamları senin istediğin gibi aşağı iten satır */
 }
 
-/* Widget içindeki iframe'i kutuya zorla */
-.live-price iframe {
-    width: 100% !important;
-    height: 100% !important;
-}
-/* Strateji Raporu Bloğu - Kartların Yanına Sabitleme */
+/* 3. Alt Katman: Strateji Raporu (Tam Genişlik) */
 .strategy-report {
-    flex: 1; /* Sağdaki alanı rapor doldursun */
-    min-width: 320px; /* Raporun çok daralıp okunmaz olmasını engeller */
+    width: 95% !important;   /* Kartların altına boydan boya yayılır */
+    max-width: 1200px;       /* Çok devasa ekranlarda dağılmasın diye sınır */
+    margin: 0 auto 50px auto !important; /* Ortala ve alttan boşluk bırak */
     background: rgba(30, 41, 59, 0.4);
-    border-radius: 20px;
-    padding: 20px;
-    margin-top: 50px; /* Kartların üst hizasıyla (margin-top: 50px) aynı yapıldı */
-    border: 1px solid rgba(255, 255, 255, 0.05);
-    height: 380px; /* Kartların boyuyla (380px) tam eşitlendi */
-    overflow-y: auto; /* İçerik taşarsa kendi içinde kaydırılabilir olur */
-    transition: all 0.4s ease;
+    border-radius: 25px;
+    padding: 30px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    min-height: 200px;       /* İçerik az olsa da kutu formunu korur */
+    box-sizing: border-box;  /* Paddinglerin genişliği bozmasını engeller */
 }
 
 .strategy-report:hover {
     border-color: rgba(0, 209, 255, 0.3);
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
 }
 </style>
 <style>
