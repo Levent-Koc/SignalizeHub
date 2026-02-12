@@ -809,7 +809,14 @@ function closeMembershipModal() {
                 <div class="tradingview-widget-container">
                     <div class="tradingview-widget-container__widget"></div>
                     <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-single-quote.js" async>
-                    { "symbol": "BIST:THYAO", "colorTheme": "dark", "isTransparent": true, "locale": "tr" }
+                    {
+  "symbol": "BIST:THYAO", 
+  "colorTheme": "dark",
+  "isTransparent": true,
+  "locale": "tr",
+  "width": "100%",
+  "height": "100%"
+}
                     </script>
                 </div>
             </div>
@@ -894,38 +901,21 @@ function closeMembershipModal() {
 .glow-yellow { border: 1px solid #eab308 !important; box-shadow: 0 0 20px #eab308 !important; color: #eab308 !important; }
 .glow-red { border: 1px solid #ef4444 !important; box-shadow: 0 0 20px #ef4444 !important; color: #ef4444 !important; }
 
-/* Butonlar arası geçişin yumuşak olması için */
-/* Kartın dış kasası */
+/* 1. Kart Dış Kasası */
 .opportunity-card {
     background: #1e293b;
     border-radius: 20px;
     width: 280px; 
-    min-height: 420px; /* Boyu biraz artırdık ki her şey sığsın */
+    height: 380px !important; /* Senin istediğin sabit boy */
     overflow: hidden;
     transition: all 0.4s ease;
     border: 1px solid rgba(255, 255, 255, 0.05);
     display: flex;
     flex-direction: column;
+    position: relative;
 }
 
-/* Sinyal metninin durduğu kutuyu widget'tan uzaklaştırıp nefes aldırıyoruz */
-.signal-preview {
-    background: rgba(0, 209, 255, 0.03);
-    padding: 12px; /* Padding'i biraz daralttık */
-    border-radius: 12px;
-    margin: 5px 10px 15px 10px; /* Üst boşluğu (5px) azalttık ki fiyat widget'ına yer açılsın */
-    border: 1px dashed rgba(0, 209, 255, 0.2);
-    text-align: center;
-    min-height: 45px; 
-}
-
-/* Kartın üzerine gelince olan o güzel yükselme etkisi kalsın */
-.opportunity-card:hover {
-    transform: translateY(-10px);
-    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.6); /* Gölgeyi biraz daha derinleştirdik */
-}
-
-/* Başlık alanı zaten iyiydi, koruyoruz */
+/* 2. Kart Başlığı */
 .card-header {
     font-size: 11px;
     font-weight: 800;
@@ -934,52 +924,69 @@ function closeMembershipModal() {
     color: white;
     letter-spacing: 1px;
     text-transform: uppercase;
+    background: rgba(255, 255, 255, 0.05);
 }
 
-/* EK OLARAK: Widget alanını rakamlar görünecek şekilde açıyoruz */
-/* Rakamların ve logoların rahatça sığması için alanı büyütüyoruz */
-/* Fiyat alanını dikeyde iyice açıyoruz (Yazılar yukarı çarpmasın diye) */
+/* 3. Kart İçeriği Genel Düzen */
+.card-body { 
+    padding: 10px; 
+    text-align: center; 
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.card-body h3 { 
+    color: white; 
+    margin: 5px 0; 
+    font-size: 16px; 
+}
+
+/* 4. Canlı Fiyat Alanı (Widget Buraya Sığacak) */
 .live-price-container {
-    height: 130px !important; /* Biraz daha büyüttük */
+    height: 100px !important; /* 380px kart için ideal yükseklik */
     overflow: hidden;
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-top: 20px !important; /* Üstten 20px aşağı ittik */
+    margin-top: 5px !important;
     background: rgba(0, 0, 0, 0.2);
     border-radius: 12px;
 }
 
-/* Sinyal kutusunu fiyattan uzaklaştırıp aşağı kaydırıyoruz */
+/* 5. Sinyal Kutusu (Aşağı Kaydırılmış ve Net) */
 .signal-preview {
-    margin: 20px 10px !important; /* Üst ve alt boşluğu 20px yaptık */
-    padding: 15px;
     background: rgba(0, 209, 255, 0.05);
+    padding: 10px;
+    border-radius: 12px;
+    margin: 10px 10px !important;
+    border: 1px dashed rgba(0, 209, 255, 0.2);
+    text-align: center;
+    min-height: 40px;
 }
 
-/* Butonu da en alta daha dengeli yerleştiriyoruz */
+.blur-overlay {
+    font-size: 13px;
+    font-weight: 700;
+}
+
+/* 6. Buton (En Alta Sabit) */
 .view-btn {
-    margin-top: auto; /* Kartın en altına yaslanmasını sağlar */
+    margin-top: auto; 
     margin-bottom: 10px;
+    padding: 10px;
 }
 
-/* Kartın toplam boyunu bu yeni boşluklara göre güncelliyoruz */
-.opportunity-card {
-    min-height: 380px !important; /* Kartı biraz daha uzattık */
-}
-.crypto-border { border-bottom: 3px solid #a855f7; }
-.bist-border { border-bottom: 3px solid #22c55e; }
-.forex-border { border-bottom: 3px solid #3b82f6; }
+/* 7. Alt Renk Sınırları */
+.crypto-border { border-bottom: 4px solid #a855f7; }
+.bist-border { border-bottom: 4px solid #22c55e; }
+.forex-border { border-bottom: 4px solid #3b82f6; }
 
-.card-body { padding: 20px; text-align: center; }
-.card-body h3 { color: white; margin: 0; font-size: 18px; }
-/* Rakamların her zeminde okunması için */
-.live-price {
-    color: #1e293b; /* Aydınlık modda koyu lacivert (Okunabilirlik artar) */
-    font-size: 24px;
-    font-weight: 800;
-    margin: 10px 0;
-    letter-spacing: -0.5px;
+/* 8. Etkileşim */
+.opportunity-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+    border-color: rgba(255, 255, 255, 0.2);
 }
 
 /* Eğer sayfa Dark Mode ise (Kapsayıcı class'ına göre): */
