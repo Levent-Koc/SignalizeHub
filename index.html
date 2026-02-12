@@ -936,33 +936,33 @@ function closeMembershipModal() {
     height: 100%;
 }
 
-.card-body h3 { 
-    color: white; 
-    margin: 5px 0; 
-    font-size: 16px; 
-}
-
-/* 4. Canlı Fiyat Alanı (Widget Buraya Sığacak) */
+/* Rakamları aşağı kaydıran ana konteyner */
 .live-price-container {
-    height: 100px !important; /* 380px kart için ideal yükseklik */
+    height: 100px !important; 
     overflow: hidden;
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-top: 5px !important;
+    /* Rakamları yaklaşık 3 satır aşağı itmek için padding ekledik */
+    padding-top: 35px !important; 
+    margin-top: 0 !important;
     background: rgba(0, 0, 0, 0.2);
     border-radius: 12px;
 }
 
-/* 5. Sinyal Kutusu (Aşağı Kaydırılmış ve Net) */
+/* Kart başlığı (BTC / USDT yazısı) ile widget arasını açıyoruz */
+.card-body h3 {
+    margin-top: 10px !important;
+    margin-bottom: 5px !important;
+    font-size: 15px;
+    z-index: 10; /* Yazının widget altında kalmasını engeller */
+}
+
+/* Sinyal kutusu 380px'e sığması için biraz daha ince durmalı */
 .signal-preview {
-    background: rgba(0, 209, 255, 0.05);
-    padding: 10px;
-    border-radius: 12px;
-    margin: 10px 10px !important;
-    border: 1px dashed rgba(0, 209, 255, 0.2);
-    text-align: center;
-    min-height: 40px;
+    margin: 5px 10px !important;
+    padding: 8px !important;
+    min-height: 40px !important;
 }
 
 .blur-overlay {
