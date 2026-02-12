@@ -1638,32 +1638,44 @@ if (typeof isLoggedIn !== 'undefined' && isLoggedIn) {
     </div>
 </div>
 <style>
-/* Ana Konteyner: Arka Plan ve Buzlu Cam Efekti */
+/* Ana Konteyner - Hem Işıkta Hem Karanlıkta Şık Görünüm */
 #hub-opportunities {
     display: flex !important;
     justify-content: center !important;
     flex-wrap: wrap !important;
     width: 100% !important;
     margin-top: 50px !important;
-    padding: 40px 0 !important; /* Alt ve üstten biraz boşluk vererek ferahlattık */
+    padding: 40px 0 !important;
     transition: all 0.4s ease;
     
-    /* Light Mode Ayarı: Buzlu Beyaz/Gri Zemin */
+    /* Light Mode: Buzlu Beyaz */
     background: rgba(241, 245, 249, 0.7) !important; 
     backdrop-filter: blur(15px) !important;
-    -webkit-backdrop-filter: blur(15px); /* Safari desteği */
+    -webkit-backdrop-filter: blur(15px);
+    border-top: 1px solid rgba(255, 255, 255, 0.3);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.3);
 }
 
-/* Dark Mode Ayarı: Koyu Tema Aktifken Eski Haline Döner */
+/* Dark Mode: Koyu Tema Aktifken Otomatik Uyalanma */
 [data-theme='dark'] #hub-opportunities {
-    background: transparent !important; /* Veya senin eski koyu rengin: #0f172a */
-    backdrop-filter: none !important;
+    /* Senin o derin lacivertine uygun çok koyu ve şeffaf bir ton */
+    background: rgba(15, 23, 42, 0.8) !important; 
+    backdrop-filter: blur(12px) !important;
+    -webkit-backdrop-filter: blur(12px);
+    /* Karanlıkta çok hafif belli olan ince çizgiler */
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
 }
 
-/* İsteğe Bağlı: Kartların arasına senin o gap ayarını ekleyelim */
+/* Kartların Beyaz Zeminde "Uçuyormuş" Gibi Görünmesi İçin */
 .opportunity-card {
-    margin: 10px !important; /* Gap yerine margin daha güvenli bir çerçeve hissi verir */
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1); /* Beyaz zeminde kartlar havada süzülür */
+    margin: 10px !important;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Light modda kartlara hafif gölge ekleyerek derinlik kazandıralım */
+body:not([data-theme='dark']) .opportunity-card {
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08) !important;
 }
 
 /* Kart Genel Tasarımı */
