@@ -2221,7 +2221,12 @@ function fPanelGuncelle(sure) {
                 btn.style.background = (key === sure) ? '#a855f7' : '#333';
 
             }
-
+/* Widget'ı %90 oranında küçülterek ferahlatma */
+.tradingview-widget-container iframe {
+    transform: scale(0.9); /* %10 küçültme */
+    transform-origin: center center;
+    width: 111% !important; /* Küçülmeden kaynaklanan boşluğu telafi etmek için genişliği artır */
+}
         });
 
     }
