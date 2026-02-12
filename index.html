@@ -1659,12 +1659,12 @@ if (typeof isLoggedIn !== 'undefined' && isLoggedIn) {
 /* Dark Mode: Koyu Tema Aktifken Otomatik Uyalanma */
 [data-theme='dark'] #hub-opportunities {
     /* Senin o derin lacivertine uygun çok koyu ve şeffaf bir ton */
-    background: rgba(15, 23, 42, 0.8) !important; 
-    backdrop-filter: blur(12px) !important;
-    -webkit-backdrop-filter: blur(12px);
+    background: transparent !important; 
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none;
     /* Karanlıkta çok hafif belli olan ince çizgiler */
-    border-top: 1px solid rgba(255, 255, 255, 0.05);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    border: none !important;
+    padding: 60px 0 !important;
 }
 
 /* Kartların Beyaz Zeminde "Uçuyormuş" Gibi Görünmesi İçin */
