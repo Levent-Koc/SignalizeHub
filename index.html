@@ -907,40 +907,77 @@ function closeMembershipModal() {
             </div>
         </div>
 
-        <div style="flex: 1; min-width: 320px; background: #000; border-radius: 20px; border: 1px solid var(--border); overflow: hidden; height: 450px; display: flex; flex-direction: column;">
-            <div style="background: #1e293b; padding: 12px 20px; border-bottom: 1px solid rgba(255,255,255,0.1);">
-                <span style="color: #fff; font-weight: bold; font-size: 13px;">📰 CANLI VERİ HABERLERİ</span>
-            </div>
-            <div class="tradingview-widget-container" style="flex-grow: 1;">
-                <div class="tradingview-widget-container__widget"></div>
+       <div class="news-data-center" style="flex: 1; min-width: 320px; display: flex; flex-direction: column; gap: 15px; height: 550px;">
+    
+    <div style="flex: 1; background: #000; border-radius: 15px; border: 1px solid var(--border); overflow: hidden; display: flex; flex-direction: column;">
+        <div style="background: #1e293b; padding: 8px 15px; border-bottom: 1px solid rgba(255,255,255,0.1); display: flex; justify-content: space-between;">
+            <span style="color: #fff; font-size: 12px; font-weight: bold;">📰 TÜRKÇE FİNANS HABERLERİ</span>
+            <span style="color: #00ff88; font-size: 10px; animation: blink 1.5s infinite;">● CANLI</span>
+        </div>
+        <div style="flex-grow: 1; overflow: hidden;">
+            <div class="tradingview-widget-container">
                 <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-timeline.js" async>
                 {
-  "feedMode": "all_symbols",
-  "colorTheme": "dark",
-  "isTransparent": true,
-  "displayMode": "regular",
-  "width": "100%",
-  "height": "100%",
-  "locale": "tr",
-  "symbolSearch": true,
-  "symbolsGroups": [
-    {
-      "name": "Kritik Varlıklar",
-      "symbols": [
-        { "name": "BIST:XU100", "displayName": "Borsa İstanbul" },
-        { "name": "BINANCE:BTCUSDT", "displayName": "Bitcoin" },
-        { "name": "FX:USDTRY", "displayName": "Dolar/TL" },
-        { "name": "BINANCE:ETHUSDT", "displayName": "Ethereum" }
-      ]
-    }
-  ]
-}
+                  "feedMode": "all_symbols",
+                  "colorTheme": "dark",
+                  "isTransparent": true,
+                  "displayMode": "regular",
+                  "width": "100%",
+                  "height": "100%",
+                  "locale": "tr",
+                  "symbolsGroups": [{ "name": "BIST", "symbols": [{"name": "BIST:XU100"}] }]
+                }
                 </script>
             </div>
         </div>
+    </div>
 
+    <div style="flex: 1; background: #000; border-radius: 15px; border: 1px solid var(--border); overflow: hidden; display: flex; flex-direction: column;">
+        <div style="background: #1e293b; padding: 8px 15px; border-bottom: 1px solid rgba(255,255,255,0.1);">
+            <span style="color: #fff; font-size: 12px; font-weight: bold;">🗓️ AKILLI VERİ TAKVİMİ</span>
+        </div>
+        <div id="smart-calendar-container" style="flex-grow: 1;">
+            </div>
     </div>
 </div>
+
+<script>
+function loadSmartCalendar() {
+    const now = new Date();
+    const day = now.getDay(); // 0: Pazar, 5: Cuma
+    const hour = now.getHours();
+    
+    let timeRange = "this_week"; // Varsayılan: Bu hafta
+    
+    // SENİN KURALIN: Cuma saat 14:00'ten sonra bir sonraki haftayı da dahil et
+    if ((day === 5 && hour >= 14) || day === 6 || day === 0) {
+        timeRange = "next_week"; 
+    }
+
+    const container = document.getElementById('smart-calendar-container');
+    container.innerHTML = ''; // Temizle
+
+    const script = document.createElement('script');
+    script.type = 'text/javascript';
+    script.src = 'https://s3.tradingview.com/external-embedding/embed-widget-events.js';
+    script.async = true;
+    script.innerHTML = JSON.stringify({
+        "colorTheme": "dark",
+        "isTransparent": true,
+        "width": "100%",
+        "height": "100%",
+        "locale": "tr",
+        "importanceFilter": "0,1",
+        "currencyFilter": "TRY,USD,EUR",
+        "displayMode": "regular"
+    });
+    // Not: TradingView widget'ı manuel tarih aralığını bazen kısıtlı sunar, 
+    // ancak 'importanceFilter' ile en kritik haberlerin kaymasını sağlarız.
+    container.appendChild(script);
+}
+
+window.addEventListener('load', loadSmartCalendar);
+</script>
   <style>
 /* Hub RADAR Sabit Turkuaz Hare */
 .radar-active {
