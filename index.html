@@ -954,15 +954,6 @@ function closeMembershipModal() {
             </div>
 
         </div> </div> </div> ```
-
-### 💡 Neyi Düzelttik?
-1.  **Div Kapanışları:** Görselde panellerin altına kayan "Üye Özel..." yazısı, muhtemelen sağ taraftaki div'leri kapatmadığın için içeride hapsolmuştu. Şimdi her şey kendi kutusunda.
-2.  **ID Çakışması:** `live-agenda-container` ID'sini tam yerine koyduk, JavaScript artık burayı bulacaktır.
-3.  **Simetri:** Sol taraf ile sağ tarafın boylarını `650px` değerinde sabitledik, böylece jilet gibi yan yana duracaklar.
-
-**Bunu yapıştırdıktan sonra:** Eğer haberler hala gelmezse, tarayıcıda boş bir yere sağ tıkla -> **İncele (Inspect)** -> **Console** sekmesine bak. Orada bir hata varsa bana söyle, her şeyi anında çözeriz. 
-
-Şu an kutuların yerli yerine oturmuş olması lazım, bir kontrol eder misin?
     <div style="flex: 1; background: #000; border-radius: 15px; border: 1px solid var(--border); overflow: hidden; display: flex; flex-direction: column;">
         <div style="background: #1e293b; padding: 8px 15px; border-bottom: 1px solid rgba(255,255,255,0.1);">
             <span style="color: #fff; font-size: 11px; font-weight: bold;">🗓️ YILLIK VERİ TAKVİMİ (TR-US-EU-ASIA)</span>
