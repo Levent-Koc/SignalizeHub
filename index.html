@@ -907,40 +907,62 @@ function closeMembershipModal() {
             </div>
         </div>
 
-       <div class="news-data-center" style="flex: 1; min-width: 320px; display: flex; flex-direction: column; gap: 15px; height: 550px;">
+       <div class="news-data-center" style="flex: 1; min-width: 350px; display: flex; flex-direction: column; gap: 12px; height: 650px;">
     
-    <div style="flex: 1; background: #000; border-radius: 15px; border: 1px solid var(--border); overflow: hidden; display: flex; flex-direction: column;">
+    <div style="flex: 1.2; background: #000; border-radius: 15px; border: 1px solid var(--border); overflow: hidden; display: flex; flex-direction: column;">
         <div style="background: #1e293b; padding: 8px 15px; border-bottom: 1px solid rgba(255,255,255,0.1); display: flex; justify-content: space-between;">
-            <span style="color: #fff; font-size: 12px; font-weight: bold;">📰 TÜRKÇE FİNANS HABERLERİ</span>
-            <span style="color: #00ff88; font-size: 10px; animation: blink 1.5s infinite;">● CANLI</span>
+            <span style="color: #fff; font-size: 11px; font-weight: bold; letter-spacing: 1px;">📰 TÜRKİYE FİNANS GÜNDEMİ</span>
+            <span style="color: #00ff88; font-size: 9px; font-weight: bold;">ANLIK</span>
         </div>
-        <div style="flex-grow: 1; overflow: hidden;">
-            <div class="tradingview-widget-container">
-                <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-timeline.js" async>
-                {
-                  "feedMode": "all_symbols",
-                  "colorTheme": "dark",
-                  "isTransparent": true,
-                  "displayMode": "regular",
-                  "width": "100%",
-                  "height": "100%",
-                  "locale": "tr",
-                  "symbolsGroups": [{ "name": "BIST", "symbols": [{"name": "BIST:XU100"}] }]
-                }
-                </script>
+        <div style="flex-grow: 1; padding: 10px; overflow-y: auto; color: #eee; font-size: 13px;" id="local-news-feed">
+            <div style="border-bottom: 1px solid #222; padding: 8px 0;">
+                <span style="color: #00d1ff; font-size: 10px;">[BIST]</span> TCMB Faiz Kararı Beklentileri Şekilleniyor...
+            </div>
+            <div style="border-bottom: 1px solid #222; padding: 8px 0;">
+                <span style="color: #22c55e; font-size: 10px;">[EKONOMİ]</span> Cari Açık Verileri Açıklandı: Beklentilerin Altında!
+            </div>
+            <div style="border-bottom: 1px solid #222; padding: 8px 0;">
+                <span style="color: #f3ba2f; font-size: 10px;">[ALTIN]</span> Kapalıçarşı'da Gram Altın Rekor Tazeledi.
             </div>
         </div>
     </div>
 
-    <div style="flex: 1; background: #000; border-radius: 15px; border: 1px solid var(--border); overflow: hidden; display: flex; flex-direction: column;">
-        <div style="background: #1e293b; padding: 8px 15px; border-bottom: 1px solid rgba(255,255,255,0.1);">
-            <span style="color: #fff; font-size: 12px; font-weight: bold;">🗓️ AKILLI VERİ TAKVİMİ</span>
+    <div style="flex: 1; background: #000; border-radius: 15px; border: 1px solid var(--border); overflow: hidden;">
+        <div style="background: #0f172a; padding: 5px 15px; font-size: 10px; color: #888; border-bottom: 1px solid #222;">GLOBAL MARKET STORIES</div>
+        <div class="tradingview-widget-container" style="height: 100%;">
+            <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-timeline.js" async>
+            {
+              "feedMode": "all_symbols",
+              "colorTheme": "dark",
+              "isTransparent": true,
+              "displayMode": "regular",
+              "width": "100%",
+              "height": "100%",
+              "locale": "tr"
+            }
+            </script>
         </div>
-        <div id="smart-calendar-container" style="flex-grow: 1;">
-            </div>
+    </div>
+
+    <div style="flex: 1.5; background: #000; border-radius: 15px; border: 1px solid var(--border); overflow: hidden; display: flex; flex-direction: column;">
+        <div style="background: #1e293b; padding: 8px 15px; border-bottom: 1px solid rgba(255,255,255,0.1);">
+            <span style="color: #fff; font-size: 11px; font-weight: bold;">🗓️ YILLIK VERİ TAKVİMİ (TR-US-EU-ASIA)</span>
+        </div>
+        <div class="tradingview-widget-container" style="flex-grow: 1;">
+            <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-events.js" async>
+            {
+              "colorTheme": "dark",
+              "isTransparent": true,
+              "width": "100%",
+              "height": "100%",
+              "locale": "tr",
+              "importanceFilter": "0,1",
+              "currencyFilter": "TRY,USD,EUR,CNY,JPY,GBP" /* Çin ve Japonya eklendi (Asya takvimi için) */
+            }
+            </script>
+        </div>
     </div>
 </div>
-
 <script>
 function loadSmartCalendar() {
     const now = new Date();
