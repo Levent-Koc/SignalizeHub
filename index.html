@@ -915,9 +915,8 @@ function closeMembershipModal() {
         <span style="color: #00ff88; font-size: 9px; font-weight: bold;">ANLIK</span>
     </div>
     
-    <div id="live-agenda-container" style="flex-grow: 1; padding: 12px; overflow-y: auto; color: #eee; font-size: 12px; line-height: 1.6;">
-        <p style="color: #555;">Haberler yükleniyor...</p>
-    </div>
+    <div id="live-agenda-container" style="flex-grow: 1; padding: 12px; overflow-y: auto; color: #eee; font-size: 12px; line-height: 1.6; display: block !important;">
+    <p>Yükleniyor...</p>
 </div>
     <div style="flex: 1; background: #000; border-radius: 15px; border: 1px solid var(--border); overflow: hidden; display: flex; flex-direction: column;">
         <div style="background: #0f172a; padding: 5px 15px; font-size: 10px; color: #888; border-bottom: 1px solid #222;">GLOBAL MARKET STORIES</div>
@@ -3074,8 +3073,10 @@ setInterval(processHourlySignals, 3600000);
 // --- SAATLİK SİNYAL MOTORU BİTİŞİ ---
 // ... Mevcut diğer kodların bittiği yer ...
 
-// --- CANLI GÜNDEM MASASI OTOMASYONU ---
+// --- CANLI GÜNDEM MASASI OTOMASYONU (SÜPER TETİKLEYİCİ) ---
 function updateLiveAgenda() {
+    console.log("Sistem: updateLiveAgenda fonksiyonu tetiklendi...");
+
     const agendaContent = {
         bist: "BIST 100 Endeksi 9.450 seviyesinde dirençle karşılaşıyor.",
         economy: "TCMB Piyasa Katılımcıları Anketi yayınlandı: Yıl sonu enflasyon beklentisi geriledi.",
@@ -3084,39 +3085,41 @@ function updateLiveAgenda() {
         altcoin: "Ethereum Layer-2 ağlarındaki işlem hacmi haftalık bazda %15 artış gösterdi."
     };
 
-  // ID ile kutuyu buluyoruz
     const container = document.getElementById('live-agenda-container');
     
     if(container) {
-        console.log("Sistem: Gündem masası bulundu, veriler yazılıyor...");
+        console.log("Sistem: Hedef kutu bulundu. Yazılıyor...");
         container.innerHTML = `
-            <div style="border-bottom: 1px solid #222; padding: 5px 0;">
+            <div style="border-bottom: 1px solid #222; padding: 5px 0; display: block;">
                 <span style="color: #00d1ff; font-weight: bold;">[BIST]</span> ${agendaContent.bist}
             </div>
-            <div style="border-bottom: 1px solid #222; padding: 5px 0;">
+            <div style="border-bottom: 1px solid #222; padding: 5px 0; display: block;">
                 <span style="color: #22c55e; font-weight: bold;">[EKONOMİ]</span> ${agendaContent.economy}
             </div>
-            <div style="border-bottom: 1px solid #222; padding: 5px 0;">
+            <div style="border-bottom: 1px solid #222; padding: 5px 0; display: block;">
                 <span style="color: #3b82f6; font-weight: bold;">[DÖVİZ/PARİTE]</span> ${agendaContent.forex}
             </div>
-            <div style="border-bottom: 1px solid #222; padding: 5px 0;">
+            <div style="border-bottom: 1px solid #222; padding: 5px 0; display: block;">
                 <span style="color: #f3ba2f; font-weight: bold;">[KRİPTO]</span> ${agendaContent.crypto}
             </div>
-            <div style="border-bottom: 1px solid #222; padding: 5px 0;">
+            <div style="border-bottom: 1px solid #222; padding: 5px 0; display: block;">
                 <span style="color: #a855f7; font-weight: bold;">[ALTCOIN]</span> ${agendaContent.altcoin}
             </div>
         `;
     } else {
-        console.error("Hata: 'live-agenda-container' ID'li kutu bulunamadı!");
+        console.error("KRİTİK HATA: 'live-agenda-container' ID'li element sayfada bulunamadı. Lütfen HTML'deki ID'yi kontrol edin.");
     }
 }
 
-// Sayfa hazır olduğunda çalıştır
-if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', updateLiveAgenda);
-} else {
+// SAYFA YÜKLENİNCE VE SONRASINDA 2 KEZ DAHA DENE (Garantiye alalım)
+window.addEventListener('load', () => {
     updateLiveAgenda();
-}
+    // Bazı widgetlar geç yüklendiği için DOM'u sarsabilir, 1 saniye sonra tekrar dene
+    setTimeout(updateLiveAgenda, 1000);
+});
+
+// Manuel tetikleyici (Console'dan çağırmak istersen)
+window.forceUpdateAgenda = updateLiveAgenda;
 
 // Her 5 dakikada bir güncelle
 setInterval(updateLiveAgenda, 300000);
