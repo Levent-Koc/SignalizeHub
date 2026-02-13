@@ -910,29 +910,15 @@ function closeMembershipModal() {
        <div class="news-data-center" style="flex: 1; min-width: 350px; display: flex; flex-direction: column; gap: 10px; height: 650px;">
     
     <div style="flex: 1; background: #000; border-radius: 15px; border: 1px solid var(--border); overflow: hidden; display: flex; flex-direction: column;">
-        <div style="background: #1e293b; padding: 8px 15px; border-bottom: 1px solid rgba(255,255,255,0.1); display: flex; justify-content: space-between;">
-            <span style="color: #fff; font-size: 11px; font-weight: bold; letter-spacing: 1px;">📰 MERKEZİ GÜNDEM MASASI</span>
-            <span style="color: #00ff88; font-size: 9px; font-weight: bold;">ANLIK</span>
-        </div>
-        <div style="flex-grow: 1; padding: 12px; overflow-y: auto; color: #eee; font-size: 12px; line-height: 1.6;">
-            <div style="border-bottom: 1px solid #222; padding: 5px 0;">
-                <span style="color: #00d1ff; font-weight: bold;">[BIST]</span> Endeks 9.400 Direncini Test Ediyor; Bankacılık Öncülüğünde Pozitif Seyir.
-            </div>
-            <div style="border-bottom: 1px solid #222; padding: 5px 0;">
-                <span style="color: #22c55e; font-weight: bold;">[EKONOMİ]</span> Sanayi Üretim Endeksi Beklentilerin Üzerinde Geldi.
-            </div>
-            <div style="border-bottom: 1px solid #222; padding: 5px 0;">
-    <span style="color: #3b82f6; font-weight: bold;">[DÖVİZ/PARİTE]</span> USD/TRY Yatay Seyirde; EUR/USD Paritesinde 1.08 Seviyesi Kritik.
-</div>
-            <div style="border-bottom: 1px solid #222; padding: 5px 0;">
-                <span style="color: #f3ba2f; font-weight: bold;">[KRİPTO]</span> Bitcoin Dominansı Artıyor; Kurumsal Cüzdanlarda Birikim Sinyalleri.
-            </div>
-            <div style="border-bottom: 1px solid #222; padding: 5px 0;">
-                <span style="color: #a855f7; font-weight: bold;">[ALTCOIN]</span> Layer-2 Projelerinde TVL Rekoru; Ekosistem Hareketleniyor.
-            </div>
-        </div>
+    <div style="background: #1e293b; padding: 8px 15px; border-bottom: 1px solid rgba(255,255,255,0.1); display: flex; justify-content: space-between;">
+        <span style="color: #fff; font-size: 11px; font-weight: bold; letter-spacing: 1px;">📰 MERKEZİ GÜNDEM MASASI</span>
+        <span style="color: #00ff88; font-size: 9px; font-weight: bold;">ANLIK</span>
     </div>
-
+    
+    <div id="live-agenda-container" style="flex-grow: 1; padding: 12px; overflow-y: auto; color: #eee; font-size: 12px; line-height: 1.6;">
+        <p style="color: #555;">Haberler yükleniyor...</p>
+    </div>
+</div>
     <div style="flex: 1; background: #000; border-radius: 15px; border: 1px solid var(--border); overflow: hidden; display: flex; flex-direction: column;">
         <div style="background: #0f172a; padding: 5px 15px; font-size: 10px; color: #888; border-bottom: 1px solid #222;">GLOBAL MARKET STORIES</div>
         <div class="tradingview-widget-container" style="flex-grow: 1;">
@@ -3098,8 +3084,8 @@ function updateLiveAgenda() {
         altcoin: "Ethereum Layer-2 ağlarındaki işlem hacmi haftalık bazda %15 artış gösterdi."
     };
 
-    // Haberleri içine basacağımız kutuyu bulalım
-    const container = document.querySelector('.news-data-center div:first-child div:last-child');
+   // YENİ: Doğrudan ID üzerinden hedef alıyoruz
+    const container = document.getElementById('live-agenda-container');
     
     if(container) {
         container.innerHTML = `
