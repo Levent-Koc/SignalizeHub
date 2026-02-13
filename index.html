@@ -883,49 +883,52 @@ function closeMembershipModal() {
 </div>
 
          
- <div class="container">
-    <div class="card" id="topCard" style="padding:40px 30px; border-top: 4px solid var(--primary); margin-bottom: 20px; text-align: center;">
-        
-        <div style="display: flex; flex-direction: column; align-items: center; gap: 15px; margin-bottom: 25px;">
-            <h3 style="margin: 0; font-size: 22px;">📜 Günlük Strateji Raporu</h3>
-            <div style="position: relative; display: inline-block;">
-    
-    <button onclick="toggleUpdateInfo()" style="cursor: pointer; background: #f8f9fa; border: 1px solid #ddd; padding: 6px 15px; border-radius: 6px; font-size: 13px; color: #333; display: flex; align-items: center; gap: 8px; font-weight: 500;">
-        <i class="fas fa-sync-alt"></i> Güncellenme
-    </button>
+ <div class="container" style="max-width: 1200px; margin: 40px auto;">
+    <div style="display: flex; gap: 20px; flex-wrap: wrap; align-items: stretch;">
 
-    <div id="updateInfoPanel" style="max-height: 0; opacity: 0; overflow: hidden; position: absolute; top: 110%; left: 0; width: 220px; background: white; border-radius: 8px; box-shadow: 0 10px 25px rgba(0,0,0,0.15); border: 1px solid #eee; z-index: 1000; transition: all 0.4s ease-in-out;">
-        <div style="padding: 12px;">
-            <div style="font-size: 10px; color: #00d1ff; font-weight: bold; text-transform: uppercase; margin-bottom: 4px;">Sistem Durumu: Aktif</div>
-            <div id="panelTimeText" style="font-size: 13px; color: #444; font-weight: 600;">08.02.2026 - 18:30</div>
-            <div style="font-size: 10px; color: #999; margin-top: 5px;">Tüm veriler anlıktır.</div>
+        <div style="flex: 1; min-width: 320px; background: var(--card-bg); border-radius: 20px; border: 1px solid var(--border); border-top: 4px solid #9d4edd; padding: 25px; position: relative; overflow: hidden; display: flex; flex-direction: column;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                <h3 style="margin: 0; font-size: 18px; color: var(--text);">📜 Günlük Strateji Raporu</h3>
+                <span style="font-size: 11px; color: #888;">08.02.2026</span>
+            </div>
+
+            <div id="stratejiBlurArea" style="filter: blur(8px); opacity: 0.3; pointer-events: none; flex-grow: 1;">
+                <p style="line-height: 1.6; font-size: 14px; color: var(--text);">
+                    BIST100 endeksi yeni güne küresel piyasalardaki pozitif seyrin etkisiyle alıcılı bir başlangıç yaptı. 
+                    Teknik olarak 9.250 puan seviyesi güçlü bir direnç bölgesi olarak takip edilirken...
+                </p>
+            </div>
+
+            <div id="stratejiLockVisual" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.02); display: flex; flex-direction: column; align-items: center; justify-content: center; z-index: 10;">
+                <div style="background: var(--header-bg); padding: 20px; border-radius: 15px; border: 1px dashed var(--primary); text-align: center; box-shadow: 0 10px 25px rgba(0,0,0,0.1);">
+                    <span style="display: block; font-size: 24px; margin-bottom: 10px;">🔒</span>
+                    <button onclick="openSingleTab('login')" style="background: var(--primary); color: white; border: none; padding: 8px 20px; border-radius: 6px; cursor: pointer; font-weight: bold; font-size: 12px;">Giriş Yap / Oku</button>
+                </div>
+            </div>
         </div>
+
+        <div style="flex: 1; min-width: 320px; background: #000; border-radius: 20px; border: 1px solid var(--border); overflow: hidden; height: 450px; display: flex; flex-direction: column;">
+            <div style="background: #1e293b; padding: 12px 20px; border-bottom: 1px solid rgba(255,255,255,0.1);">
+                <span style="color: #fff; font-weight: bold; font-size: 13px;">📰 CANLI VERİ HABERLERİ</span>
+            </div>
+            <div class="tradingview-widget-container" style="flex-grow: 1;">
+                <div class="tradingview-widget-container__widget"></div>
+                <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-timeline.js" async>
+                {
+                  "feedMode": "all_symbols",
+                  "colorTheme": "dark",
+                  "isTransparent": true,
+                  "displayMode": "regular",
+                  "width": "100%",
+                  "height": "100%",
+                  "locale": "tr"
+                }
+                </script>
+            </div>
+        </div>
+
     </div>
 </div>
-
-        <div id="stratejiBlurArea" style="filter: blur(8px); opacity: 0.3; pointer-events: none; margin-top: 20px; max-width: 800px; margin: 0 auto;">
-            <p style="line-height: 1.8; font-size: 16px;">
-                BIST100 endeksi yeni güne küresel piyasalardaki pozitif seyrin etkisiyle alıcılı bir başlangıç yaptı. 
-                Teknik olarak 9.250 puan seviyesi güçlü bir direnç bölgesi olarak takip edilirken, bu seviyenin aşılması durumunda yukarı yönlü ivme kazanabilir. 
-                Özellikle bankacılık endeksindeki para girişi piyasayı domine etmeye devam ediyor...
-            </p>
-        </div>
-
-        <div id="stratejiLockVisual" style="margin-top: 15px; padding: 15px; border: 1px dashed var(--primary); border-radius: 8px; background: rgba(0, 209, 255, 0.05); display: inline-block;">
-            <span style="color: var(--primary); font-weight: bold; font-size: 14px;">🔒 Bu raporun devamı sadece üyelere özeldir.</span>
-            <br>
-        <button onclick="openStratejiRaporu()" style="margin-top:10px; background:var(--primary); color:white; border:none; padding:8px 25px; border-radius:5px; cursor:pointer; font-size:13px; font-weight:bold;">Giriş / Raporu Oku</button>   
-        </div>
-
-        <div id="stratejiData" style="display: none; color: #2ecc71; font-weight: bold; margin-top: 15px; font-size: 14px;">
-            ✅ Raporun tamamı açıldı. İyi kazançlar!
-        </div>
-
-    </div>
-</div>      
-               
-    </div>
-
   <style>
 /* Hub RADAR Sabit Turkuaz Hare */
 .radar-active {
@@ -2643,41 +2646,42 @@ function changeReportPage(direction) {
 
 
 
-    // --- KRİTİK: TÜM KİLİTLERİ AÇAN TEK FONKSİYON ---
-
-    function unlockEverything() {
-
-        isLoggedIn = true;
-
-        
-
-        // 1. Ana Sayfa Kilitlerini Aç
-
-        const ids = ['stratejiBlurArea', 'sinyalBlurArea', 'stratejiData', 'sinyalData'];
-
-        ids.forEach(id => {
-
-            const el = document.getElementById(id);
-
-            if(el) {
-
-                if(id.includes('Blur')) {
-
-                    el.style.filter = 'none';
-
-                    el.style.opacity = '1';
-
-                    el.style.pointerEvents = 'auto';
-
-                } else {
-
-                    el.style.display = 'block';
-
-                }
-
+   // --- KRİTİK: TÜM KİLİTLERİ AÇAN TEK FONKSİYON (GÜNCEL) ---
+function unlockEverything() {
+    isLoggedIn = true;
+    
+    // 1. Ana Sayfa Kilitlerini ve Bulanıklıkları Aç
+    const ids = ['stratejiBlurArea', 'sinyalBlurArea', 'stratejiData', 'sinyalData'];
+    ids.forEach(id => {
+        const el = document.getElementById(id);
+        if(el) {
+            if(id.includes('Blur')) {
+                el.style.filter = 'none';
+                el.style.opacity = '1';
+                el.style.pointerEvents = 'auto';
+            } else {
+                el.style.display = 'block';
             }
+        }
+    });
 
-        });
+    // 2. Yeni Eklediğimiz Kilit Görsellerini Gizle
+    const visuals = ['stratejiLockVisual', 'sinyalLockVisual'];
+    visuals.forEach(id => {
+        const el = document.getElementById(id);
+        if(el) el.style.display = 'none';
+    });
+
+    // 3. Panellerdeki ve Kartlardaki Diğer Kilitleri Kaldır
+    const panelLocks = ['scannerLock', 'heatmapLock', 'madenLock', 'btcLock'];
+    panelLocks.forEach(id => {
+        const lock = document.getElementById(id);
+        if(lock) lock.style.display = 'none';
+    });
+
+    closeMembershipModal();
+    console.log("Sinyalize Hub: Giriş başarılı, tüm içerik açıldı.");
+}
 
 
 
