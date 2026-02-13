@@ -3084,10 +3084,11 @@ function updateLiveAgenda() {
         altcoin: "Ethereum Layer-2 ağlarındaki işlem hacmi haftalık bazda %15 artış gösterdi."
     };
 
-   // YENİ: Doğrudan ID üzerinden hedef alıyoruz
+  // ID ile kutuyu buluyoruz
     const container = document.getElementById('live-agenda-container');
     
     if(container) {
+        console.log("Sistem: Gündem masası bulundu, veriler yazılıyor...");
         container.innerHTML = `
             <div style="border-bottom: 1px solid #222; padding: 5px 0;">
                 <span style="color: #00d1ff; font-weight: bold;">[BIST]</span> ${agendaContent.bist}
@@ -3105,13 +3106,20 @@ function updateLiveAgenda() {
                 <span style="color: #a855f7; font-weight: bold;">[ALTCOIN]</span> ${agendaContent.altcoin}
             </div>
         `;
+    } else {
+        console.error("Hata: 'live-agenda-container' ID'li kutu bulunamadı!");
     }
 }
 
-// Sayfa yüklendiğinde ve her 5 dakikada bir çalıştır
-window.addEventListener('load', updateLiveAgenda);
-setInterval(updateLiveAgenda, 300000); 
+// Sayfa hazır olduğunda çalıştır
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', updateLiveAgenda);
+} else {
+    updateLiveAgenda();
+}
 
+// Her 5 dakikada bir güncelle
+setInterval(updateLiveAgenda, 300000);
 </script>
 </body>
 </html>
