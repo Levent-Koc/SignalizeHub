@@ -883,10 +883,10 @@ function closeMembershipModal() {
 </div>
 
          
- <div class="container" style="max-width: 1200px; margin: 40px auto; padding: 0 20px;">
-    <div style="display: flex; gap: 20px; flex-wrap: wrap; align-items: stretch;">
+ <div class="container" style="max-width: 1240px; margin: 40px auto; padding: 0 20px;">
+    <div style="display: flex; gap: 20px; flex-wrap: wrap; align-items: stretch; min-height: 680px;">
 
-        <div style="flex: 1; min-width: 350px; background: var(--card-bg); border-radius: 20px; border: 1px solid var(--border); border-top: 4px solid #9d4edd; padding: 25px; position: relative; overflow: hidden; display: flex; flex-direction: column; min-height: 650px;">
+        <div style="flex: 1; min-width: 350px; background: var(--card-bg); border-radius: 20px; border: 1px solid var(--border); border-top: 4px solid #9d4edd; padding: 25px; position: relative; overflow: hidden; display: flex; flex-direction: column;">
             <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
                 <h3 style="margin: 0; font-size: 18px; color: var(--text);">📜 Günlük Strateji Raporu</h3>
                 <span style="font-size: 11px; color: #888;">08.02.2026</span>
@@ -895,7 +895,8 @@ function closeMembershipModal() {
             <div id="stratejiBlurArea" style="filter: blur(8px); opacity: 0.3; pointer-events: none; flex-grow: 1;">
                 <p style="line-height: 1.8; font-size: 14px; color: var(--text);">
                     BIST100 endeksi yeni güne küresel piyasalardaki pozitif seyrin etkisiyle alıcılı bir başlangıç yaptı. 
-                    Teknik olarak 9.250 puan seviyesi güçlü bir direnç bölgesi olarak takip edilirken, bu seviyenin aşılması durumunda yukarı yönlü ivme kazanabilir...
+                    Teknik olarak 9.250 puan seviyesi güçlü bir direnç bölgesi olarak takip edilirken, bu seviyenin aşılması durumunda yukarı yönlü ivme kazanabilir. 
+                    Dolar/TL tarafında yatay seyir korunurken, Euro bölgesindeki gelişmeler pariteler üzerinde volatiliteyi artırabilir.
                 </p>
             </div>
 
@@ -907,58 +908,45 @@ function closeMembershipModal() {
             </div>
         </div>
 
-        <div class="news-data-center" style="flex: 1; min-width: 350px; display: flex; flex-direction: column; gap: 12px; height: 650px;">
-    
-    <div style="height: calc(33.33% - 8px); background: #000; border-radius: 15px; border: 1px solid var(--border); overflow: hidden; display: flex; flex-direction: column;">
-        <div style="background: #1e293b; padding: 10px 15px; border-bottom: 1px solid rgba(255,255,255,0.1); display: flex; justify-content: space-between;">
-            <span style="color: #fff; font-size: 11px; font-weight: bold;">📰 MERKEZİ GÜNDEM MASASI</span>
-            <span style="color: #00ff88; font-size: 9px; font-weight: bold;">● ANLIK</span>
-        </div>
-        <div id="live-agenda-container" style="flex: 1; padding: 12px; overflow-y: auto; color: #eee; font-size: 12px; line-height: 1.6;">
-            <p style="color: #555; font-size: 11px;">Veriler senkronize ediliyor...</p>
-        </div>
-    </div>
-
-    <div style="height: calc(33.33% - 8px); background: #000; border-radius: 15px; border: 1px solid var(--border); overflow: hidden; display: flex; flex-direction: column;">
-        <div style="background: #1e293b; padding: 10px 15px; border-bottom: 1px solid rgba(255,255,255,0.1);">
-            <span style="color: #fff; font-size: 11px; font-weight: bold;">🌍 GLOBAL PİYASA AKIŞI</span>
-        </div>
-        <div style="flex: 1; overflow: hidden;">
-            <div class="tradingview-widget-container" style="height: 100%;">
-                <div class="tradingview-widget-container__widget"></div>
-                <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-timeline.js" async>
-                {
-                  "feedMode": "all_symbols",
-                  "colorTheme": "dark",
-                  "isTransparent": true,
-                  "displayMode": "regular",
-                  "width": "100%",
-                  "height": "100%",
-                  "locale": "tr"
-                }
-                </script>
+        <div class="news-data-center" style="flex: 1; min-width: 350px; display: grid; grid-template-rows: 1fr 1fr 1fr; gap: 12px;">
+            
+            <div style="background: #000; border-radius: 15px; border: 1px solid var(--border); overflow: hidden; display: flex; flex-direction: column;">
+                <div style="background: #1e293b; padding: 10px 15px; border-bottom: 1px solid rgba(255,255,255,0.1); display: flex; justify-content: space-between; align-items: center;">
+                    <span style="color: #fff; font-size: 11px; font-weight: bold;">📰 MERKEZİ GÜNDEM MASASI</span>
+                    <span style="color: #00ff88; font-size: 9px; font-weight: bold;">● ANLIK</span>
+                </div>
+                <div id="live-agenda-container" style="flex: 1; padding: 12px; overflow-y: auto; color: #eee; font-size: 12px; line-height: 1.5;">
+                    <p style="color: #555;">Veriler senkronize ediliyor...</p>
+                </div>
             </div>
-        </div>
-    </div>
 
-    <div style="height: calc(33.33% - 8px); background: #000; border-radius: 15px; border: 1px solid var(--border); overflow: hidden; display: flex; flex-direction: column;">
-        <div style="background: #1e293b; padding: 10px 15px; border-bottom: 1px solid rgba(255,255,255,0.1);">
-            <span style="color: #fff; font-size: 11px; font-weight: bold;">🗓️ EKONOMİK VERİ TAKVİMİ</span>
-        </div>
-        <div style="flex: 1; overflow: hidden;">
-            <div class="tradingview-widget-container" style="height: 100%;">
-                <div class="tradingview-widget-container__widget"></div>
-                <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-events.js" async>
-                {
-                  "colorTheme": "dark",
-                  "isTransparent": true,
-                  "width": "100%",
-                  "height": "100%",
-                  "locale": "tr",
-                  "importanceFilter": "0,1",
-                  "currencyFilter": "TRY,USD,EUR,CNY,JPY"
-                }
-                </script>
+            <div style="background: #000; border-radius: 15px; border: 1px solid var(--border); overflow: hidden; display: flex; flex-direction: column;">
+                <div style="background: #1e293b; padding: 10px 15px; border-bottom: 1px solid rgba(255,255,255,0.1);">
+                    <span style="color: #fff; font-size: 11px; font-weight: bold;">🌍 GLOBAL PİYASA AKIŞI</span>
+                </div>
+                <div style="flex: 1;">
+                    <iframe src="https://s3.tradingview.com/external-embedding/embed-widget-timeline.js" style="display:none;"></iframe>
+                    <div class="tradingview-widget-container" style="height: 100%;">
+                        <div class="tradingview-widget-container__widget"></div>
+                        <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-timeline.js" async>
+                        { "feedMode": "all_symbols", "colorTheme": "dark", "isTransparent": true, "displayMode": "regular", "width": "100%", "height": "100%", "locale": "tr" }
+                        </script>
+                    </div>
+                </div>
+            </div>
+
+            <div style="background: #000; border-radius: 15px; border: 1px solid var(--border); overflow: hidden; display: flex; flex-direction: column;">
+                <div style="background: #1e293b; padding: 10px 15px; border-bottom: 1px solid rgba(255,255,255,0.1);">
+                    <span style="color: #fff; font-size: 11px; font-weight: bold;">🗓️ EKONOMİK VERİ TAKVİMİ</span>
+                </div>
+                <div style="flex: 1;">
+                    <div class="tradingview-widget-container" style="height: 100%;">
+                        <div class="tradingview-widget-container__widget"></div>
+                        <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-events.js" async>
+                        { "colorTheme": "dark", "isTransparent": true, "width": "100%", "height": "100%", "locale": "tr", "importanceFilter": "0,1", "currencyFilter": "TRY,USD,EUR,CNY,JPY" }
+                        </script>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -3080,9 +3068,10 @@ setInterval(processHourlySignals, 3600000);
 // --- SAATLİK SİNYAL MOTORU BİTİŞİ ---
 // ... Mevcut diğer kodların bittiği yer ...
 
-// --- CANLI GÜNDEM MASASI (KESİN ÇÖZÜM) ---
-const forceUpdateAgenda = () => {
-    const content = {
+<script>
+// --- TÜMÜYLE YENİLENMİŞ HABER VE SİNYAL MOTORU ---
+(function() {
+    const agendaContent = {
         bist: "BIST 100 Endeksi 9.450 seviyesinde dirençle karşılaşıyor.",
         economy: "TCMB Piyasa Katılımcıları Anketi yayınlandı: Enflasyon beklentileri iyileşiyor.",
         forex: "Dolar/TL 31.00 bandında; piyasa ABD enflasyon verisini bekliyor.",
@@ -3090,34 +3079,44 @@ const forceUpdateAgenda = () => {
         altcoin: "Ethereum ekosisteminde Layer-2 hacimleri rekor seviyelerde."
     };
 
-    const target = document.getElementById('live-agenda-container');
-    
-    if (target) {
-        target.innerHTML = `
-            <div style="border-bottom: 1px solid #222; padding: 6px 0; display: flex; align-items: flex-start; gap: 5px;">
-                <span style="color: #00d1ff; font-weight: bold; white-space: nowrap;">[BIST]</span> <span>${content.bist}</span>
-            </div>
-            <div style="border-bottom: 1px solid #222; padding: 6px 0; display: flex; align-items: flex-start; gap: 5px;">
-                <span style="color: #22c55e; font-weight: bold; white-space: nowrap;">[EKONOMİ]</span> <span>${content.economy}</span>
-            </div>
-            <div style="border-bottom: 1px solid #222; padding: 6px 0; display: flex; align-items: flex-start; gap: 5px;">
-                <span style="color: #3b82f6; font-weight: bold; white-space: nowrap;">[DÖVİZ]</span> <span>${content.forex}</span>
-            </div>
-            <div style="border-bottom: 1px solid #222; padding: 6px 0; display: flex; align-items: flex-start; gap: 5px;">
-                <span style="color: #f3ba2f; font-weight: bold; white-space: nowrap;">[KRİPTO]</span> <span>${content.crypto}</span>
-            </div>
-            <div style="border-bottom: 1px solid #222; padding: 6px 0; display: flex; align-items: flex-start; gap: 5px;">
-                <span style="color: #a855f7; font-weight: bold; white-space: nowrap;">[ALTCOIN]</span> <span>${content.altcoin}</span>
-            </div>
-        `;
+    function refreshHubAgenda() {
+        const container = document.getElementById('live-agenda-container');
+        if (container) {
+            container.innerHTML = `
+                <div style="border-bottom: 1px solid #222; padding: 6px 0; display: flex; gap: 8px;">
+                    <span style="color: #00d1ff; font-weight: bold; min-width: 60px;">[BIST]</span> <span>${agendaContent.bist}</span>
+                </div>
+                <div style="border-bottom: 1px solid #222; padding: 6px 0; display: flex; gap: 8px;">
+                    <span style="color: #22c55e; font-weight: bold; min-width: 60px;">[EKONOMİ]</span> <span>${agendaContent.economy}</span>
+                </div>
+                <div style="border-bottom: 1px solid #222; padding: 6px 0; display: flex; gap: 8px;">
+                    <span style="color: #3b82f6; font-weight: bold; min-width: 60px;">[DÖVİZ]</span> <span>${agendaContent.forex}</span>
+                </div>
+                <div style="border-bottom: 1px solid #222; padding: 6px 0; display: flex; gap: 8px;">
+                    <span style="color: #f3ba2f; font-weight: bold; min-width: 60px;">[KRİPTO]</span> <span>${agendaContent.crypto}</span>
+                </div>
+                <div style="border-bottom: 1px solid #222; padding: 6px 0; display: flex; gap: 8px;">
+                    <span style="color: #a855f7; font-weight: bold; min-width: 60px;">[ALTCOIN]</span> <span>${agendaContent.altcoin}</span>
+                </div>
+            `;
+            console.log("Terminal: Gündem masası başarıyla güncellendi.");
+        }
     }
-};
 
-// Sayfa yüklenme aşamalarının her birinde zorla tetikle
-window.addEventListener('load', forceUpdateAgenda);
-document.addEventListener('DOMContentLoaded', forceUpdateAgenda);
-setTimeout(forceUpdateAgenda, 500); // 0.5 saniye sonra tekrar vur
-setTimeout(forceUpdateAgenda, 2000); // 2 saniye sonra garantiye al
+    // Zamanlama Çakışmalarını Önleyen Başlatıcı
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', refreshHubAgenda);
+    } else {
+        refreshHubAgenda();
+    }
+    
+    // Her ihtimale karşı 1 ve 3 saniye sonra tekrar zorla (Widgetlar DOM'u sarsabiliyor)
+    setTimeout(refreshHubAgenda, 1000);
+    setTimeout(refreshHubAgenda, 3000);
+
+    // Her 5 dakikada bir otomatik tazele
+    setInterval(refreshHubAgenda, 300000);
+})();
 </script>
 </body>
 </html>
