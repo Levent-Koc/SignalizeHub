@@ -437,11 +437,11 @@ window.addEventListener('load', () => {
 </div>
 
     <div id="quick-filters" style="display: flex; justify-content: center; gap: 10px; margin-top: 20px;">
-    <button id="btn-radar" class="pulse-filter radar-active" onclick="filterSignals('all')">Hub RADAR</button>
-    <button id="btn-crypto" class="pulse-filter" onclick="filterSignals('crypto')">KRİPTO</button>
-    <button id="btn-bist" class="pulse-filter" onclick="filterSignals('bist')">BIST</button>
-    <button id="btn-forex" class="pulse-filter" onclick="filterSignals('forex')">FOREX</button>
-    <button id="btn-metals" class="pulse-filter" onclick="filterSignals('metals')">METALS</button>
+    <button id="btn-radar" class="pulse-filter radar-active">Hub RADAR</button>
+    <button id="btn-crypto" class="pulse-filter">KRİPTO</button>
+    <button id="btn-bist" class="pulse-filter">BIST</button>
+    <button id="btn-forex" class="pulse-filter">FOREX</button>
+    <button id="btn-metals" class="pulse-filter">METALS</button>
 </div>
 </div>
  <div id="hub-opportunities">
@@ -1734,28 +1734,18 @@ body:not([data-theme='dark']) .opportunity-card {
 
     
 
-    <div class="panel-body" style="padding: 0; height: 500px; background: #131722;">
-
-        <div id="tab-gold" class="metal-tab" style="height: 100%; width: 100%;">
-
-            <iframe src="https://s.tradingview.com/widgetembed/?symbol=TVC:GOLD&interval=60&theme=dark" style="width: 100%; height: 100%; border: none;"></iframe>
-
-        </div>
-
-        <div id="tab-silver" class="metal-tab" style="height: 100%; width: 100%; display: none;">
-
-            <iframe src="https://s.tradingview.com/widgetembed/?symbol=TVC:SILVER&interval=60&theme=dark" style="width: 100%; height: 100%; border: none;"></iframe>
-
-        </div>
-
-        <div id="tab-platinum" class="metal-tab" style="height: 100%; width: 100%; display: none;">
-
-            <iframe src="https://s.tradingview.com/widgetembed/?symbol=TVC:PLATINUM&interval=60&theme=dark" style="width: 100%; height: 100%; border: none;"></iframe>
-
-        </div>
-
+   <div class="panel-body" style="padding: 0; height: 500px; background: #131722;">
+    <div id="tab-gold" class="metal-tab" style="height: 100%; width: 100%;">
+        <iframe src="https://s.tradingview.com/widgetembed/?symbol=TVC:GOLD&interval=60&theme=dark" style="width: 100%; height: 100%; border: none;"></iframe>
     </div>
-
+    <div id="tab-silver" class="metal-tab" style="height: 100%; width: 100%; display: none;">
+        <iframe src="https://s.tradingview.com/widgetembed/?symbol=TVC:SILVER&interval=60&theme=dark" style="width: 100%; height: 100%; border: none;"></iframe>
+    </div>
+    <div id="tab-platinum" class="metal-tab" style="height: 100%; width: 100%; display: none;">
+        <iframe src="https://s.tradingview.com/widgetembed/?symbol=TVC:PLATINUM&interval=60&theme=dark" style="width: 100%; height: 100%; border: none;"></iframe>
+    </div>
+</div>
+   
 </div>
 
 <div id="fPanel" class="tali-panel-yeni" style="display: none; border: 2px solid #a855f7 !important; box-shadow: 0 0 30px rgba(168, 85, 247, 0.7) !important; border-radius: 15px; overflow: hidden; background: #131722; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 10007; width: 90%; max-width: 500px;">
@@ -1912,124 +1902,84 @@ function fPanelGuncelle(sure) {
 
 </script>
 <script>
-/**
- * SIGNALIZHUB MERKEZİ KONTROL ÜNİTESİ (v4.0)
- * Haber Botu + Rapor Sistemi + Kilit Yönetimi
- */
+window.isLoggedIn = false;
 
-let isLoggedIn = false;
-let currentPage = 0;
+// 1. RADAR IŞIKLARI SENKRONİZASYONU
+function runCentralSync() {
+    // Çarktaki Metin -> Buton ID eşleşmesi
+    const map = { 'KRİPTO': 'btn-crypto', 'BIST': 'btn-bist', 'FOREX': 'btn-forex', 'METALS': 'btn-metals' };
+    const colors = ['#22c55e', '#eab308', '#ef4444'];
+    
+    document.querySelectorAll('.dial-sector').forEach(sector => {
+        const label = sector.querySelector('text')?.textContent.trim();
+        const circle = sector.querySelector('circle');
+        const targetBtn = document.getElementById(map[label]);
+        const randColor = colors[Math.floor(Math.random() * 3)];
 
-// 1. RAPOR İÇERİĞİ
-const dailyReportData = {
-    date: "13 Şubat 2026",
-    pages: [
-        {
-            title: "1. Piyasaya Genel Bakış",
-            content: `<h3>Küresel Görünüm</h3><p>ABD enflasyon verileri öncesi piyasalarda temkinli bir bekleyiş hakim. Asya tarafında teknoloji hisseleri öncülüğünde bir toparlanma izliyoruz.</p>
-                      <h3>BIST 100 Stratejisi</h3><p>Endekste 9.150 puan seviyesi kritik eşik. Destek bölgemiz 8.850 seviyesidir.</p>`
-        },
-        {
-            title: "2. Takip Listesi & Sinyaller",
-            content: `<h3>Teknik Sinyal Verenler</h3><ul><li><strong>THYAO:</strong> RSI uyumsuzluğu ile dönüş çabasında.</li><li><strong>EREGL:</strong> 200 günlük ortalamadan destek alıyor.</li></ul>`
+        if (circle) {
+            circle.setAttribute('fill', randColor);
+            circle.style.filter = `drop-shadow(0 0 10px ${randColor})`;
         }
-    ]
-};
-
-// 2. EKONOMİ BÜLTENİ MOTORU (RSS)
-async function fetchEconomyNews() {
-    const target = document.getElementById('economy-bulletin-target');
-    if (!target) return;
-    const rssUrl = 'https://www.bloomberght.com/rss'; 
-    const apiUrl = `https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(rssUrl)}`;
-
-    try {
-        const response = await fetch(apiUrl);
-        const data = await response.json();
-        if (data.status === 'ok') {
-            let html = "";
-            data.items.slice(0, 10).forEach((item, i) => {
-                const colors = ['#00d1ff', '#22c55e', '#3b82f6', '#f3ba2f', '#a855f7'];
-                const pubDate = new Date(item.pubDate);
-                const timeStr = pubDate.getHours().toString().padStart(2, '0') + ":" + pubDate.getMinutes().toString().padStart(2, '0');
-                html += `<div style="border-bottom: 1px solid #222; padding: 10px 0; display: flex; gap: 10px; animation: fadeIn 0.4s ease;">
-                    <span style="color: ${colors[i % 5]}; font-weight: bold; font-size: 10px; font-family: monospace;">[${timeStr}]</span>
-                    <span style="cursor: pointer;" onclick="window.open('${item.link}', '_blank')">${item.title}</span>
-                </div>`;
-            });
-            target.innerHTML = html;
+        
+        // Hub RADAR yanındaki kutuyu parlat
+        if (targetBtn) {
+            targetBtn.classList.remove('glow-green', 'glow-yellow', 'glow-red');
+            if (randColor === '#22c55e') targetBtn.classList.add('glow-green');
+            else if (randColor === '#eab308') targetBtn.classList.add('glow-yellow');
+            else if (randColor === '#ef4444') targetBtn.classList.add('glow-red');
         }
-    } catch (e) { target.innerHTML = '<p style="color:#666">Haber akışı geçici olarak durdu.</p>'; }
-}
-
-// 3. RAPOR YÖNETİMİ
-function renderReport() {
-    const content = document.getElementById('reportContent');
-    const pageIndicator = document.getElementById('pageIndicator');
-    const page = dailyReportData.pages[currentPage];
-    if(!content) return;
-
-    content.innerHTML = `<div style="max-width:750px; margin:0 auto; animation: fadeIn 0.5s ease;">
-        <h1 style="border-bottom:3px solid #00d1ff; padding-bottom:15px; color:#1a252f;">${page.title}</h1>
-        <div style="font-size:16px; color:#34495e;">${page.content}</div>
-    </div>`;
-    if(pageIndicator) pageIndicator.innerText = `Sayfa ${currentPage + 1} / ${dailyReportData.pages.length}`;
-}
-
-function changeReportPage(direction) {
-    const newPage = currentPage + direction;
-    if (newPage >= 0 && newPage < dailyReportData.pages.length) {
-        currentPage = newPage;
-        renderReport();
-    }
-}
-
-function openStratejiRaporu() {
-    if (!isLoggedIn) {
-        document.getElementById('loginRequiredPanel').style.display = 'flex';
-    } else {
-        currentPage = 0;
-        renderReport();
-        document.getElementById('reportModal').style.display = 'flex';
-    }
-}
-
-// 4. KİLİT AÇMA VE GİRİŞ SİSTEMİ
-function unlockEverything() {
-    isLoggedIn = true;
-    // Bulanıklıkları kaldır
-    ['stratejiBlurArea', 'sinyalBlurArea'].forEach(id => {
-        const el = document.getElementById(id);
-        if(el) { el.style.filter = 'none'; el.style.opacity = '1'; el.style.pointerEvents = 'auto'; }
     });
-    // Kilit görsellerini gizle
-    document.querySelectorAll('[id$="LockVisual"], [id$="Lock"]').forEach(el => el.style.display = 'none');
-    // Modalları kapat
-    ['membershipModal', 'loginRequiredPanel'].forEach(id => {
-        const el = document.getElementById(id);
-        if(el) el.style.display = 'none';
-    });
-    alert("Terminal Erişimi Açıldı!");
 }
 
-// 5. GENEL PANEL VE MODAL FONKSİYONLARI
+// 2. MADEN ANALİZİ GEÇİŞLERİ (ALTIN/GÜMÜŞ/PLATİN)
+function showMetal(type) {
+    console.log("Sistem: Maden geçişi yapılıyor -> " + type);
+    
+    // Tüm sekmeleri gizle
+    document.querySelectorAll('.metal-tab').forEach(el => el.style.display = 'none');
+    
+    // Seçilen sekme ID'sini bul ve göster
+    const target = document.getElementById('tab-' + type);
+    if (target) {
+        target.style.display = 'block';
+        // Iframe donmasını önlemek için yenile
+        const frame = target.querySelector('iframe');
+        if (frame) frame.src = frame.src;
+    }
+
+    // Butonların renklerini güncelle
+    const config = { gold: '#FFD700', silver: '#C0C0C0', platinum: '#E5E4E2' };
+    ['gold', 'silver', 'platinum'].forEach(m => {
+        const btn = document.getElementById('btn-' + m);
+        if(btn) {
+            btn.style.background = (m === type) ? config[m] : '#333';
+            btn.style.color = (m === type) ? '#000' : '#fff';
+        }
+    });
+}
+
+// 3. ISI HARİTASI & TARAYICI GÜNCELLEME (PANEL AÇILIŞI)
 function openP(id) {
-    document.querySelectorAll('.tali-panel-yeni').forEach(p => p.style.display = 'none');
-    const target = document.getElementById(id);
-    if(target) { target.style.display = 'block'; window.dispatchEvent(new Event('resize')); }
-}
-function openSingleTab(t) { document.getElementById('membershipModal').style.display = 'flex'; switchTab(t); }
-function closeMembershipModal() { document.getElementById('membershipModal').style.display = 'none'; }
-function switchTab(t) {
-    const l = document.getElementById('loginFormArea'), r = document.getElementById('registerFormArea');
-    if(t === 'login') { l.style.display = 'block'; r.style.display = 'none'; }
-    else { l.style.display = 'none'; r.style.display = 'block'; }
+    document.querySelectorAll('.tali-panel-yeni, .tali-panel').forEach(p => p.style.display = 'none');
+    const panel = document.getElementById(id);
+    if (panel) {
+        panel.style.display = 'block';
+        panel.style.zIndex = "10005";
+        
+        // Widget'ları otomatik tazelemek için resize sinyali
+        setTimeout(() => { 
+            window.dispatchEvent(new Event('resize')); 
+            console.log(id + " paneli tazelendi.");
+        }, 200);
+
+        if(id === 'mPanel') showMetal('gold'); // Maden açılınca Altın seçili gelsin
+    }
 }
 
-// 6. BAŞLATICI
+// BAŞLATICI
 window.addEventListener('load', () => {
-    fetchEconomyNews();
-    setInterval(fetchEconomyNews, 300000); // 5 dk'da bir tazele
+    runCentralSync();
+    setInterval(runCentralSync, 10000); // 10 saniyede bir radar tara
 });
 </script>
 </body>
