@@ -334,68 +334,45 @@ function updateMarketSignals() {
 // Sayfa açıldığında motoru çalıştır
 window.addEventListener('DOMContentLoaded', updateMarketSignals);
 <script>
-/**
- * SIGNALIZHUB MERKEZİ MOTOR v4.7
- * Tüm çakışmalar giderildi. Maden sekmeleri ve Sinyal yansıtma aktif.
+/** * SIGNALIZHUB MASTER ENGINE v5.0 
+ * Haberler + Çark + Madenler + Paneller 
  */
+window.isLoggedIn = false;
+window.currentPage = 0;
 
-let isLoggedIn = false;
-
-// --- A. ÇARK VE BUTON RENK YANSITICI ---
+// 1. ÇARK & BUTON SENKRONİZASYONU (RADAR SİSTEMİ)
 function runCentralSync() {
-    const MARKET_MAP = { 
-        'KRİPTO': 'btn-crypto', 
-        'BIST': 'btn-bist', 
-        'FOREX': 'btn-forex', 
-        'METALS': 'btn-metals' 
-    };
+    const MARKET_MAP = { 'KRİPTO': 'btn-crypto', 'BIST': 'btn-bist', 'FOREX': 'btn-forex', 'METALS': 'btn-metals' };
     const SIGNAL_COLORS = ['#22c55e', '#eab308', '#ef4444'];
     const sectors = document.querySelectorAll('.dial-sector');
     
     sectors.forEach(sector => {
-        const textEl = sector.querySelector('text');
-        const circleEl = sector.querySelector('circle');
-        
-        if (textEl && circleEl) {
-            const label = textEl.textContent.trim();
-            const btnId = MARKET_MAP[label];
-            const btn = document.getElementById(btnId);
-            const newColor = SIGNAL_COLORS[Math.floor(Math.random() * SIGNAL_COLORS.length)];
+        const label = sector.querySelector('text')?.textContent.trim();
+        const circle = sector.querySelector('circle');
+        const btn = document.getElementById(MARKET_MAP[label]);
+        const newColor = SIGNAL_COLORS[Math.floor(Math.random() * 3)];
 
-            // Çark ışığını yak
-            circleEl.setAttribute('fill', newColor);
-            circleEl.style.filter = `drop-shadow(0 0 10px ${newColor})`;
-
-            // Butona yansıt (Glow sınıfları CSS'te tanımlı olmalı)
-            if (btn) {
-                btn.classList.remove('glow-green', 'glow-yellow', 'glow-red');
-                if (newColor === '#22c55e') btn.classList.add('glow-green');
-                else if (newColor === '#eab308') btn.classList.add('glow-yellow');
-                else if (newColor === '#ef4444') btn.classList.add('glow-red');
-            }
+        if (circle) {
+            circle.setAttribute('fill', newColor);
+            circle.style.filter = `drop-shadow(0 0 10px ${newColor})`;
+        }
+        if (btn) {
+            btn.classList.remove('glow-green', 'glow-yellow', 'glow-red');
+            const glowClass = newColor === '#22c55e' ? 'glow-green' : (newColor === '#eab308' ? 'glow-yellow' : 'glow-red');
+            btn.classList.add(glowClass);
         }
     });
 }
 
-// --- B. MADEN ANALİZİ SEKME MOTORU (Altın/Gümüş/Platin) ---
+// 2. MADEN ANALİZİ (ALTIN/GÜMÜŞ/PLATİN)
 function showMetal(type) {
-    console.log("Maden değişiyor: " + type);
-    // 1. Tüm tabları gizle
-    const tabs = document.querySelectorAll('.metal-tab');
-    tabs.forEach(tab => {
-        tab.style.display = 'none';
-    });
-
-    // 2. Seçilen tabı göster
-    const selectedTab = document.getElementById('tab-' + type);
-    if (selectedTab) {
-        selectedTab.style.display = 'block';
-        // İçindeki iframe'i tazele (donmayı önler)
-        const iframe = selectedTab.querySelector('iframe');
-        if (iframe) iframe.src = iframe.src;
+    document.querySelectorAll('.metal-tab').forEach(tab => tab.style.display = 'none');
+    const target = document.getElementById('tab-' + type);
+    if (target) {
+        target.style.display = 'block';
+        const iframe = target.querySelector('iframe');
+        if (iframe) iframe.src = iframe.src; // Tazeleme
     }
-
-    // 3. Buton renklerini güncelle
     const colors = { gold: '#FFD700', silver: '#C0C0C0', platinum: '#E5E4E2' };
     ['gold', 'silver', 'platinum'].forEach(m => {
         const btn = document.getElementById('btn-' + m);
@@ -406,48 +383,55 @@ function showMetal(type) {
     });
 }
 
-// --- C. PANEL VE MODAL YÖNETİMİ ---
+// 3. MERKEZİ PANEL YÖNETİCİSİ (ISI HARİTASI & TARAYICI)
 function openP(id) {
-    // Diğer tüm panelleri gizle
     document.querySelectorAll('.tali-panel-yeni, .tali-panel').forEach(p => p.style.display = 'none');
-    
     const target = document.getElementById(id);
     if(target) {
         target.style.display = 'block';
-        target.style.zIndex = "10005";
-        
-        // Eğer mPanel (Maden) açılıyorsa varsayılan olarak Altın'ı göster
+        // Widgetların donmasını engellemek için yeniden boyutlandırma sinyali gönder
+        setTimeout(() => { window.dispatchEvent(new Event('resize')); }, 100);
         if(id === 'mPanel') showMetal('gold');
-
-        setTimeout(() => window.dispatchEvent(new Event('resize')), 150);
     }
 }
 
-// --- D. GÜVENLİ KİLİT SİSTEMİ ---
-function unlockEverything() {
-    isLoggedIn = true;
-    document.querySelectorAll('[id$="BlurArea"]').forEach(el => {
-        el.style.filter = 'none'; 
-        el.style.opacity = '1'; 
-        el.style.pointerEvents = 'auto';
-    });
-    document.querySelectorAll('[id$="LockVisual"], [id$="Lock"]').forEach(el => el.style.display = 'none');
-    
-    // Modalları kapat
-    const modal = document.getElementById('membershipModal');
-    if(modal) modal.style.display = 'none';
-    
-    alert("Sistem Girişi Onaylandı!");
+// 4. HABER BOTU (BLOOMBERG HT)
+async function fetchEconomyNews() {
+    const target = document.getElementById('economy-bulletin-target');
+    if (!target) return;
+    const apiUrl = `https://api.rss2json.com/v1/api.json?rss_url=https://www.bloomberght.com/rss`;
+    try {
+        const res = await fetch(apiUrl);
+        const data = await res.json();
+        if (data.status === 'ok') {
+            target.innerHTML = data.items.slice(0, 10).map((item, i) => {
+                const colors = ['#00d1ff', '#22c55e', '#3b82f6', '#f3ba2f', '#a855f7'];
+                return `<div style="border-bottom:1px solid #222; padding:8px 0; font-size:12px;">
+                    <span style="color:${colors[i%5]}; font-weight:bold;">[SON DK]</span> 
+                    <a href="${item.link}" target="_blank" style="color:#eee; text-decoration:none;">${item.title}</a>
+                </div>`;
+            }).join('');
+        }
+    } catch (e) { target.innerHTML = "Haber akışı bekleniyor..."; }
 }
 
-// Giriş Modalı Fonksiyonları
-function openSingleTab(t) { document.getElementById('membershipModal').style.display = 'flex'; }
-function closeMembershipModal() { document.getElementById('membershipModal').style.display = 'none'; }
+// 5. KİLİT SİSTEMİ
+function unlockEverything() {
+    window.isLoggedIn = true;
+    document.querySelectorAll('[id$="BlurArea"]').forEach(el => {
+        el.style.filter = 'none'; el.style.opacity = '1'; el.style.pointerEvents = 'auto';
+    });
+    document.querySelectorAll('[id$="LockVisual"], #btcLock').forEach(el => el.style.display = 'none');
+    document.getElementById('membershipModal').style.display = 'none';
+    alert("Sistem Girişi Başarılı!");
+}
 
-// --- E. BAŞLATICI ---
+// BAŞLATICI
 window.addEventListener('load', () => {
+    fetchEconomyNews();
     runCentralSync();
-    setInterval(runCentralSync, 8000); // 8 saniyede bir renk güncelle
+    setInterval(runCentralSync, 10000);
+    setInterval(fetchEconomyNews, 300000);
 });
 </script>
 </div>
@@ -673,10 +657,29 @@ window.addEventListener('load', loadSmartCalendar);
     box-shadow: 0 0 15px rgba(0, 209, 255, 0.6), inset 0 0 5px rgba(0, 209, 255, 0.2);
     color: #00d1ff !important;
 }
-.glow-green { border: 1px solid #22c55e !important; color: #22c55e !important; box-shadow: 0 0 15px rgba(34, 197, 94, 0.5) !important; background: rgba(34, 197, 94, 0.1) !important; }
-.glow-yellow { border: 1px solid #eab308 !important; color: #eab308 !important; box-shadow: 0 0 15px rgba(234, 179, 8, 0.5) !important; background: rgba(234, 179, 8, 0.1) !important; }
-.glow-red { border: 1px solid #ef4444 !important; color: #ef4444 !important; box-shadow: 0 0 15px rgba(239, 68, 68, 0.5) !important; background: rgba(239, 68, 68, 0.1) !important; }
-/* Geçişlerin yumuşak olması için bu satırı da butonların ana class'ına (pulse-filter) ekle */
+/* Sinyal Yansıma Renkleri - Modern Hub Tasarımı */
+.glow-green { 
+    border: 1px solid #22c55e !important; 
+    color: #22c55e !important; 
+    box-shadow: 0 0 15px rgba(34, 197, 94, 0.5) !important; 
+    background: rgba(34, 197, 94, 0.05) !important; 
+}
+.glow-yellow { 
+    border: 1px solid #eab308 !important; 
+    color: #eab308 !important; 
+    box-shadow: 0 0 15px rgba(234, 179, 8, 0.5) !important; 
+    background: rgba(234, 179, 8, 0.05) !important; 
+}
+.glow-red { 
+    border: 1px solid #ef4444 !important; 
+    color: #ef4444 !important; 
+    box-shadow: 0 0 15px rgba(239, 68, 68, 0.5) !important; 
+    background: rgba(239, 68, 68, 0.1) !important; 
+}
+
+/* Isı Haritası ve Tarayıcı Kutularının Taşmasını Önle */
+.panel-body { overflow: hidden !important; }
+.panel-body iframe { width: 100% !important; height: 100% !important; border: none; }/* Geçişlerin yumuşak olması için bu satırı da butonların ana class'ına (pulse-filter) ekle */
 .pulse-filter {
     transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1) !important;
 }
@@ -1724,10 +1727,10 @@ body:not([data-theme='dark']) .opportunity-card {
 
 
     <div style="display: flex; background: #1e222d; padding: 10px; gap: 10px; border-bottom: 1px solid #333;">
-<button onclick="showMetal('gold')" id="btn-gold" style="flex: 1; padding: 10px; border: none; border-radius: 5px; background: #FFD700; color: #000; font-weight: bold; cursor: pointer;">ALTIN</button>
-<button onclick="showMetal('silver')" id="btn-silver" style="flex: 1; padding: 10px; border: none; border-radius: 5px; background: #333; color: #fff; font-weight: bold; cursor: pointer;">GÜMÜŞ</button>
-<button onclick="showMetal('platinum')" id="btn-platinum" style="flex: 1; padding: 10px; border: none; border-radius: 5px; background: #333; color: #fff; font-weight: bold; cursor: pointer;">PLATİN</button>       
-    </div>
+    <button onclick="showMetal('gold', this)" id="btn-gold" style="flex: 1; padding: 10px; border: none; border-radius: 5px; background: #FFD700; color: #000; font-weight: bold; cursor: pointer;">ALTIN</button>
+    <button onclick="showMetal('silver', this)" id="btn-silver" style="flex: 1; padding: 10px; border: none; border-radius: 5px; background: #333; color: #fff; font-weight: bold; cursor: pointer;">GÜMÜŞ</button>
+    <button onclick="showMetal('platinum', this)" id="btn-platinum" style="flex: 1; padding: 10px; border: none; border-radius: 5px; background: #333; color: #fff; font-weight: bold; cursor: pointer;">PLATİN</button>        
+</div>
 
     
 
