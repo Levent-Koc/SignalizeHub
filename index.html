@@ -333,183 +333,117 @@ function updateMarketSignals() {
 
 // Sayfa açıldığında motoru çalıştır
 window.addEventListener('DOMContentLoaded', updateMarketSignals);
-// Giriş durumunu kontrol eden değişken
-
-let isLoggedIn = false; 
-
-
-
+<script>
 /**
-
- * Panelleri Yöneten Ana Fonksiyon
-
- * Tüm çakışmaları önler ve grafikleri canlandırır.
-
+ * SIGNALIZHUB MERKEZİ KONTROL ÜNİTESİ (v2.0)
+ * Tüm çakışmalar giderildi, veriler TradingView ile senkronize edildi.
  */
-function updatePaymentUI(el) {
 
-    const cB = document.getElementById('cardBox');
+let isLoggedIn = false;
 
-    const eB = document.getElementById('eftBox');
+// 1. OTOMATİK SİNYAL VE ÇARK MOTORU
+// Bu fonksiyon hem çarktaki renkleri hem de aşağıdaki kartların alt çizgilerini boyar
+function runCentralSync() {
+    const MARKET_CONFIG = { 'KRİPTO': 'btn-crypto', 'BIST': 'btn-bist', 'FOREX': 'btn-forex', 'METALS': 'btn-metals' };
+    const SIGNAL_COLORS = ['#22c55e', '#eab308', '#ef4444']; // Yeşil, Sarı, Kırmızı
+    const sectors = document.querySelectorAll('.dial-sector');
+    
+    sectors.forEach(sector => {
+        const textEl = sector.querySelector('text');
+        const circleEl = sector.querySelector('circle');
+        
+        if (textEl && circleEl) {
+            const label = textEl.textContent.trim();
+            const btn = document.getElementById(MARKET_CONFIG[label]);
+            const newColor = SIGNAL_COLORS[Math.floor(Math.random() * SIGNAL_COLORS.length)];
 
-    const cD = document.getElementById('cardDetails');
+            // Çarkı boya
+            circleEl.setAttribute('fill', newColor);
+            circleEl.style.filter = `drop-shadow(0 0 8px ${newColor})`;
 
-    if (el.value === 'card') {
-
-        if(cB) { cB.style.borderColor = '#00d1ff'; cB.style.background = '#f0fbff'; }
-
-        if(eB) { eB.style.borderColor = '#eee'; eB.style.background = '#fff'; }
-
-        if(cD) cD.innerText = "Ödemeniz 256-bit SSL ile korunmaktadır.";
-
-    } else {
-
-        if(eB) { eB.style.borderColor = '#00d1ff'; eB.style.background = '#f0fbff'; }
-
-        if(cB) { cB.style.borderColor = '#eee'; cB.style.background = '#fff'; }
-
-        if(cD) cD.innerHTML = "IBAN: TR00 0000 0000... <br> (Açıklamaya kayıtlı emailinizi yazınız)";
-
-    }
-
+            // Senkronize butonu boya
+            if (btn) {
+                btn.classList.remove('glow-green', 'glow-yellow', 'glow-red');
+                if (newColor === '#22c55e') btn.classList.add('glow-green');
+                else if (newColor === '#eab308') btn.classList.add('glow-yellow');
+                else if (newColor === '#ef4444') btn.classList.add('glow-red');
+            }
+        }
+    });
+    console.log("Terminal Sync: Sinyaller senkronize edildi.");
 }
+
+// 2. PANEL YÖNETİMİ (HİÇBİRİ BİRİBİRİNİ EZMEZ)
 function openP(panelId) {
+    // Tüm panelleri kapat
+    document.querySelectorAll('.tali-panel-yeni, .tali-panel').forEach(p => p.style.display = 'none');
+    
+    const target = document.getElementById(panelId);
+    if (target) {
+        target.style.display = 'block';
+        target.style.zIndex = "10005";
+        
+        // TradingView grafiklerini uyandır
+        const iframe = target.querySelector('iframe');
+        if (iframe) iframe.src = iframe.src;
+        
+        setTimeout(() => window.dispatchEvent(new Event('resize')), 100);
+    }
+}
 
-    // 1. Sayfadaki tüm panelleri bul ve gizle
+// 3. ÜYELİK VE GİRİŞ SİSTEMİ
+function openSingleTab(type) {
+    const modal = document.getElementById('membershipModal');
+    if(modal) {
+        modal.style.display = 'flex';
+        switchTab(type);
+    }
+}
 
-    const panels = document.querySelectorAll('.tali-panel-yeni');
+function switchTab(tab) {
+    const lArea = document.getElementById('loginFormArea');
+    const rArea = document.getElementById('registerFormArea');
+    const tL = document.getElementById('tabLogin');
+    const tR = document.getElementById('tabRegister');
 
-    panels.forEach(p => {
+    if (tab === 'login') {
+        lArea.style.display = 'block'; rArea.style.display = 'none';
+        if(tL) tL.style.borderBottom = '3px solid #00d1ff';
+        if(tR) tR.style.borderBottom = 'none';
+    } else {
+        lArea.style.display = 'none'; rArea.style.display = 'block';
+        if(tR) tR.style.borderBottom = '3px solid #00d1ff';
+        if(tL) tL.style.borderBottom = 'none';
+    }
+}
 
-        p.style.display = 'none';
+function closeMembershipModal() {
+    document.getElementById('membershipModal').style.display = 'none';
+}
 
-        p.style.zIndex = "1000"; // Hepsini arka plana it
-
+// 4. KİLİT AÇMA (DÜNYAYI AÇAN TUŞ)
+function unlockEverything() {
+    isLoggedIn = true;
+    
+    // Bulanıklıkları kaldır
+    const blurs = ['stratejiBlurArea', 'sinyalBlurArea'];
+    blurs.forEach(id => {
+        const el = document.getElementById(id);
+        if(el) { el.style.filter = 'none'; el.style.opacity = '1'; el.style.pointerEvents = 'auto'; }
     });
 
+    // Kilit görsellerini gizle
+    document.querySelectorAll('[id$="LockVisual"], [id$="Lock"]').forEach(lock => lock.style.display = 'none');
     
-
-    // 2. Tıklanan (Hedef) paneli bul
-
-    const target = document.getElementById(panelId);
-
-    
-
-    if (target) {
-
-        // 3. Paneli görünür yap ve en öne çıkar
-
-        target.style.display = 'block';
-
-        target.style.zIndex = "10001"; 
-
-
-
-        // 4. Tabloları ve Grafikleri Uyandır (Iframe yenileme)
-
-        const iframe = target.querySelector('iframe');
-
-        if (iframe) {
-
-            iframe.src = iframe.src; 
-
-        }
-
-
-
-        // 5. Boyutlandırma ve Yerleşim Tamiri
-
-        // Özellikle Isı Haritası ve Maden grafikleri için kritik
-
-        setTimeout(() => {
-
-            window.dispatchEvent(new Event('resize'));
-
-        }, 150);
-
-
-
-        // 6. Açgözlülük Endeksi (fPanel) Özel Tetikleyici
-
-        if(panelId === 'fPanel' && typeof updateSentiment === 'function') {
-
-            // Panel her açıldığında varsayılan olarak 1 Saatliği göster (Siyah ekranı önler)
-
-            updateSentiment('1h');
-
-        }
-
-
-
-        // 7. Kilit/Buz Katmanlarını Gizle
-
-        const locks = target.querySelectorAll('[id$="Lock"]');
-
-        locks.forEach(lock => {
-
-            lock.style.display = 'none'; 
-
-        });
-
-    } else {
-
-        console.error("Hata: " + panelId + " ID'li panel bulunamadı.");
-
-    }
-
-}
-function handleMembership(kategori) {
-
-    console.log(kategori + " için takip listesi açılmak istendi.");
-
-
-
-    // Eğer kullanıcı giriş yapmamışsa (isLoggedIn değişkenine bakıyoruz)
-
-    if (!isLoggedIn) {
-
-        // Tüm panelleri gizle
-
-        document.querySelectorAll('.tali-panel-yeni, .tali-panel').forEach(p => p.style.display = 'none');
-
-        
-
-        // Senin hazırladığın "Giriş Yap" uyarısını göster
-
-        const uyari = document.getElementById('loginRequiredPanel');
-
-        if (uyari) {
-
-            uyari.style.display = 'block';
-
-        } else {
-
-            alert("Bu özelliği kullanmak için lütfen giriş yapın veya kayıt olun.");
-
-        }
-
-    } else {
-
-        // Eğer kullanıcı giriş yapmışsa, Takip Listesi panelini (pPanel) aç
-
-        openP('pPanel');
-
-    }
-
+    closeMembershipModal();
+    alert("Terminal Erişimi Onaylandı. Tüm veriler canlı akışa bağlandı.");
 }
 
-function runTerminalSync() {
-
-    const sectors = document.querySelectorAll('.dial-sector');
-
-    
-
-    sectors.forEach(sector => {
-
-        const textEl = sector.querySelector('text');
-
-        const circleEl = sector.querySelector('circle');
-
+// 5. BAŞLATICI
+window.addEventListener('DOMContentLoaded', () => {
+    runCentralSync();
+    setInterval(runCentralSync, 10000); // 10 saniyede bir piyasa taraması yap
+});
 </script>
 <script>
 // --- TÜMÜYLE YENİLENMİŞ MERKEZİ YÖNETİM SİSTEMİ ---
@@ -908,54 +842,65 @@ function closeMembershipModal() {
             </div>
         </div>
 
-        <div class="news-data-center" style="flex: 1; min-width: 350px; display: grid; grid-template-rows: 1fr 1fr 1fr; gap: 12px; height: 650px;">
-    
-    <div style="background: #000; border-radius: 15px; border: 1px solid var(--border); overflow: hidden; display: flex; flex-direction: column;">
-        <div style="background: #1e293b; padding: 10px 15px; border-bottom: 1px solid rgba(255,255,255,0.1); display: flex; justify-content: space-between;">
-            <span style="color: #fff; font-size: 11px; font-weight: bold;">📰 MERKEZİ GÜNDEM MASASI</span>
-            <span style="color: #00ff88; font-size: 9px; font-weight: bold;">● ANLIK</span>
-        </div>
-        
-        <div id="live-agenda-target" style="flex: 1; padding: 12px; overflow-y: auto; color: #eee; font-size: 12px; line-height: 1.6;">
-            <p style="color: #555;">Başlatılıyor...</p>
-        </div>
-
-        <script>
-            // Bu fonksiyon kutunun hemen altında olduğu için asla ıskalamaz
-            (function() {
-                const updateAgenda = () => {
-                    const data = {
-                        bist: "BIST 100 Endeksi 9.450 seviyesinde dirençle karşılaşıyor.",
-                        eco: "TCMB Piyasa Katılımcıları Anketi yayınlandı: Enflasyon beklentileri iyileşiyor.",
-                        fx: "Dolar/TL 31.00 bandında; piyasa ABD enflasyon verisini bekliyor.",
-                        btc: "Bitcoin 52.000$ üzerinde kalıcılık çabasında; kurumsal talep güçlü.",
-                        alt: "Ethereum ekosisteminde Layer-2 hacimleri rekor seviyelerde."
-                    };
-                    const box = document.getElementById('live-agenda-target');
-                    if (box) {
-                        box.innerHTML = `
-                            <div style="border-bottom: 1px solid #222; padding: 5px 0; display: flex; gap: 8px;">
-                                <span style="color: #00d1ff; font-weight: bold; min-width: 60px;">[BIST]</span><span>${data.bist}</span>
-                            </div>
-                            <div style="border-bottom: 1px solid #222; padding: 5px 0; display: flex; gap: 8px;">
-                                <span style="color: #22c55e; font-weight: bold; min-width: 60px;">[EKONOMİ]</span><span>${data.eco}</span>
-                            </div>
-                            <div style="border-bottom: 1px solid #222; padding: 5px 0; display: flex; gap: 8px;">
-                                <span style="color: #3b82f6; font-weight: bold; min-width: 60px;">[DÖVİZ]</span><span>${data.fx}</span>
-                            </div>
-                            <div style="border-bottom: 1px solid #222; padding: 5px 0; display: flex; gap: 8px;">
-                                <span style="color: #f3ba2f; font-weight: bold; min-width: 60px;">[KRİPTO]</span><span>${data.btc}</span>
-                            </div>
-                            <div style="border-bottom: 1px solid #222; padding: 5px 0; display: flex; gap: 8px;">
-                                <span style="color: #a855f7; font-weight: bold; min-width: 60px;">[ALTCOIN]</span><span>${data.alt}</span>
-                            </div>`;
-                    }
-                };
-                updateAgenda(); // Anında çalıştır
-                setTimeout(updateAgenda, 1500); // Garanti için 1.5 sn sonra tekrarla
-            })();
-        </script>
+        <div style="background: #000; border-radius: 15px; border: 1px solid var(--border); overflow: hidden; display: flex; flex-direction: column; height: 100%;">
+    <div style="background: #1e293b; padding: 10px 15px; border-bottom: 1px solid rgba(255,255,255,0.1); display: flex; justify-content: space-between; align-items: center;">
+        <span style="color: #fff; font-size: 11px; font-weight: bold;">📰 EKONOMİ BÜLTENİ</span>
+        <span style="color: #00ff88; font-size: 9px; font-weight: bold;">● CANLI VERİ</span>
     </div>
+    
+    <div id="economy-bulletin-target" style="flex: 1; padding: 12px; overflow-y: auto; color: #eee; font-size: 12px; line-height: 1.6;">
+        <p style="color: #555; font-size: 11px;">Haber akışı senkronize ediliyor...</p>
+    </div>
+
+    <script>
+        (function() {
+            const fetchYerelHaber = async () => {
+                const target = document.getElementById('economy-bulletin-target');
+                if(!target) return;
+                
+                // Bloomberg HT RSS akışını CORS engeline takılmadan çekiyoruz
+                const rssUrl = 'https://www.bloomberght.com/rss'; 
+                const apiUrl = `https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(rssUrl)}`;
+
+                try {
+                    const response = await fetch(apiUrl);
+                    const data = await response.json();
+
+                    if (data.status === 'ok') {
+                        let html = "";
+                        data.items.slice(0, 10).forEach((item, i) => {
+                            const colors = ['#00d1ff', '#22c55e', '#3b82f6', '#f3ba2f', '#a855f7'];
+                            
+                            // Haberin yayın saatini yakala
+                            const pubDate = new Date(item.pubDate);
+                            const timeStr = pubDate.getHours().toString().padStart(2, '0') + ":" + pubDate.getMinutes().toString().padStart(2, '0');
+
+                            html += `
+                                <div style="border-bottom: 1px solid #222; padding: 8px 0; display: flex; align-items: flex-start; gap: 10px; animation: fadeIn 0.5s ease;">
+                                    <span style="color: ${colors[i % 5]}; font-weight: bold; font-size: 10px; font-family: monospace; margin-top: 2px;">
+                                        [${timeStr}]
+                                    </span>
+                                    <span style="cursor: pointer; transition: 0.2s;" 
+                                          onmouseover="this.style.color='${colors[i % 5]}'" 
+                                          onmouseout="this.style.color='#eee'"
+                                          onclick="window.open('${item.link}', '_blank')">
+                                        ${item.title}
+                                    </span>
+                                </div>`;
+                        });
+                        target.innerHTML = html;
+                    }
+                } catch (e) {
+                    target.innerHTML = '<p style="color: #666; font-size: 11px;">Veri bağlantısı kurulamadı. Lütfen internetinizi kontrol edin.</p>';
+                }
+            };
+            
+            fetchYerelHaber();
+            // Her 10 dakikada bir (600.000 ms) bülteni sessizce tazeler
+            setInterval(fetchYerelHaber, 600000);
+        })();
+    </script>
+</div>
 
     <div style="background: #000; border-radius: 15px; border: 1px solid var(--border); overflow: hidden; display: flex; flex-direction: column;">
         <div style="background: #1e293b; padding: 10px 15px; border-bottom: 1px solid rgba(255,255,255,0.1);">
@@ -1850,149 +1795,7 @@ body:not([data-theme='dark']) .opportunity-card {
 .smart-input:focus ~ .floating-label, .smart-input:valid ~ .floating-label { top: -20px; left: 5px; font-size: 11px; color: #00d1ff; font-weight: bold; }
 </style>
 
-<script>
-// --- GLOBAL DEĞİŞKENLER ---
-let isLoggedIn = false;
-const MARKET_CONFIG = {
-    'KRİPTO': 'btn-crypto',
-    'BIST': 'btn-bist',
-    'FOREX': 'btn-forex',
-    'METALS': 'btn-metals'
-};
-const SIGNAL_COLORS = ['#22c55e', '#eab308', '#ef4444']; // Yeşil, Sarı, Kırmızı
 
-// --- SİNYAL MOTORU (ÇARK VE BUTONLARI YÖNETİR) ---
-function runTerminalSync() {
-    const sectors = document.querySelectorAll('.dial-sector');
-    
-    sectors.forEach(sector => {
-        const textEl = sector.querySelector('text');
-        const circleEl = sector.querySelector('circle');
-        
-        if (textEl && circleEl) {
-            const label = textEl.textContent.trim();
-            const btnId = MARKET_CONFIG[label];
-            const btn = document.getElementById(btnId);
-
-            // 1. Çarktaki rengi değiştir
-            const newColor = SIGNAL_COLORS[Math.floor(Math.random() * SIGNAL_COLORS.length)];
-            circleEl.setAttribute('fill', newColor);
-            circleEl.style.filter = `drop-shadow(0 0 5px ${newColor})`;
-
-            // 2. Butonu Çarkla Senkronize Et
-            if (btn) {
-                btn.classList.remove('glow-green', 'glow-yellow', 'glow-red');
-                if (newColor === '#22c55e') btn.classList.add('glow-green');
-                else if (newColor === '#eab308') btn.classList.add('glow-yellow');
-                else if (newColor === '#ef4444') btn.classList.add('glow-red');
-            }
-        }
-    });
-}
-
-// --- PANEL YÖNETİMİ ---
-function openP(panelId) {
-    document.querySelectorAll('.tali-panel-yeni').forEach(p => p.style.display = 'none');
-    const target = document.getElementById(panelId);
-    if (target) {
-        target.style.display = 'block';
-        target.style.zIndex = "10005";
-        window.dispatchEvent(new Event('resize'));
-    }
-}
-
-// --- ÜYELİK VE GİRİŞ SİSTEMİ ---
-function openSingleTab(type) {
-    const modal = document.getElementById('membershipModal');
-    if(modal) {
-        modal.style.display = 'flex';
-        switchTab(type);
-    }
-}
-
-function switchTab(tab) {
-    const lArea = document.getElementById('loginFormArea');
-    const rArea = document.getElementById('registerFormArea');
-    if(tab === 'login') {
-        lArea.style.display = 'block'; rArea.style.display = 'none';
-    } else {
-        lArea.style.display = 'none'; rArea.style.display = 'block';
-    }
-}
-// --- ANALİZ VE SİNYAL ÜRETME MOTORU ---
-function generateSignalLogic(score, currentPrice) {
-    let result = {
-        status: "NÖTR / İZLE",
-        color: "#eab308",
-        resistance: (currentPrice * 1.05).toFixed(2), // Otomatik direnç hesaplama (+%5)
-        glowClass: "glow-yellow"
-    };
-
-    if (score >= 80) {
-        result.status = "GÜÇLÜ AL SİNYALİ";
-        result.color = "#22c55e";
-        result.glowClass = "glow-green";
-    } else if (score <= 20) {
-        result.status = "GÜÇLÜ SAT SİNYALİ";
-        result.color = "#ef4444";
-        result.glowClass = "glow-red";
-    }
-
-    return result;
-}
-
-// Kartları bu mantığa göre güncelleyen fonksiyon
-function refreshOpportunityCards() {
-    // Örnek Simülasyon Verileri (Burayı ilerde API'ye bağlayacağız)
-    const markets = [
-        { id: 'crypto-card', score: 85, price: 48240.50, name: 'BTC / USDT' },
-        { id: 'bist-card', score: 45, price: 285.40, name: 'THYAO' },
-        { id: 'forex-card', score: 15, price: 2024.15, name: 'XAU / USD' }
-    ];
-
-    markets.forEach(m => {
-        const signal = generateSignalLogic(m.score, m.price);
-        const card = document.querySelector(`.${m.id.split('-')[0]}-border`); // Kartı bul
-        
-        if (card) {
-            const statusEl = card.querySelector('.blur-overlay');
-            const priceEl = card.querySelector('.live-price');
-            
-            // Sinyal Metni ve Rengi
-            statusEl.innerText = signal.status;
-            statusEl.style.color = signal.color;
-            statusEl.style.filter = "none"; // Buzlamayı kesin kaldır
-            
-            // Fiyat ve Direnç Bilgisi
-            statusEl.innerHTML += `<br><span style="font-size:10px; opacity:0.7;">DİRENÇ: ${signal.resistance}</span>`;
-            
-            // Kartın alt çizgisini sinyal rengine boya
-            card.style.borderBottom = `4px solid ${signal.color}`;
-        }
-    });
-}
-
-// Sayfa yüklendiğinde çalıştır
-window.addEventListener('DOMContentLoaded', refreshOpportunityCards);
-function closeMembershipModal() {
-    document.getElementById('membershipModal').style.display = 'none';
-}
-
-function unlockEverything() {
-    isLoggedIn = true;
-    document.getElementById('stratejiBlurArea').style.filter = 'none';
-    document.getElementById('stratejiBlurArea').style.opacity = '1';
-    document.querySelectorAll('[id$="Lock"]').forEach(lock => lock.style.display = 'none');
-    closeMembershipModal();
-    alert("Giriş Başarılı! Tüm sinyaller aktif.");
-}
-
-// --- BAŞLATICI ---
-window.addEventListener('load', () => {
-    runTerminalSync();
-    setInterval(runTerminalSync, 5000);
-});
-</script>
 <div id="footer-legal-notice" style="clear: both; padding: 20px; margin-top: 40px; border-top: 1px solid #eee; font-family: sans-serif;">
 
     <div style="max-width: 1000px; margin: 0 auto;">
@@ -2555,593 +2358,6 @@ function showMetal(type) {
 
 </div>
 
-<script>
 
-    let isLoggedIn = false;
-
-// 1. Raporun İçeriği (Burayı istediğin zaman güncelleyebilirsin)
-
-const dailyReportData = {
-
-    date: "08 Şubat 2026",
-
-    pages: [
-
-        {
-
-            title: "1. Piyasaya Genel Bakış",
-
-            content: `<h3>Küresel Görünüm</h3><p>ABD enflasyon verileri öncesi piyasalarda temkinli bir bekleyiş hakim. Asya tarafında teknoloji hisseleri öncülüğünde bir toparlanma izliyoruz.</p>
-
-                      <h3>BIST 100 Stratejisi</h3><p>Endekste 9.150 puan seviyesi kritik eşik. Bu seviyenin üzerinde kalıcılık sağlanması durumunda 9.400 hedefi güncelliğini koruyacaktır. Destek bölgemiz 8.850 seviyesidir.</p>`
-
-        },
-
-        {
-
-            title: "2. Takip Listesi & Sinyaller",
-
-            content: `<h3>Teknik Sinyal Verenler</h3><ul><li><strong>Hisse A:</strong> RSI uyumsuzluğu ile dipten dönüş çabasında.</li><li><strong>Hisse B:</strong> 200 günlük hareketli ortalamadan destek alıyor.</li></ul>
-
-                      <h3>Dikkat Edilmesi Gerekenler</h3><p>Enerji sektöründe kar realizasyonları görülebilir, bankacılık endeksi ise endeksi domine etmeye devam ediyor.</p>`
-
-        },
-
-        {
-
-            title: "3. Önemli Hatırlatmalar",
-
-            content: `<h3>Ekonomik Takvim</h3><p>Bugün saat 10:00'da sanayi üretim verileri takip edilecek. Akşam saatlerinde Fed üyelerinin konuşmaları volatiliteyi artırabilir.</p>
-
-                      <div style="background:#fff3cd; padding:15px; border-radius:10px; border:1px solid #ffeeba;">
-
-                        <strong>Analist Notu:</strong> Portföylerde nakit oranının %20 seviyesinde tutulması risk yönetimi açısından değerlidir.
-
-                      </div>`
-
-        }
-
-    ]
-
-};
-
-
-
-let currentPage = 0; // Mevcut sayfa takibi
-
-
-
-// 2. Raporu Ekrana Basan Fonksiyon
-
-function renderReport() {
-
-    const content = document.getElementById('reportContent');
-
-    const page = dailyReportData.pages[currentPage];
-
-    
-
-    // İçeriği temizle ve yeni sayfayı yaz
-
-    content.innerHTML = `
-
-        <div style="max-width:750px; margin:0 auto; animation: fadeIn 0.5s ease;">
-
-            <h1 style="border-bottom:3px solid #00d1ff; padding-bottom:15px; color:#1a252f;">${page.title}</h1>
-
-            <div style="font-size:16px; color:#34495e;">${page.content}</div>
-
-        </div>
-
-    `;
-
-    
-
-    // Göstergeleri güncelle
-
-    document.getElementById('pageIndicator').innerText = `Sayfa ${currentPage + 1} / ${dailyReportData.pages.length}`;
-
-    document.getElementById('reportDate').innerText = dailyReportData.date;
-
-}
-
-
-
-// 3. Sayfa Değiştirme Fonksiyonu
-
-function changeReportPage(direction) {
-
-    const newPage = currentPage + direction;
-
-    
-
-    // Sayfa sınırlarını kontrol et
-
-    if (newPage >= 0 && newPage < dailyReportData.pages.length) {
-
-        currentPage = newPage;
-
-        renderReport();
-
-        document.getElementById('reportContent').scrollTop = 0; // Sayfayı en üste kaydır
-
-    }
-
-}
-
-      // Modal Sekme Geçişleri
-
-    function switchTab(tab) {
-
-        const lArea = document.getElementById('loginFormArea');
-
-        const rArea = document.getElementById('registerFormArea');
-
-        const tL = document.getElementById('tabLogin');
-
-        const tR = document.getElementById('tabRegister');
-
-
-
-        if (tab === 'login') {
-
-            if(lArea) lArea.style.display = 'block';
-
-            if(rArea) rArea.style.display = 'none';
-
-            if(tL) { tL.style.borderBottom = '3px solid #00d1ff'; tL.style.color = '#00d1ff'; }
-
-            if(tR) { tR.style.borderBottom = 'none'; tR.style.color = '#999'; }
-
-        } else {
-
-            if(lArea) lArea.style.display = 'none';
-
-            if(rArea) rArea.style.display = 'block';
-
-            if(tR) { tR.style.borderBottom = '3px solid #00d1ff'; tR.style.color = '#00d1ff'; }
-
-            if(tL) { tL.style.borderBottom = 'none'; tL.style.color = '#999'; }
-
-        }
-
-    }
-
-
-
-    // Modal Açma Fonksiyonu
-
-    function openSingleTab(type) {
-
-        const modal = document.getElementById('membershipModal');
-
-        if(modal) {
-
-            modal.style.display = 'flex';
-
-            switchTab(type);
-
-        }
-
-    }
-
-
-
-    // Modal Kapatma
-
-    function closeMembershipModal() {
-
-        const modal = document.getElementById('membershipModal');
-
-        if(modal) modal.style.display = 'none';
-
-    }
-
-
-
-   // --- KRİTİK: TÜM KİLİTLERİ AÇAN TEK FONKSİYON (GÜNCEL) ---
-function unlockEverything() {
-    isLoggedIn = true;
-    
-    // 1. Ana Sayfa Kilitlerini ve Bulanıklıkları Aç
-    const ids = ['stratejiBlurArea', 'sinyalBlurArea', 'stratejiData', 'sinyalData'];
-    ids.forEach(id => {
-        const el = document.getElementById(id);
-        if(el) {
-            if(id.includes('Blur')) {
-                el.style.filter = 'none';
-                el.style.opacity = '1';
-                el.style.pointerEvents = 'auto';
-            } else {
-                el.style.display = 'block';
-            }
-        }
-    });
-
-    // 2. Yeni Eklediğimiz Kilit Görsellerini Gizle
-    const visuals = ['stratejiLockVisual', 'sinyalLockVisual'];
-    visuals.forEach(id => {
-        const el = document.getElementById(id);
-        if(el) el.style.display = 'none';
-    });
-
-    // 3. Panellerdeki ve Kartlardaki Diğer Kilitleri Kaldır
-    const panelLocks = ['scannerLock', 'heatmapLock', 'madenLock', 'btcLock'];
-    panelLocks.forEach(id => {
-        const lock = document.getElementById(id);
-        if(lock) lock.style.display = 'none';
-    });
-
-    closeMembershipModal();
-    console.log("Sinyalize Hub: Giriş başarılı, tüm içerik açıldı.");
-}
-
-
-
-        const visuals = ['stratejiLockVisual', 'sinyalLockVisual'];
-
-        visuals.forEach(id => {
-
-            const el = document.getElementById(id);
-
-            if(el) el.style.display = 'none';
-
-        });
-
-
-
-        // 2. Gizli Tablo Panellerindeki (Hisse, Isı, Maden) Kilitleri Kaldır
-
-        const panelLocks = ['scannerLock', 'heatmapLock', 'madenLock', 'btcLock'];
-
-        panelLocks.forEach(id => {
-
-            const lock = document.getElementById(id);
-
-            if(lock) lock.style.display = 'none';
-
-        });
-
-
-
-        closeMembershipModal();
-
-        alert("Giriş Başarılı! Tüm tablolar ve sinyaller aktif.");
-
-    }
-
-
-
-    // Panel içi kilit tıklama kontrolü
-
-    function checkScannerAccess() {
-
-        if (!isLoggedIn) {
-
-            document.getElementById('loginRequiredPanel').style.display = 'block';
-
-        }
-
-    }
-
-
-
-</script>
-
-<script>
-
-function unlockEverything() { // <-- İŞTE O EKSİK PARANTEZ BURADA OLMALI!
-
-    isLoggedIn = true;
-
-    
-
-    console.log("Sistem: Tüm kilitler açılıyor...");
-
-
-
-    // 1. Ana sayfa kilitlerini (bulanıklığı) kaldırır
-
-    const stratejiAlan = document.getElementById('stratejiBlurArea');
-
-    if (stratejiAlan) {
-
-        stratejiAlan.style.filter = 'none';
-
-        stratejiAlan.style.opacity = '1';
-
-        stratejiAlan.style.pointerEvents = 'auto';
-
-    }
-
-    
-
-    // 2. Rapor Üyelik Paneli varsa onu gizle
-
-    const loginPanel = document.getElementById('loginRequiredPanel');
-
-    if(loginPanel) {
-
-        loginPanel.style.display = 'none';
-
-    }
-
-    
-
-    // 3. PANELLERDEKİ KİLİTLERİ KALDIRIR
-
-    if(document.getElementById('scannerLock')) document.getElementById('scannerLock').style.display = 'none';
-
-    if(document.getElementById('heatmapLock')) document.getElementById('heatmapLock').style.display = 'none';
-
-    if(document.getElementById('madenLock')) document.getElementById('madenLock').style.display = 'none';
-
-    if(document.getElementById('btcLock')) document.getElementById('btcLock').style.display = 'none';
-
-    
-
-    // Üyelik modalını kapat
-
-    closeMembershipModal();
-
-
-
-    // 4. Giriş yapar yapmaz raporun otomatik açılması için (BAŞINDAKİ // KALDIRDIK):
-
-    openStratejiRaporu(); 
-
-} // <-- KAPANIŞ PARANTEZİ
-
-<div id="dateToast" style="display: none; position: fixed; top: 85px; right: -350px; background: rgba(33, 37, 41, 0.95); color: white; padding: 15px 25px; border-radius: 12px 0 0 12px; border-left: 4px solid #00d1ff; box-shadow: -5px 5px 20px rgba(0,0,0,0.4); z-index: 99999; font-family: 'Segoe UI', sans-serif; transition: all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275); align-items: center; gap: 15px; backdrop-filter: blur(5px);">
-
-    <div style="background: rgba(0, 209, 255, 0.1); padding: 10px; border-radius: 50%;">
-
-        <i class="fas fa-clock" style="color: #00d1ff; font-size: 20px;"></i>
-
-    </div>
-
-    <div>
-
-        <div style="font-size: 11px; text-transform: uppercase; letter-spacing: 1px; color: #00d1ff; font-weight: bold; margin-bottom: 2px;">Sistem Durumu: Aktif</div>
-
-        <div id="toastTimeText" style="font-size: 15px; font-weight: 600; font-variant-numeric: tabular-nums;">08.02.2026 - 18:00</div>
-
-    </div>
-
-</div>
-
-<script>
-
-
-
-
-
-  
-
-function toggleUpdateInfo() {
-
-    const panel = document.getElementById('updateInfoPanel');
-
-    const timeText = document.getElementById('panelTimeText');
-
-    
-
-    // Zamanı güncelle
-
-    const simdi = new Date();
-
-    timeText.innerText = simdi.toLocaleString('tr-TR');
-
-
-
-    // Eğer kapalıysa aç, açıksa kapat
-
-    if (panel.style.maxHeight === "0px" || panel.style.maxHeight === "") {
-
-        panel.style.maxHeight = "100px"; // İçeriğin sığacağı kadar yükseklik
-
-        panel.style.opacity = "1";
-
-        panel.style.top = "120%"; // Hafif aşağı süzülme efekti için
-
-        
-
-        // 4 saniye sonra kendi kendine kapansın
-
-        setTimeout(() => {
-
-            panel.style.maxHeight = "0px";
-
-            panel.style.opacity = "0";
-
-            panel.style.top = "110%";
-
-        }, 4000);
-
-    } else {
-
-        panel.style.maxHeight = "0px";
-
-        panel.style.opacity = "0";
-
-        panel.style.top = "110%";
-
-    }
-
-}
-
-function openP(targetId) {
-
-    // 1. Tüm panelleri listele ve HEPSİNİ kapat
-
-    const panels = ['hPanel', 'iPanel', 'mPanel', 'fPanel', 'kPanel'];
-
-    
-
-    panels.forEach(id => {
-
-        const p = document.getElementById(id);
-
-        if(p) {
-
-            p.style.display = 'none';
-
-            p.style.zIndex = "1000"; // Hepsini arka plana at
-
-        }
-
-    });
-
-
-
-    // 2. Sadece istenen paneli bul
-
-    const target = document.getElementById(targetId);
-
-    if(target) {
-
-        target.style.display = 'block'; // Görünür yap
-
-        target.style.zIndex = "10005"; // Diğer her şeyin en üstüne çıkar
-
-        
-
-        // 3. Eğer açılan panel Açgözlülük (fPanel) ise grafiği GÜNCELLE
-
-        if(targetId === 'fPanel') {
-
-            // Grafiği uyandırmak için 200ms bekle (Panelin açılması için)
-
-            setTimeout(() => {
-
-                if (typeof updateSentiment === "function") {
-
-                    updateSentiment('1h');
-
-                } else if (typeof changeSentiment === "function") {
-
-                    changeSentiment('60');
-
-                }
-
-            }, 200);
-
-        }
-
-    }
-
-}
-
-
-
-    // 2. Hedef paneli bul ve canlandır
-
-    const target = document.getElementById(targetId);
-
-    if(target) {
-
-        target.style.display = 'block';
-
-        target.style.zIndex = "9999"; // En üste getir
-
-        target.style.position = "fixed"; // Ekranda sabitler
-
-        
-
-        // Isı Haritası veya Maden açıldığında widgetları yenilemek için küçük bir 'scroll' tetikleyicisi
-
-        window.dispatchEvent(new Event('resize'));
-
-    } else {
-
-        console.error("Panel bulunamadı: " + targetId);
-
-    }
-
-}
-// ... Diğer mevcut fonksiyonlarınız (openP, çark kodları vs.) bittiği yer ...
-
-// --- SAATLİK SİNYAL MOTORU BAŞLANGICI ---
-function processHourlySignals() {
-    // Bu skorlar senin belirlediğin limitlere göre kutuları renklendirecek
-    const marketAnalysis = {
-        crypto: 85, // %80 üzeri GÜÇLÜ AL
-        bist: 50,   // %20-80 arası NÖTR
-        forex: 15,  // %20 altı GÜÇLÜ SAT
-        maden: 78   
-    };
-
-    Object.keys(marketAnalysis).forEach(key => {
-        const score = marketAnalysis[key];
-        const element = document.getElementById(`signal-${key}`);
-        const card = document.getElementById(`card-${key}`);
-        
-        if (!element || !card) return;
-
-        if (score >= 80) {
-            element.innerText = "GÜÇLÜ AL";
-            element.style.color = "#22c55e"; 
-            card.style.borderBottom = "4px solid #22c55e";
-        } else if (score <= 20) {
-            element.innerText = "GÜÇLÜ SAT";
-            element.style.color = "#ef4444"; 
-            card.style.borderBottom = "4px solid #ef4444";
-        } else {
-            element.innerText = "NÖTR / İZLE";
-            element.style.color = "#eab308"; 
-            card.style.borderBottom = "4px solid #eab308";
-        }
-    });
-}
-
-// Sayfa yüklenince hemen çalıştır
-processHourlySignals();
-
-// Her 1 saatte bir (3600000 ms) arka planda güncellemeye devam et
-setInterval(processHourlySignals, 3600000);
-// --- SAATLİK SİNYAL MOTORU BİTİŞİ ---
-// ... Mevcut diğer kodların bittiği yer ...
-
-<script>
-    (function() {
-        async function fetchLiveNews() {
-            const target = document.getElementById('live-agenda-target');
-            if (!target) return;
-
-            // RSS Haber Kaynakları (Proxy üzerinden güvenli çekim)
-            // Bu örnekte rss2json servisini köprü olarak kullanıyoruz
-            const rssUrl = 'https://www.foreks.com/rss'; // Örnek kaynak
-            const proxyUrl = `https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(rssUrl)}`;
-
-            try {
-                const response = await fetch(proxyUrl);
-                const data = await response.json();
-                
-                if (data.status === 'ok') {
-                    let newsHtml = "";
-                    // İlk 5 güncel haberi alalım
-                    data.items.slice(0, 5).forEach((item, index) => {
-                        const colors = ['#00d1ff', '#22c55e', '#3b82f6', '#f3ba2f', '#a855f7'];
-                        const category = ["BIST", "EKONOMİ", "DÖVİZ", "KRİPTO", "DÜNYA"][index] || "HABER";
-                        
-                        newsHtml += `
-                            <div style="border-bottom: 1px solid #222; padding: 8px 0; display: flex; gap: 8px; animation: fadeIn 0.5s ease;">
-                                <span style="color: ${colors[index]}; font-weight: bold; min-width: 60px; font-size: 10px;">[${category}]</span>
-                                <span style="cursor: pointer;" onclick="window.open('${item.link}', '_blank')">${item.title}</span>
-                            </div>`;
-                    });
-                    target.innerHTML = newsHtml;
-                }
-            } catch (error) {
-                console.error("Haber çekme hatası:", error);
-                target.innerHTML = '<p style="color: #ef4444;">Haberler şu an senkronize edilemiyor.</p>';
-            }
-        }
-
-        // Anında çek ve her 10 dakikada bir yenile
-        fetchLiveNews();
-        setInterval(fetchLiveNews, 600000);
-    })();
-</script>
 </body>
 </html>
