@@ -335,12 +335,13 @@ function updateMarketSignals() {
 window.addEventListener('DOMContentLoaded', updateMarketSignals);
 <script>
 /**
- * SIGNALIZHUB MERKEZİ MOTOR (v4.6 - Tam Senkronizasyon)
+ * SIGNALIZHUB MERKEZİ MOTOR v4.7
+ * Tüm çakışmalar giderildi. Maden sekmeleri ve Sinyal yansıtma aktif.
  */
 
 let isLoggedIn = false;
 
-// --- 1. ÇARK VE BUTON RENK SENKRONİZASYONU ---
+// --- A. ÇARK VE BUTON RENK YANSITICI ---
 function runCentralSync() {
     const MARKET_MAP = { 
         'KRİPTO': 'btn-crypto', 
@@ -361,11 +362,12 @@ function runCentralSync() {
             const btn = document.getElementById(btnId);
             const newColor = SIGNAL_COLORS[Math.floor(Math.random() * SIGNAL_COLORS.length)];
 
+            // Çark ışığını yak
             circleEl.setAttribute('fill', newColor);
-            circleEl.style.filter = `drop-shadow(0 0 8px ${newColor})`;
+            circleEl.style.filter = `drop-shadow(0 0 10px ${newColor})`;
 
+            // Butona yansıt (Glow sınıfları CSS'te tanımlı olmalı)
             if (btn) {
-                // Sadece sinyal butonlarını temizle (Radar butonuna dokunma)
                 btn.classList.remove('glow-green', 'glow-yellow', 'glow-red');
                 if (newColor === '#22c55e') btn.classList.add('glow-green');
                 else if (newColor === '#eab308') btn.classList.add('glow-yellow');
@@ -375,15 +377,25 @@ function runCentralSync() {
     });
 }
 
-// --- 2. MADEN ANALİZİ SEKMELERİ (ALTIN/GÜMÜŞ/PLATİN) ---
+// --- B. MADEN ANALİZİ SEKME MOTORU (Altın/Gümüş/Platin) ---
 function showMetal(type) {
-    // Tüm maden içeriklerini gizle
-    document.querySelectorAll('.metal-tab').forEach(tab => tab.style.display = 'none');
-    // Seçileni göster
-    const activeTab = document.getElementById('tab-' + type);
-    if(activeTab) activeTab.style.display = 'block';
+    console.log("Maden değişiyor: " + type);
+    // 1. Tüm tabları gizle
+    const tabs = document.querySelectorAll('.metal-tab');
+    tabs.forEach(tab => {
+        tab.style.display = 'none';
+    });
 
-    // Buton renklerini güncelle
+    // 2. Seçilen tabı göster
+    const selectedTab = document.getElementById('tab-' + type);
+    if (selectedTab) {
+        selectedTab.style.display = 'block';
+        // İçindeki iframe'i tazele (donmayı önler)
+        const iframe = selectedTab.querySelector('iframe');
+        if (iframe) iframe.src = iframe.src;
+    }
+
+    // 3. Buton renklerini güncelle
     const colors = { gold: '#FFD700', silver: '#C0C0C0', platinum: '#E5E4E2' };
     ['gold', 'silver', 'platinum'].forEach(m => {
         const btn = document.getElementById('btn-' + m);
@@ -394,55 +406,48 @@ function showMetal(type) {
     });
 }
 
-// --- 3. PANEL VE MODAL YÖNETİMİ ---
+// --- C. PANEL VE MODAL YÖNETİMİ ---
 function openP(id) {
+    // Diğer tüm panelleri gizle
     document.querySelectorAll('.tali-panel-yeni, .tali-panel').forEach(p => p.style.display = 'none');
+    
     const target = document.getElementById(id);
     if(target) {
         target.style.display = 'block';
         target.style.zIndex = "10005";
-        // Grafik iframe'ini uyandır
-        const iframe = target.querySelector('iframe');
-        if (iframe) iframe.src = iframe.src;
+        
+        // Eğer mPanel (Maden) açılıyorsa varsayılan olarak Altın'ı göster
+        if(id === 'mPanel') showMetal('gold');
+
         setTimeout(() => window.dispatchEvent(new Event('resize')), 150);
     }
 }
 
-function openSingleTab(type) {
-    const modal = document.getElementById('membershipModal');
-    if(modal) { modal.style.display = 'flex'; switchTab(type); }
-}
-
-function switchTab(tab) {
-    const lArea = document.getElementById('loginFormArea'), rArea = document.getElementById('registerFormArea');
-    const tL = document.getElementById('tabLogin'), tR = document.getElementById('tabRegister');
-    if (tab === 'login') {
-        lArea.style.display = 'block'; rArea.style.display = 'none';
-        if(tL) { tL.style.color = '#00d1ff'; tL.style.borderBottom = '3px solid #00d1ff'; }
-        if(tR) { tR.style.color = '#999'; tR.style.borderBottom = 'none'; }
-    } else {
-        lArea.style.display = 'none'; rArea.style.display = 'block';
-        if(tR) { tR.style.color = '#00d1ff'; tR.style.borderBottom = '3px solid #00d1ff'; }
-        if(tL) { tL.style.color = '#999'; tL.style.borderBottom = 'none'; }
-    }
-}
-
-function closeMembershipModal() { document.getElementById('membershipModal').style.display = 'none'; }
-
+// --- D. GÜVENLİ KİLİT SİSTEMİ ---
 function unlockEverything() {
     isLoggedIn = true;
     document.querySelectorAll('[id$="BlurArea"]').forEach(el => {
-        el.style.filter = 'none'; el.style.opacity = '1'; el.style.pointerEvents = 'auto';
+        el.style.filter = 'none'; 
+        el.style.opacity = '1'; 
+        el.style.pointerEvents = 'auto';
     });
     document.querySelectorAll('[id$="LockVisual"], [id$="Lock"]').forEach(el => el.style.display = 'none');
-    closeMembershipModal();
-    alert("Giriş Başarılı! Tüm terminal aktif.");
+    
+    // Modalları kapat
+    const modal = document.getElementById('membershipModal');
+    if(modal) modal.style.display = 'none';
+    
+    alert("Sistem Girişi Onaylandı!");
 }
 
-// --- 4. BAŞLATICI ---
+// Giriş Modalı Fonksiyonları
+function openSingleTab(t) { document.getElementById('membershipModal').style.display = 'flex'; }
+function closeMembershipModal() { document.getElementById('membershipModal').style.display = 'none'; }
+
+// --- E. BAŞLATICI ---
 window.addEventListener('load', () => {
     runCentralSync();
-    setInterval(runCentralSync, 10000); 
+    setInterval(runCentralSync, 8000); // 8 saniyede bir renk güncelle
 });
 </script>
 </div>
