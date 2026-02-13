@@ -335,16 +335,20 @@ function updateMarketSignals() {
 window.addEventListener('DOMContentLoaded', updateMarketSignals);
 <script>
 /**
- * SIGNALIZHUB MERKEZİ KONTROL ÜNİTESİ (v2.0)
- * Tüm çakışmalar giderildi, veriler TradingView ile senkronize edildi.
+ * SIGNALIZHUB MERKEZİ MOTOR (v4.5)
+ * Çark ve Buton Senkronizasyonu + Panel Yönetimi
  */
 
 let isLoggedIn = false;
 
-// 1. OTOMATİK SİNYAL VE ÇARK MOTORU
-// Bu fonksiyon hem çarktaki renkleri hem de aşağıdaki kartların alt çizgilerini boyar
+// 1. ÇARK VE BUTONLARI RENKLENDİREN ANA MOTOR
 function runCentralSync() {
-    const MARKET_CONFIG = { 'KRİPTO': 'btn-crypto', 'BIST': 'btn-bist', 'FOREX': 'btn-forex', 'METALS': 'btn-metals' };
+    const MARKET_MAP = { 
+        'KRİPTO': 'btn-crypto', 
+        'BIST': 'btn-bist', 
+        'FOREX': 'btn-forex', 
+        'METALS': 'btn-metals' 
+    };
     const SIGNAL_COLORS = ['#22c55e', '#eab308', '#ef4444']; // Yeşil, Sarı, Kırmızı
     const sectors = document.querySelectorAll('.dial-sector');
     
@@ -354,14 +358,17 @@ function runCentralSync() {
         
         if (textEl && circleEl) {
             const label = textEl.textContent.trim();
-            const btn = document.getElementById(MARKET_CONFIG[label]);
+            const btnId = MARKET_MAP[label];
+            const btn = document.getElementById(btnId);
+            
+            // Rastgele bir sinyal rengi seç (Yeşil, Sarı veya Kırmızı)
             const newColor = SIGNAL_COLORS[Math.floor(Math.random() * SIGNAL_COLORS.length)];
 
-            // Çarkı boya
+            // Çarktaki lambayı boya
             circleEl.setAttribute('fill', newColor);
             circleEl.style.filter = `drop-shadow(0 0 8px ${newColor})`;
 
-            // Senkronize butonu boya
+            // BUTONU BOYAYAN KRİTİK KISIM (İşte burası renkleri geri getirir)
             if (btn) {
                 btn.classList.remove('glow-green', 'glow-yellow', 'glow-red');
                 if (newColor === '#22c55e') btn.classList.add('glow-green');
@@ -370,24 +377,18 @@ function runCentralSync() {
             }
         }
     });
-    console.log("Terminal Sync: Sinyaller senkronize edildi.");
 }
 
-// 2. PANEL YÖNETİMİ (HİÇBİRİ BİRİBİRİNİ EZMEZ)
-function openP(panelId) {
-    // Tüm panelleri kapat
+// 2. PANEL AÇMA / KAPATMA (ÇAKIŞMALAR GİDERİLDİ)
+function openP(id) {
     document.querySelectorAll('.tali-panel-yeni, .tali-panel').forEach(p => p.style.display = 'none');
-    
-    const target = document.getElementById(panelId);
-    if (target) {
+    const target = document.getElementById(id);
+    if(target) {
         target.style.display = 'block';
         target.style.zIndex = "10005";
-        
-        // TradingView grafiklerini uyandır
         const iframe = target.querySelector('iframe');
         if (iframe) iframe.src = iframe.src;
-        
-        setTimeout(() => window.dispatchEvent(new Event('resize')), 100);
+        setTimeout(() => window.dispatchEvent(new Event('resize')), 150);
     }
 }
 
@@ -407,13 +408,15 @@ function switchTab(tab) {
     const tR = document.getElementById('tabRegister');
 
     if (tab === 'login') {
-        lArea.style.display = 'block'; rArea.style.display = 'none';
-        if(tL) tL.style.borderBottom = '3px solid #00d1ff';
-        if(tR) tR.style.borderBottom = 'none';
+        if(lArea) lArea.style.display = 'block';
+        if(rArea) rArea.style.display = 'none';
+        if(tL) { tL.style.color = '#00d1ff'; tL.style.borderBottom = '3px solid #00d1ff'; }
+        if(tR) { tR.style.color = '#999'; tR.style.borderBottom = 'none'; }
     } else {
-        lArea.style.display = 'none'; rArea.style.display = 'block';
-        if(tR) tR.style.borderBottom = '3px solid #00d1ff';
-        if(tL) tL.style.borderBottom = 'none';
+        if(lArea) lArea.style.display = 'none';
+        if(rArea) rArea.style.display = 'block';
+        if(tR) { tR.style.color = '#00d1ff'; tR.style.borderBottom = '3px solid #00d1ff'; }
+        if(tL) { tL.style.color = '#999'; tL.style.borderBottom = 'none'; }
     }
 }
 
@@ -424,285 +427,19 @@ function closeMembershipModal() {
 // 4. KİLİT AÇMA (DÜNYAYI AÇAN TUŞ)
 function unlockEverything() {
     isLoggedIn = true;
-    
-    // Bulanıklıkları kaldır
-    const blurs = ['stratejiBlurArea', 'sinyalBlurArea'];
-    blurs.forEach(id => {
-        const el = document.getElementById(id);
-        if(el) { el.style.filter = 'none'; el.style.opacity = '1'; el.style.pointerEvents = 'auto'; }
+    document.querySelectorAll('[id$="BlurArea"]').forEach(el => {
+        el.style.filter = 'none'; el.style.opacity = '1'; el.style.pointerEvents = 'auto';
     });
-
-    // Kilit görsellerini gizle
-    document.querySelectorAll('[id$="LockVisual"], [id$="Lock"]').forEach(lock => lock.style.display = 'none');
-    
+    document.querySelectorAll('[id$="LockVisual"], [id$="Lock"]').forEach(el => el.style.display = 'none');
     closeMembershipModal();
-    alert("Terminal Erişimi Onaylandı. Tüm veriler canlı akışa bağlandı.");
+    alert("Giriş Başarılı! Tüm terminal aktif.");
 }
 
 // 5. BAŞLATICI
 window.addEventListener('DOMContentLoaded', () => {
     runCentralSync();
-    setInterval(runCentralSync, 10000); // 10 saniyede bir piyasa taraması yap
+    setInterval(runCentralSync, 10000); // 10 saniyede bir renkleri tazele
 });
-</script>
-<script>
-// --- TÜMÜYLE YENİLENMİŞ MERKEZİ YÖNETİM SİSTEMİ ---
-
-
-
-function openSingleTab(type) {
-
-    const modal = document.getElementById('membershipModal');
-
-    // Gri sekme barını her ihtimale karşı seçiyoruz
-
-    const tabArea = modal.querySelector('div[style*="background: #f8f9fa"]') || 
-
-                    modal.querySelector('div[style*="background-color: rgb(248, 249, 250)"]');
-
-    
-
-    if(modal) {
-
-        modal.style.display = 'flex';
-
-        
-
-        // Eğer dışarıdaki ana butonlardan birine basıldıysa sekmeleri gizle (Temiz görünüm)
-
-        if(tabArea) tabArea.style.setProperty('display', 'none', 'important');
-
-        
-
-        // Formları temizle ve sadece isteneni aç
-
-        const lArea = document.getElementById('loginFormArea');
-
-        const rArea = document.getElementById('registerFormArea');
-
-        
-
-        if (type === 'login') {
-
-            if(lArea) lArea.style.display = 'block';
-
-            if(rArea) rArea.style.display = 'none';
-
-        } else {
-
-            if(lArea) lArea.style.display = 'none';
-
-            if(rArea) rArea.style.display = 'block';
-
-        }
-
-    }
-
-}
-
-
-
-function switchTab(tab) {
-
-    // Bu fonksiyon sadece modal açıkken içindeki sekmelerle geçiş yapmak içindir
-
-    const lArea = document.getElementById('loginFormArea');
-
-    const rArea = document.getElementById('registerFormArea');
-
-    const tL = document.getElementById('tabLogin');
-
-    const tR = document.getElementById('tabRegister');
-
-
-
-    if (tab === 'login') {
-
-        if(lArea) lArea.style.display = 'block';
-
-        if(rArea) rArea.style.display = 'none';
-
-        if(tL) { tL.style.color = '#00d1ff'; tL.style.background = '#ffffff'; tL.style.borderBottom = '3px solid #00d1ff'; }
-
-        if(tR) { tR.style.color = '#999'; tR.style.background = '#f8f9fa'; tR.style.borderBottom = 'none'; }
-
-    } else {
-
-        if(lArea) lArea.style.display = 'none';
-
-        if(rArea) rArea.style.display = 'block';
-
-        if(tR) { tR.style.color = '#00d1ff'; tR.style.background = '#ffffff'; tR.style.borderBottom = '3px solid #00d1ff'; }
-
-        if(tL) { tL.style.color = '#999'; tL.style.background = '#f8f9fa'; tL.style.borderBottom = 'none'; }
-
-    }
-
-}
-
-
-
-function closeMembershipModal() {
-
-    const modal = document.getElementById('membershipModal');
-
-    if(modal) modal.style.display = 'none';
-
-    
-
-    // Modal kapanınca sekmeleri bir sonraki açılış için sıfırla
-
-    const tabArea = modal.querySelector('div[style*="background: #f8f9fa"]') || 
-
-                    modal.querySelector('div[style*="background-color: rgb(248, 249, 250)"]');
-
-    if(tabArea) tabArea.style.display = 'flex'; 
-
-}
-</script>
-<script>
-
-// 6. PANEL VE ZAMAN FONKSİYONLARI
-
-function toggleTimePopup() {
-
-    const popup = document.getElementById('timePopup');
-
-    const timeSpan = document.getElementById('exactTime');
-
-    const simdi = new Date();
-
-    if(timeSpan) timeSpan.innerText = `Güncelleme / ${simdi.toLocaleDateString('tr-TR')} - ${simdi.getHours().toString().padStart(2, '0')}:${simdi.getMinutes().toString().padStart(2, '0')}`;
-
-    if(popup) {
-
-        popup.style.display = 'block';
-
-        setTimeout(() => { popup.style.opacity = '1'; }, 10);
-
-        setTimeout(() => {
-
-            popup.style.opacity = '0';
-
-            setTimeout(() => { popup.style.display = 'none'; }, 300);
-
-        }, 5000);
-
-    }
-
-}
-
-
-
-        // Hangi formun açılacağını belirle
-
-        const lArea = document.getElementById('loginFormArea');
-
-        const rArea = document.getElementById('registerFormArea');
-
-        
-
-        if (type === 'login') {
-
-            if(lArea) lArea.style.display = 'block';
-
-            if(rArea) rArea.style.display = 'none';
-
-        } else {
-
-            if(lArea) lArea.style.display = 'none';
-
-            if(rArea) rArea.style.display = 'block';
-
-        }
-
-    }
-
-}
-
-
-
-
-
-
-
-function closeMembershipModal() {
-
-    const modal = document.getElementById('membershipModal');
-
-    const tabArea = modal.querySelector('div[style*="background: #f8f9fa"]') || 
-
-                    modal.querySelector('div[style*="background-color: rgb(248, 249, 250)"]');
-
-    
-
-    if(modal) modal.style.display = 'none';
-
-    if(tabArea) tabArea.style.display = 'flex'; // Kapatınca sekmeleri geri getir
-
-}
-
-
-
-
-
-    sectors.forEach(sector => {
-
-        const textEl = sector.querySelector('text');
-
-        const circleEl = sector.querySelector('circle');
-
-        
-
-        if (textEl && circleEl) {
-
-            const label = textEl.textContent.trim();
-
-            const btnId = mapping[label];
-
-            const btn = document.getElementById(btnId);
-
-
-
-          
-
-
-
-
-
-
-
-
-
-
-
-
-        
-
-      
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    
-
-
-
-
-
-
-
-
 </script>
 </div>
 
