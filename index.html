@@ -3080,48 +3080,50 @@ setInterval(processHourlySignals, 3600000);
 // --- SAATLİK SİNYAL MOTORU BİTİŞİ ---
 // ... Mevcut diğer kodların bittiği yer ...
 
-// --- CANLI GÜNDEM MASASI TAM OTOMASYON ---
-function updateLiveAgenda() {
-    const agendaContent = {
-        bist: "BIST 100 Endeksi 9.450 seviyesinde dirençle karşılaşıyor.",
-        economy: "TCMB Piyasa Katılımcıları Anketi yayınlandı: Enflasyon beklentileri iyileşiyor.",
-        forex: "Dolar/TL 31.00 bandında; piyasa ABD enflasyon verisini bekliyor.",
-        crypto: "Bitcoin 52.000$ üzerinde kalıcılık çabasında; kurumsal talep güçlü.",
-        altcoin: "Ethereum ekosisteminde Layer-2 hacimleri rekor seviyelerde."
+// --- CANLI GÜNDEM MASASI (ZIRHLI VERSİYON) ---
+(function() {
+    const runAgenda = () => {
+        const agendaContent = {
+            bist: "BIST 100 Endeksi 9.450 seviyesinde dirençle karşılaşıyor.",
+            economy: "TCMB Piyasa Katılımcıları Anketi yayınlandı: Enflasyon beklentileri iyileşiyor.",
+            forex: "Dolar/TL 31.00 bandında; piyasa ABD enflasyon verisini bekliyor.",
+            crypto: "Bitcoin 52.000$ üzerinde kalıcılık çabasında; kurumsal talep güçlü.",
+            altcoin: "Ethereum ekosisteminde Layer-2 hacimleri rekor seviyelerde."
+        };
+
+        const container = document.getElementById('live-agenda-container');
+        
+        if(container) {
+            container.innerHTML = `
+                <div style="border-bottom: 1px solid #222; padding: 6px 0;">
+                    <span style="color: #00d1ff; font-weight: bold;">[BIST]</span> ${agendaContent.bist}
+                </div>
+                <div style="border-bottom: 1px solid #222; padding: 6px 0;">
+                    <span style="color: #22c55e; font-weight: bold;">[EKONOMİ]</span> ${agendaContent.economy}
+                </div>
+                <div style="border-bottom: 1px solid #222; padding: 6px 0;">
+                    <span style="color: #3b82f6; font-weight: bold;">[DÖVİZ/PARİTE]</span> ${agendaContent.forex}
+                </div>
+                <div style="border-bottom: 1px solid #222; padding: 6px 0;">
+                    <span style="color: #f3ba2f; font-weight: bold;">[KRİPTO]</span> ${agendaContent.crypto}
+                </div>
+                <div style="border-bottom: 1px solid #222; padding: 6px 0;">
+                    <span style="color: #a855f7; font-weight: bold;">[ALTCOIN]</span> ${agendaContent.altcoin}
+                </div>
+            `;
+            console.log("Gündem Başarıyla Yazıldı.");
+        }
     };
 
-    const container = document.getElementById('live-agenda-container');
+    // Sayfa yüklenirken birkaç kez deneme yap (Garanti çözüm)
+    runAgenda();
+    window.addEventListener('load', runAgenda);
+    setTimeout(runAgenda, 500);
+    setTimeout(runAgenda, 2000);
     
-    if(container) {
-        container.innerHTML = `
-            <div style="border-bottom: 1px solid #222; padding: 6px 0;">
-                <span style="color: #00d1ff; font-weight: bold;">[BIST]</span> ${agendaContent.bist}
-            </div>
-            <div style="border-bottom: 1px solid #222; padding: 6px 0;">
-                <span style="color: #22c55e; font-weight: bold;">[EKONOMİ]</span> ${agendaContent.economy}
-            </div>
-            <div style="border-bottom: 1px solid #222; padding: 6px 0;">
-                <span style="color: #3b82f6; font-weight: bold;">[DÖVİZ/PARİTE]</span> ${agendaContent.forex}
-            </div>
-            <div style="border-bottom: 1px solid #222; padding: 6px 0;">
-                <span style="color: #f3ba2f; font-weight: bold;">[KRİPTO]</span> ${agendaContent.crypto}
-            </div>
-            <div style="border-bottom: 1px solid #222; padding: 6px 0;">
-                <span style="color: #a855f7; font-weight: bold;">[ALTCOIN]</span> ${agendaContent.altcoin}
-            </div>
-        `;
-    }
-}
-
-// SAYFA YÜKLENDİĞİNDE VE HER 1 SANİYEDE BİR KONTROL ET (Veri gelene kadar zorla)
-window.addEventListener('load', () => {
-    updateLiveAgenda();
-    // Widget yüklenirken kaymaları önlemek için 1 saniye sonra tekrar tetikle
-    setTimeout(updateLiveAgenda, 1000);
-});
-
-// Periyodik güncelleme
-setInterval(updateLiveAgenda, 300000);
+    // Her 5 dakikada bir güncelle
+    setInterval(runAgenda, 300000);
+})();
 </script>
 </body>
 </html>
