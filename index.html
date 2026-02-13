@@ -3103,54 +3103,45 @@ setInterval(processHourlySignals, 3600000);
 // ... Mevcut diğer kodların bittiği yer ...
 
 <script>
-// --- TÜMÜYLE YENİLENMİŞ HABER VE SİNYAL MOTORU ---
-(function() {
-    const agendaContent = {
-        bist: "BIST 100 Endeksi 9.450 seviyesinde dirençle karşılaşıyor.",
-        economy: "TCMB Piyasa Katılımcıları Anketi yayınlandı: Enflasyon beklentileri iyileşiyor.",
-        forex: "Dolar/TL 31.00 bandında; piyasa ABD enflasyon verisini bekliyor.",
-        crypto: "Bitcoin 52.000$ üzerinde kalıcılık çabasında; kurumsal talep güçlü.",
-        altcoin: "Ethereum ekosisteminde Layer-2 hacimleri rekor seviyelerde."
-    };
+    (function() {
+        async function fetchLiveNews() {
+            const target = document.getElementById('live-agenda-target');
+            if (!target) return;
 
-    function refreshHubAgenda() {
-        const container = document.getElementById('live-agenda-container');
-        if (container) {
-            container.innerHTML = `
-                <div style="border-bottom: 1px solid #222; padding: 6px 0; display: flex; gap: 8px;">
-                    <span style="color: #00d1ff; font-weight: bold; min-width: 60px;">[BIST]</span> <span>${agendaContent.bist}</span>
-                </div>
-                <div style="border-bottom: 1px solid #222; padding: 6px 0; display: flex; gap: 8px;">
-                    <span style="color: #22c55e; font-weight: bold; min-width: 60px;">[EKONOMİ]</span> <span>${agendaContent.economy}</span>
-                </div>
-                <div style="border-bottom: 1px solid #222; padding: 6px 0; display: flex; gap: 8px;">
-                    <span style="color: #3b82f6; font-weight: bold; min-width: 60px;">[DÖVİZ]</span> <span>${agendaContent.forex}</span>
-                </div>
-                <div style="border-bottom: 1px solid #222; padding: 6px 0; display: flex; gap: 8px;">
-                    <span style="color: #f3ba2f; font-weight: bold; min-width: 60px;">[KRİPTO]</span> <span>${agendaContent.crypto}</span>
-                </div>
-                <div style="border-bottom: 1px solid #222; padding: 6px 0; display: flex; gap: 8px;">
-                    <span style="color: #a855f7; font-weight: bold; min-width: 60px;">[ALTCOIN]</span> <span>${agendaContent.altcoin}</span>
-                </div>
-            `;
-            console.log("Terminal: Gündem masası başarıyla güncellendi.");
+            // RSS Haber Kaynakları (Proxy üzerinden güvenli çekim)
+            // Bu örnekte rss2json servisini köprü olarak kullanıyoruz
+            const rssUrl = 'https://www.foreks.com/rss'; // Örnek kaynak
+            const proxyUrl = `https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(rssUrl)}`;
+
+            try {
+                const response = await fetch(proxyUrl);
+                const data = await response.json();
+                
+                if (data.status === 'ok') {
+                    let newsHtml = "";
+                    // İlk 5 güncel haberi alalım
+                    data.items.slice(0, 5).forEach((item, index) => {
+                        const colors = ['#00d1ff', '#22c55e', '#3b82f6', '#f3ba2f', '#a855f7'];
+                        const category = ["BIST", "EKONOMİ", "DÖVİZ", "KRİPTO", "DÜNYA"][index] || "HABER";
+                        
+                        newsHtml += `
+                            <div style="border-bottom: 1px solid #222; padding: 8px 0; display: flex; gap: 8px; animation: fadeIn 0.5s ease;">
+                                <span style="color: ${colors[index]}; font-weight: bold; min-width: 60px; font-size: 10px;">[${category}]</span>
+                                <span style="cursor: pointer;" onclick="window.open('${item.link}', '_blank')">${item.title}</span>
+                            </div>`;
+                    });
+                    target.innerHTML = newsHtml;
+                }
+            } catch (error) {
+                console.error("Haber çekme hatası:", error);
+                target.innerHTML = '<p style="color: #ef4444;">Haberler şu an senkronize edilemiyor.</p>';
+            }
         }
-    }
 
-    // Zamanlama Çakışmalarını Önleyen Başlatıcı
-    if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', refreshHubAgenda);
-    } else {
-        refreshHubAgenda();
-    }
-    
-    // Her ihtimale karşı 1 ve 3 saniye sonra tekrar zorla (Widgetlar DOM'u sarsabiliyor)
-    setTimeout(refreshHubAgenda, 1000);
-    setTimeout(refreshHubAgenda, 3000);
-
-    // Her 5 dakikada bir otomatik tazele
-    setInterval(refreshHubAgenda, 300000);
-})();
+        // Anında çek ve her 10 dakikada bir yenile
+        fetchLiveNews();
+        setInterval(fetchLiveNews, 600000);
+    })();
 </script>
 </body>
 </html>
