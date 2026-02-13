@@ -335,64 +335,45 @@ function updateMarketSignals() {
 window.addEventListener('DOMContentLoaded', updateMarketSignals);
 <script>
 /**
- * SIGNALIZHUB MASTER ENGINE v7.0
- * Güçlendirilmiş Haber Botu + Radar + Maden + Kilitler
+ * SIGNALIZHUB MASTER ENGINE v8.0 - FINAL MERGE
+ * Tüm çakışmalar giderildi, Radar ve Haber Botu mühürlendi.
  */
 window.isLoggedIn = false;
+window.currentPage = 0;
 
-// --- 1. HABER MOTORU (CORS ENGELİ AŞICI ALTYAPI) ---
+// --- 1. HABER MOTORU (Çalışan kopyadaki stabil yapı) ---
 async function fetchEconomyNews() {
     const target = document.getElementById('economy-bulletin-target');
     if (!target) return;
-
-    const rssUrl = 'https://www.bloomberght.com/rss';
-    const proxyUrl = `https://api.allorigins.win/get?url=${encodeURIComponent(rssUrl)}&t=${Date.now()}`;
+    
+    // rss2json üzerinden Bloomberg HT çekimi
+    const rssUrl = 'https://www.bloomberght.com/rss'; 
+    const apiUrl = `https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(rssUrl)}&t=${Date.now()}`;
 
     try {
-        const response = await fetch(proxyUrl);
+        const response = await fetch(apiUrl);
         const data = await response.json();
-        
-        // XML verisini ayıkla
-        const parser = new DOMParser();
-        const xmlDoc = parser.parseFromString(data.contents, "text/xml");
-        const items = xmlDoc.querySelectorAll("item");
-
-        if (items.length > 0) {
+        if (data.status === 'ok') {
             let html = "";
             const colors = ['#00d1ff', '#22c55e', '#3b82f6', '#f3ba2f', '#a855f7'];
-
-            items.forEach((item, i) => {
-                if (i < 10) {
-                    const title = item.querySelector("title").textContent;
-                    const link = item.querySelector("link").textContent;
-                    
-                    // Saati çek
-                    let timeStr = "Yeni";
-                    try {
-                        const pubDate = new Date(item.querySelector("pubDate").textContent);
-                        timeStr = pubDate.getHours().toString().padStart(2, '0') + ":" + 
-                                  pubDate.getMinutes().toString().padStart(2, '0');
-                    } catch(e) {}
-
-                    html += `
-                        <div style="border-bottom: 1px solid #222; padding: 10px 0; display: flex; gap: 10px; animation: fadeIn 0.4s ease;">
-                            <span style="color: ${colors[i % 5]}; font-weight: bold; font-size: 10px; font-family: monospace; min-width: 45px;">
-                                [${timeStr}]
-                            </span>
-                            <span style="cursor: pointer; color:#eee; transition: 0.2s;" 
-                                  onmouseover="this.style.color='${colors[i % 5]}'" 
-                                  onmouseout="this.style.color='#eee'" 
-                                  onclick="window.open('${link}', '_blank')">
-                                ${title}
-                            </span>
-                        </div>`;
-                }
+            
+            data.items.slice(0, 10).forEach((item, i) => {
+                const pubDate = new Date(item.pubDate);
+                const timeStr = pubDate.getHours().toString().padStart(2, '0') + ":" + 
+                               pubDate.getMinutes().toString().padStart(2, '0');
+                
+                html += `
+                    <div style="border-bottom: 1px solid #222; padding: 10px 0; display: flex; gap: 10px; animation: fadeIn 0.4s ease;">
+                        <span style="color: ${colors[i % 5]}; font-weight: bold; font-size: 10px; font-family: monospace; min-width:45px;">[${timeStr}]</span>
+                        <span style="cursor: pointer; color:#eee;" onclick="window.open('${item.link}', '_blank')">
+                            ${item.title}
+                        </span>
+                    </div>`;
             });
             target.innerHTML = html;
         }
-    } catch (e) {
-        console.error("Haber Hatası:", e);
-        target.innerHTML = '<p style="color:#666; font-size:11px; text-align:center;">Haber bağlantısı bekleniyor... <br><button onclick="fetchEconomyNews()" style="background:none; border:1px solid #333; color:#00d1ff; cursor:pointer; margin-top:10px;">Yenile</button></p>';
+    } catch (e) { 
+        target.innerHTML = '<p style="color:#666; font-size:11px; text-align:center;">Veri akışı bekleniyor...<br><button onclick="fetchEconomyNews()" style="background:none; border:1px solid #333; color:#00d1ff; cursor:pointer; margin-top:10px; padding:3px 8px; border-radius:4px;">Yenile</button></p>'; 
     }
 }
 
@@ -429,17 +410,17 @@ function showMetal(type) {
         const iframe = selectedTab.querySelector('iframe');
         if (iframe) iframe.src = iframe.src;
     }
-    const colors = { gold: '#FFD700', silver: '#C0C0C0', platinum: '#E5E4E2' };
+    const config = { gold: '#FFD700', silver: '#C0C0C0', platinum: '#E5E4E2' };
     ['gold', 'silver', 'platinum'].forEach(m => {
         const btn = document.getElementById('btn-' + m);
         if(btn) {
-            btn.style.background = (m === type) ? colors[m] : '#333';
+            btn.style.background = (m === type) ? config[m] : '#333';
             btn.style.color = (m === type) ? '#000' : '#fff';
         }
     });
 }
 
-// --- 4. PANEL VE MODAL YÖNETİMİ ---
+// --- 4. PANEL YÖNETİMİ ---
 function openP(id) {
     document.querySelectorAll('.tali-panel-yeni, .tali-panel').forEach(p => p.style.display = 'none');
     const target = document.getElementById(id);
@@ -701,26 +682,25 @@ window.addEventListener('load', loadSmartCalendar);
     box-shadow: 0 0 15px rgba(0, 209, 255, 0.6), inset 0 0 5px rgba(0, 209, 255, 0.2);
     color: #00d1ff !important;
 }
-/* Sinyal Yansıma Renkleri - Modern Hub Tasarımı */
+/* Hub RADAR Sinyal Renkleri */
 .glow-green { 
     border: 1px solid #22c55e !important; 
-    color: #22c55e !important; 
     box-shadow: 0 0 15px rgba(34, 197, 94, 0.5) !important; 
-    background: rgba(34, 197, 94, 0.05) !important; 
+    color: #22c55e !important; 
+    background: rgba(34, 197, 94, 0.05) !important;
 }
 .glow-yellow { 
     border: 1px solid #eab308 !important; 
-    color: #eab308 !important; 
     box-shadow: 0 0 15px rgba(234, 179, 8, 0.5) !important; 
-    background: rgba(234, 179, 8, 0.05) !important; 
+    color: #eab308 !important; 
+    background: rgba(234, 179, 8, 0.05) !important;
 }
 .glow-red { 
     border: 1px solid #ef4444 !important; 
-    color: #ef4444 !important; 
     box-shadow: 0 0 15px rgba(239, 68, 68, 0.5) !important; 
-    background: rgba(239, 68, 68, 0.1) !important; 
+    color: #ef4444 !important; 
+    background: rgba(239, 68, 68, 0.1) !important;
 }
-
 /* Isı Haritası ve Tarayıcı Kutularının Taşmasını Önle */
 .panel-body { overflow: hidden !important; }
 .panel-body iframe { width: 100% !important; height: 100% !important; border: none; }/* Geçişlerin yumuşak olması için bu satırı da butonların ana class'ına (pulse-filter) ekle */
