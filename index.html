@@ -335,46 +335,68 @@ function updateMarketSignals() {
 window.addEventListener('DOMContentLoaded', updateMarketSignals);
 <script>
 /**
- * SIGNALIZHUB MASTER ENGINE v6.2
- * Madenler + Radar + Haber Botu + Kilitler
+ * SIGNALIZHUB MASTER ENGINE v7.0
+ * Güçlendirilmiş Haber Botu + Radar + Maden + Kilitler
  */
 window.isLoggedIn = false;
-window.currentPage = 0;
 
-// --- 1. EKONOMİ BÜLTENİ MOTORU (TEK VE GÜÇLÜ) ---
+// --- 1. HABER MOTORU (CORS ENGELİ AŞICI ALTYAPI) ---
 async function fetchEconomyNews() {
     const target = document.getElementById('economy-bulletin-target');
     if (!target) return;
-    
-    // rss2json servisi üzerinden Bloomberg HT RSS akışını çekiyoruz
-    const apiUrl = `https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent('https://www.bloomberght.com/rss')}&t=${Date.now()}`;
+
+    const rssUrl = 'https://www.bloomberght.com/rss';
+    const proxyUrl = `https://api.allorigins.win/get?url=${encodeURIComponent(rssUrl)}&t=${Date.now()}`;
 
     try {
-        const response = await fetch(apiUrl);
+        const response = await fetch(proxyUrl);
         const data = await response.json();
-        if (data.status === 'ok') {
+        
+        // XML verisini ayıkla
+        const parser = new DOMParser();
+        const xmlDoc = parser.parseFromString(data.contents, "text/xml");
+        const items = xmlDoc.querySelectorAll("item");
+
+        if (items.length > 0) {
             let html = "";
-            data.items.slice(0, 10).forEach((item, i) => {
-                const colors = ['#00d1ff', '#22c55e', '#3b82f6', '#f3ba2f', '#a855f7'];
-                const pubDate = new Date(item.pubDate);
-                const timeStr = pubDate.getHours().toString().padStart(2, '0') + ":" + pubDate.getMinutes().toString().padStart(2, '0');
-                
-                html += `
-                    <div style="border-bottom: 1px solid #222; padding: 10px 0; display: flex; gap: 10px; animation: fadeIn 0.4s ease;">
-                        <span style="color: ${colors[i % 5]}; font-weight: bold; font-size: 10px; font-family: monospace; min-width:45px;">[${timeStr}]</span>
-                        <span style="cursor: pointer; color:#eee;" onclick="window.open('${item.link}', '_blank')">
-                            ${item.title}
-                        </span>
-                    </div>`;
+            const colors = ['#00d1ff', '#22c55e', '#3b82f6', '#f3ba2f', '#a855f7'];
+
+            items.forEach((item, i) => {
+                if (i < 10) {
+                    const title = item.querySelector("title").textContent;
+                    const link = item.querySelector("link").textContent;
+                    
+                    // Saati çek
+                    let timeStr = "Yeni";
+                    try {
+                        const pubDate = new Date(item.querySelector("pubDate").textContent);
+                        timeStr = pubDate.getHours().toString().padStart(2, '0') + ":" + 
+                                  pubDate.getMinutes().toString().padStart(2, '0');
+                    } catch(e) {}
+
+                    html += `
+                        <div style="border-bottom: 1px solid #222; padding: 10px 0; display: flex; gap: 10px; animation: fadeIn 0.4s ease;">
+                            <span style="color: ${colors[i % 5]}; font-weight: bold; font-size: 10px; font-family: monospace; min-width: 45px;">
+                                [${timeStr}]
+                            </span>
+                            <span style="cursor: pointer; color:#eee; transition: 0.2s;" 
+                                  onmouseover="this.style.color='${colors[i % 5]}'" 
+                                  onmouseout="this.style.color='#eee'" 
+                                  onclick="window.open('${link}', '_blank')">
+                                ${title}
+                            </span>
+                        </div>`;
+                }
             });
             target.innerHTML = html;
         }
-    } catch (e) { 
-        target.innerHTML = '<p style="color:#666; font-size:11px; text-align:center;">Haber akışı bekleniyor...<br><button onclick="fetchEconomyNews()" style="background:none; border:1px solid #333; color:#00d1ff; cursor:pointer; margin-top:10px;">Yenile</button></p>'; 
+    } catch (e) {
+        console.error("Haber Hatası:", e);
+        target.innerHTML = '<p style="color:#666; font-size:11px; text-align:center;">Haber bağlantısı bekleniyor... <br><button onclick="fetchEconomyNews()" style="background:none; border:1px solid #333; color:#00d1ff; cursor:pointer; margin-top:10px;">Yenile</button></p>';
     }
 }
 
-// --- 2. RADAR IŞIKLARI SENKRONİZASYONU (EKSİKTİ, EKLENDİ) ---
+// --- 2. RADAR IŞIKLARI SENKRONİZASYONU ---
 function runCentralSync() {
     const map = { 'KRİPTO': 'btn-crypto', 'BIST': 'btn-bist', 'FOREX': 'btn-forex', 'METALS': 'btn-metals' };
     const colors = ['#22c55e', '#eab308', '#ef4444'];
@@ -429,7 +451,7 @@ function openP(id) {
     }
 }
 
-// --- 5. GÜVENLİ KİLİT SİSTEMİ ---
+// --- 5. KİLİT SİSTEMİ ---
 function unlockEverything() {
     window.isLoggedIn = true;
     document.querySelectorAll('[id$="BlurArea"]').forEach(el => {
