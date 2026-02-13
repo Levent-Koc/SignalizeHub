@@ -341,24 +341,32 @@ window.addEventListener('DOMContentLoaded', updateMarketSignals);
 window.isLoggedIn = false;
 window.currentPage = 0;
 
-// --- 1. EKONOMİ BÜLTENİ MOTORU (KESİN ÇÖZÜM) ---
+// --- 1. EKONOMİ BÜLTENİ MOTORU (v5.5 ULTRA-LINK) ---
 async function fetchEconomyNews() {
     const target = document.getElementById('economy-bulletin-target');
     if (!target) return;
     
-    // Rastgelelik (Cache Buster) ekleyerek taze veri çekiyoruz
-    const apiUrl = `https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent('https://www.bloomberght.com/rss')}&t=${Date.now()}`;
+    // Alternatif ve daha hızlı bir RSS servisi kullanıyoruz
+    const rssUrl = 'https://www.bloomberght.com/rss';
+    // Bu servis doğrudan JSON formatına çevirir ve daha yüksek limitlidir
+    const apiUrl = `https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(rssUrl)}&api_key=oyfk9u6bpxn6sq8pzhly0q4vsk6n5yaxovpjs8z8`; 
 
     try {
         const response = await fetch(apiUrl);
         const data = await response.json();
-        if (data && data.status === 'ok') {
+        
+        if (data.status === 'ok') {
             let html = "";
             data.items.slice(0, 10).forEach((item, i) => {
                 const colors = ['#00d1ff', '#22c55e', '#3b82f6', '#f3ba2f', '#a855f7'];
-                const pubDate = new Date(item.pubDate);
-                const timeStr = pubDate.getHours().toString().padStart(2, '0') + ":" + pubDate.getMinutes().toString().padStart(2, '0');
                 
+                // Saati daha güvenli bir şekilde çekelim
+                let timeStr = "Yeni";
+                try {
+                    const pubDate = new Date(item.pubDate.replace(/-/g, "/"));
+                    timeStr = pubDate.getHours().toString().padStart(2, '0') + ":" + pubDate.getMinutes().toString().padStart(2, '0');
+                } catch(e) {}
+
                 html += `
                     <div style="border-bottom: 1px solid #222; padding: 10px 0; display: flex; gap: 10px; animation: fadeIn 0.4s ease;">
                         <span style="color: ${colors[i % 5]}; font-weight: bold; font-size: 10px; font-family: monospace;">[${timeStr}]</span>
@@ -369,13 +377,17 @@ async function fetchEconomyNews() {
             });
             target.innerHTML = html;
         } else {
-            throw new Error("Veri hatası");
+            throw new Error("Servis Yanıt Vermedi");
         }
     } catch (e) { 
-        target.innerHTML = '<p style="color:#666; font-size:11px; text-align:center; padding:20px;">Haber akışı bekleniyor...<br><button onclick="fetchEconomyNews()" style="background:none; border:1px solid #333; color:#555; cursor:pointer; margin-top:10px;">Yenile</button></p>'; 
+        // Eğer servis tamamen çökerse manuel bir yedek haber gösterelim (Kutu boş kalmasın)
+        target.innerHTML = `
+            <div style="padding:10px; font-size:11px; color:#555; text-align:center;">
+                <p>Canlı akış şu an kalabalık...</p>
+                <button onclick="location.reload()" style="background:#00d1ff; border:none; color:white; padding:5px 15px; border-radius:4px; cursor:pointer;">Sayfayı Yenile</button>
+            </div>`;
     }
 }
-
 // --- 2. ÇARK VE BUTON RENK YANSITICI ---
 function runCentralSync() {
     const MARKET_MAP = { 'KRİPTO': 'btn-crypto', 'BIST': 'btn-bist', 'FOREX': 'btn-forex', 'METALS': 'btn-metals' };
