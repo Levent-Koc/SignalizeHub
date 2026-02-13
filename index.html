@@ -3086,7 +3086,54 @@ processHourlySignals();
 // Her 1 saatte bir (3600000 ms) arka planda güncellemeye devam et
 setInterval(processHourlySignals, 3600000);
 // --- SAATLİK SİNYAL MOTORU BİTİŞİ ---
+// ... Mevcut diğer kodların bittiği yer ...
 
+// --- CANLI GÜNDEM MASASI OTOMASYONU ---
+function updateLiveAgenda() {
+    const agendaContent = {
+        bist: "BIST 100 Endeksi 9.450 seviyesinde dirençle karşılaşıyor.",
+        economy: "TCMB Piyasa Katılımcıları Anketi yayınlandı: Yıl sonu enflasyon beklentisi geriledi.",
+        forex: "Dolar/TL 31.00 bandında yatay seyrederken, Euro bölgesi verileri pariteyi hareketlendiriyor.",
+        crypto: "Bitcoin 52.000$ üzerinde kalıcılık çabasında; kurumsal talepler artıyor.",
+        altcoin: "Ethereum Layer-2 ağlarındaki işlem hacmi haftalık bazda %15 artış gösterdi."
+    };
+
+    // Haberleri içine basacağımız kutuyu bulalım
+    const container = document.querySelector('.news-data-center div:first-child div:last-child');
+    
+    if(container) {
+        container.innerHTML = `
+            <div style="border-bottom: 1px solid #222; padding: 5px 0;">
+                <span style="color: #00d1ff; font-weight: bold;">[BIST]</span> ${agendaContent.bist}
+            </div>
+            <div style="border-bottom: 1px solid #222; padding: 5px 0;">
+                <span style="color: #22c55e; font-weight: bold;">[EKONOMİ]</span> ${agendaContent.economy}
+            </div>
+            <div style="border-bottom: 1px solid #222; padding: 5px 0;">
+                <span style="color: #3b82f6; font-weight: bold;">[DÖVİZ/PARİTE]</span> ${agendaContent.forex}
+            </div>
+            <div style="border-bottom: 1px solid #222; padding: 5px 0;">
+                <span style="color: #f3ba2f; font-weight: bold;">[KRİPTO]</span> ${agendaContent.crypto}
+            </div>
+            <div style="border-bottom: 1px solid #222; padding: 5px 0;">
+                <span style="color: #a855f7; font-weight: bold;">[ALTCOIN]</span> ${agendaContent.altcoin}
+            </div>
+        `;
+    }
+}
+
+// Sayfa yüklendiğinde ve her 5 dakikada bir çalıştır
+window.addEventListener('load', updateLiveAgenda);
+setInterval(updateLiveAgenda, 300000); 
+
+</script> ```
+
+### 💡 Küçük Bir İpucu:
+Bu kodu yapıştırdıktan sonra sayfanı yenilediğinde, o kutunun içindeki yazıların bu JavaScript içindeki yeni metinlerle değiştiğini göreceksin. Artık tek yapmamız gereken, yarın bu `agendaContent` içindeki metinleri bir haber kaynağından otomatik çektirmek olacak.
+
+Şu an saat **15:22**. Kodun içine girip `bist: "..."` kısmına o anki gerçek bir haberi yazıp kaydedersen, sitende anında güncellendiğini göreceksin.
+
+Yapıştırdıktan sonra bir hata aldın mı yoksa sistem tıkır tıkır çalışıyor mu?
 </script>
 </body>
 </html>
