@@ -2192,154 +2192,126 @@ function fPanelGuncelle(sure) {
 }
 
 </script>
-
 <script>
+/**
+ * SIGNALIZHUB MERKEZİ KONTROL ÜNİTESİ (v4.0)
+ * Haber Botu + Rapor Sistemi + Kilit Yönetimi
+ */
 
-// Giriş kontrolü fonksiyonu (Ortak)
+let isLoggedIn = false;
+let currentPage = 0;
 
-function checkScannerAccess() {
+// 1. RAPOR İÇERİĞİ
+const dailyReportData = {
+    date: "13 Şubat 2026",
+    pages: [
+        {
+            title: "1. Piyasaya Genel Bakış",
+            content: `<h3>Küresel Görünüm</h3><p>ABD enflasyon verileri öncesi piyasalarda temkinli bir bekleyiş hakim. Asya tarafında teknoloji hisseleri öncülüğünde bir toparlanma izliyoruz.</p>
+                      <h3>BIST 100 Stratejisi</h3><p>Endekste 9.150 puan seviyesi kritik eşik. Destek bölgemiz 8.850 seviyesidir.</p>`
+        },
+        {
+            title: "2. Takip Listesi & Sinyaller",
+            content: `<h3>Teknik Sinyal Verenler</h3><ul><li><strong>THYAO:</strong> RSI uyumsuzluğu ile dönüş çabasında.</li><li><strong>EREGL:</strong> 200 günlük ortalamadan destek alıyor.</li></ul>`
+        }
+    ]
+};
 
-// Strateji Raporu için giriş kontrolü ve rapor açma
+// 2. EKONOMİ BÜLTENİ MOTORU (RSS)
+async function fetchEconomyNews() {
+    const target = document.getElementById('economy-bulletin-target');
+    if (!target) return;
+    const rssUrl = 'https://www.bloomberght.com/rss'; 
+    const apiUrl = `https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(rssUrl)}`;
+
+    try {
+        const response = await fetch(apiUrl);
+        const data = await response.json();
+        if (data.status === 'ok') {
+            let html = "";
+            data.items.slice(0, 10).forEach((item, i) => {
+                const colors = ['#00d1ff', '#22c55e', '#3b82f6', '#f3ba2f', '#a855f7'];
+                const pubDate = new Date(item.pubDate);
+                const timeStr = pubDate.getHours().toString().padStart(2, '0') + ":" + pubDate.getMinutes().toString().padStart(2, '0');
+                html += `<div style="border-bottom: 1px solid #222; padding: 10px 0; display: flex; gap: 10px; animation: fadeIn 0.4s ease;">
+                    <span style="color: ${colors[i % 5]}; font-weight: bold; font-size: 10px; font-family: monospace;">[${timeStr}]</span>
+                    <span style="cursor: pointer;" onclick="window.open('${item.link}', '_blank')">${item.title}</span>
+                </div>`;
+            });
+            target.innerHTML = html;
+        }
+    } catch (e) { target.innerHTML = '<p style="color:#666">Haber akışı geçici olarak durdu.</p>'; }
+}
+
+// 3. RAPOR YÖNETİMİ
+function renderReport() {
+    const content = document.getElementById('reportContent');
+    const pageIndicator = document.getElementById('pageIndicator');
+    const page = dailyReportData.pages[currentPage];
+    if(!content) return;
+
+    content.innerHTML = `<div style="max-width:750px; margin:0 auto; animation: fadeIn 0.5s ease;">
+        <h1 style="border-bottom:3px solid #00d1ff; padding-bottom:15px; color:#1a252f;">${page.title}</h1>
+        <div style="font-size:16px; color:#34495e;">${page.content}</div>
+    </div>`;
+    if(pageIndicator) pageIndicator.innerText = `Sayfa ${currentPage + 1} / ${dailyReportData.pages.length}`;
+}
+
+function changeReportPage(direction) {
+    const newPage = currentPage + direction;
+    if (newPage >= 0 && newPage < dailyReportData.pages.length) {
+        currentPage = newPage;
+        renderReport();
+    }
+}
 
 function openStratejiRaporu() {
-
     if (!isLoggedIn) {
-
-        // Giriş yapılmamışsa kilitli paneli göster
-
         document.getElementById('loginRequiredPanel').style.display = 'flex';
-
     } else {
-
-        // Giriş yapılmışsa raporu hazırla ve modalı aç
-
         currentPage = 0;
-
         renderReport();
-
         document.getElementById('reportModal').style.display = 'flex';
-
     }
-
 }
 
-    if (!isLoggedIn) {
-
-        alert("Bu özelliği kullanmak için giriş yapmalısınız.");
-
-        openMembershipModal('login');
-
-    }
-
-}
-
-
-
-// Giriş yapıldığında bu kilitleri açacak olan ana fonksiyon (Zaten sende var ama kontrol et)
-
+// 4. KİLİT AÇMA VE GİRİŞ SİSTEMİ
 function unlockEverything() {
-
     isLoggedIn = true;
-
-    
-
-    // Ana sayfa kilitlerini açar
-
-    document.getElementById('stratejiBlurArea').style.filter = 'none';
-
-    document.getElementById('stratejiBlurArea').style.opacity = '1';
-
-    document.getElementById('stratejiBlurArea').style.pointerEvents = 'auto';
-
-    
-
-    // PANELLERDEKİ KİLİTLERİ KALDIRIR
-
-    if(document.getElementById('scannerLock')) document.getElementById('scannerLock').style.display = 'none';
-
-    if(document.getElementById('heatmapLock')) document.getElementById('heatmapLock').style.display = 'none';
-
-    if(document.getElementById('madenLock')) document.getElementById('madenLock').style.display = 'none';
-
-    closeMembershipModal();
-
-}
-
-</script>
-
-  
-
-
-
-<script>
-
-function showMetal(type) {
-
-    // Tüm sekmeleri gizle
-
-    document.querySelectorAll('.metal-tab').forEach(tab => tab.style.display = 'none');
-
-    // Seçileni göster
-
-    document.getElementById('tab-' + type).style.display = 'block';
-
-
-
-    // Buton renklerini güncelle
-
-    const colors = { gold: '#FFD700', silver: '#C0C0C0', platinum: '#E5E4E2' };
-
-    ['gold', 'silver', 'platinum'].forEach(m => {
-
-        const btn = document.getElementById('btn-' + m);
-
-        if(btn) {
-
-            btn.style.background = (m === type) ? colors[m] : '#333';
-
-            btn.style.color = (m === type) ? '#000' : '#fff';
-
-        }
-
+    // Bulanıklıkları kaldır
+    ['stratejiBlurArea', 'sinyalBlurArea'].forEach(id => {
+        const el = document.getElementById(id);
+        if(el) { el.style.filter = 'none'; el.style.opacity = '1'; el.style.pointerEvents = 'auto'; }
     });
-
+    // Kilit görsellerini gizle
+    document.querySelectorAll('[id$="LockVisual"], [id$="Lock"]').forEach(el => el.style.display = 'none');
+    // Modalları kapat
+    ['membershipModal', 'loginRequiredPanel'].forEach(id => {
+        const el = document.getElementById(id);
+        if(el) el.style.display = 'none';
+    });
+    alert("Terminal Erişimi Açıldı!");
 }
 
+// 5. GENEL PANEL VE MODAL FONKSİYONLARI
+function openP(id) {
+    document.querySelectorAll('.tali-panel-yeni').forEach(p => p.style.display = 'none');
+    const target = document.getElementById(id);
+    if(target) { target.style.display = 'block'; window.dispatchEvent(new Event('resize')); }
+}
+function openSingleTab(t) { document.getElementById('membershipModal').style.display = 'flex'; switchTab(t); }
+function closeMembershipModal() { document.getElementById('membershipModal').style.display = 'none'; }
+function switchTab(t) {
+    const l = document.getElementById('loginFormArea'), r = document.getElementById('registerFormArea');
+    if(t === 'login') { l.style.display = 'block'; r.style.display = 'none'; }
+    else { l.style.display = 'none'; r.style.display = 'block'; }
+}
+
+// 6. BAŞLATICI
+window.addEventListener('load', () => {
+    fetchEconomyNews();
+    setInterval(fetchEconomyNews, 300000); // 5 dk'da bir tazele
+});
 </script>
-
-
-
-    </div>
-
-</div>
-
-
-<div id="loginRequiredPanel" class="tali-panel-yeni" style="display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 90%; max-width: 400px; background: white; z-index: 10020; border-radius: 20px; box-shadow: 0 0 40px rgba(0,0,0,0.5); text-align: center; padding: 30px; font-family: sans-serif;">
-
-    
-
-    <div onclick="this.parentElement.style.display='none'" style="position: absolute; right: 15px; top: 10px; color: #ff0000; cursor: pointer; font-size: 24px;">×</div>
-
-    
-
-    <div style="font-size: 50px; margin-bottom: 15px;">🔒</div>
-
-    <h3 style="margin-bottom: 10px; color: #333;">Takip Listesi Üyelere Özeldir</h3>
-
-    <p style="color: #666; font-size: 14px; margin-bottom: 25px;">Kendi listenizi oluşturmak ve piyasayı takip etmek için lütfen hesabınıza giriş yapın veya üye olun.</p>
-
-    
-
-    <button onclick="openStratejiRaporu()" style="width: 100%; padding: 12px; margin-bottom: 10px; border-radius: 10px; border: none; background: #00d1ff; color: white; font-weight: bold; cursor: pointer;">
-
-    Giriş Yap / Raporu Oku
-
-</button>    
-
-    <button onclick="document.getElementById('loginRequiredPanel').style.display='none'; openSingleTab('register');" style="width: 100%; padding: 12px; border-radius: 10px; border: 1px solid #007bff; background: white; color: #007bff; font-weight: bold; cursor: pointer;">Kayıt Ol</button>
-
-</div>
-
-
 </body>
 </html>
