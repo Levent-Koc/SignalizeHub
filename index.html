@@ -335,13 +335,13 @@ function updateMarketSignals() {
 window.addEventListener('DOMContentLoaded', updateMarketSignals);
 <script>
 /**
- * SIGNALIZHUB MASTER ENGINE v5.4 - REBORN
- * Madenler + Radar + Rapor + Kilitler + EKONOMİ BÜLTENİ
+ * SIGNALIZHUB MASTER ENGINE v6.2
+ * Madenler + Radar + Haber Botu + Kilitler
  */
 window.isLoggedIn = false;
 window.currentPage = 0;
 
-// --- 1. EKONOMİ BÜLTENİ MOTORU (v6.0 KESİN ÇÖZÜM) ---
+// --- 1. EKONOMİ BÜLTENİ MOTORU (TEK VE GÜÇLÜ) ---
 async function fetchEconomyNews() {
     const target = document.getElementById('economy-bulletin-target');
     if (!target) return;
@@ -370,51 +370,32 @@ async function fetchEconomyNews() {
             target.innerHTML = html;
         }
     } catch (e) { 
-        target.innerHTML = '<p style="color:#555; font-size:11px;">Haber akışı bekleniyor... (Yenilemek için tıkla)</p>'; 
+        target.innerHTML = '<p style="color:#666; font-size:11px; text-align:center;">Haber akışı bekleniyor...<br><button onclick="fetchEconomyNews()" style="background:none; border:1px solid #333; color:#00d1ff; cursor:pointer; margin-top:10px;">Yenile</button></p>'; 
     }
 }
-    // 2. RSS to JSON Servisi (Ücretsiz ve stabil servis)
-    const rssUrl = encodeURIComponent('https://www.bloomberght.com/rss');
-    const apiUrl = `https://api.rss2json.com/v1/api.json?rss_url=${rssUrl}&api_key=oyfk9u6bpxn6sq8pzhly0q4vsk6n5yaxovpjs8z8&t=${Date.now()}`;
 
-    try {
-        const response = await fetch(apiUrl);
-        if (!response.ok) throw new Error('Network response was not ok');
-        
-        const data = await response.json();
-        
-        if (data && data.status === 'ok') {
-            let html = "";
-            data.items.slice(0, 10).forEach((item, i) => {
-                const colors = ['#00d1ff', '#22c55e', '#3b82f6', '#f3ba2f', '#a855f7'];
-                
-                // Zamanı ayıkla
-                let pubDate = new Date(item.pubDate);
-                let timeStr = pubDate.getHours().toString().padStart(2, '0') + ":" + 
-                              pubDate.getMinutes().toString().padStart(2, '0');
+// --- 2. RADAR IŞIKLARI SENKRONİZASYONU (EKSİKTİ, EKLENDİ) ---
+function runCentralSync() {
+    const map = { 'KRİPTO': 'btn-crypto', 'BIST': 'btn-bist', 'FOREX': 'btn-forex', 'METALS': 'btn-metals' };
+    const colors = ['#22c55e', '#eab308', '#ef4444'];
+    
+    document.querySelectorAll('.dial-sector').forEach(sector => {
+        const label = sector.querySelector('text')?.textContent.trim();
+        const circle = sector.querySelector('circle');
+        const targetBtn = document.getElementById(map[label]);
+        const randColor = colors[Math.floor(Math.random() * 3)];
 
-                html += `
-                    <div style="border-bottom: 1px solid #222; padding: 10px 0; display: flex; gap: 10px; animation: fadeIn 0.4s ease;">
-                        <span style="color: ${colors[i % 5]}; font-weight: bold; font-size: 10px; font-family: monospace; min-width: 45px;">
-                            [${timeStr}]
-                        </span>
-                        <span style="cursor: pointer; transition: 0.2s;" 
-                              onmouseover="this.style.color='${colors[i % 5]}'" 
-                              onmouseout="this.style.color='#eee'" 
-                              onclick="window.open('${item.link}', '_blank')">
-                            ${item.title}
-                        </span>
-                    </div>`;
-            });
-            
-            // Veriyi kutuya bas
-            target.innerHTML = html;
-            console.log("SignalizeHub: Ekonomi Bülteni Başarıyla Yüklendi.");
+        if (circle) {
+            circle.setAttribute('fill', randColor);
+            circle.style.filter = `drop-shadow(0 0 10px ${randColor})`;
         }
-    } catch (e) { 
-        console.error("Haber Hatası:", e);
-        target.innerHTML = '<p style="color:#666; font-size:11px; text-align:center;">Haber akışı güncellenirken bir sorun oluştu. <br><button onclick="fetchEconomyNews()" style="background:none; border:1px solid #333; color:#00d1ff; cursor:pointer; margin-top:10px; padding:3px 8px; border-radius:4px;">Yenile</button></p>'; 
-    }
+        if (targetBtn) {
+            targetBtn.classList.remove('glow-green', 'glow-yellow', 'glow-red');
+            if (randColor === '#22c55e') targetBtn.classList.add('glow-green');
+            else if (randColor === '#eab308') targetBtn.classList.add('glow-yellow');
+            else if (randColor === '#ef4444') targetBtn.classList.add('glow-red');
+        }
+    });
 }
 
 // --- 3. MADEN ANALİZİ SEKME MOTORU ---
@@ -469,10 +450,10 @@ function switchTab(t) {
 
 // --- 6. ANA BAŞLATICI ---
 window.addEventListener('load', () => {
-    fetchEconomyNews(); // Kritik Haber Motoru Başlatıldı
+    fetchEconomyNews(); 
     runCentralSync();
     setInterval(runCentralSync, 10000); 
-    setInterval(fetchEconomyNews, 300000); // 5 dk'da bir güncelle
+    setInterval(fetchEconomyNews, 300000); 
 });
 </script>
 </div>
