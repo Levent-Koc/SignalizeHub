@@ -341,18 +341,21 @@ window.addEventListener('DOMContentLoaded', updateMarketSignals);
 window.isLoggedIn = false;
 window.currentPage = 0;
 
-// 1. EKONOMİ BÜLTENİ MOTORU (BLOOMBERG HT)
+// 1. EKONOMİ BÜLTENİ MOTORU (GÜÇLENDİRİLMİŞ v5.3)
 async function fetchEconomyNews() {
     const target = document.getElementById('economy-bulletin-target');
     if (!target) return;
     
-    // rss2json servisi üzerinden Bloomberg HT RSS akışını çekiyoruz
-    const apiUrl = `https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent('https://www.bloomberght.com/rss')}`;
+    // Rastgelelik ekleyerek önbellek (cache) sorununu aşıyoruz
+    const cacheBuster = Math.random();
+    const rssUrl = encodeURIComponent('https://www.bloomberght.com/rss');
+    const apiUrl = `https://api.rss2json.com/v1/api.json?rss_url=${rssUrl}&t=${cacheBuster}`;
 
     try {
         const response = await fetch(apiUrl);
         const data = await response.json();
-        if (data.status === 'ok') {
+        
+        if (data && data.status === 'ok') {
             let html = "";
             data.items.slice(0, 10).forEach((item, i) => {
                 const colors = ['#00d1ff', '#22c55e', '#3b82f6', '#f3ba2f', '#a855f7'];
@@ -368,9 +371,17 @@ async function fetchEconomyNews() {
                     </div>`;
             });
             target.innerHTML = html;
+            console.log("Ekonomi Bülteni: Haberler başarıyla güncellendi.");
+        } else {
+            throw new Error("RSS Verisi Alınamadı");
         }
     } catch (e) { 
-        target.innerHTML = '<p style="color:#666; font-size:11px;">Bağlantı bekleniyor...</p>'; 
+        console.error("Bülten Hatası:", e);
+        target.innerHTML = `
+            <div style="text-align:center; padding:20px;">
+                <p style="color:#666; font-size:11px;">Bağlantı şu an yoğun.</p>
+                <button onclick="fetchEconomyNews()" style="background:#1e293b; color:#00d1ff; border:1px solid #00d1ff; padding:5px 10px; border-radius:5px; cursor:pointer; font-size:10px;">Tekrar Dene</button>
+            </div>`;
     }
 }
 
