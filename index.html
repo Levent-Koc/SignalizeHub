@@ -288,51 +288,7 @@ function repairLogo(img) {
     }
 }
 </script>
-<script>
-function updateMarketSignals() {
-    // ÖRNEK VERİ SETİ (Buradaki skorları piyasa durumuna göre değiştirebilirsin)
-    const marketData = [
-        { id: 'crypto', score: 85, price: 48240.50, symbol: '$' }, // %80 üstü -> GÜÇLÜ AL
-        { id: 'bist', score: 50, price: 285.40, symbol: '₺' },     // Orta değer -> NÖTR
-        { id: 'forex', score: 15, price: 2024.15, symbol: '$' }    // %20 altı -> GÜÇLÜ SAT
-    ];
 
-    marketData.forEach(data => {
-        const signalEl = document.getElementById(`signal-${data.id}`);
-        const cardEl = document.getElementById(`card-${data.id}`);
-        
-        let statusText = "";
-        let statusColor = "";
-        let resistance = (data.price * 1.03).toFixed(2); // Otomatik %3 direnç hesapla
-
-        // SENİN BELİRLEDİĞİN MANTIK:
-        if (data.score >= 80) {
-            statusText = "GÜÇLÜ AL SİNYALİ";
-            statusColor = "#22c55e"; // Yeşil
-        } else if (data.score <= 20) {
-            statusText = "GÜÇLÜ SAT SİNYALİ";
-            statusColor = "#ef4444"; // Kırmızı
-        } else {
-            statusText = "NÖTR / İZLEMEDE";
-            statusColor = "#eab308"; // Sarı
-        }
-
-        // Kartı Güncelle
-        if (signalEl) {
-            signalEl.innerHTML = `${statusText}<br><span style="font-size:10px; opacity:0.8;">DİRENÇ: ${data.symbol}${resistance}</span>`;
-            signalEl.style.color = statusColor;
-            signalEl.style.filter = "none"; // Buzlamayı kaldır
-        }
-        
-        // Kartın alt sınır rengini sinyale göre boya
-        if (cardEl) {
-            cardEl.style.borderBottom = `4px solid ${statusColor}`;
-        }
-    });
-}
-
-// Sayfa açıldığında motoru çalıştır
-window.addEventListener('DOMContentLoaded', updateMarketSignals);
 <script>
 /**
  * SIGNALIZHUB MASTER ENGINE v8.0 - FINAL MERGE
@@ -638,43 +594,7 @@ window.addEventListener('load', () => {
 </div>
     </script>
 
-<script>
-function loadSmartCalendar() {
-    const now = new Date();
-    const day = now.getDay(); // 0: Pazar, 5: Cuma
-    const hour = now.getHours();
-    
-    let timeRange = "this_week"; // Varsayılan: Bu hafta
-    
-    // SENİN KURALIN: Cuma saat 14:00'ten sonra bir sonraki haftayı da dahil et
-    if ((day === 5 && hour >= 14) || day === 6 || day === 0) {
-        timeRange = "next_week"; 
-    }
 
-    const container = document.getElementById('smart-calendar-container');
-    container.innerHTML = ''; // Temizle
-
-    const script = document.createElement('script');
-    script.type = 'text/javascript';
-    script.src = 'https://s3.tradingview.com/external-embedding/embed-widget-events.js';
-    script.async = true;
-    script.innerHTML = JSON.stringify({
-        "colorTheme": "dark",
-        "isTransparent": true,
-        "width": "100%",
-        "height": "100%",
-        "locale": "tr",
-        "importanceFilter": "0,1",
-        "currencyFilter": "TRY,USD,EUR",
-        "displayMode": "regular"
-    });
-    // Not: TradingView widget'ı manuel tarih aralığını bazen kısıtlı sunar, 
-    // ancak 'importanceFilter' ile en kritik haberlerin kaymasını sağlarız.
-    container.appendChild(script);
-}
-
-window.addEventListener('load', loadSmartCalendar);
-</script>
   <style>
 /* Hub RADAR Sabit Turkuaz Hare */
 .radar-active {
@@ -1194,23 +1114,7 @@ nav {
     </div>
 </div>
 
-<script>
-function checkBtcAccess() {
-    if (typeof isLoggedIn !== 'undefined' && !isLoggedIn) {
-        // Giriş yapılmamışsa uyarıyı göster
-        document.getElementById('loginRequiredPanel').style.display = 'block';
-    } else {
-        // Giriş yapılmışsa perdeyi kaldır
-        document.getElementById('btcLock').style.display = 'none';
-    }
-}
 
-// Giriş kontrolü (Sayfa yüklendiğinde/giriş yapıldığında)
-if (typeof isLoggedIn !== 'undefined' && isLoggedIn) {
-    var btcLock = document.getElementById('btcLock');
-    if(btcLock) btcLock.style.display = 'none';
-}
-</script>
 <div id="dPanel" class="tali-panel-yeni" style="display: none; background: white !important; color: #333; padding: 20px; border-radius: 12px; border: 2px solid #3498db; margin: 20px 0;">
     <div onclick="this.parentElement.style.display='none'" 
      style="position: absolute; right: 20px; top: 10px; color: #ff4d4d; cursor: pointer; font-size: 32px; font-weight: bold; line-height: 1; transition: 0.3s; z-index: 10006; font-family: Arial, sans-serif;"
@@ -1844,170 +1748,5 @@ body:not([data-theme='dark']) .opportunity-card {
     <a href="javascript:void(0)" onclick="openP('hPanel')">📈 Hisse Tarayıcı</a>
 
 </div>
-
-
-
-<script>
-
-function checkScannerAccess() {
-
-    if (typeof isLoggedIn !== 'undefined' && !isLoggedIn) {
-
-        document.getElementById('loginRequiredPanel').style.display = 'block';
-
-    } else {
-
-        document.getElementById('scannerLock').style.display = 'none';
-
-    }
-
-}
-
-
-
-// Giriş yapılmışsa kilidi kaldır
-
-if (typeof isLoggedIn !== 'undefined' && isLoggedIn) {
-
-    var sLock = document.getElementById('scannerLock');
-
-    if(sLock) sLock.style.display = 'none';
-
-}
-
-</script>
-
-<script>
-
-function fPanelGuncelle(sure) {
-
-    // 1. Paneli görünür yap (Eğer kapalıysa)
-
-    document.getElementById('fPanel').style.display = 'block';
-
-    document.getElementById('fPanel').style.zIndex = '10007';
-
-
-
-    // 2. Iframe'i bul ve adresi tazele (Karanlığı bitiren hamle)
-
-    const frame = document.getElementById('fPanel-frame');
-
-    if (frame) {
-
-        frame.src = "https://s.tradingview.com/widgetembed/?symbol=BINANCE:BTCUSDT&interval=" + sure + "&theme=dark";
-
-        
-
-        // 3. Buton renklerini güncelle
-
-        const btnMap = { '5': 'btn-5m', '60': 'btn-1h', 'D': 'btn-1d' };
-
-        Object.keys(btnMap).forEach(key => {
-
-            const btn = document.getElementById(btnMap[key]);
-
-            if (btn) {
-
-                btn.style.background = (key === sure) ? '#a855f7' : '#333';
-
-            }
-/* Widget'ı %90 oranında küçülterek ferahlatma */
-.tradingview-widget-container iframe {
-    transform: scale(0.9); /* %10 küçültme */
-    transform-origin: center center;
-    width: 111% !important; /* Küçülmeden kaynaklanan boşluğu telafi etmek için genişliği artır */
-}
-        });
-
-    }
-
-}
-
-</script>
-<script>
-window.isLoggedIn = false;
-
-// 1. RADAR IŞIKLARI SENKRONİZASYONU
-function runCentralSync() {
-    // Çarktaki Metin -> Buton ID eşleşmesi
-    const map = { 'KRİPTO': 'btn-crypto', 'BIST': 'btn-bist', 'FOREX': 'btn-forex', 'METALS': 'btn-metals' };
-    const colors = ['#22c55e', '#eab308', '#ef4444'];
-    
-    document.querySelectorAll('.dial-sector').forEach(sector => {
-        const label = sector.querySelector('text')?.textContent.trim();
-        const circle = sector.querySelector('circle');
-        const targetBtn = document.getElementById(map[label]);
-        const randColor = colors[Math.floor(Math.random() * 3)];
-
-        if (circle) {
-            circle.setAttribute('fill', randColor);
-            circle.style.filter = `drop-shadow(0 0 10px ${randColor})`;
-        }
-        
-        // Hub RADAR yanındaki kutuyu parlat
-        if (targetBtn) {
-            targetBtn.classList.remove('glow-green', 'glow-yellow', 'glow-red');
-            if (randColor === '#22c55e') targetBtn.classList.add('glow-green');
-            else if (randColor === '#eab308') targetBtn.classList.add('glow-yellow');
-            else if (randColor === '#ef4444') targetBtn.classList.add('glow-red');
-        }
-    });
-}
-
-// 2. MADEN ANALİZİ GEÇİŞLERİ (ALTIN/GÜMÜŞ/PLATİN)
-function showMetal(type) {
-    console.log("Sistem: Maden geçişi yapılıyor -> " + type);
-    
-    // Tüm sekmeleri gizle
-    document.querySelectorAll('.metal-tab').forEach(el => el.style.display = 'none');
-    
-    // Seçilen sekme ID'sini bul ve göster
-    const target = document.getElementById('tab-' + type);
-    if (target) {
-        target.style.display = 'block';
-        // Iframe donmasını önlemek için yenile
-        const frame = target.querySelector('iframe');
-        if (frame) frame.src = frame.src;
-    }
-
-    // Butonların renklerini güncelle
-    const config = { gold: '#FFD700', silver: '#C0C0C0', platinum: '#E5E4E2' };
-    ['gold', 'silver', 'platinum'].forEach(m => {
-        const btn = document.getElementById('btn-' + m);
-        if(btn) {
-            btn.style.background = (m === type) ? config[m] : '#333';
-            btn.style.color = (m === type) ? '#000' : '#fff';
-        }
-    });
-}
-
-// 3. ISI HARİTASI & TARAYICI GÜNCELLEME (PANEL AÇILIŞI)
-function openP(id) {
-    document.querySelectorAll('.tali-panel-yeni, .tali-panel').forEach(p => p.style.display = 'none');
-    const panel = document.getElementById(id);
-    if (panel) {
-        panel.style.display = 'block';
-        panel.style.zIndex = "10005";
-        
-        // Widget'ları otomatik tazelemek için resize sinyali
-        setTimeout(() => { 
-            window.dispatchEvent(new Event('resize')); 
-            console.log(id + " paneli tazelendi.");
-        }, 200);
-
-        if(id === 'mPanel') showMetal('gold'); // Maden açılınca Altın seçili gelsin
-    }
-}
-
-// ANA BAŞLATICI - Burayı kodun en sonundakiyle değiştir
-window.addEventListener('load', () => {
-    fetchEconomyNews(); // EKONOMİ MOTORUNU ÇALIŞTIRAN KRİTİK SATIR
-    runCentralSync();   // Radar ışıklarını çalıştırır
-    
-    setInterval(runCentralSync, 10000);   // 10 saniyede bir radar
-    setInterval(fetchEconomyNews, 300000); // 5 dakikada bir haberleri tazele
-});
-</script>
 </body>
 </html>
