@@ -237,20 +237,18 @@ body.dark-mode .hub-text {
         </div>
     </div>
 
-    <div id="zone-right-radar" style="flex: 1; max-width: 550px;">
-        <div id="hub-radar-display" style="background: var(--card-bg); border: 2px solid var(--primary); border-radius: 20px; overflow: hidden; box-shadow: 0 10px 40px rgba(0,0,0,0.4);">
-            <div style="background: var(--primary); padding: 15px; font-weight: 900; text-align: center; letter-spacing: 2px; font-size: 15px; color: #fff;">
-                SIGNALIZE<span style="color: #1a1a1a;">HUB</span> RADAR LİSTESİ
-            </div>
-            <div id="radar-list-8" style="display: grid; grid-template-columns: 1fr; gap: 10px; padding: 20px; min-height: 380px; background: var(--card-bg);">
-                <div style="text-align: center; color: #888; margin-top: 160px; font-style: italic; font-size: 13px;">
-                    <span style="display:inline-block; width:10px; height:10px; background:var(--primary); border-radius:50%; margin-right:8px; animation: pulse 1.5s infinite;"></span>
-                    Otonom analiz motoru taranıyor...
-                </div>
+   <div id="zone-right-radar" style="flex: 1; min-height: 450px; display: flex; flex-direction: column; padding-right: 20px;">
+    <div id="hub-radar-display" style="background: var(--card-bg); border: 2px solid var(--primary); border-radius: 20px; overflow: hidden; height: 100%; display: flex; flex-direction: column; box-shadow: 0 10px 40px rgba(0,0,0,0.4);">
+        <div style="background: var(--primary); padding: 18px; font-weight: 900; text-align: center; letter-spacing: 2px; font-size: 16px; color: #fff;">
+            SIGNALIZE<span style="color: #1a1a1a;">HUB</span> RADAR LİSTESİ
+        </div>
+        <div id="radar-list-8" style="flex: 1; display: grid; grid-template-columns: 1fr; gap: 0; padding: 0; background: var(--card-bg);">
+            <div id="radar-sync-loader" style="text-align: center; color: #888; margin-top: 150px; font-style: italic; font-size: 14px;">
+                <span style="display:inline-block; width:12px; height:12px; background:var(--primary); border-radius:50%; margin-right:10px; animation: pulse 1.5s infinite;"></span>
+                Otonom analiz motoru senkronize ediliyor...
             </div>
         </div>
     </div>
-
 </div>
 
 <script>
