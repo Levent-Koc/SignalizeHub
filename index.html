@@ -499,6 +499,15 @@ window.addEventListener('load', () => {
     <button id="btn-metals" class="pulse-filter">METALS</button>
 </div>
 </div>
+<div id="hub-radar-display" style="max-width: 1200px; margin: 30px auto; background: #0f172a; border: 2px solid #00d1ff; border-radius: 15px; overflow: hidden; box-shadow: 0 0 20px rgba(0, 209, 255, 0.2);">
+    <div style="background: #00d1ff; color: #000; padding: 12px; font-weight: 900; text-align: center; letter-spacing: 2px; font-size: 14px;">
+        📡 SIGNALIZHUB RADAR: TOP 8 GÜÇLÜ SİNYAL (OTONOM ANALİZ)
+    </div>
+    
+    <div id="radar-list-8" style="min-height: 200px; display: grid; grid-template-columns: 1fr 1fr; gap: 10px; padding: 15px;">
+        <p style="color: #444; text-align: center; grid-column: 1 / -1;">Radar taranıyor, modallardan veriler bekleniyor...</p>
+    </div>
+</div>
  <div id="hub-opportunities">
     
   <div class="opportunity-card crypto-border" id="card-crypto">
@@ -1138,7 +1147,7 @@ nav {
 <div id="kPanel" class="tali-panel-yeni" style="display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 450px; background: #121212; z-index: 10005; box-shadow: 0 25px 50px rgba(0,0,0,0.6); border-radius: 20px; border: 1px solid #333; overflow: hidden;">
     
     <div style="background: #1a1a1a; padding: 15px 20px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #333;">
-        <span style="color: #f3ba2f; font-weight: bold; font-size: 15px; letter-spacing: 1px;">₿ BTC TEKNİK ANALİZ</span>
+        <span style="color: #f3ba2f; font-weight: bold; font-size: 15px; letter-spacing: 1px;">₿ KRİPTO ANALİZ & SİNYAL</span>
         <div onclick="this.parentElement.parentElement.style.display='none'" 
              style="color: #ff4d4d; cursor: pointer; font-size: 28px; font-weight: bold; line-height: 1; transition: 0.3s;"
              onmouseover="this.style.color='#ff1a1a'" 
@@ -1147,80 +1156,82 @@ nav {
 
     <div style="padding: 20px; background: #121212;">
         <div style="position: relative; margin: 0 auto; border-radius: 8px; overflow: hidden;">
-            
-            <div id="btcLock" onclick="checkBtcAccess()" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 10008; cursor: pointer; background: rgba(0,0,0,0);">
-                </div>
-
+            <div id="btcLock" onclick="checkBtcAccess()" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 10008; cursor: pointer; background: rgba(0,0,0,0);"></div>
             <div class="tradingview-widget-container">
                 <div class="tradingview-widget-container__widget"></div>
                 <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-technical-analysis.js" async>
-               {
-
+                {
                   "interval": "1h",
-
                   "width": "100%",
-
                   "isTransparent": true,
-
-                  "height": 380,
-
+                  "height": 320,
                   "symbol": "BINANCE:BTCUSDT",
-
                   "showIntervalTabs": true,
-
                   "displayMode": "single",
-
                   "locale": "tr",
-
                   "colorTheme": "dark"
-
                 }
                 </script>
             </div>
         </div>
+
+        <div style="margin-top: 20px; border-top: 1px solid #333; padding-top: 15px;">
+            <h4 style="color: #f3ba2f; font-size: 13px; margin-bottom: 10px; text-align: center;">⚡ EN YÜKSEK HACİMLİ SİNYALLER</h4>
+            <div id="crypto-signals-data" style="display: flex; flex-direction: column; gap: 8px;">
+                <div style="color:#444; font-size:11px; text-align:center;">Veriler taranıyor...</div>
+            </div>
+        </div>
         
-        <p style="color: #555; font-size: 11px; text-align: center; margin-top: 10px;">
+        <p style="color: #555; font-size: 11px; text-align: center; margin-top: 15px;">
             Veriler 1 saatlik periyotta teknik indikatörleri temsil eder.
         </p>
     </div>
 </div>
 
-
-<div id="dPanel" class="tali-panel-yeni" style="display: none; border: 2px solid #3498db !important; box-shadow: 0 0 30px rgba(52, 152, 219, 0.5) !important; background: #131722 !important;">
+<div id="dPanel" class="tali-panel-yeni" style="display: none; border: 2px solid #3498db !important; box-shadow: 0 0 30px rgba(52, 152, 219, 0.5) !important; border-radius: 15px; overflow: hidden; background: #131722 !important; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 10006; width: 90%; max-width: 900px;">
     
     <div class="panel-header" style="display: flex; justify-content: space-between; align-items: center; padding: 15px 20px; background: #1a1a1a; border-bottom: 1px solid #333;">
         <span style="color: #3498db; font-weight: bold; font-size: 16px;">
-            <i class="fas fa-university" style="margin-right: 10px;"></i> Canlı Döviz ve Parite Takibi
+            <i class="fas fa-university" style="margin-right: 10px;"></i> Döviz & Parite Avcısı
         </span>
         <div onclick="this.closest('.tali-panel-yeni').style.display='none'" 
              style="cursor: pointer; color: #ff4d4d; font-size: 32px; font-weight: bold; line-height: 1;">&times;</div>
     </div>
     
-    <div class="panel-body" style="height: 480px; padding: 10px; background: #131722;">
-        <div class="tradingview-widget-container" style="height: 100%;">
-            <div class="tradingview-widget-container__widget"></div>
-            <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-market-overview.js" async>
-            {
-              "colorTheme": "dark",
-              "showChart": true,
-              "locale": "tr",
-              "width": "100%",
-              "height": "100%",
-              "isTransparent": true,
-              "tabs": [
+    <div class="panel-body" style="padding: 0; background: #131722; max-height: 80vh; overflow-y: auto;">
+        <div style="height: 400px; padding: 10px;">
+            <div class="tradingview-widget-container" style="height: 100%;">
+                <div class="tradingview-widget-container__widget"></div>
+                <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-market-overview.js" async>
                 {
-                  "title": "Döviz / Parite",
-                  "symbols": [
-                    { "s": "FX_IDC:USDTRY", "d": "Dolar / TL" },
-                    { "s": "FX_IDC:EURTRY", "d": "Euro / TL" },
-                    { "s": "FX:EURUSD", "d": "EUR / USD" },
-                    { "s": "FX:GBPUSD", "d": "GBP / USD" },
-                    { "s": "FX:USDJPY", "d": "USD / JPY" }
+                  "colorTheme": "dark",
+                  "showChart": true,
+                  "locale": "tr",
+                  "width": "100%",
+                  "height": "100%",
+                  "isTransparent": true,
+                  "tabs": [
+                    {
+                      "title": "Döviz / Parite",
+                      "symbols": [
+                        { "s": "FX_IDC:USDTRY", "d": "Dolar / TL" },
+                        { "s": "FX_IDC:EURTRY", "d": "Euro / TL" },
+                        { "s": "FX:EURUSD", "d": "EUR / USD" },
+                        { "s": "FX:GBPUSD", "d": "GBP / USD" },
+                        { "s": "FX:USDJPY", "d": "USD / JPY" }
+                      ]
+                    }
                   ]
                 }
-              ]
-            }
-            </script>
+                </script>
+            </div>
+        </div>
+
+        <div style="padding: 20px; background: #0f172a; border-top: 2px solid #3498db;">
+            <h4 style="color: #3498db; font-size: 13px; margin-bottom: 15px; text-align: center; letter-spacing: 1px;">⚡ PARİTE GÜÇLÜ AL SİNYALLERİ (TOP 6)</h4>
+            <div id="forex-signals-data" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 10px;">
+                <div style="color:#444; font-size:11px; text-align:center; grid-column: 1/-1;">Global kurlar taranıyor...</div>
+            </div>
         </div>
     </div>
 </div>
@@ -1595,70 +1606,44 @@ body:not([data-theme='dark']) .opportunity-card {
 
 </div>
 
-<div id="hPanel" class="tali-panel-yeni" style="display: none; border: 2px solid #00d1ff !important; box-shadow: 0 0 30px rgba(0, 209, 255, 0.7) !important; border-radius: 15px; overflow: hidden; background: var(--card-bg);">
-
-    
+<div id="hPanel" class="tali-panel-yeni" style="display: none; border: 2px solid #00d1ff !important; box-shadow: 0 0 30px rgba(0, 209, 255, 0.7) !important; border-radius: 15px; overflow: hidden; background: var(--card-bg); position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 10005; width: 90%; max-width: 900px;">
 
     <div class="panel-header" style="display: flex; justify-content: space-between; align-items: center; padding: 15px 20px; border-bottom: 1px solid var(--border); background: var(--header-bg);">
-
         <span style="font-weight: 700; color: var(--text); font-size: 16px;">
-
-            <i class="fas fa-search" style="color: #00d1ff; margin-right: 10px;"></i> Hisse Senedi Takipçisi
-
+            <i class="fas fa-search" style="color: #00d1ff; margin-right: 10px;"></i> BIST Hisse Senedi Avcısı
         </span>
-
-        
-
         <div onclick="document.getElementById('hPanel').style.display='none'" 
-
              style="cursor: pointer; width: 30px; height: 30px; display: flex; align-items: center; justify-content: center; transition: 0.3s;">
-
             <span style="color: #ff4d4d; font-size: 32px; font-weight: bold; line-height: 1;">&times;</span>
-
         </div>
-
     </div>
 
-    
-
-    <div class="panel-body" style="padding: 0; background: #131722;">
-
-        <div style="height: 550px; width: 100%;">
-
+    <div class="panel-body" style="padding: 0; background: #131722; max-height: 80vh; overflow-y: auto;">
+        <div style="height: 450px; width: 100%;">
             <div class="tradingview-widget-container">
-
                 <div class="tradingview-widget-container__widget"></div>
-
                 <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-screener.js" async>
-
                 {
-
                   "width": "100%",
-
-                  "height": "120%",
-
+                  "height": "100%",
                   "defaultColumn": "overview",
-
                   "defaultScreen": "general",
-
                   "market": "turkey",
-
                   "showToolbar": true,
-
                   "colorTheme": "dark",
-
                   "locale": "tr"
-
                 }
-
                 </script>
-
             </div>
-
         </div>
 
+        <div style="padding: 20px; background: #0f172a; border-top: 2px solid #00d1ff;">
+            <h4 style="color: #00d1ff; font-size: 13px; margin-bottom: 15px; text-align: center; letter-spacing: 1px;">⚡ BIST GÜÇLÜ AL SİNYALLERİ (TOP 6)</h4>
+            <div id="bist-signals-data" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 10px;">
+                <div style="color:#444; font-size:11px; text-align:center; grid-column: 1/-1;">BIST verileri taranıyor...</div>
+            </div>
+        </div>
     </div>
-
 </div>
 
 <div id="iPanel" class="tali-panel-yeni" style="display: none; border: 2px solid #ff4d4d !important; box-shadow: 0 0 30px rgba(255, 77, 77, 0.7) !important; border-radius: 15px; overflow: hidden; background: #131722; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 10005; width: 95%; max-width: 1000px;">
@@ -1696,46 +1681,41 @@ body:not([data-theme='dark']) .opportunity-card {
 </div>
 <div id="mPanel" class="tali-panel-yeni" style="display: none; border: 2px solid #facc15 !important; box-shadow: 0 0 30px rgba(250, 204, 21, 0.7) !important; border-radius: 15px; overflow: hidden; background: #131722; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 10006; width: 90%; max-width: 900px;">
 
-    
-
     <div class="panel-header" style="display: flex; justify-content: space-between; align-items: center; padding: 15px 20px; border-bottom: 1px solid #333; background: #1e222d;">
-
         <span style="font-weight: 700; color: white; font-size: 16px;">
-
-            <i class="fas fa-gem" style="color: #FFD700; margin-right: 10px;"></i> Değerli Maden Analizi
-
+            <i class="fas fa-gem" style="color: #FFD700; margin-right: 10px;"></i> Değerli Maden Avcısı
         </span>
-
         <div onclick="document.getElementById('mPanel').style.display='none'" style="cursor: pointer; width: 30px; height: 30px; display: flex; align-items: center; justify-content: center;">
-
             <span style="color: #ff4d4d; font-size: 32px; font-weight: bold;">&times;</span>
-
         </div>
-
     </div>
-
-
 
     <div style="display: flex; background: #1e222d; padding: 10px; gap: 10px; border-bottom: 1px solid #333;">
-    <button onclick="showMetal('gold', this)" id="btn-gold" style="flex: 1; padding: 10px; border: none; border-radius: 5px; background: #FFD700; color: #000; font-weight: bold; cursor: pointer;">ALTIN</button>
-    <button onclick="showMetal('silver', this)" id="btn-silver" style="flex: 1; padding: 10px; border: none; border-radius: 5px; background: #333; color: #fff; font-weight: bold; cursor: pointer;">GÜMÜŞ</button>
-    <button onclick="showMetal('platinum', this)" id="btn-platinum" style="flex: 1; padding: 10px; border: none; border-radius: 5px; background: #333; color: #fff; font-weight: bold; cursor: pointer;">PLATİN</button>        
-</div>
+        <button onclick="showMetal('gold', this)" id="btn-gold" style="flex: 1; padding: 10px; border: none; border-radius: 5px; background: #FFD700; color: #000; font-weight: bold; cursor: pointer;">ALTIN</button>
+        <button onclick="showMetal('silver', this)" id="btn-silver" style="flex: 1; padding: 10px; border: none; border-radius: 5px; background: #333; color: #fff; font-weight: bold; cursor: pointer;">GÜMÜŞ</button>
+        <button onclick="showMetal('platinum', this)" id="btn-platinum" style="flex: 1; padding: 10px; border: none; border-radius: 5px; background: #333; color: #fff; font-weight: bold; cursor: pointer;">PLATİN</button>        
+    </div>
 
-    
+    <div class="panel-body" style="padding: 0; background: #131722; max-height: 80vh; overflow-y: auto;">
+        <div style="height: 400px; background: #131722;">
+            <div id="tab-gold" class="metal-tab" style="height: 100%; width: 100%;">
+                <iframe src="https://s.tradingview.com/widgetembed/?symbol=TVC:GOLD&interval=60&theme=dark" style="width: 100%; height: 100%; border: none;"></iframe>
+            </div>
+            <div id="tab-silver" class="metal-tab" style="height: 100%; width: 100%; display: none;">
+                <iframe src="https://s.tradingview.com/widgetembed/?symbol=TVC:SILVER&interval=60&theme=dark" style="width: 100%; height: 100%; border: none;"></iframe>
+            </div>
+            <div id="tab-platinum" class="metal-tab" style="height: 100%; width: 100%; display: none;">
+                <iframe src="https://s.tradingview.com/widgetembed/?symbol=TVC:PLATINUM&interval=60&theme=dark" style="width: 100%; height: 100%; border: none;"></iframe>
+            </div>
+        </div>
 
-   <div class="panel-body" style="padding: 0; height: 500px; background: #131722;">
-    <div id="tab-gold" class="metal-tab" style="height: 100%; width: 100%;">
-        <iframe src="https://s.tradingview.com/widgetembed/?symbol=TVC:GOLD&interval=60&theme=dark" style="width: 100%; height: 100%; border: none;"></iframe>
+        <div style="padding: 20px; background: #0f172a; border-top: 2px solid #facc15;">
+            <h4 style="color: #facc15; font-size: 13px; margin-bottom: 15px; text-align: center; letter-spacing: 1px;">⚡ MADEN & EMTİA GÜÇLÜ AL SİNYALLERİ</h4>
+            <div id="metals-signals-data" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 10px;">
+                <div style="color:#444; font-size:11px; text-align:center; grid-column: 1/-1;">Emtia piyasası taranıyor...</div>
+            </div>
+        </div>
     </div>
-    <div id="tab-silver" class="metal-tab" style="height: 100%; width: 100%; display: none;">
-        <iframe src="https://s.tradingview.com/widgetembed/?symbol=TVC:SILVER&interval=60&theme=dark" style="width: 100%; height: 100%; border: none;"></iframe>
-    </div>
-    <div id="tab-platinum" class="metal-tab" style="height: 100%; width: 100%; display: none;">
-        <iframe src="https://s.tradingview.com/widgetembed/?symbol=TVC:PLATINUM&interval=60&theme=dark" style="width: 100%; height: 100%; border: none;"></iframe>
-    </div>
-</div>
-   
 </div>
 
 <div id="fPanel" class="tali-panel-yeni" style="display: none; border: 2px solid #a855f7 !important; box-shadow: 0 0 30px rgba(168, 85, 247, 0.7) !important; border-radius: 15px; overflow: hidden; background: #131722; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 10007; width: 90%; max-width: 500px;">
