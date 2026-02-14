@@ -357,26 +357,32 @@ async function fetchEconomyNews() {
             let html = "";
             const colors = ['#00d1ff', '#22c55e', '#3b82f6', '#f3ba2f', '#a855f7'];
             
-            data.items.slice(0, 10).forEach((item, i) => {
+            // DİKKAT: .slice(0, 10) kaldırıldı, tüm haberler (genelde 20-30 tane) çekiliyor.
+            data.items.forEach((item, i) => {
                 const pubDate = new Date(item.pubDate);
                 const timeStr = pubDate.getHours().toString().padStart(2, '0') + ":" + 
                                pubDate.getMinutes().toString().padStart(2, '0');
                 
                 html += `
-                    <div style="border-bottom: 1px solid #222; padding: 10px 0; display: flex; gap: 10px; animation: fadeIn 0.4s ease;">
-                        <span style="color: ${colors[i % 5]}; font-weight: bold; font-size: 10px; font-family: monospace; min-width:45px;">[${timeStr}]</span>
-                        <span style="cursor: pointer; color:#eee;" onclick="window.open('${item.link}', '_blank')">
+                    <div style="border-bottom: 1px solid #222; padding: 12px 5px; display: flex; gap: 10px; animation: fadeIn 0.4s ease;">
+                        <span style="color: ${colors[i % 5]}; font-weight: bold; font-size: 10px; font-family: monospace; min-width:45px; margin-top:3px;">[${timeStr}]</span>
+                        <span style="cursor: pointer; color:#eee; font-size:13px; line-height:1.4;" onclick="window.open('${item.link}', '_blank')">
                             ${item.title}
                         </span>
                     </div>`;
             });
-            target.innerHTML = html;
+
+            // Hedef alanın içine kaydırılabilir bir kap (wrapper) koyuyoruz
+            target.innerHTML = `
+                <div id="economy-news-list" style="height: 450px; overflow-y: auto; padding-right: 8px;">
+                    ${html}
+                </div>
+            `;
         }
     } catch (e) { 
         target.innerHTML = '<p style="color:#666; font-size:11px; text-align:center;">Veri akışı bekleniyor...<br><button onclick="fetchEconomyNews()" style="background:none; border:1px solid #333; color:#00d1ff; cursor:pointer; margin-top:10px; padding:3px 8px; border-radius:4px;">Yenile</button></p>'; 
     }
 }
-
 // --- 2. RADAR IŞIKLARI SENKRONİZASYONU ---
 function runCentralSync() {
     const map = { 'KRİPTO': 'btn-crypto', 'BIST': 'btn-bist', 'FOREX': 'btn-forex', 'METALS': 'btn-metals' };
@@ -600,9 +606,9 @@ window.addEventListener('load', () => {
                 <span style="color: #fff; font-size: 11px; font-weight: bold;">📰 EKONOMİ BÜLTENİ</span>
                 <span style="color: #00ff88; font-size: 9px; font-weight: bold;">● CANLI</span>
             </div>
-            <div id="economy-bulletin-target" style="flex: 1; padding: 15px; overflow-y: auto; color: #eee; font-size: 12px; line-height: 1.6;">
-                <p style="color: #555;">Bülten yükleniyor...</p>
-            </div>
+            <div id="economy-news-list" style="height: 450px; overflow-y: auto; padding-right: 10px; scrollbar-width: thin; scrollbar-color: #9d4edd #1a1a1a;">
+    <div id="news-content-target">Yükleniyor...</div>
+</div>
         </div>
 
         <div style="background: #000; border-radius: 15px; border: 1px solid var(--border); overflow: hidden; display: flex; flex-direction: column;">
@@ -1462,6 +1468,25 @@ body:not([data-theme='dark']) .opportunity-card {
 .bist-border { border-bottom: 4px solid #22c55e !important; }
 .forex-border { border-bottom: 4px solid #3b82f6 !important; }
 .maden-border { border-bottom: 4px solid #f59e0b !important; }
+#economy-news-list::-webkit-scrollbar {
+    width: 6px;
+}
+
+#economy-news-list::-webkit-scrollbar-track {
+    background: #1a1a1a;
+    border-radius: 10px;
+}
+
+#economy-news-list::-webkit-scrollbar-thumb {
+    background: #333;
+    border-radius: 10px;
+    transition: background 0.3s;
+}
+
+#economy-news-list:hover::-webkit-scrollbar-thumb {
+    background: #9d4edd; /* Fareyle üzerine gelince senin Hub rengin (mor) yanar */
+}
+/* ---------------------------------------------- */
 </style>
 <style>
 .input-group { position: relative; margin-bottom: 20px; }
