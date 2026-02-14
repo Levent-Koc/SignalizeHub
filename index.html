@@ -374,7 +374,7 @@ async function fetchEconomyNews() {
 
             // Hedef alanın içine kaydırılabilir bir kap (wrapper) koyuyoruz
             target.innerHTML = `
-                <div id="economy-news-list" style="height: 450px; overflow-y: auto; padding-right: 8px;">
+                <div id="economy-bulletin-target" style="height: 450px; overflow-y: auto; padding-right: 8px;">
                     ${html}
                 </div>
             `;
@@ -606,7 +606,7 @@ window.addEventListener('load', () => {
                 <span style="color: #fff; font-size: 11px; font-weight: bold;">📰 EKONOMİ BÜLTENİ</span>
                 <span style="color: #00ff88; font-size: 9px; font-weight: bold;">● CANLI</span>
             </div>
-            <div id="economy-news-list" style="height: 450px; overflow-y: auto; padding-right: 10px; scrollbar-width: thin; scrollbar-color: #9d4edd #1a1a1a;">
+            <div id="economy-bulletin-target" style="height: 450px; overflow-y: auto; padding-right: 10px; scrollbar-width: thin; scrollbar-color: #9d4edd #1a1a1a;">
     <div id="news-content-target">Yükleniyor...</div>
 </div>
         </div>
@@ -1468,7 +1468,7 @@ body:not([data-theme='dark']) .opportunity-card {
 .bist-border { border-bottom: 4px solid #22c55e !important; }
 .forex-border { border-bottom: 4px solid #3b82f6 !important; }
 .maden-border { border-bottom: 4px solid #f59e0b !important; }
-#economy-news-list::-webkit-scrollbar {
+#economy-bulletin-target::-webkit-scrollbar {
     width: 6px;
 }
 
