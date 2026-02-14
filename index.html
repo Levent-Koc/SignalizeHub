@@ -498,6 +498,52 @@ window.addEventListener('load', () => {
     <button id="btn-metals" class="pulse-filter">METALS</button>
 </div>
 </div>
+<div id="hub-radar-hourly-section" style="max-width: 1240px; margin: 30px auto; padding: 0 20px;">
+    
+    <div style="background: var(--card-bg); border: 1px solid var(--border); border-radius: 20px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.05);">
+        
+        <div style="background: var(--primary); padding: 15px 25px; display: flex; justify-content: space-between; align-items: center;">
+            <h3 style="margin: 0; color: #fff; font-size: 16px; font-weight: 900; letter-spacing: 1px;">
+                HUB <span style="color: #1a1a1a;">RADAR</span> SAATLİK SİNYALLERİ
+            </h3>
+            <span style="font-size: 11px; color: #fff; background: rgba(0,0,0,0.2); padding: 4px 10px; border-radius: 20px; font-weight: bold; font-family: monospace;">
+                ⏱️ GÜNCELLEME: <span id="radar-time">--:--:--</span>
+            </span>
+        </div>
+
+        <div id="hourly-radar-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 20px; padding: 25px; background: var(--card-bg);">
+            
+            <div style="background: rgba(168, 85, 247, 0.03); padding: 15px; border-radius: 15px; border: 1px solid rgba(168, 85, 247, 0.1);">
+                <div style="color: #a855f7; font-weight: 900; font-size: 13px; margin-bottom: 12px; border-bottom: 2px solid #a855f7; display: inline-block;">₿ KRİPTO</div>
+                <div id="radar-crypto-slots" style="display: flex; flex-direction: column; gap: 8px;">
+                    <div style="color:#888; font-size:12px; font-style:italic;">Sinyal taranıyor...</div>
+                </div>
+            </div>
+
+            <div style="background: rgba(34, 197, 94, 0.03); padding: 15px; border-radius: 15px; border: 1px solid rgba(34, 197, 94, 0.1);">
+                <div style="color: #22c55e; font-weight: 900; font-size: 13px; margin-bottom: 12px; border-bottom: 2px solid #22c55e; display: inline-block;">📈 BIST</div>
+                <div id="radar-bist-slots" style="display: flex; flex-direction: column; gap: 8px;">
+                    <div style="color:#888; font-size:12px; font-style:italic;">Sinyal taranıyor...</div>
+                </div>
+            </div>
+
+            <div style="background: rgba(59, 130, 246, 0.03); padding: 15px; border-radius: 15px; border: 1px solid rgba(59, 130, 246, 0.1);">
+                <div style="color: #3b82f6; font-weight: 900; font-size: 13px; margin-bottom: 12px; border-bottom: 2px solid #3b82f6; display: inline-block;">💵 DÖVİZ</div>
+                <div id="radar-forex-slots" style="display: flex; flex-direction: column; gap: 8px;">
+                    <div style="color:#888; font-size:12px; font-style:italic;">Sinyal taranıyor...</div>
+                </div>
+            </div>
+
+            <div style="background: rgba(234, 179, 8, 0.03); padding: 15px; border-radius: 15px; border: 1px solid rgba(234, 179, 8, 0.1);">
+                <div style="color: #eab308; font-weight: 900; font-size: 13px; margin-bottom: 12px; border-bottom: 2px solid #eab308; display: inline-block;">💎 METALS</div>
+                <div id="radar-metal-slots" style="display: flex; flex-direction: column; gap: 8px;">
+                    <div style="color:#888; font-size:12px; font-style:italic;">Sinyal taranıyor...</div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
  <div id="hub-opportunities">
     
   <div class="opportunity-card crypto-border" id="card-crypto">
