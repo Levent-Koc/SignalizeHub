@@ -498,19 +498,22 @@ window.addEventListener('load', () => {
     <button id="btn-metals" class="pulse-filter">METALS</button>
 </div>
 </div>
-<div id="hub-radar-hourly-section" style="max-width: 1240px; margin: 30px auto; padding: 0 20px;">
-    
-    <div style="background: var(--card-bg); border: 1px solid var(--border); border-radius: 20px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.05);">
-        
-       <div style="background: #0f172a; padding: 18px 25px; display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid var(--primary);">
+<div style="background: #0f172a; padding: 18px 25px; display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid var(--primary);">
     <h3 style="margin: 0; color: #fff; font-size: 17px; font-weight: 800; letter-spacing: 1.5px; font-family: 'Segoe UI', sans-serif;">
         Signalize<span style="color: var(--primary);">Hub</span> RADAR SAATLİK SİNYALLERİ
     </h3>
-    <div style="display: flex; align-items: center; gap: 10px; background: rgba(0, 209, 255, 0.1); padding: 6px 15px; border-radius: 30px; border: 1px solid rgba(0, 209, 255, 0.3);">
-    <span style="font-size: 11px; color: var(--primary); font-weight: 900; font-family: monospace; letter-spacing:1px;">
-        ⌛ YENİ SİNYAL: <span id="radar-countdown">60:00</span>
-    </span>
-</div>
+    
+    <div style="display: flex; align-items: center; gap: 15px;">
+        <div style="background: rgba(255, 255, 255, 0.05); padding: 6px 15px; border-radius: 12px; border: 1px solid rgba(255,255,255,0.1); text-align: center; min-width: 80px;">
+            <span style="font-size: 9px; color: #888; display: block; line-height: 1; margin-bottom: 3px; font-weight: bold;">SİSTEM SAATİ</span>
+            <span id="real-time-clock" style="font-size: 14px; color: #fff; font-weight: bold; font-family: monospace;">00:00:00</span>
+        </div>
+        
+        <div style="background: rgba(0, 209, 255, 0.1); padding: 6px 15px; border-radius: 12px; border: 1px solid rgba(0, 209, 255, 0.3); text-align: center; min-width: 80px;">
+            <span style="font-size: 9px; color: var(--primary); display: block; line-height: 1; margin-bottom: 3px; font-weight: bold;">YENİ SİNYAL</span>
+            <span id="radar-countdown" style="font-size: 14px; color: var(--primary); font-weight: bold; font-family: monospace;">60:00</span>
+        </div>
+    </div>
 </div>
 
         <div id="hourly-radar-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 20px; padding: 25px; background: var(--card-bg);">
@@ -1836,16 +1839,9 @@ body:not([data-theme='dark']) .opportunity-card {
                   "colorTheme": "dark"
 
                 }
-// --- HUB RADAR: GERÇEK ZAMANLI OTONOM MOTOR ---
+// --- SIGNALIZHUB RADAR MASTER ENGINE ---
 
-function runGlobalRadarEngine() {
-    const categories = {
-        crypto: ['BTC', 'ETH', 'SOL', 'AVAX', 'XRP', 'DOT', 'LINK', 'MATIC'],
-        bist: ['THYAO', 'ASELS', 'EREGL', 'SISE', 'KCHOL', 'BIMAS', 'EKGYO', 'TUPRS'],
-        forex: ['EUR/USD', 'GBP/USD', 'USD/JPY', 'AUD/USD', 'USD/CAD', 'GBP/JPY'],
-        metal: ['ONS ALTIN', 'GÜMÜŞ', 'PLATİN', 'PALLADIUM', 'BAKIR', 'BRENT']
-    };
-
+function initRadarSystem() {
     const slots = {
         crypto: document.getElementById('radar-crypto-slots'),
         bist: document.getElementById('radar-bist-slots'),
@@ -1853,21 +1849,24 @@ function runGlobalRadarEngine() {
         metal: document.getElementById('radar-metal-slots')
     };
 
-    // 1. Verileri Üreten Ana Fonksiyon
-    function generateNewSignals() {
+    const categories = {
+        crypto: ['BTC', 'ETH', 'SOL', 'AVAX', 'XRP', 'LINK'],
+        bist: ['THYAO', 'ASELS', 'EREGL', 'SISE', 'KCHOL', 'TUPRS'],
+        forex: ['EUR/USD', 'GBP/USD', 'USD/JPY', 'AUD/USD', 'USD/CAD', 'GBP/JPY'],
+        metal: ['ONS ALTIN', 'GÜMÜŞ', 'PLATİN', 'PALLADIUM', 'BAKIR', 'BRENT']
+    };
+
+    function updateRadarContent() {
         Object.keys(categories).forEach(cat => {
             if (!slots[cat]) return;
-            // O saat dilimi için her zaman aynı rastgeleliği korumak adına saat bilgisini 'seed' olarak kullanıyoruz
-            const currentHour = new Date().getHours();
-            const seed = currentHour + cat.length;
-            
-            // Gerçekçi bir sıralama (Her saat başı değişen liste)
-            const selected = [...categories[cat]].sort((a, b) => (a.charCodeAt(0) * seed % 10) - (b.charCodeAt(0) * seed % 10)).slice(0, 3);
+            // Saatlik değişim için 'seed' mantığı (Her saat başı farklı ama sabit liste)
+            const hourSeed = new Date().getHours();
+            const selected = [...categories[cat]].sort((a, b) => (a.length * hourSeed % 5) - 2).slice(0, 3);
             
             slots[cat].innerHTML = selected.map(item => {
-                const power = (91.5 + (Math.random() * 7)).toFixed(1);
+                const power = (92 + Math.random() * 7).toFixed(1);
                 return `
-                    <div style="background: var(--card-bg); border: 1px solid var(--border); padding: 10px; border-radius: 10px; display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; animation: fadeIn 0.5s ease;">
+                    <div style="background: var(--card-bg); border: 1px solid var(--border); padding: 10px; border-radius: 10px; display: flex; justify-content: space-between; align-items: center; margin-bottom: 5px; box-shadow: 0 2px 4px rgba(0,0,0,0.02);">
                         <span style="font-weight: bold; font-size: 13px; color: var(--text);">${item}</span>
                         <div style="text-align: right;">
                             <div style="color: #22c55e; font-size: 10px; font-weight: 900;">GÜÇLÜ AL</div>
@@ -1878,36 +1877,34 @@ function runGlobalRadarEngine() {
         });
     }
 
-    // 2. Gerçek Zamana Göre Geri Sayım
-    function syncTimer() {
-        const timerEl = document.getElementById('radar-countdown');
-        if (!timerEl) return;
-
+    function tick() {
         const now = new Date();
-        // Bir sonraki tam saate (00:00) kalan süreyi hesapla
-        const diffSeconds = 3600 - (now.getMinutes() * 60 + now.getSeconds());
         
-        const mins = Math.floor(diffSeconds / 60);
-        const secs = diffSeconds % 60;
+        // 1. Gerçek Saat Göstergesi (Yeni Ekledik)
+        const clockEl = document.getElementById('real-time-clock');
+        if (clockEl) clockEl.innerText = now.toLocaleTimeString('tr-TR');
 
-        timerEl.innerText = `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
-
-        // Tam saat başında (00:00) listeyi yenile
-        if (diffSeconds === 3600 || diffSeconds === 0) {
-            generateNewSignals();
+        // 2. Geri Sayım (Bir sonraki tam saate kalan)
+        const countdownEl = document.getElementById('radar-countdown');
+        if (countdownEl) {
+            const diffSeconds = 3600 - (now.getMinutes() * 60 + now.getSeconds());
+            const mins = Math.floor(diffSeconds / 60);
+            const secs = diffSeconds % 60;
+            countdownEl.innerText = `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+            
+            // Tam saat başında yenile
+            if (diffSeconds === 3600) updateRadarContent();
         }
     }
 
-    // İlk çalıştırma
-    generateNewSignals();
-    syncTimer();
-    setInterval(syncTimer, 1000); // Her saniye saati kontrol et
+    // Başlat
+    updateRadarContent();
+    setInterval(tick, 1000);
+    tick();
 }
 
-// Motoru başlat
-runGlobalRadarEngine();
-
-
+// Sayfa yüklendiğinde çalıştır
+window.addEventListener('DOMContentLoaded', initRadarSystem);
             </script>
 
         </div>
@@ -1918,6 +1915,68 @@ runGlobalRadarEngine();
 
 
 
+<script>
+// --- SIGNALIZHUB RADAR SİSTEMİ ÇALIŞTIRICI ---
+(function() {
+    function startRadarEngine() {
+        const slots = {
+            crypto: document.getElementById('radar-crypto-slots'),
+            bist: document.getElementById('radar-bist-slots'),
+            forex: document.getElementById('radar-forex-slots'),
+            metal: document.getElementById('radar-metal-slots')
+        };
 
+        const symbols = {
+            crypto: ['BTC', 'ETH', 'SOL', 'AVAX', 'XRP', 'LINK'],
+            bist: ['THYAO', 'ASELS', 'EREGL', 'SISE', 'KCHOL', 'TUPRS'],
+            forex: ['EUR/USD', 'GBP/USD', 'USD/JPY', 'AUD/USD', 'USD/CAD', 'GBP/JPY'],
+            metal: ['ONS ALTIN', 'GÜMÜŞ', 'PLATİN', 'PALLADIUM', 'BAKIR', 'BRENT']
+        };
+
+        function refreshData() {
+            Object.keys(symbols).forEach(cat => {
+                if (!slots[cat]) return;
+                // Saate göre sabit ama rastgele seçim
+                const h = new Date().getHours();
+                const items = [...symbols[cat]].sort((a,b) => (a.length * h % 5) - 2).slice(0, 3);
+                
+                slots[cat].innerHTML = items.map(name => `
+                    <div style="background: var(--card-bg); border: 1px solid var(--border); padding: 10px; border-radius: 10px; display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.02);">
+                        <span style="font-weight: bold; font-size: 13px; color: var(--text);">${name}</span>
+                        <div style="text-align: right;">
+                            <div style="color: #22c55e; font-size: 10px; font-weight: 900;">GÜÇLÜ AL</div>
+                            <div style="color: var(--text); font-size: 11px; opacity: 0.7;">%${(92 + Math.random()*7).toFixed(1)}</div>
+                        </div>
+                    </div>
+                `).join('');
+            });
+        }
+
+        function updateTick() {
+            const now = new Date();
+            // Saat Güncelle
+            const cEl = document.getElementById('real-time-clock');
+            if (cEl) cEl.innerText = now.toLocaleTimeString('tr-TR');
+            
+            // Sayaç Güncelle
+            const tEl = document.getElementById('radar-countdown');
+            if (tEl) {
+                const diff = 3600 - (now.getMinutes() * 60 + now.getSeconds());
+                const m = Math.floor(diff / 60);
+                const s = diff % 60;
+                tEl.innerText = `${m.toString().padStart(2, '0')}:${s.toString().padStart(2, '0')}`;
+                if (diff === 3600) refreshData();
+            }
+        }
+
+        refreshData();
+        setInterval(updateTick, 1000);
+        updateTick();
+    }
+
+    // ID'lerin oluştuğundan emin olmak için 500ms bekle ve başlat
+    setTimeout(startRadarEngine, 500);
+})();
+</script>
 </body>
 </html>
