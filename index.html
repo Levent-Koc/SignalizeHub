@@ -498,6 +498,35 @@ window.addEventListener('load', () => {
     <button id="btn-metals" class="pulse-filter">METALS</button>
 </div>
 </div>
+<div id="hub-radar-hourly-section" style="max-width: 1240px; margin: 60px auto 40px auto; padding: 0 20px; clear: both;">
+    
+    <div style="background: var(--card-bg); border: 1px solid var(--border); border-radius: 20px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.05);">
+        
+        <div style="background: #0f172a; padding: 18px 25px; display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid var(--primary);">
+            <h3 style="margin: 0; color: #fff; font-size: 17px; font-weight: 800; letter-spacing: 1.5px; font-family: 'Segoe UI', sans-serif;">
+                Signalize<span style="color: var(--primary);">Hub</span> RADAR SAATLİK SİNYALLERİ
+            </h3>
+            
+            <div style="display: flex; align-items: center; gap: 15px;">
+                <div style="background: rgba(255, 255, 255, 0.05); padding: 6px 15px; border-radius: 12px; border: 1px solid rgba(255,255,255,0.1); text-align: center; min-width: 80px;">
+                    <span style="font-size: 9px; color: #888; display: block; line-height: 1; margin-bottom: 3px; font-weight: bold;">SİSTEM SAATİ</span>
+                    <span id="real-time-clock" style="font-size: 14px; color: #fff; font-weight: bold; font-family: monospace;">00:00:00</span>
+                </div>
+                <div style="background: rgba(0, 209, 255, 0.1); padding: 6px 15px; border-radius: 12px; border: 1px solid rgba(0, 209, 255, 0.3); text-align: center; min-width: 80px;">
+                    <span style="font-size: 9px; color: var(--primary); display: block; line-height: 1; margin-bottom: 3px; font-weight: bold;">YENİ SİNYAL</span>
+                    <span id="radar-countdown" style="font-size: 14px; color: var(--primary); font-weight: bold; font-family: monospace;">60:00</span>
+                </div>
+            </div>
+        </div>
+
+        <div id="hourly-radar-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 20px; padding: 25px; background: var(--card-bg);">
+            <div class="radar-group"><div style="color: #a855f7; font-weight: 900; font-size: 13px; margin-bottom: 12px; border-bottom: 2px solid #a855f7; display: inline-block;">₿ KRİPTO</div><div id="radar-crypto-slots"></div></div>
+            <div class="radar-group"><div style="color: #22c55e; font-weight: 900; font-size: 13px; margin-bottom: 12px; border-bottom: 2px solid #22c55e; display: inline-block;">📈 BIST</div><div id="radar-bist-slots"></div></div>
+            <div class="radar-group"><div style="color: #3b82f6; font-weight: 900; font-size: 13px; margin-bottom: 12px; border-bottom: 2px solid #3b82f6; display: inline-block;">💵 DÖVİZ</div><div id="radar-forex-slots"></div></div>
+            <div class="radar-group"><div style="color: #eab308; font-weight: 900; font-size: 13px; margin-bottom: 12px; border-bottom: 2px solid #eab308; display: inline-block;">💎 METALS</div><div id="radar-metal-slots"></div></div>
+        </div>
+    </div>
+</div>
 <div style="background: #0f172a; padding: 18px 25px; display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid var(--primary);">
     <h3 style="margin: 0; color: #fff; font-size: 17px; font-weight: 800; letter-spacing: 1.5px; font-family: 'Segoe UI', sans-serif;">
         Signalize<span style="color: var(--primary);">Hub</span> RADAR SAATLİK SİNYALLERİ
