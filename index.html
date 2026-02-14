@@ -1836,15 +1836,14 @@ body:not([data-theme='dark']) .opportunity-card {
                   "colorTheme": "dark"
 
                 }
-// --- HUB RADAR: GERİ SAYIM VE OTONOM SİNYAL MOTORU ---
-let timeLeft = 3600; // 60 dakika (saniye cinsinden)
+// --- HUB RADAR: GERÇEK ZAMANLI OTONOM MOTOR ---
 
-function startRadarEngine() {
+function runGlobalRadarEngine() {
     const categories = {
         crypto: ['BTC', 'ETH', 'SOL', 'AVAX', 'XRP', 'DOT', 'LINK', 'MATIC'],
         bist: ['THYAO', 'ASELS', 'EREGL', 'SISE', 'KCHOL', 'BIMAS', 'EKGYO', 'TUPRS'],
-        forex: ['EUR/USD', 'GBP/USD', 'USD/JPY', 'AUD/USD', 'USD/CAD', 'GOLD/USD'],
-        metal: ['ONS ALTIN', 'GÜMÜŞ', 'PLATİN', 'PALLADIUM', 'BAKIR', 'PETROL']
+        forex: ['EUR/USD', 'GBP/USD', 'USD/JPY', 'AUD/USD', 'USD/CAD', 'GBP/JPY'],
+        metal: ['ONS ALTIN', 'GÜMÜŞ', 'PLATİN', 'PALLADIUM', 'BAKIR', 'BRENT']
     };
 
     const slots = {
@@ -1854,16 +1853,21 @@ function startRadarEngine() {
         metal: document.getElementById('radar-metal-slots')
     };
 
-    function updateDisplay() {
-        // Sinyalleri Üret
+    // 1. Verileri Üreten Ana Fonksiyon
+    function generateNewSignals() {
         Object.keys(categories).forEach(cat => {
             if (!slots[cat]) return;
-            const selected = categories[cat].sort(() => 0.5 - Math.random()).slice(0, 3);
+            // O saat dilimi için her zaman aynı rastgeleliği korumak adına saat bilgisini 'seed' olarak kullanıyoruz
+            const currentHour = new Date().getHours();
+            const seed = currentHour + cat.length;
+            
+            // Gerçekçi bir sıralama (Her saat başı değişen liste)
+            const selected = [...categories[cat]].sort((a, b) => (a.charCodeAt(0) * seed % 10) - (b.charCodeAt(0) * seed % 10)).slice(0, 3);
             
             slots[cat].innerHTML = selected.map(item => {
-                const power = (Math.random() * (99.8 - 91.5) + 91.5).toFixed(1);
+                const power = (91.5 + (Math.random() * 7)).toFixed(1);
                 return `
-                    <div style="background: var(--card-bg); border: 1px solid var(--border); padding: 10px; border-radius: 10px; display: flex; justify-content: space-between; align-items: center; transition: 0.3s;">
+                    <div style="background: var(--card-bg); border: 1px solid var(--border); padding: 10px; border-radius: 10px; display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; animation: fadeIn 0.5s ease;">
                         <span style="font-weight: bold; font-size: 13px; color: var(--text);">${item}</span>
                         <div style="text-align: right;">
                             <div style="color: #22c55e; font-size: 10px; font-weight: 900;">GÜÇLÜ AL</div>
@@ -1874,31 +1878,36 @@ function startRadarEngine() {
         });
     }
 
-    // Geri Sayım Fonksiyonu
-    function countdown() {
+    // 2. Gerçek Zamana Göre Geri Sayım
+    function syncTimer() {
         const timerEl = document.getElementById('radar-countdown');
         if (!timerEl) return;
 
-        let minutes = Math.floor(timeLeft / 60);
-        let seconds = timeLeft % 60;
+        const now = new Date();
+        // Bir sonraki tam saate (00:00) kalan süreyi hesapla
+        const diffSeconds = 3600 - (now.getMinutes() * 60 + now.getSeconds());
+        
+        const mins = Math.floor(diffSeconds / 60);
+        const secs = diffSeconds % 60;
 
-        timerEl.innerText = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+        timerEl.innerText = `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
 
-        if (timeLeft <= 0) {
-            timeLeft = 3600; // Başa sar
-            updateDisplay(); // Sinyalleri yenile
-        } else {
-            timeLeft--;
+        // Tam saat başında (00:00) listeyi yenile
+        if (diffSeconds === 3600 || diffSeconds === 0) {
+            generateNewSignals();
         }
     }
 
     // İlk çalıştırma
-    updateDisplay();
-    setInterval(countdown, 1000);
+    generateNewSignals();
+    syncTimer();
+    setInterval(syncTimer, 1000); // Her saniye saati kontrol et
 }
 
 // Motoru başlat
-startRadarEngine();
+runGlobalRadarEngine();
+
+
             </script>
 
         </div>
