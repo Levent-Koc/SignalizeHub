@@ -290,12 +290,23 @@ function repairLogo(img) {
 </script>
 
 <script>
-let dailyReportData = []; // Başlangıçta boş, otonom sistem dolduracak.
+/**
+ * SIGNALIZHUB MASTER ENGINE v8.5 - AUTONOMOUS EDITION
+ * Raporlama ve Haber Senkronizasyonu Stabilize Edildi.
+ */
+
+// --- GLOBAL DEĞİŞKENLER ---
+let currentStrategyPage = 0;
+let dailyReportData = [
+    { title: "🌍 Sistem Hazırlanıyor", text: "Veri akışı kontrol ediliyor, otonom rapor birazdan oluşturulacak..." }
+];
+window.isLoggedIn = false;
+
+// --- 1. RAPOR RENDER MOTORU ---
 function renderStrategyReport() {
     const target = document.getElementById('report-content-target');
-    if (!target) return;
+    if (!target || !dailyReportData[currentStrategyPage]) return;
     
-    // Sayfa açıldığında bugünün tarihini otomatik alalım
     const today = new Date().toLocaleDateString('tr-TR', { day: 'numeric', month: 'long', year: 'numeric' });
     const page = dailyReportData[currentStrategyPage];
     
@@ -317,15 +328,39 @@ function changeStrategyPage(dir) {
     renderStrategyReport();
 }
 
-// Ana başlatıcıya (window load kısmına) renderStrategyReport(); eklemeyi unutma!
-/**
- * SIGNALIZHUB MASTER ENGINE v8.0 - FINAL MERGE
- * Tüm çakışmalar giderildi, Radar ve Haber Botu mühürlendi.
- */
-window.isLoggedIn = false;
-window.currentPage = 0;
+// --- 2. OTONOM RAPOR ÜRETİCİ ---
+function generateAutoReport() {
+    const newsTarget = document.getElementById('economy-news-list');
+    if (!newsTarget) return;
 
-// --- 1. HABER MOTORU (Çalışan kopyadaki stabil yapı) ---
+    const allTitles = Array.from(newsTarget.querySelectorAll('span:last-child')).map(s => s.innerText).join(" ");
+    
+    const isPositive = allTitles.includes("yüksel") || allTitles.includes("rekor") || allTitles.includes("artış") || allTitles.includes("kazan");
+    const isCritical = allTitles.includes("enflasyon") || allTitles.includes("faiz") || allTitles.includes("FED") || allTitles.includes("kritik");
+
+    const marketMood = isPositive ? "Pozitif bir momentum gözleniyor." : "Temkinli ve yatay bir seyir hakim.";
+    const focusPoint = isCritical ? "Küresel veriler ve merkez bankası mesajları radarımızda." : "İç piyasadaki sektörel hareketlilik ön planda.";
+
+    // Global diziyi güncelle
+    dailyReportData = [
+        {
+            title: "🌍 Otomatik Piyasa Özeti",
+            text: `Bülten akışına göre şu an piyasalarda ${marketMood} ${focusPoint} Yatırımcıların son haber akışındaki yoğunluğa dikkat etmesi önerilir.`
+        },
+        {
+            title: "📈 Algoritmik Sinyal Notu",
+            text: `Sistem, ${isPositive ? 'alıcılı iştahın' : 'bekle-gör modunun'} korunduğunu saptadı. BTC ve Altın paritelerinde haber kaynaklı volatilite riski orta seviyede.`
+        },
+        {
+            title: "🗓️ Günün Haber Odağı",
+            text: `Bugün bültende en çok vurgulanan başlıklar üzerinden yapılan taramada, makroekonomik dengelerin fiyatlamalar üzerindeki etkisi %70 olarak hesaplandı.`
+        }
+    ];
+
+    renderStrategyReport();
+}
+
+// --- 3. HABER MOTORU ---
 async function fetchEconomyNews() {
     const target = document.getElementById('economy-bulletin-target');
     if (!target) return;
@@ -371,7 +406,6 @@ async function fetchEconomyNews() {
                 </div>
             `;
 
-            // HABERLER YÜKLENDİKTEN SONRA RAPORU TETİKLE
             generateAutoReport(); 
         }
     } catch (e) { 
@@ -380,37 +414,7 @@ async function fetchEconomyNews() {
     }
 }
 
-// BU FONKSİYON AYRI DURMALI (DIŞARIDA)
-function generateAutoReport() {
-    const newsTarget = document.getElementById('economy-news-list');
-    if (!newsTarget) return;
-
-    const allTitles = Array.from(newsTarget.querySelectorAll('span:last-child')).map(s => s.innerText).join(" ");
-    
-    const isPositive = allTitles.includes("yüksel") || allTitles.includes("rekor") || allTitles.includes("artış") || allTitles.includes("kazan");
-    const isCritical = allTitles.includes("enflasyon") || allTitles.includes("faiz") || allTitles.includes("FED") || allTitles.includes("kritik");
-
-    const marketMood = isPositive ? "Pozitif bir momentum gözleniyor." : "Temkinli ve yatay bir seyir hakim.";
-    const focusPoint = isCritical ? "Küresel veriler ve merkez bankası mesajları radarımızda." : "İç piyasadaki sektörel hareketlilik ön planda.";
-
-    window.dailyReportData = [
-        {
-            title: "🌍 Otomatik Piyasa Özeti",
-            text: `Bülten akışına göre şu an piyasalarda ${marketMood} ${focusPoint} Yatırımcıların son haber akışındaki yoğunluğa dikkat etmesi önerilir.`
-        },
-        {
-            title: "📈 Algoritmik Sinyal Notu",
-            text: `Sistem, ${isPositive ? 'alıcılı iştahın' : 'bekle-gör modunun'} korunduğunu saptadı. BTC ve Altın paritelerinde haber kaynaklı volatilite riski orta seviyede.`
-        },
-        {
-            title: "🗓️ Günün Haber Odağı",
-            text: `Bugün bültende en çok vurgulanan başlıklar üzerinden yapılan taramada, makroekonomik dengelerin fiyatlamalar üzerindeki etkisi %70 olarak hesaplandı.`
-        }
-    ];
-
-    renderStrategyReport();
-}
-// --- 2. RADAR IŞIKLARI SENKRONİZASYONU ---
+// --- 4. RADAR VE PANEL YÖNETİMİ ---
 function runCentralSync() {
     const map = { 'KRİPTO': 'btn-crypto', 'BIST': 'btn-bist', 'FOREX': 'btn-forex', 'METALS': 'btn-metals' };
     const colors = ['#22c55e', '#eab308', '#ef4444'];
@@ -434,7 +438,6 @@ function runCentralSync() {
     });
 }
 
-// --- 3. MADEN ANALİZİ SEKME MOTORU ---
 function showMetal(type) {
     document.querySelectorAll('.metal-tab').forEach(tab => tab.style.display = 'none');
     const selectedTab = document.getElementById('tab-' + type);
@@ -453,7 +456,6 @@ function showMetal(type) {
     });
 }
 
-// --- 4. PANEL YÖNETİMİ ---
 function openP(id) {
     document.querySelectorAll('.tali-panel-yeni, .tali-panel').forEach(p => p.style.display = 'none');
     const target = document.getElementById(id);
@@ -465,7 +467,7 @@ function openP(id) {
     }
 }
 
-// --- 5. KİLİT SİSTEMİ ---
+// --- 5. ÜYELİK VE KİLİT SİSTEMİ ---
 function unlockEverything() {
     window.isLoggedIn = true;
     document.querySelectorAll('[id$="BlurArea"]').forEach(el => {
@@ -486,9 +488,11 @@ function switchTab(t) {
 
 // --- 6. ANA BAŞLATICI ---
 window.addEventListener('load', () => {
+    // 1. Önce boş şablonu bas
+    renderStrategyReport();
+    // 2. Verileri çek (fetchEconomyNews bittiğinde generateAutoReport otomatik çalışacak)
     fetchEconomyNews(); 
     runCentralSync();
-    renderStrategyReport(); // Raporu ilk kez ekrana basan komut
     
     setInterval(runCentralSync, 10000); 
     setInterval(fetchEconomyNews, 300000); 
