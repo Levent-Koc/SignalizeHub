@@ -352,9 +352,10 @@ async function fetchEconomyNews() {
     try {
         const response = await fetch(apiUrl);
         const data = await response.json();
-        if (data.status === 'ok') {
+        
+        if (data && data.status === 'ok') {
             let html = "";
-            let lastDate = ""; // Tarih takibi için
+            let lastDate = ""; 
             const colors = ['#00d1ff', '#22c55e', '#3b82f6', '#f3ba2f', '#a855f7'];
             
             data.items.forEach((item, i) => {
@@ -363,7 +364,6 @@ async function fetchEconomyNews() {
                 const timeStr = pubDate.getHours().toString().padStart(2, '0') + ":" + 
                                pubDate.getMinutes().toString().padStart(2, '0');
                 
-                // --- TARİH AYRACI EKLEME MANTIĞI ---
                 if (dateStr !== lastDate) {
                     html += `
                         <div style="background: rgba(157, 78, 221, 0.1); border-left: 3px solid #9d4edd; padding: 5px 12px; margin: 15px 0 10px 0; font-size: 11px; color: #9d4edd; font-weight: bold; text-transform: uppercase; letter-spacing: 1px;">
@@ -386,21 +386,29 @@ async function fetchEconomyNews() {
                     ${html}
                 </div>
             `;
-generateAutoReport() {
+
+            // HABERLER YÜKLENDİKTEN SONRA RAPORU TETİKLE
+            generateAutoReport(); 
+        }
+    } catch (e) { 
+        console.error("Haber hatası:", e);
+        target.innerHTML = '<p style="color:#666; font-size:11px; text-align:center;">Veri akışı bekleniyor...</p>'; 
+    }
+}
+
+// BU FONKSİYON AYRI DURMALI (DIŞARIDA)
+function generateAutoReport() {
     const newsTarget = document.getElementById('economy-news-list');
     if (!newsTarget) return;
 
-    // Haber başlıklarını bir metin havuzuna topla
     const allTitles = Array.from(newsTarget.querySelectorAll('span:last-child')).map(s => s.innerText).join(" ");
     
-    // Basit bir duygu analizi (Sentiment Analysis)
     const isPositive = allTitles.includes("yüksel") || allTitles.includes("rekor") || allTitles.includes("artış") || allTitles.includes("kazan");
     const isCritical = allTitles.includes("enflasyon") || allTitles.includes("faiz") || allTitles.includes("FED") || allTitles.includes("kritik");
 
     const marketMood = isPositive ? "Pozitif bir momentum gözleniyor." : "Temkinli ve yatay bir seyir hakim.";
     const focusPoint = isCritical ? "Küresel veriler ve merkez bankası mesajları radarımızda." : "İç piyasadaki sektörel hareketlilik ön planda.";
 
-    // Dinamik Rapor Verisi
     window.dailyReportData = [
         {
             title: "🌍 Otomatik Piyasa Özeti",
@@ -416,13 +424,7 @@ generateAutoReport() {
         }
     ];
 
-    // Raporu ekrana bas
     renderStrategyReport();
-}
-        }
-    } catch (e) { 
-        target.innerHTML = '<p style="color:#666; font-size:11px; text-align:center;">Veri akışı bekleniyor...</p>'; 
-    }
 }
 // --- 2. RADAR IŞIKLARI SENKRONİZASYONU ---
 function runCentralSync() {
