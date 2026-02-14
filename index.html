@@ -470,21 +470,21 @@ function switchTab(t) {
 
 // --- 6. ANA BAŞLATICI ---
 window.addEventListener('load', () => {
-    // Önce rapor şablonunu bas
-    renderStrategyReport();
+    // 1. Rapor alanını ilk haliyle hazırla
+    if (typeof renderStrategyReport === "function") renderStrategyReport();
     
-    // Haberleri çek (Haberler gelince rapor otomatik güncellenecek)
+    // 2. Haberleri ve Otonom Raporu tetikle
     if (typeof fetchEconomyNews === "function") {
         fetchEconomyNews();
     }
     
-    // Radar ışıklarını başlat
+    // 3. Radar ve Diğer Işıkları senkronize et
     if (typeof runCentralSync === "function") {
         runCentralSync();
+        setInterval(runCentralSync, 10000); 
     }
     
-    // Periyodik güncellemeleri kur
-    setInterval(runCentralSync, 10000); 
+    // 5 dakikada bir haberleri tazele
     setInterval(fetchEconomyNews, 300000); 
 });
 </script>
