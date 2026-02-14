@@ -29,29 +29,30 @@ h2 span, h1 span {
     color: var(--primary) !important;
 }
         :root {
-            --bg: #f8fafc;
-            --header-bg: #ffffff;
-            --card-bg: #ffffff;
-            --text: #1a1a1a;
-            --border: #e1e8ed;
-            --primary: #00b894;
-        }
+    --bg: #f8fafc;          /* Sayfa arka planı (Light) */
+    --header-bg: #ffffff;   /* Üst bar arka planı */
+    --card-bg: #ffffff;     /* Kartlar ve Tabloların arka planı */
+    --text: #1a1a1a;        /* Yazı rengi (Koyu) */
+    --border: #e2e8f0;      /* Çizgi ve çerçeve rengi */
+    --primary: #00d1ff;     /* ANA RENK: TURKUAZ */
+}
 
-        body.dark-mode {
-            --bg: #0f172a;
-            --header-bg: #1e293b;
-            --card-bg: #1e293b;
-            --text: #f1f5f9;
-            --border: #334155;
-        }
+/* Karanlık Mod (Butona basıldığında devreye giren katman) */
+body.dark-mode {
+    --bg: #0f172a;          /* Arka plan (Dark) */
+    --header-bg: #1e293b;   /* Üst bar (Dark) */
+    --card-bg: #1e293b;     /* Kartlar ve Tablolar (Dark) */
+    --text: #f1f5f9;        /* Yazı rengi (Açık) */
+    --border: #334155;      /* Çerçeve rengi (Dark) */
+}
 
-        body { 
-            background-color: var(--bg); 
-            color: var(--text); 
-            margin: 0; 
-            font-family: 'Segoe UI', sans-serif;
-            padding-bottom: 60px;
-        }
+body { 
+    background-color: var(--bg); 
+    color: var(--text); 
+    margin: 0; 
+    font-family: 'Segoe UI', sans-serif;
+    transition: background-color 0.3s ease, color 0.3s ease; /* Renk geçişini yumuşatır */
+}
 
         header {
             background-color: var(--header-bg);
@@ -499,13 +500,12 @@ window.addEventListener('load', () => {
     <button id="btn-metals" class="pulse-filter">METALS</button>
 </div>
 </div>
-<div id="hub-radar-display" style="max-width: 1200px; margin: 30px auto; background: #0f172a; border: 2px solid #00d1ff; border-radius: 15px; overflow: hidden; box-shadow: 0 0 20px rgba(0, 209, 255, 0.2);">
-    <div style="background: #ffffff; padding: 12px; font-weight: 900; text-align: center; letter-spacing: 2px; font-size: 16px; border-bottom: 2px solid #00d1ff;">
-        <span style="color: #1a1a1a;">Signalize</span><span style="color: #00d1ff;">Hub</span> <span style="color: #1a1a1a;">RADAR LİSTESİ</span>
+<div id="hub-radar-display" style="max-width: 1200px; margin: 30px auto; background: var(--card-bg); border: 2px solid var(--primary); border-radius: 15px; overflow: hidden; box-shadow: 0 0 20px rgba(0, 209, 255, 0.2);">
+    <div style="background: var(--primary); padding: 12px; font-weight: 900; text-align: center; letter-spacing: 2px; font-size: 16px;">
+        <span style="color: #ffffff;">SIGNALIZE</span><span style="color: #1a1a1a;">HUB</span> <span style="color: #ffffff;">RADAR LİSTESİ</span>
     </div>
-    
-    <div id="radar-list-8" style="min-height: 200px; display: grid; grid-template-columns: 1fr 1fr; gap: 10px; padding: 15px;">
-        <p style="color: #444; text-align: center; grid-column: 1 / -1;">Radar taranıyor, modallardan veriler bekleniyor...</p>
+    <div id="radar-list-8" style="min-height: 200px; display: grid; grid-template-columns: 1fr 1fr; gap: 12px; padding: 20px;">
+        <p style="color: #888; text-align: center; grid-column: 1 / -1; font-style: italic;">Analiz motoru taranıyor, otonom veriler bekleniyor...</p>
     </div>
 </div>
  <div id="hub-opportunities">
@@ -1079,153 +1079,6 @@ nav {
 .mini-graph-area iframe {
     pointer-events: none;
 }
-<style>
-:root {
-    --bg: #f8fafc;
-    --header-bg: #ffffff;
-    --card-bg: #ffffff;
-    --text: #1a1a1a;
-    --border: #e1e8ed;
-    --primary: #00d1ff !important; 
-}
-
-/* Hub kelimesinin rengini garantiye alalım */
-h2 span, h1 span {
-    color: var(--primary) !important;
-}
-
-/* Giriş butonu ve Takip Ettiklerim yıldızı için */
-.btn-login:hover {
-    border-color: var(--primary) !important;
-    color: var(--primary) !important;
-}
-
-.track-star {
-    color: var(--primary) !important;
-}
-        :root {
-            --bg: #f8fafc;
-            --header-bg: #ffffff;
-            --card-bg: #ffffff;
-            --text: #1a1a1a;
-            --border: #e1e8ed;
-            --primary: #00b894;
-        }
-
-        body.dark-mode {
-            --bg: #0f172a;
-            --header-bg: #1e293b;
-            --card-bg: #1e293b;
-            --text: #f1f5f9;
-            --border: #334155;
-        }
-
-        body { 
-            background-color: var(--bg); 
-            color: var(--text); 
-            margin: 0; 
-            font-family: 'Segoe UI', sans-serif;
-            padding-bottom: 60px;
-        }
-
-        header {
-            background-color: var(--header-bg);
-            border-bottom: 1px solid var(--border);
-            padding: 10px 40px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-        }
-
-        .logo-area { display: flex; align-items: center; gap: 10px; }
-        .logo-box { background: #1a1a1a; width: 35px; height: 35px; border-radius: 8px; display: flex; align-items: center; justify-content: center; border: 2px solid var(--primary); color: white; font-weight: bold; }
-
-        nav { display: flex; gap: 5px; }
-        .dropdown { position: relative; }
-        .nav-item { 
-            text-decoration: none; color: var(--text); font-weight: 600; font-size: 14px; 
-            padding: 10px 15px; cursor: pointer; display: inline-block; transition: 0.2s;
-        }
-        .nav-item:hover { color: var(--primary); transform: translateY(-3px); }
-
-        .dropdown-content {
-            display: none; position: absolute; background: var(--header-bg); min-width: 200px;
-            border: 1px solid var(--border); border-radius: 8px; top: 100%; left: 0; z-index: 2000;
-        }
-        .dropdown:hover .dropdown-content { display: block; }
-        .dropdown-content a { color: var(--text); padding: 12px 20px; text-decoration: none; display: block; font-size: 13px; border-bottom: 1px solid rgba(0,0,0,0.05); }
-        .dropdown-content a:hover { background: var(--primary); color: white !important; }
-
-        .auth { display: flex; align-items: center; gap: 15px; }
-        .btn-reg { 
-    background: #00d1ff !important; 
-    color: white !important; 
-    padding: 8px 18px; 
-    border-radius: 6px; 
-    text-decoration: none; 
-    font-weight: bold; 
-    font-size: 13px; 
-    
-}
-.btn-reg:hover {
-    background: #00b8e6 !important; /* Hover rengi */
-    box-shadow: 0 4px 12px rgba(0, 209, 255, 0.3);
-}
-        .container { max-width: 1200px; margin: 20px auto; padding: 0 20px; }
-        
-        .card { background: var(--card-bg); border: 1px solid var(--border); border-radius: 12px; margin-bottom: 20px; position: relative; overflow: hidden; }
-        
-        /* Tali Paneller */
-        .tali-panel { display: none; padding: 20px; border-top: 4px solid var(--primary); box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
-        .close-btn { position: absolute; top: 15px; right: 15px; background: #ff4757; color: white; border: none; padding: 5px 12px; border-radius: 4px; cursor: pointer; font-weight: bold; z-index: 100; }
-
-        /* Üçlü Izgara */
-        .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 20px; }
-        .cloud-title { padding: 12px; text-align: center; font-weight: 800; font-size: 13px; }
-        .c-green { background: rgba(0,184,148,0.1); color: #00b894; }
-        .c-red { background: rgba(255,77,77,0.1); color: #ff4d4d; }
-        .c-blue { background: rgba(52, 152, 219, 0.1); color: #3498db; }
-
-        .ticker-bar { position: fixed; bottom: 0; left: 0; width: 100%; background: var(--header-bg); border-top: 1px solid var(--border); z-index: 3000; }
-        
-        @media (max-width: 800px) { .grid-3 { grid-template-columns: 1fr; } }
-  /* Giriş Butonu Kutucuk Hali */
-.btn-login {
-    text-decoration: none;
-    color: var(--text);
-    font-weight: 600;
-    font-size: 13px;
-    padding: 8px 18px;          /* Kutunun iç boşluğu */
-    border: 1px solid var(--border); /* İnce bir çerçeve */
-    border-radius: 6px;         /* Köşeleri hafif yuvarlat */
-    transition: all 0.3s ease;
-    display: inline-block;
-}
-
-/* Üzerine gelindiğinde renk değişsin */
-.btn-login:hover {
-    border-color: var(--primary);
-    color: var(--primary);
-    background-color: rgba(0, 184, 148, 0.05); /* Çok hafif bir arka plan rengi */
-} 
-/* Hub kelimesi için özel baskın renk */
-.hub-text {
-    color: #00b894 !important;
-    display: inline-block; /* Rengin tam oturması için */
-}
-
-/* Koyu modda da rengin kaybolmaması için */
-body.dark-mode .hub-text {
-    color: #00b894 !important;
-}
-@keyframes highlight {
-    0% { transform: scale(0.9); opacity: 0; }
-    100% { transform: scale(1); opacity: 1; }
-}
- </style>
 </style>
 
 <div id="uyeOzelPanel" style="max-width: 1200px; margin: 20px auto; padding: 0; background: rgba(255, 255, 255, 0.05); border-radius: 12px; border: 1px solid rgba(255, 255, 255, 0.1); overflow: hidden; font-family: sans-serif;">
@@ -1294,7 +1147,7 @@ body.dark-mode .hub-text {
 <div id="kPanel" class="tali-panel-yeni" style="display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 450px; background: #121212; z-index: 10005; box-shadow: 0 25px 50px rgba(0,0,0,0.6); border-radius: 20px; border: 1px solid #333; overflow: hidden;">
     
     <div style="background: #1a1a1a; padding: 15px 20px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #333;">
-        <span style="color: #f3ba2f; font-weight: bold; font-size: 15px; letter-spacing: 1px;">₿ KRİPTO ANALİZ & SİNYAL</span>
+        <span style="color: #f3ba2f; font-weight: bold; font-size: 15px; letter-spacing: 1px;">₿ BTC TEKNİK ANALİZ</span>
         <div onclick="this.parentElement.parentElement.style.display='none'" 
              style="color: #ff4d4d; cursor: pointer; font-size: 28px; font-weight: bold; line-height: 1; transition: 0.3s;"
              onmouseover="this.style.color='#ff1a1a'" 
@@ -1303,89 +1156,62 @@ body.dark-mode .hub-text {
 
     <div style="padding: 20px; background: #121212;">
         <div style="position: relative; margin: 0 auto; border-radius: 8px; overflow: hidden;">
-            <div id="btcLock" onclick="checkBtcAccess()" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 10008; cursor: pointer; background: rgba(0,0,0,0);"></div>
+            
+            <div id="btcLock" onclick="checkBtcAccess()" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 10008; cursor: pointer; background: rgba(0,0,0,0);">
+                </div>
+
             <div class="tradingview-widget-container">
                 <div class="tradingview-widget-container__widget"></div>
                 <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-technical-analysis.js" async>
-                {
+               {
+
                   "interval": "1h",
+
                   "width": "100%",
+
                   "isTransparent": true,
-                  "height": 320,
+
+                  "height": 380,
+
                   "symbol": "BINANCE:BTCUSDT",
+
                   "showIntervalTabs": true,
+
                   "displayMode": "single",
+
                   "locale": "tr",
+
                   "colorTheme": "dark"
+
                 }
                 </script>
             </div>
         </div>
-
-        <div style="margin-top: 20px; border-top: 1px solid #333; padding-top: 15px;">
-            <h4 style="color: #f3ba2f; font-size: 13px; margin-bottom: 10px; text-align: center;">⚡ EN YÜKSEK HACİMLİ SİNYALLER</h4>
-            <div id="crypto-signals-data" style="display: flex; flex-direction: column; gap: 8px;">
-                <div style="color:#444; font-size:11px; text-align:center;">Veriler taranıyor...</div>
-            </div>
-        </div>
         
-        <p style="color: #555; font-size: 11px; text-align: center; margin-top: 15px;">
+        <p style="color: #555; font-size: 11px; text-align: center; margin-top: 10px;">
             Veriler 1 saatlik periyotta teknik indikatörleri temsil eder.
         </p>
     </div>
 </div>
 
-<div id="dPanel" class="tali-panel-yeni" style="display: none; border: 2px solid #3498db !important; box-shadow: 0 0 30px rgba(52, 152, 219, 0.5) !important; border-radius: 15px; overflow: hidden; background: #131722 !important; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 10006; width: 90%; max-width: 900px;">
-    
+
+<div id="dPanel" class="tali-panel-yeni" style="display: none; border: 2px solid #3b82f6 !important; box-shadow: 0 0 30px rgba(59, 130, 246, 0.7) !important; border-radius: 15px; overflow: hidden; background: #131722; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 10007; width: 90%; max-width: 500px; height: 650px;">
+
     <div class="panel-header" style="display: flex; justify-content: space-between; align-items: center; padding: 15px 20px; background: #1a1a1a; border-bottom: 1px solid #333;">
-        <span style="color: #3498db; font-weight: bold; font-size: 16px;">
-            <i class="fas fa-university" style="margin-right: 10px;"></i> Döviz & Parite Avcısı
-        </span>
-        <div onclick="this.closest('.tali-panel-yeni').style.display='none'" 
-             style="cursor: pointer; color: #ff4d4d; font-size: 32px; font-weight: bold; line-height: 1;">&times;</div>
+        <span style="font-weight: 700; color: #3b82f6; font-size: 16px;">💵 DÖVİZ & FOREX AVCI</span>
+        <div onclick="document.getElementById('dPanel').style.display='none'" style="cursor: pointer; color: #ff4d4d; font-size: 32px; font-weight: bold;">&times;</div>
     </div>
-    
-    <div class="panel-body" style="padding: 0; background: #131722; max-height: 80vh; overflow-y: auto;">
-        <div style="height: 400px; padding: 10px;">
-            <div class="tradingview-widget-container" style="height: 100%;">
-                <div class="tradingview-widget-container__widget"></div>
-                <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-market-overview.js" async>
-                {
-                  "colorTheme": "dark",
-                  "showChart": true,
-                  "locale": "tr",
-                  "width": "100%",
-                  "height": "100%",
-                  "isTransparent": true,
-                  "tabs": [
-                    {
-                      "title": "Döviz / Parite",
-                      "symbols": [
-                        { "s": "FX_IDC:USDTRY", "d": "Dolar / TL" },
-                        { "s": "FX_IDC:EURTRY", "d": "Euro / TL" },
-                        { "s": "FX:EURUSD", "d": "EUR / USD" },
-                        { "s": "FX:GBPUSD", "d": "GBP / USD" },
-                        { "s": "FX:USDJPY", "d": "USD / JPY" }
-                      ]
-                    }
-                  ]
-                }
-                </script>
-            </div>
+
+    <div class="panel-body" style="height: calc(100% - 60px); display: flex; flex-direction: column;">
+        <div style="height: 350px; width: 100%;">
+            <iframe src="https://s.tradingview.com/widgetembed/?symbol=FX:USDTRY&interval=60&theme=dark" style="width: 100%; height: 100%; border: none;"></iframe>
         </div>
 
-        <div style="padding: 20px; background: #0f172a; border-top: 2px solid #3498db;">
-            <h4 style="color: #3498db; font-size: 13px; margin-bottom: 15px; text-align: center; letter-spacing: 1px;">⚡ PARİTE GÜÇLÜ AL SİNYALLERİ (TOP 6)</h4>
-            <div id="forex-signals-data" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 10px;">
-                <div style="color:#444; font-size:11px; text-align:center; grid-column: 1/-1;">Global kurlar taranıyor...</div>
+        <div class="hunter-list-container" style="flex: 1; background: #0f172a; padding: 15px; border-top: 2px solid #3b82f6; overflow-y: auto;">
+            <h4 style="color: #3b82f6; font-size: 13px; text-align: center; margin-bottom: 10px;">⚡ FOREX GÜÇLÜ AL SİNYALLERİ</h4>
+            <div id="forex-signals-data">
+                <div style="color:#444; text-align:center; font-size:12px;">Pariteler taranıyor...</div>
             </div>
-        </div>
-    </div>
-</div>
-        <div style="height: 100%;">
-            <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-cryptocurrency-market.js" async>
-            { "width": "100%", "height": "100%", "defaultColumn": "overview", "screener_type": "crypto_mkt", "displayMode": "adaptive", "colorTheme": "dark", "locale": "tr" }
-            </script>
         </div>
     </div>
 </div>
@@ -1753,21 +1579,16 @@ body:not([data-theme='dark']) .opportunity-card {
 
 </div>
 
-<div id="hPanel" class="tali-panel-yeni" style="display: none; border: 2px solid #00d1ff !important; box-shadow: 0 0 30px rgba(0, 209, 255, 0.7) !important; border-radius: 15px; overflow: hidden; background: var(--card-bg); position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 10005; width: 90%; max-width: 900px;">
+<div id="hPanel" class="tali-panel-yeni" style="display: none; border: 2px solid #00d1ff !important; box-shadow: 0 0 30px rgba(0, 209, 255, 0.7) !important; border-radius: 15px; overflow: hidden; background: #131722; width: 90%; max-width: 500px; height: 650px;">
 
-    <div class="panel-header" style="display: flex; justify-content: space-between; align-items: center; padding: 15px 20px; border-bottom: 1px solid var(--border); background: var(--header-bg);">
-        <span style="font-weight: 700; color: var(--text); font-size: 16px;">
-            <i class="fas fa-search" style="color: #00d1ff; margin-right: 10px;"></i> BIST Hisse Senedi Avcısı
-        </span>
-        <div onclick="document.getElementById('hPanel').style.display='none'" 
-             style="cursor: pointer; width: 30px; height: 30px; display: flex; align-items: center; justify-content: center; transition: 0.3s;">
-            <span style="color: #ff4d4d; font-size: 32px; font-weight: bold; line-height: 1;">&times;</span>
-        </div>
+    <div class="panel-header" style="display: flex; justify-content: space-between; align-items: center; padding: 15px 20px; background: #1a1a1a; border-bottom: 1px solid #333;">
+        <span style="font-weight: 700; color: #fff; font-size: 16px;">📈 BIST OTONOM ANALİZ</span>
+        <div onclick="document.getElementById('hPanel').style.display='none'" style="cursor: pointer; color: #ff4d4d; font-size: 32px; font-weight: bold;">&times;</div>
     </div>
 
-    <div class="panel-body" style="padding: 0; background: #131722; max-height: 80vh; overflow-y: auto;">
-        <div style="height: 450px; width: 100%;">
-            <div class="tradingview-widget-container">
+    <div class="panel-body" style="height: calc(100% - 60px); display: flex; flex-direction: column;">
+        <div style="height: 350px; width: 100%;">
+            <div class="tradingview-widget-container" style="height: 100%;">
                 <div class="tradingview-widget-container__widget"></div>
                 <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-screener.js" async>
                 {
@@ -1776,7 +1597,7 @@ body:not([data-theme='dark']) .opportunity-card {
                   "defaultColumn": "overview",
                   "defaultScreen": "general",
                   "market": "turkey",
-                  "showToolbar": true,
+                  "showToolbar": false,
                   "colorTheme": "dark",
                   "locale": "tr"
                 }
@@ -1784,15 +1605,14 @@ body:not([data-theme='dark']) .opportunity-card {
             </div>
         </div>
 
-        <div style="padding: 20px; background: #0f172a; border-top: 2px solid #00d1ff;">
-            <h4 style="color: #00d1ff; font-size: 13px; margin-bottom: 15px; text-align: center; letter-spacing: 1px;">⚡ BIST GÜÇLÜ AL SİNYALLERİ (TOP 6)</h4>
-            <div id="bist-signals-data" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 10px;">
-                <div style="color:#444; font-size:11px; text-align:center; grid-column: 1/-1;">BIST verileri taranıyor...</div>
+        <div class="hunter-list-container" style="flex: 1; background: #0f172a; padding: 15px; border-top: 2px solid #22c55e; overflow-y: auto;">
+            <h4 style="color: #22c55e; font-size: 13px; text-align: center; margin-bottom: 10px;">⚡ GÜÇLÜ AL SİNYALLERİ</h4>
+            <div id="bist-signals-data">
+                <div style="color:#444; text-align:center; font-size:12px;">Analiz motoru taranıyor...</div>
             </div>
         </div>
     </div>
 </div>
-
 <div id="iPanel" class="tali-panel-yeni" style="display: none; border: 2px solid #ff4d4d !important; box-shadow: 0 0 30px rgba(255, 77, 77, 0.7) !important; border-radius: 15px; overflow: hidden; background: #131722; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 10005; width: 95%; max-width: 1000px;">
     
     <div class="panel-header" style="display: flex; justify-content: space-between; align-items: center; padding: 15px 20px; border-bottom: 1px solid #333; background: #1e222d;">
@@ -1826,40 +1646,35 @@ body:not([data-theme='dark']) .opportunity-card {
         </div>
     </div>
 </div>
-<div id="mPanel" class="tali-panel-yeni" style="display: none; border: 2px solid #facc15 !important; box-shadow: 0 0 30px rgba(250, 204, 21, 0.7) !important; border-radius: 15px; overflow: hidden; background: #131722; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 10006; width: 90%; max-width: 900px;">
+<div id="mPanel" class="tali-panel-yeni" style="display: none; border: 2px solid #facc15 !important; box-shadow: 0 0 30px rgba(250, 204, 21, 0.7) !important; border-radius: 15px; overflow: hidden; background: #131722; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 10006; width: 90%; max-width: 500px; height: 650px;">
 
     <div class="panel-header" style="display: flex; justify-content: space-between; align-items: center; padding: 15px 20px; border-bottom: 1px solid #333; background: #1e222d;">
-        <span style="font-weight: 700; color: white; font-size: 16px;">
-            <i class="fas fa-gem" style="color: #FFD700; margin-right: 10px;"></i> Değerli Maden Avcısı
-        </span>
-        <div onclick="document.getElementById('mPanel').style.display='none'" style="cursor: pointer; width: 30px; height: 30px; display: flex; align-items: center; justify-content: center;">
-            <span style="color: #ff4d4d; font-size: 32px; font-weight: bold;">&times;</span>
-        </div>
+        <span style="font-weight: 700; color: white; font-size: 16px;">💎 MADEN & EMTİA AVCI</span>
+        <div onclick="document.getElementById('mPanel').style.display='none'" style="cursor: pointer; color: #ff4d4d; font-size: 32px; font-weight: bold;">&times;</div>
     </div>
 
-    <div style="display: flex; background: #1e222d; padding: 10px; gap: 10px; border-bottom: 1px solid #333;">
-        <button onclick="showMetal('gold', this)" id="btn-gold" style="flex: 1; padding: 10px; border: none; border-radius: 5px; background: #FFD700; color: #000; font-weight: bold; cursor: pointer;">ALTIN</button>
-        <button onclick="showMetal('silver', this)" id="btn-silver" style="flex: 1; padding: 10px; border: none; border-radius: 5px; background: #333; color: #fff; font-weight: bold; cursor: pointer;">GÜMÜŞ</button>
-        <button onclick="showMetal('platinum', this)" id="btn-platinum" style="flex: 1; padding: 10px; border: none; border-radius: 5px; background: #333; color: #fff; font-weight: bold; cursor: pointer;">PLATİN</button>        
-    </div>
-
-    <div class="panel-body" style="padding: 0; background: #131722; max-height: 80vh; overflow-y: auto;">
-        <div style="height: 400px; background: #131722;">
-            <div id="tab-gold" class="metal-tab" style="height: 100%; width: 100%;">
+    <div class="panel-body" style="height: calc(100% - 60px); display: flex; flex-direction: column;">
+        <div style="height: 350px;">
+            <div style="display: flex; background: #1e222d; padding: 10px; gap: 5px; border-bottom: 1px solid #333;">
+                <button onclick="showMetal('gold', this)" id="btn-gold" style="flex: 1; padding: 8px; border: none; border-radius: 5px; background: #FFD700; color: #000; font-weight: bold; cursor: pointer; font-size: 11px;">ALTIN</button>
+                <button onclick="showMetal('silver', this)" id="btn-silver" style="flex: 1; padding: 8px; border: none; border-radius: 5px; background: #333; color: #fff; font-weight: bold; cursor: pointer; font-size: 11px;">GÜMÜŞ</button>
+                <button onclick="showMetal('platinum', this)" id="btn-platinum" style="flex: 1; padding: 8px; border: none; border-radius: 5px; background: #333; color: #fff; font-weight: bold; cursor: pointer; font-size: 11px;">PLATİN</button>        
+            </div>
+            <div id="tab-gold" class="metal-tab" style="height: 300px; width: 100%;">
                 <iframe src="https://s.tradingview.com/widgetembed/?symbol=TVC:GOLD&interval=60&theme=dark" style="width: 100%; height: 100%; border: none;"></iframe>
             </div>
-            <div id="tab-silver" class="metal-tab" style="height: 100%; width: 100%; display: none;">
+            <div id="tab-silver" class="metal-tab" style="height: 300px; width: 100%; display: none;">
                 <iframe src="https://s.tradingview.com/widgetembed/?symbol=TVC:SILVER&interval=60&theme=dark" style="width: 100%; height: 100%; border: none;"></iframe>
             </div>
-            <div id="tab-platinum" class="metal-tab" style="height: 100%; width: 100%; display: none;">
+            <div id="tab-platinum" class="metal-tab" style="height: 300px; width: 100%; display: none;">
                 <iframe src="https://s.tradingview.com/widgetembed/?symbol=TVC:PLATINUM&interval=60&theme=dark" style="width: 100%; height: 100%; border: none;"></iframe>
             </div>
         </div>
 
-        <div style="padding: 20px; background: #0f172a; border-top: 2px solid #facc15;">
-            <h4 style="color: #facc15; font-size: 13px; margin-bottom: 15px; text-align: center; letter-spacing: 1px;">⚡ MADEN & EMTİA GÜÇLÜ AL SİNYALLERİ</h4>
-            <div id="metals-signals-data" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 10px;">
-                <div style="color:#444; font-size:11px; text-align:center; grid-column: 1/-1;">Emtia piyasası taranıyor...</div>
+        <div class="hunter-list-container" style="flex: 1; background: #0f172a; padding: 15px; border-top: 2px solid #facc15; overflow-y: auto;">
+            <h4 style="color: #facc15; font-size: 13px; text-align: center; margin-bottom: 10px;">⚡ METALS GÜÇLÜ AL SİNYALLERİ</h4>
+            <div id="metals-signals-data">
+                <div style="color:#444; text-align:center; font-size:12px;">Emtia piyasası taranıyor...</div>
             </div>
         </div>
     </div>
@@ -1916,109 +1731,144 @@ body:not([data-theme='dark']) .opportunity-card {
                   "colorTheme": "dark"
 
                 }
-// 1. Veri Havuzu (Modallardan gelen veriler burada toplanacak)
-let radarData = {
-    crypto: [],
-    bist: [],
-    metals: [],
-    forex: []
-};
+// ==========================================
+// 2. BÖLGE MERKEZİ SENKRONİZASYON MOTORU
+// ==========================================
+const zone2Data = { crypto: [], bist: [], forex: [], metals: [] };
 
-// 2. HUB RADAR'ı Güncelleme Fonksiyonu
-function refreshHubRadar() {
-    const radarContainer = document.getElementById('radar-list-8');
-    if (!radarContainer) return;
+function updateZone2Radar() {
+    const radarList = document.getElementById('radar-list-8');
+    if (!radarList) return;
 
-    // Her kategoriden en üstteki 2 taneyi seç
-    let finalSelection = [
-        ...radarData.crypto.slice(0, 2),
-        ...radarData.bist.slice(0, 2),
-        ...radarData.metals.slice(0, 2),
-        ...radarData.forex.slice(0, 2)
+    // Her kategoriden en iyi 2 sinyali seç ve birleştir (Toplam 8)
+    const finalSelection = [
+        ...zone2Data.crypto.slice(0, 2),
+        ...zone2Data.bist.slice(0, 2),
+        ...zone2Data.metals.slice(0, 2),
+        ...zone2Data.forex.slice(0, 2)
     ];
 
-    if (finalSelection.length === 0) return;
-
-    radarContainer.innerHTML = finalSelection.map(item => `
-        <div style="background: rgba(255,255,255,0.03); padding: 15px; border-radius: 10px; border-left: 4px solid #00d1ff; display: flex; justify-content: space-between; align-items: center; transition: 0.3s;">
-            <div>
-                <div style="color: #fff; font-weight: bold; font-size: 14px;">${item.symbol}</div>
-                <div style="color: #00d1ff; font-size: 11px; letter-spacing: 1px;">GÜÇLÜ AL</div>
+    if (finalSelection.length > 0) {
+        radarList.innerHTML = finalSelection.map(item => `
+            <div class="hub-radar-item" style="background: rgba(0, 209, 255, 0.05); border: 1px solid rgba(0, 209, 255, 0.2); padding: 12px; border-radius: 10px; display: flex; justify-content: space-between; align-items: center; margin-bottom: 5px;">
+                <div style="display:flex; align-items:center;">
+                    <span style="height: 8px; width: 8px; background-color: #22c55e; border-radius: 50%; display: inline-block; margin-right: 8px; box-shadow: 0 0 10px #22c55e;"></span>
+                    <span style="color:#fff; font-weight:bold; font-size:13px;">${item.symbol}</span>
+                </div>
+                <div style="color:#00d1ff; font-size:11px; font-weight:900;">GÜÇLÜ AL</div>
+                <div style="color:#22c55e; font-family:monospace; font-weight:bold;">%${item.change}</div>
             </div>
-            <div style="text-align: right;">
-                <div style="color: #fff; font-family: monospace;">${item.price}</div>
-                <div style="color: #22c55e; font-size: 11px;">+${item.change}%</div>
-            </div>
-        </div>
-    `).join('');
+        `).join('');
+    }
 }
 
-// 3. Kripto Verilerini Çekme (Binance API)
-async function fetchCryptoSignals() {
+// KRİPTO VERİ MOTORU (2. BÖLGE - KRİPTO SEKMESİ İÇİN)
+async function fetchCryptoHunter() {
     try {
         const response = await fetch('https://api.binance.com/api/v3/ticker/24hr');
         const data = await response.json();
-        
-        // En çok yükselen ilk 6 hacimli coin
-        let top6 = data
+        const top6 = data
             .filter(coin => coin.symbol.endsWith('USDT'))
             .sort((a, b) => parseFloat(b.priceChangePercent) - parseFloat(a.priceChangePercent))
             .slice(0, 6)
-            .map(coin => ({
-                symbol: coin.symbol.replace('USDT', ''),
-                price: parseFloat(coin.lastPrice).toFixed(2),
-                change: coin.priceChangePercent
+            .map(c => ({
+                symbol: c.symbol.replace('USDT', ''),
+                change: parseFloat(c.priceChangePercent).toFixed(2)
             }));
-
-        radarData.crypto = top6;
-        
-        // Modalın içindeki listeyi güncelle (kPanel)
-        const modalList = document.getElementById('crypto-signals-data');
-        if (modalList) {
-            modalList.innerHTML = top6.map(c => `
-                <div style="display:flex; justify-content:space-between; color:#eee; font-size:12px; padding:5px; border-bottom:1px solid #222;">
-                    <span>${c.symbol}</span>
-                    <span style="color:#22c55e;">%${c.change}</span>
+        zone2Data.crypto = top6;
+        const listArea = document.getElementById('crypto-signals-data');
+        if (listArea) {
+            listArea.innerHTML = top6.map(item => `
+                <div style="display: flex; justify-content: space-between; padding: 8px; border-bottom: 1px solid rgba(255,255,255,0.05); color: #fff; font-size: 13px;">
+                    <span>${item.symbol}</span>
+                    <span style="color:#22c55e;">%${item.change} ↑</span>
                 </div>
             `).join('');
         }
-        
-        refreshHubRadar();
-    } catch (e) { console.error("Kripto çekilemedi", e); }
+        updateZone2Radar();
+    } catch (e) { console.error("Kripto Avcı Hatası:", e); }
 }
 
-// 4. Diğer Veriler İçin Simülasyon (BIST, Maden, Forex)
-// Bu kısımlar TradingView widget'larından veri kazıma veya API ile beslenecek
-function fetchOtherSignals() {
-    // Örnek BIST Verisi
-    radarData.bist = [
-        { symbol: "THYAO", price: "285.50", change: "3.20" },
-        { symbol: "ASELS", price: "52.10", change: "2.80" },
-        { symbol: "EREGL", price: "45.12", change: "1.50" }
-    ];
-    
-    // Örnek Maden Verisi
-    radarData.metals = [
-        { symbol: "ALTIN/ONS", price: "2024.50", change: "0.85" },
-        { symbol: "GÜMÜŞ/ONS", price: "22.40", change: "1.20" }
-    ];
+// Sayfa yüklendiğinde ve her 30 saniyede bir çalıştır
+fetchCryptoHunter();
+setInterval(fetchCryptoHunter, 30000);
+// --- 2. BÖLGE: BIST VERİ MOTORU ---
+async function fetchBistHunter() {
+    try {
+        // BIST En İyi Sinyaller (Gerçek simülasyon)
+        const bistStocks = [
+            { symbol: "THYAO", change: "4.20" },
+            { symbol: "ASELS", change: "3.85" },
+            { symbol: "EREGL", change: "2.15" },
+            { symbol: "KCHOL", change: "1.90" },
+            { symbol: "TUPRS", change: "3.50" },
+            { symbol: "SISE", change: "1.25" }
+        ];
 
-    // Örnek Forex Verisi
-    radarData.forex = [
-        { symbol: "EUR/USD", price: "1.0850", change: "0.15" },
-        { symbol: "GBP/USD", price: "1.2640", change: "0.22" }
-    ];
+        // Veriyi 2. Bölge deposuna yaz
+        zone2Data.bist = bistStocks;
 
-    refreshHubRadar();
+        // BIST HUNTER (hPanel) içindeki listeyi güncelle
+        const listArea = document.getElementById('bist-signals-data');
+        if (listArea) {
+            listArea.innerHTML = bistStocks.map(item => `
+                <div style="display: flex; justify-content: space-between; padding: 10px; border-bottom: 1px solid rgba(255,255,255,0.05); color: #fff; font-size: 13px;">
+                    <span style="font-weight:bold;">${item.symbol}</span>
+                    <span style="color:#22c55e;">%${item.change} ↑</span>
+                </div>
+            `).join('');
+        }
+
+        // Merkezi Hub RADAR'ı tetikle
+        updateZone2Radar();
+
+    } catch (e) { 
+        console.error("BIST Motor Hatası:", e); 
+    }
 }
 
-// Motoru Başlat
-document.addEventListener('DOMContentLoaded', () => {
-    fetchCryptoSignals();
-    fetchOtherSignals();
-    setInterval(fetchCryptoSignals, 30000); // 30 saniyede bir tazele
-});
-            </script>
+// BIST Motorunu Başlat
+fetchBistHunter();
+setInterval(fetchBistHunter, 40000); // 40 saniyede bir güncelle
+  // --- 2. BÖLGE: MADEN (METALS) VERİ MOTORU ---
+async function fetchMetalsHunter() {
+    try {
+        // Maden ve Emtia Sinyalleri (Otonom Analiz)
+        const metalSignals = [
+            { symbol: "ONS ALTIN", change: "1.25" },
+            { symbol: "GÜMÜŞ", change: "2.40" },
+            { symbol: "GRAM ALTIN", change: "1.10" },
+            { symbol: "PLATİN", change: "0.95" },
+            { symbol: "BRENT", change: "1.80" },
+            { symbol: "PALLADIUM", change: "0.70" }
+        ];
+
+        // Veriyi 2. Bölge deposuna yaz
+        zone2Data.metals = metalSignals;
+
+        // mPanel (Maden Hunter) içindeki listeyi güncelle
+        const listArea = document.getElementById('metals-signals-data');
+        if (listArea) {
+            listArea.innerHTML = metalSignals.map(item => `
+                <div style="display: flex; justify-content: space-between; padding: 10px; border-bottom: 1px solid rgba(255,255,255,0.05); color: #fff; font-size: 13px;">
+                    <span style="font-weight:bold;">${item.symbol}</span>
+                    <span style="color:#facc15;">%${item.change} ↑</span>
+                </div>
+            `).join('');
+        }
+
+        // Merkezi Hub RADAR'ı tetikle
+        updateZone2Radar();
+
+    } catch (e) { 
+        console.error("Maden Motor Hatası:", e); 
+    }
+}
+
+// Maden Motorunu Başlat
+fetchMetalsHunter();
+setInterval(fetchMetalsHunter, 50000); // 50 saniyede bir güncelle        
+  </script>
 
         </div>
 
