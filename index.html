@@ -290,6 +290,42 @@ function repairLogo(img) {
 </script>
 
 <script>
+// --- GÜNLÜK STRATEJİ RAPORU SİSTEMİ ---
+let currentStrategyPage = 0;
+const dailyReportData = [
+    {
+        title: "🌍 Küresel Piyasa Özeti",
+        text: "BIST100 endeksi yeni güne küresel piyasalardaki pozitif seyrin etkisiyle alıcılı bir başlangıç yaptı. 9.250 direnci kritik."
+    },
+    {
+        title: "📈 Teknik Radardakiler",
+        text: "THYAO: 315.50 Hedef ile pozitif izleniyor. BTC/USDT: 52.000 üzerinde kalıcılık aranıyor."
+    },
+    {
+        title: "🗓️ Kritik Veri Takvimi",
+        text: "🕒 16:30 - ABD İşsizlik Maaşı Başvuruları piyasada volatilite yaratabilir."
+    }
+];
+
+function renderStrategyReport() {
+    const target = document.getElementById('report-content-target');
+    if (!target) return;
+    
+    const page = dailyReportData[currentStrategyPage];
+    target.innerHTML = `
+        <h4 style="margin:0 0 10px 0; color:#9d4edd;">${page.title}</h4>
+        <p style="line-height:1.6; font-size:14px; color:var(--text); margin:0;">${page.text}</p>
+    `;
+}
+
+function changeStrategyPage(dir) {
+    currentStrategyPage += dir;
+    if (currentStrategyPage < 0) currentStrategyPage = dailyReportData.length - 1;
+    if (currentStrategyPage >= dailyReportData.length) currentStrategyPage = 0;
+    renderStrategyReport();
+}
+
+// Ana başlatıcıya (window load kısmına) renderStrategyReport(); eklemeyi unutma!
 /**
  * SIGNALIZHUB MASTER ENGINE v8.0 - FINAL MERGE
  * Tüm çakışmalar giderildi, Radar ve Haber Botu mühürlendi.
@@ -411,6 +447,8 @@ function switchTab(t) {
 window.addEventListener('load', () => {
     fetchEconomyNews(); 
     runCentralSync();
+    renderStrategyReport(); // Raporu ilk kez ekrana basan komut
+    
     setInterval(runCentralSync, 10000); 
     setInterval(fetchEconomyNews, 300000); 
 });
@@ -536,10 +574,13 @@ window.addEventListener('load', () => {
             <span style="font-size: 11px; color: #888;">08.02.2026</span>
         </div>
 
-       <div id="stratejiBlurArea">
-    <p style="line-height: 1.8; font-size: 15px; color: var(--text);">
-        BIST100 endeksi yeni güne küresel piyasalardaki pozitif seyrin etkisiyle alıcılı bir başlangıç yaptı. Teknik olarak 9.250 puan seviyesi güçlü bir direnç bölgesi olarak takip edilirken, bu seviyenin aşılması durumunda yukarı yönlü ivme kazanabilir. Küresel bazda ABD enflasyon verileri piyasaların ana odağında kalmaya devam ediyor.
-    </p>
+      <div id="stratejiBlurArea" style="min-height: 150px;">
+    <div id="report-content-target">Yükleniyor...</div>
+    
+    <div style="margin-top: 20px; display: flex; gap: 10px; justify-content: flex-end;">
+        <button onclick="changeStrategyPage(-1)" style="background:#333; color:white; border:none; padding:5px 12px; border-radius:4px; cursor:pointer; font-size:12px;">◀ Geri</button>
+        <button onclick="changeStrategyPage(1)" style="background:#9d4edd; color:white; border:none; padding:5px 12px; border-radius:4px; cursor:pointer; font-size:12px;">İleri ▶</button>
+    </div>
 </div>
 
             </div>
