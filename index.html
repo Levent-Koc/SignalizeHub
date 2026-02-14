@@ -290,23 +290,7 @@ function repairLogo(img) {
 </script>
 
 <script>
-// --- GÜNLÜK STRATEJİ RAPORU SİSTEMİ ---
-let currentStrategyPage = 0;
-const dailyReportData = [
-    {
-        title: "🌍 Küresel Piyasa Özeti",
-        text: "BIST100 endeksi yeni güne küresel piyasalardaki pozitif seyrin etkisiyle alıcılı bir başlangıç yaptı. 9.250 direnci kritik."
-    },
-    {
-        title: "📈 Teknik Radardakiler",
-        text: "THYAO: 315.50 Hedef ile pozitif izleniyor. BTC/USDT: 52.000 üzerinde kalıcılık aranıyor."
-    },
-    {
-        title: "🗓️ Kritik Veri Takvimi",
-        text: "🕒 16:30 - ABD İşsizlik Maaşı Başvuruları piyasada volatilite yaratabilir."
-    }
-];
-
+let dailyReportData = []; // Başlangıçta boş, otonom sistem dolduracak.
 function renderStrategyReport() {
     const target = document.getElementById('report-content-target');
     if (!target) return;
