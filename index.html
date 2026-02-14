@@ -470,12 +470,20 @@ function switchTab(t) {
 
 // --- 6. ANA BAŞLATICI ---
 window.addEventListener('load', () => {
-    // 1. Önce boş şablonu bas
+    // Önce rapor şablonunu bas
     renderStrategyReport();
-    // 2. Verileri çek (fetchEconomyNews bittiğinde generateAutoReport otomatik çalışacak)
-    fetchEconomyNews(); 
-    runCentralSync();
     
+    // Haberleri çek (Haberler gelince rapor otomatik güncellenecek)
+    if (typeof fetchEconomyNews === "function") {
+        fetchEconomyNews();
+    }
+    
+    // Radar ışıklarını başlat
+    if (typeof runCentralSync === "function") {
+        runCentralSync();
+    }
+    
+    // Periyodik güncellemeleri kur
     setInterval(runCentralSync, 10000); 
     setInterval(fetchEconomyNews, 300000); 
 });
@@ -1661,16 +1669,18 @@ body:not([data-theme='dark']) .opportunity-card {
         <div class="tradingview-widget-container" style="height: 100%;">
             <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-stock-heatmap.js" async>
             {
-              "exchanges": ["BIST"],
-              "dataSource": "AllTurkey",
-              "grouping": "sector",
-              "blockSize": "market_cap",
-              "blockColor": "change",
-              "locale": "tr",
-              "colorTheme": "dark",
-              "hasTopBar": true,
-              "width": "100%",
-              "height": "100%"
+              "exchanges": [],
+  "dataSource": "turkey",
+  "grouping": "sector",
+  "blockSize": "market_cap",
+  "blockColor": "change",
+  "locale": "tr",
+  "symbolUrl": "",
+  "colorTheme": "dark",
+  "hasTopBar": true,
+  "isTransparent": false,
+  "width": "100%",
+  "height": "100%"
             }
             </script>
         </div>
