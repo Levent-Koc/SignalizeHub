@@ -196,11 +196,11 @@ body.dark-mode .hub-text {
         <a href="javascript:void(0)" onclick="openSingleTab('register')" class="btn-reg">Kayıt Ol</a>
     </div>
 </header>
-<div id="hub-main-zone" style="background: #0f172a; padding: 40px 0; width: 100%; display: flex; justify-content: center; align-items: flex-start; gap: 40px; flex-wrap: wrap;">
-    
-    <div id="zone-left-control" style="flex: 1; max-width: 500px; display: flex; flex-direction: column; align-items: center;">
+<div id="master-layout-zone-2" style="display: flex; width: 100%; align-items: flex-start; background: transparent;">
+
+    <div id="left-side-control" style="width: 50%; background: #0f172a; padding: 40px 0; display: flex; flex-direction: column; align-items: center; border-radius: 0 30px 30px 0; box-shadow: 10px 0 30px rgba(0,0,0,0.2);">
         
-        <div class="dial-container" style="position: relative; width: 340px; height: 340px; display: flex; align-items: center; justify-content: center; margin-bottom: 20px;">
+        <div class="dial-container" style="position: relative; width: 300px; height: 300px; display: flex; align-items: center; justify-content: center;">
             <div id="signalize-dial" style="position: absolute; width: 100%; height: 100%; animation: rotateDial 60s linear infinite;">
                 <svg viewBox="0 0 100 100" style="width: 100%; height: 100%;">
                     <circle cx="50" cy="50" r="48" fill="none" stroke="rgba(255, 255, 255, 0.05)" stroke-width="0.1" />
@@ -223,34 +223,23 @@ body.dark-mode .hub-text {
                 </svg>
             </div>
             <div class="dial-logo-center">
-                <img src="image_66bce0.png" id="main-hub-logo" style="width: 55px; height: auto;" alt="S" onerror="repairLogo(this)">
-                <div class="dial-logo-text">Signalize<span>Hub</span></div>
+                <img src="image_66bce0.png" id="main-hub-logo" style="width: 50px; height: auto;" alt="S" onerror="this.src='image_66bce0.png'">
+                <div class="dial-logo-text" style="font-size: 12px;">Signalize<span>Hub</span></div>
             </div>
         </div>
 
-        <div id="quick-filters" style="display: flex; justify-content: center; gap: 10px;">
-            <button id="btn-radar" class="pulse-filter radar-active">Hub RADAR</button>
-            <button id="btn-crypto" class="pulse-filter">KRİPTO</button>
-            <button id="btn-bist" class="pulse-filter">BIST</button>
-            <button id="btn-forex" class="pulse-filter">FOREX</button>
-            <button id="btn-metals" class="pulse-filter">METALS</button>
+        <div id="quick-filters" style="display: flex; justify-content: center; gap: 8px; margin-top: 20px; flex-wrap: wrap; padding: 0 15px;">
+            <button id="btn-radar" class="pulse-filter radar-active" style="padding: 8px 14px; font-size: 11px;">Hub RADAR</button>
+            <button id="btn-crypto" class="pulse-filter" style="padding: 8px 14px; font-size: 11px;">KRİPTO</button>
+            <button id="btn-bist" class="pulse-filter" style="padding: 8px 14px; font-size: 11px;">BIST</button>
+            <button id="btn-forex" class="pulse-filter" style="padding: 8px 14px; font-size: 11px;">FOREX</button>
+            <button id="btn-metals" class="pulse-filter" style="padding: 8px 14px; font-size: 11px;">METALS</button>
         </div>
     </div>
 
-   <div id="zone-right-radar" style="flex: 1; min-height: 450px; display: flex; flex-direction: column; padding-right: 20px;">
-    <div id="hub-radar-display" style="background: var(--card-bg); border: 2px solid var(--primary); border-radius: 20px; overflow: hidden; height: 100%; display: flex; flex-direction: column; box-shadow: 0 10px 40px rgba(0,0,0,0.4);">
-        <div style="background: var(--primary); padding: 18px; font-weight: 900; text-align: center; letter-spacing: 2px; font-size: 16px; color: #fff;">
-            SIGNALIZE<span style="color: #1a1a1a;">HUB</span> RADAR LİSTESİ
-        </div>
-        <div id="radar-list-8" style="flex: 1; display: grid; grid-template-columns: 1fr; gap: 0; padding: 0; background: var(--card-bg);">
-            <div id="radar-sync-loader" style="text-align: center; color: #888; margin-top: 150px; font-style: italic; font-size: 14px;">
-                <span style="display:inline-block; width:12px; height:12px; background:var(--primary); border-radius:50%; margin-right:10px; animation: pulse 1.5s infinite;"></span>
-                Otonom analiz motoru senkronize ediliyor...
-            </div>
-        </div>
-    </div>
+    <div id="right-side-empty-space" style="width: 50%;"></div>
+
 </div>
-
 <script>
 function repairLogo(img) {
     img.onerror = null;
