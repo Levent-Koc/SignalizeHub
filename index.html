@@ -613,30 +613,31 @@ function closeChartModal() {
 </button>
             </div>
 </div>
-     <div class="opportunity-card bist-border" id="card-bist">
+    <div class="opportunity-card bist-border" id="card-bist">
     <div class="card-header">BIST</div>
     <div class="card-body">
-        <h3>THYAO</h3>        
-        <div class="live-price-container">
+        <h3 style="margin-bottom: 10px;">THYAO</h3>
+        
+        <div class="live-price-container" style="min-height: 120px;">
             <div class="tradingview-widget-container">
                 <div class="tradingview-widget-container__widget"></div>
-                <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-single-quote.js" async>
+                <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-symbol-info.js" async>
                 {
-                   "symbol": "BIST:THYAO", 
-                        "colorTheme": "dark", 
-                        "isTransparent": true, 
-                        "locale": "tr",
-                        "displayMode": "regular"
+                  "symbol": "BIST:THYAO",
+                  "width": "100%",
+                  "locale": "tr",
+                  "colorTheme": "dark",
+                  "isTransparent": true
                 }
                 </script>
             </div>
         </div>
 
         <div id="bist-quick-chart" style="display: none; height: 180px; margin: 10px 0; border-radius: 12px; border: 1px solid rgba(34, 197, 94, 0.4); background: #0f172a; position: relative;">
-       <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); color: rgba(34, 197, 94, 0.6); font-size: 11px; font-weight: bold;">
-                    📈 SİNYAL ANALİZ EDİLİYOR...
-                </div>
-</div>
+            <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); color: rgba(34, 197, 94, 0.6); font-size: 11px; font-weight: bold;">
+                📈 SİNYAL ANALİZ EDİLİYOR...
+            </div>
+        </div>
 
         <button class="view-btn" onclick="openChartModal('BIST:THYAO', 'TURKISH AIRLINES')" style="width: 100%; margin-top: auto; cursor: pointer;">
             📊 TAM EKRAN ANALİZ
