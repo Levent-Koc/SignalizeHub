@@ -219,6 +219,37 @@ body.dark-mode .hub-text {
         </p>
     </div>
 </div>
+<div id="iPanel" class="tali-panel-yeni">
+    <div class="panel-header">
+        <span style="font-weight: 700; color: white; font-size: 16px;">
+            <i class="fas fa-th" style="color: #ff4d4d; margin-right: 10px;"></i> GLOBAL PİYASALAR ISI HARİTASI
+        </span>
+        <div onclick="document.getElementById('iPanel').style.display='none'" 
+             style="cursor: pointer; color: #ff4d4d; font-size: 32px; font-weight: bold; line-height: 1;">&times;</div>
+    </div>
+
+    <div class="panel-body">
+        <div class="tradingview-widget-container" style="height: 100%; width: 100%;">
+            <div class="tradingview-widget-container__widget"></div>
+            <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-stock-heatmap.js" async>
+            {
+              "exchanges": [],
+              "dataSource": "S_P_500",
+              "grouping": "sector",
+              "blockSize": "market_cap",
+              "blockColor": "change",
+              "locale": "tr",
+              "symbolUrl": "",
+              "colorTheme": "dark",
+              "hasTopBar": true,
+              "isTransparent": true,
+              "width": "100%",
+              "height": "100%"
+            }
+            </script>
+        </div>
+    </div>
+</div>
 <div id="dPanel" class="tali-panel-yeni" style="display: none; position: fixed !important; top: 50% !important; left: 50% !important; transform: translate(-50%, -50%) !important; width: 850px; background: #121212; z-index: 20000; border-radius: 20px; border: 1px solid #3b82f6; overflow: hidden; box-shadow: 0 0 100px rgba(0,0,0,0.8);">
     
     <div style="background: #1a1a1a; padding: 15px 25px; display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #3b82f6;">
@@ -339,40 +370,6 @@ body.dark-mode .hub-text {
                   "colorTheme": "dark"
 
                 }
-<div id="iPanel" class="tali-panel-yeni" style="display: none; border: 2px solid #ff4d4d !important; box-shadow: 0 0 30px rgba(255, 77, 77, 0.5) !important;">
-    
-    <div class="panel-header" style="display: flex; justify-content: space-between; align-items: center; padding: 15px 25px; border-bottom: 1px solid #333; background: #1e222d;">
-        <span style="font-weight: 700; color: white; font-size: 16px;">
-            <i class="fas fa-globe" style="color: #ff4d4d; margin-right: 10px;"></i> GLOBAL PİYASALAR ISI HARİTASI (S&P 500)
-        </span>
-        <div onclick="document.getElementById('iPanel').style.display='none'" style="cursor: pointer; padding: 5px;">
-            <span style="color: #ff4d4d; font-size: 32px; font-weight: bold; line-height: 1;">&times;</span>
-        </div>
-    </div>
-
-    <div class="panel-body" style="padding: 0; background: #131722; height: 550px; overflow: hidden;">
-        <div class="tradingview-widget-container" style="height: 100%; width: 100%;">
-            <div class="tradingview-widget-container__widget"></div>
-            <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-stock-heatmap.js" async>
-            {
-              "exchanges": [],
-              "dataSource": "S_P_500",
-              "grouping": "sector",
-              "blockSize": "market_cap",
-              "blockColor": "change",
-              "locale": "tr",
-              "symbolUrl": "",
-              "colorTheme": "dark",
-              "hasTopBar": true,
-              "isTransparent": true,
-              "width": "100%",
-              "height": "100%"
-            }
-            </script>
-        </div>
-    </div>
-</div>
-
 <div id="kPanel" class="tali-panel-yeni" style="display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 850px; background: #121212; z-index: 10005; box-shadow: 0 25px 50px rgba(0,0,0,0.8); border-radius: 20px; border: 1px solid #333; overflow: hidden;">
     
     <div style="background: #1a1a1a; padding: 15px 25px; display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #f3ba2f;">
@@ -1701,8 +1698,10 @@ body:not([data-theme='dark']) .opportunity-card {
 <div id="footer-legal-notice" style="width: 100%; clear: both; padding: 40px 20px; margin-top: 60px; border-top: 1px solid var(--border); background: var(--bg); display: block;">
     <div style="max-width: 1200px; margin: 0 auto;">
         <p style="font-size: 12px; color: #777; line-height: 1.8; text-align: justify; margin: 0;">
-            <strong style="color: #444;">⚠️ YASAL UYARI:</strong> Burada yer alan yatırım bilgi, yorum ve tavsiyeleri yatırım danışmanlığı kapsamında değildir. Yatırım danışmanlığı hizmeti; aracı kurumlar, portföy yönetim şirketleri, mevduat kabul etmeyen bankalar ile müşteri arasında imzalanacak yatırım danışmanlığı sözleşmesi çerçevesinde sunulmaktadır. Burada yer alan yorum ve tavsiyeler, yorum ve tavsiyede bulunanların kişisel görüşlerine dayanmaktadır. Bu görüşler mali durumunuz ile risk ve getiri tercihlerinize uygun olmayabilir.
+            <strong style="color: #444;">⚠️ YASAL UYARI:</strong> Burada yer alan yatırım bilgi, yorum ve tavsiyeleri yatırım danışmanlığı kapsamında değildir...
         </p>
+    </div>
+</div>
         <div style="text-align: right; margin-top: 15px; opacity: 0.6;">
             <span style="font-size: 11px; color: #999;">
                 Piyasa verileri <strong>TradingView</strong> altyapısı ile sağlanmaktadır.
@@ -1751,16 +1750,6 @@ body:not([data-theme='dark']) .opportunity-card {
     <div style="background:#f8f9fa; padding:10px 25px; border-top:1px solid #eee; text-align:center; font-size:11px; color:#999; font-style: italic;">
 
         Yatırım tavsiyesi değildir. Sistem üzerinden otomatik üretilmiştir.
-
-    </div>
-
-</div>
-
-
-
-
-
-            </script>
 
         </div>
 
