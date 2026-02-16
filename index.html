@@ -488,20 +488,27 @@ window.addEventListener('load', () => {
         setInterval(runCentralSync, 10000);
     }
 });
-function toggleQuickChart(id, symbol) {
-    const container = document.getElementById(id + '-quick-chart');
-    const card = document.getElementById('card-' + id);
+function openChartModal(symbol, title) {
+    const modal = document.getElementById('chartModal');
+    const body = document.getElementById('modalChartBody');
+    const titleEl = document.getElementById('modalChartTitle');
+
+    if (titleEl) titleEl.innerText = title + " - CANLI TEKNİK ANALİZ";
+    modal.style.display = 'flex';
     
-    if (container.style.display === 'none') {
-        // Grafiği göster ve kartı hafifçe büyüt
-        container.style.display = 'block';
-        card.style.height = 'auto'; // Kartın boyunu içeriğe göre esnet
-        
-        container.innerHTML = `
-            <iframe src="https://s.tradingview.com/widgetembed/?symbol=${symbol}&interval=5&theme=dark&style=1&timezone=Europe/Istanbul&show_legend=false&hide_side_toolbar=true&allow_symbol_change=false&save_image=false&locale=tr" 
-                    style="width: 100%; height: 100%; border: none; border-radius: 8px;"></iframe>
-        `;
-    } else {
+    // Gelişmiş Mum Grafik (Çizim araçları açık)
+    body.innerHTML = `
+        <iframe src="https://s.tradingview.com/widgetembed/?symbol=${symbol}&interval=60&theme=dark&style=1&timezone=Europe/Istanbul&withdateranges=true&hide_side_toolbar=false&allow_symbol_change=true&details=true&locale=tr" 
+                style="width: 100%; height: 100%; border: none;"></iframe>
+    `;
+}
+
+function closeChartModal() {
+    const modal = document.getElementById('chartModal');
+    const body = document.getElementById('modalChartBody');
+    modal.style.display = 'none';
+    body.innerHTML = ''; // Kapatınca içeriği temizler
+} else {
         // Grafiği kapat ve kartı eski sabit boyuna (380px) getir
         container.style.display = 'none';
         container.innerHTML = '';
@@ -579,9 +586,11 @@ function toggleQuickChart(id, symbol) {
                 SİNYAL ANALİZ EDİLİYOR...
             </div>
         </div>
-
-        <button class="view-btn" onclick="toggleQuickChart('btc', 'BINANCE:BTCUSDT')" style="width: 100%; margin-top: auto; cursor: pointer;">📊 GRAFİK</button>
-    </div>
+<button class="view-btn" onclick="openChartModal('BINANCE:BTCUSDT', 'BITCOIN')" 
+        style="width: 100%; margin-top: auto; cursor: pointer;">
+    📊 TAM EKRAN ANALİZ
+</button>
+            </div>
 </div>
     <div class="opportunity-card bist-border" id="card-bist">
         <div class="card-header">BIST</div>
