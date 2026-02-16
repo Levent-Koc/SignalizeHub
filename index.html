@@ -1194,27 +1194,25 @@ nav {
 </div>
 
 
-<div id="dPanel" class="tali-panel-yeni" style="display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 850px; background: #121212; z-index: 10005; box-shadow: 0 25px 50px rgba(0,0,0,0.8); border-radius: 20px; border: 1px solid #3b82f6; overflow: hidden;">
-    
+<div id="dPanel" class="tali-panel-yeni" style="display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 850px; background: #121212; z-index: 10005; border-radius: 20px; border: 1px solid #3b82f6; overflow: hidden;">
     <div style="background: #1a1a1a; padding: 15px 25px; display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #3b82f6;">
-        <span style="color: #3b82f6; font-weight: bold; font-size: 15px; letter-spacing: 1px;">🏦 EUR/USD CANLI MUM GRAFİK & PARİTELER</span>
-        <div onclick="this.parentElement.parentElement.style.display='none'" 
-             style="color: #ff4d4d; cursor: pointer; font-size: 28px; font-weight: bold; line-height: 1; transition: 0.3s;"
-             onmouseover="this.style.color='#ff1a1a'" 
-             onmouseout="this.style.color='#ff4d4d'">×</div>
+        <span style="color: #3b82f6; font-weight: bold; font-size: 15px;">🏦 CANLI DÖVİZ KURLARI VE PARİTELER</span>
+        <div onclick="this.parentElement.parentElement.style.display='none'" style="color: #ff4d4d; cursor: pointer; font-size: 28px; font-weight: bold;">×</div>
     </div>
-
-    <div style="padding: 0; background: #121212; height: 500px;">
-        <iframe 
-            src="https://s.tradingview.com/widgetembed/?symbol=FX:EURUSD&interval=60&theme=dark&style=1&timezone=Europe/Istanbul&withdateranges=true&hide_side_toolbar=false&allow_symbol_change=true&details=true&locale=tr" 
-            style="width: 100%; height: 100%; border: none;">
-        </iframe>
-    </div>
-    
-    <div style="background: #1a1a1a; padding: 10px; text-align: center; border-top: 1px solid #333;">
-        <p style="color: #888; font-size: 11px; margin: 0;">
-            💡 İpucu: Sol paneldeki araçları kullanarak parite üzerinde teknik çizim yapabilirsiniz.
-        </p>
+    <div style="height: 500px; background: #131722;">
+        <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-market-overview.js" async>
+        {
+          "colorTheme": "dark", "showChart": true, "locale": "tr", "width": "100%", "height": "100%", "isTransparent": true,
+          "tabs": [
+            { "title": "Döviz / Parite", "symbols": [
+              { "s": "FX_IDC:USDTRY", "d": "Dolar / TL" },
+              { "s": "FX_IDC:EURTRY", "d": "Euro / TL" },
+              { "s": "FX:EURUSD", "d": "EUR / USD" },
+              { "s": "FX:GBPUSD", "d": "GBP / USD" }
+            ]}
+          ]
+        }
+        </script>
     </div>
 </div>
 <div id="tPanel" class="tali-panel-yeni" style="display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 90%; max-width: 1000px; background: #121212; z-index: 10005; border-radius: 20px; border: 1px solid #333; overflow: hidden;">
