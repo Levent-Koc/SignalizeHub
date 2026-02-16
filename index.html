@@ -926,9 +926,25 @@ window.addEventListener('load', () => {
     color: #ef4444 !important; 
     background: rgba(239, 68, 68, 0.1) !important;
 }
-/* Isı Haritası ve Tarayıcı Kutularının Taşmasını Önle */
-.panel-body { overflow: hidden !important; }
-.panel-body iframe { width: 100% !important; height: 100% !important; border: none; }/* Geçişlerin yumuşak olması için bu satırı da butonların ana class'ına (pulse-filter) ekle */
+/* Isı Haritası, Tarayıcı ve Tüm Panel İçeriklerinin Tam Sığmasını Sağlar */
+.panel-body { 
+    overflow: hidden !important; 
+    display: flex !important;
+    flex-direction: column !important;
+    background: #131722; /* Widget yüklenirken boşluk siyah kalsın */
+}
+
+/* Sadece iframe değil, Isı Haritası'nın (div) tam sığması için */
+.panel-body iframe, 
+.panel-body .tradingview-widget-container, 
+.panel-body .tradingview-widget-container__widget { 
+    width: 100% !important; 
+    height: 100% !important; 
+    border: none !important; 
+    min-height: 100% !important;
+}
+
+/* Geçişlerin yumuşak olması için pulse-filter sınıfı */
 .pulse-filter {
     transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1) !important;
 }
