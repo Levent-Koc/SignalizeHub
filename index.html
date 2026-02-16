@@ -532,9 +532,7 @@ window.addEventListener('load', () => {
         </div>
     </div>
 </div>
- <div id="hub-opportunities">
-    
-  <div class="opportunity-card crypto-border" id="card-crypto">
+ <div class="opportunity-card crypto-border" id="card-crypto">
     <div class="card-header">KRİPTO</div>
     <div class="card-body">
         <h3>BTC / USDT</h3>
@@ -553,8 +551,11 @@ window.addEventListener('load', () => {
                 </script>
             </div>
         </div>
-        
-        <button class="view-btn" onclick="openP('kPanel')">GRAFİK</button>
+
+        <div id="btc-quick-chart" style="display: none; height: 180px; margin: 10px 0; border-radius: 12px; overflow: hidden; border: 1px solid rgba(168, 85, 247, 0.2);">
+            </div>
+
+        <button class="view-btn" onclick="toggleQuickChart('btc', 'BINANCE:BTCUSDT')" style="width: 100%; margin-top: auto;">📊 GRAFİK</button>
     </div>
 </div>
     <div class="opportunity-card bist-border" id="card-bist">
