@@ -539,11 +539,11 @@ function closeChartModal() {
 </script>
 </div>
 
-    <div id="quick-filters" style="display: flex; justify-content: center; gap: 20px; margin-top: 25px; flex-wrap: wrap;">
-    <button id="btn-crypto" class="pulse-filter">KRİPTO</button>
-    <button id="btn-bist" class="pulse-filter">BIST</button>
-    <button id="btn-forex" class="pulse-filter">FOREX</button>
-    <button id="btn-metals" class="pulse-filter">METALS</button>
+    <div id="quick-filters" style="display: flex; justify-content: center; gap: 20px; padding-bottom: 40px; background: transparent; flex-wrap: wrap;">
+    <button id="btn-crypto" class="pulse-filter" onclick="openChartModal('BINANCE:BTCUSDT', 'KRİPTO')">KRİPTO</button>
+    <button id="btn-bist" class="pulse-filter" onclick="openP('hPanel')">BIST</button>
+    <button id="btn-forex" class="pulse-filter" onclick="openP('dPanel')">FOREX</button>
+    <button id="btn-metals" class="pulse-filter" onclick="openP('mPanel')">METALS</button>
 </div>
 </div>
 <div id="hub-radar-hourly-section" style="max-width: 1240px; margin: 60px auto 40px auto; padding: 0 20px; clear: both;">
@@ -1048,20 +1048,32 @@ Senin kodundaki `<style>` etiketinin içine şu "prestij" kodlarını ekle:
     color: #00d1ff; /* "Hub" kısmının o meşhur turkuaz rengi */
 }
 
+/* Işık Efektleri - Butonların üzerine gelen sinyaller */
 .pulse-filter {
-    /* Görsel Temel (İkinci Pulse'tan geldi) */
     background: #1e293b;
-    color: #94a3b8;
-    border: 1px solid rgba(255,255,255,0.1);
-    padding: 10px 22px;
-    border-radius: 20px;
-    font-size: 12px;
-    font-weight: 600;
+    color: #cbd5e1;
+    border: 1px solid #334155;
+    padding: 10px 25px;
+    border-radius: 8px;
+    font-weight: bold;
     cursor: pointer;
+    transition: all 0.5s ease;
+}
 
-    /* Geçiş Efekti (Üçüncü Pulse ve senin istediğin yumuşatma) */
-    /* 0.3s yerine 0.6s yaparak o "akışkan" geçişi sağlıyoruz */
-    transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+.glow-green { 
+    box-shadow: 0 0 20px rgba(34, 197, 94, 0.6); 
+    border-color: #22c55e !important; 
+    color: #fff !important;
+}
+.glow-yellow { 
+    box-shadow: 0 0 20px rgba(234, 179, 8, 0.6); 
+    border-color: #eab308 !important; 
+    color: #fff !important;
+}
+.glow-red { 
+    box-shadow: 0 0 20px rgba(239, 68, 68, 0.6); 
+    border-color: #ef4444 !important; 
+    color: #fff !important;
 }
 
 /* Hover Efekti (Birinci Pulse) */
@@ -2012,6 +2024,38 @@ function closeChartModal() {
     if (modal) modal.style.display = 'none';
     if (body) body.innerHTML = ''; 
 }
+function syncLights() {
+    const sectors = document.querySelectorAll('.dial-sector');
+    sectors.forEach(sector => {
+        const text = sector.querySelector('text').textContent.trim();
+        const dot = sector.querySelector('.radar-dot');
+        
+        // Çarktaki noktanın rengini al
+        if (dot) {
+            const color = dot.getAttribute('fill');
+            let targetId = "";
+            
+            if (text === "KRİPTO") targetId = "btn-crypto";
+            else if (text === "BIST") targetId = "btn-bist";
+            else if (text === "FOREX") targetId = "btn-forex";
+            else if (text === "METALS") targetId = "btn-metals";
+            
+            const btn = document.getElementById(targetId);
+            if (btn) {
+                // Mevcut tüm ışıkları sil
+                btn.classList.remove('glow-green', 'glow-yellow', 'glow-red');
+                
+                // Renge göre yeni ışığı ekle
+                if (color === "#22c55e") btn.classList.add('glow-green');
+                else if (color === "#eab308") btn.classList.add('glow-yellow');
+                else if (color === "#ef4444") btn.classList.add('glow-red');
+            }
+        }
+    });
+}
+
+// Işıkları her 2 saniyede bir çarkla senkronize et
+setInterval(syncLights, 2000);
 </script>
 </body>
 </html>
