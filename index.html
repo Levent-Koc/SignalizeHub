@@ -564,77 +564,73 @@ window.addEventListener('load', () => {
         </div>
     </div>
 </div>
-    <div class="opportunity-card bist-border" id="card-bist">
-        <div class="card-header">BIST</div>
-        <div class="card-body">
-            <h3>THYAO</h3>
-            <div class="live-price-container">
-                <div class="tradingview-widget-container">
-                    <div class="tradingview-widget-container__widget"></div>
-                    <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-single-quote.js" async>
-                    { 
-                        "symbol": "THYAO", 
-                        "colorTheme": "dark", 
-                        "isTransparent": true, 
-                        "locale": "tr",
-                        "displayMode": "regular"
-                    }
-                    </script>
-                </div>
+   <div class="opportunity-card bist-border" id="card-bist">
+    <div class="card-header">BIST</div>
+    <div class="card-body">
+        <h3>THYAO</h3>
+        <div class="live-price-container">
+            <div class="tradingview-widget-container">
+                <div class="tradingview-widget-container__widget"></div>
+                <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-single-quote.js" async>
+                { "symbol": "BIST:THYAO", "colorTheme": "dark", "isTransparent": true, "locale": "tr", "displayMode": "regular" }
+                </script>
             </div>
-            <div class="signal-preview"><div id="signal-bist">ANALİZ EDİLİYOR...</div></div>
-            <button class="view-btn" onclick="openP('hPanel')">Analizi Gör</button>
+        </div>
+        <div style="margin-top: auto; padding-top: 10px;">
+            <button onclick="openP('hPanel')" 
+                    style="width: 100%; background: transparent; border: 1px solid #22c55e; color: #22c55e; padding: 12px; border-radius: 12px; font-weight: 800; cursor: pointer; transition: all 0.3s ease; font-size: 12px; letter-spacing: 2px; text-transform: uppercase;"
+                    onmouseover="this.style.background='#22c55e'; this.style.color='#fff';" 
+                    onmouseout="this.style.background='transparent'; this.style.color='#22c55e';">
+                📈 GRAFİK
+            </button>
         </div>
     </div>
+</div>
 
     <div class="opportunity-card forex-border" id="card-forex">
-        <div class="card-header">FOREX</div>
-        <div class="card-body">
-            <h3>EUR / USD</h3>
-            <div class="live-price-container">
-                <div class="tradingview-widget-container">
-                    <div class="tradingview-widget-container__widget"></div>
-                    <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-single-quote.js" async>
-                    {
-                        "symbol": "FX:EURUSD",
-                        "width": "100%",
-                        "locale": "tr",
-                        "colorTheme": "dark",
-                        "isTransparent": true,
-                        "displayMode": "regular" 
-                    }
-                    </script>
-                </div>
+    <div class="card-header">FOREX</div>
+    <div class="card-body">
+        <h3>EUR / USD</h3>
+        <div class="live-price-container">
+            <div class="tradingview-widget-container">
+                <div class="tradingview-widget-container__widget"></div>
+                <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-single-quote.js" async>
+                { "symbol": "FX:EURUSD", "colorTheme": "dark", "isTransparent": true, "locale": "tr", "displayMode": "regular" }
+                </script>
             </div>
-            <div class="signal-preview"><div id="signal-forex">ANALİZ EDİLİYOR...</div></div>
-            <button class="view-btn" onclick="openP('dPanel')">Analizi Gör</button>
+        </div>
+        <div style="margin-top: auto; padding-top: 10px;">
+            <button onclick="openP('dPanel')" 
+                    style="width: 100%; background: transparent; border: 1px solid #3b82f6; color: #3b82f6; padding: 12px; border-radius: 12px; font-weight: 800; cursor: pointer; transition: all 0.3s ease; font-size: 12px; letter-spacing: 2px; text-transform: uppercase;"
+                    onmouseover="this.style.background='#3b82f6'; this.style.color='#fff';" 
+                    onmouseout="this.style.background='transparent'; this.style.color='#3b82f6';">
+                📈 GRAFİK
+            </button>
         </div>
     </div>
+</div>
 
-    <div class="opportunity-card maden-border" id="card-maden">
-        <div class="card-header">MADEN</div>
-        <div class="card-body">
-            <h3>ONS ALTIN</h3>
-            <div class="live-price-container">
-                <div class="tradingview-widget-container">
-                    <div class="tradingview-widget-container__widget"></div>
-                    <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-single-quote.js" async>
-                    {
-                        "symbol": "OANDA:XAUUSD",
-                        "width": "100%",
-                        "colorTheme": "dark",
-                        "isTransparent": true,
-                        "locale": "tr",
-                        "displayMode": "regular"
-                    }
-                    </script>
-                </div>
+   <div class="opportunity-card maden-border" id="card-maden">
+    <div class="card-header">MADEN</div>
+    <div class="card-body">
+        <h3>ONS ALTIN</h3>
+        <div class="live-price-container">
+            <div class="tradingview-widget-container">
+                <div class="tradingview-widget-container__widget"></div>
+                <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-single-quote.js" async>
+                { "symbol": "OANDA:XAUUSD", "colorTheme": "dark", "isTransparent": true, "locale": "tr", "displayMode": "regular" }
+                </script>
             </div>
-            <div class="signal-preview"><div id="signal-maden">ANALİZ EDİLİYOR...</div></div>
-            <button class="view-btn" onclick="openP('mPanel')">Analizi Gör</button>
+        </div>
+        <div style="margin-top: auto; padding-top: 10px;">
+            <button onclick="openP('mPanel')" 
+                    style="width: 100%; background: transparent; border: 1px solid #f59e0b; color: #f59e0b; padding: 12px; border-radius: 12px; font-weight: 800; cursor: pointer; transition: all 0.3s ease; font-size: 12px; letter-spacing: 2px; text-transform: uppercase;"
+                    onmouseover="this.style.background='#f59e0b'; this.style.color='#fff';" 
+                    onmouseout="this.style.background='transparent'; this.style.color='#f59e0b';">
+                📈 GRAFİK
+            </button>
         </div>
     </div>
-
 </div>
 
          
