@@ -1041,21 +1041,21 @@ nav {
     min-width: 250px;
     justify-content: flex-end;
 }
-    .tali-panel-yeni {
-        display: none; 
-        position: fixed; 
-        top: 50%; 
-        left: 50%; 
-        transform: translate(-50%, -50%); 
-        width: 80%;       /* Ekranın %80'ini kapla (Mobilde geniş kalması için) */
-        max-width: 750px;  /* AMA masaüstünde asla 750px'i geçme (İşte bu ufalatır) */
-        background: #131722 !important; 
-        border-radius: 20px; /* Köşeleri biraz daha yuvarlattık, daha modern oldu */
-        box-shadow: 0 30px 60px rgba(0, 0, 0, 0.8); 
-        z-index: 10001; 
-        overflow: hidden;
-        border: 1px solid #333;
-    }
+   .tali-panel-yeni {
+    display: none; 
+    position: fixed !important; /* Sayfa kaydıkça panel seninle gelir */
+    top: 50% !important; 
+    left: 50% !important; 
+    transform: translate(-50%, -50%) !important; /* Tam merkeze oturtur */
+    width: 90%; 
+    max-width: 850px; 
+    background: #121212 !important; 
+    z-index: 999999 !important; /* Her şeyin en üstünde açılmasını garanti eder */
+    border-radius: 20px; 
+    border: 1px solid #333; 
+    box-shadow: 0 0 100px rgba(0,0,0,0.9);
+    overflow: hidden;
+}
     
     .panel-kapat-btn {
         position: absolute; 
