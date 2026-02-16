@@ -554,12 +554,13 @@ window.addEventListener('load', () => {
             </div>
         </div>
 
-        <div class="signal-preview">
-            <div id="signal-crypto">ANALİZ EDİLİYOR...</div>
-        </div>
-
-        <button class="view-btn" onclick="openP('kPanel')">Analizi Gör</button>
-    </div>
+        <div style="margin-top: 15px; padding-top: 10px; border-top: 1px solid rgba(255,255,255,0.05);">
+    <button onclick="openP('kPanel')" 
+            style="width: 100%; background: transparent; border: 1px solid var(--primary); color: var(--primary); padding: 12px; border-radius: 12px; font-weight: 800; cursor: pointer; transition: all 0.3s ease; font-size: 12px; letter-spacing: 2px; text-transform: uppercase; display: flex; align-items: center; justify-content: center; gap: 8px;"
+            onmouseover="this.style.background='var(--primary)'; this.style.color='#0f172a'; this.style.boxShadow='0 0 15px rgba(0, 209, 255, 0.4)';" 
+            onmouseout="this.style.background='transparent'; this.style.color='var(--primary)'; this.style.boxShadow='none';">
+        <span style="font-size: 16px;">📊</span> GRAFİK
+    </button>
 </div>
     <div class="opportunity-card bist-border" id="card-bist">
         <div class="card-header">BIST</div>
