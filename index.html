@@ -618,30 +618,27 @@ function closeChartModal() {
     <div class="card-body">
         <h3>THYAO</h3>
         
-        <div class="live-price-container">
+        <div class="live-price-container" style="min-height: 100px;">
             <div class="tradingview-widget-container">
                 <div class="tradingview-widget-container__widget"></div>
-                <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-single-quote.js" async>
+                <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-mini-symbol-overview.js" async>
                 {
-                    "symbol": "BIST:THYAO",
-                    "colorTheme": "dark",
-                    "isTransparent": true,
-                    "locale": "tr",
-                    "displayMode": "regular"
+                  "symbol": "BIST:THYAO",
+                  "width": "100%",
+                  "height": "100%",
+                  "locale": "tr",
+                  "dateRange": "1D",
+                  "colorTheme": "dark",
+                  "isTransparent": true,
+                  "autosize": false,
+                  "largeChartUrl": ""
                 }
                 </script>
             </div>
         </div>
 
-        <div id="bist-quick-chart" style="display: none; height: 180px; margin: 10px 0; border-radius: 12px; overflow: hidden; border: 1px solid rgba(34, 197, 94, 0.4); background: #0f172a; position: relative;">
-            <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); color: rgba(34, 197, 94, 0.6); font-size: 10px; font-weight: bold; text-align: center; width: 100%; font-family: sans-serif;">
-                <div style="margin-bottom: 5px; font-size: 14px;">📈</div>
-                HİSSE ANALİZ EDİLİYOR...
-            </div>
-        </div>
-
         <button class="view-btn" onclick="openChartModal('BIST:THYAO', 'TURKISH AIRLINES')" 
-                style="width: 100%; margin-top: auto; cursor: pointer;">
+                style="width: 100%; margin-top: 15px; cursor: pointer;">
             📊 TAM EKRAN ANALİZ
         </button>
     </div>
