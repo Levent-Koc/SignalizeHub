@@ -613,36 +613,52 @@ function closeChartModal() {
 </button>
             </div>
 </div>
-    <div class="opportunity-card bist-border" id="card-bist">
-    <div class="card-header">BIST</div>
-    <div class="card-body">
-        <h3>THYAO</h3>
-        
-        <div class="live-price-container" style="min-height: 100px;">
-            <div class="tradingview-widget-container">
-                <div class="tradingview-widget-container__widget"></div>
-                <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-mini-symbol-overview.js" async>
-                {
-                  "symbol": "BIST:THYAO",
-                  "width": "100%",
-                  "height": "100%",
-                  "locale": "tr",
-                  "dateRange": "1D",
-                  "colorTheme": "dark",
-                  "isTransparent": true,
-                  "autosize": false,
-                  "largeChartUrl": ""
-                }
-                </script>
+     <div class="opportunity-card bist-border" id="card-bist">
+        <div class="card-header">BIST</div>
+        <div class="card-body">
+            <h3>THYAO</h3>
+            <div class="live-price-container">
+                <div class="tradingview-widget-container">
+                    <div class="tradingview-widget-container__widget"></div>
+                    <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-single-quote.js" async>
+                    { 
+                        "symbol": "THYAO", 
+                        "colorTheme": "dark", 
+                        "isTransparent": true, 
+                        "locale": "tr",
+                        "displayMode": "regular"
+                    }
+                    </script>
+                </div>
             </div>
+            <div class="signal-preview"><div id="signal-bist">ANALİZ EDİLİYOR...</div></div>
+            <button class="view-btn" onclick="openP('hPanel')">Analizi Gör</button>
         </div>
-
-        <button class="view-btn" onclick="openChartModal('BIST:THYAO', 'TURKISH AIRLINES')" 
-                style="width: 100%; margin-top: 15px; cursor: pointer;">
-            📊 TAM EKRAN ANALİZ
-        </button>
     </div>
-</div>
+
+    <div class="opportunity-card forex-border" id="card-forex">
+        <div class="card-header">FOREX</div>
+        <div class="card-body">
+            <h3>EUR / USD</h3>
+            <div class="live-price-container">
+                <div class="tradingview-widget-container">
+                    <div class="tradingview-widget-container__widget"></div>
+                    <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-single-quote.js" async>
+                    {
+                        "symbol": "FX:EURUSD",
+                        "width": "100%",
+                        "locale": "tr",
+                        "colorTheme": "dark",
+                        "isTransparent": true,
+                        "displayMode": "regular" 
+                    }
+                    </script>
+                </div>
+            </div>
+            <div class="signal-preview"><div id="signal-forex">ANALİZ EDİLİYOR...</div></div>
+            <button class="view-btn" onclick="openP('dPanel')">Analizi Gör</button>
+        </div>
+    </div>
 
     <div class="opportunity-card forex-border" id="card-forex">
         <div class="card-header">FOREX</div>
