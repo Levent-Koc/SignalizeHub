@@ -5,6 +5,29 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SignalizeHub | Finansal Terminal</title>
     <style>
+/* Çark içindeki metinlerin parlaması ve netleşmesi */
+.dial-sector text {
+    fill: #ffffff !important;
+    font-size: 3.5px !important; /* Biraz büyüttük */
+    font-weight: 900 !important;
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+    pointer-events: none;
+}
+
+/* Hub-Center-Area Arka Planını Derinleştirme */
+#hub-center-area {
+    background: radial-gradient(circle, #1e293b 0%, #0f172a 100%) !important;
+    border-top: 1px solid rgba(255,255,255,0.05);
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+}
+
+/* Çarkın merkezi (Logo Alanı) parlama efekti */
+.dial-logo-center {
+    background: #0f172a;
+    border-radius: 50%;
+    padding: 20px;
+    box-shadow: inset 0 0 30px rgba(168, 85, 247, 0.2), 0 0 40px rgba(0, 0, 0, 0.5);
+}
 :root {
     --bg: #f8fafc;
     --header-bg: #ffffff;
@@ -244,15 +267,13 @@ body.dark-mode .hub-text {
     <path d="M 50,20 L 50,30 M 80,50 L 70,50 M 50,80 L 50,70 M 20,50 L 30,50" stroke="rgba(168, 85, 247, 0.3)" stroke-width="0.3" />
 </svg>
 </div>
-<div class="dial-logo-center">
-    <img src="images/image_66bce0.png" 
+<div class="dial-logo-center" style="position: absolute; z-index: 100; pointer-events: none;">
+    <img src="image_66bce0.png" 
          id="main-hub-logo"
-         style="width: 55px; height: auto; display: block; filter: drop-shadow(0 0 12px rgba(168, 85, 247, 0.9)); margin-bottom: 5px;" 
-         alt="S" 
-         onerror="repairLogo(this)">
-    
-    <div class="dial-logo-text">
-        Signalize<span>Hub</span>
+         style="width: 60px; height: auto; display: block; filter: drop-shadow(0 0 15px rgba(168, 85, 247, 0.9)); margin-bottom: 5px;" 
+         alt="S">
+    <div class="dial-logo-text" style="color: white; font-weight: bold; font-size: 16px;">
+        Signalize<span style="color: #00d1ff;">Hub</span>
     </div>
 </div>
 
@@ -1594,6 +1615,21 @@ body:not([data-theme='dark']) .opportunity-card {
 .floating-label { position: absolute; left: 12px; top: 12px; color: #aaa; transition: 0.2s ease all; pointer-events: none; font-size: 14px; }
 .smart-input:focus ~ .floating-label, .smart-input:valid ~ .floating-label { top: -20px; left: 5px; font-size: 11px; color: #00d1ff; font-weight: bold; }
 </style>
+/* Tüm tali panelleri en öne zorla */
+.tali-panel-yeni, .tali-panel {
+    display: none; 
+    position: fixed !important; 
+    top: 50% !important; 
+    left: 50% !important; 
+    transform: translate(-50%, -50%) !important; 
+    width: 90% !important; 
+    max-width: 1000px !important; 
+    height: 85vh !important; 
+    z-index: 1000000 !important; /* En yüksek değer */
+    background: #131722 !important; 
+    border-radius: 20px; 
+    box-shadow: 0 0 100px rgba(0,0,0,0.9);
+}
 
 
 <div id="footer-legal-notice" style="clear: both; padding: 20px; margin-top: 40px; border-top: 1px solid #eee; font-family: sans-serif;">
@@ -1867,6 +1903,23 @@ body:not([data-theme='dark']) .opportunity-card {
 </div>
  
 <script>
+function openP(id) {
+    // Önce açık olan her şeyi (grafik modal dahil) kapat
+    const allPanels = document.querySelectorAll('.tali-panel, .tali-panel-yeni, #chartModal');
+    allPanels.forEach(p => p.style.display = 'none');
+
+    const target = document.getElementById(id);
+    if (target) {
+        target.style.display = 'block';
+        target.style.zIndex = "1000001"; // En öne al
+        
+        // TradingView widget'larının kendine gelmesi için küçük bir tetikleyici
+        window.dispatchEvent(new Event('resize'));
+        console.log(id + " paneli açıldı.");
+    } else {
+        console.error("Panel bulunamadı: " + id);
+    }
+}
 // --- SIGNALIZHUB RADAR SİSTEMİ ÇALIŞTIRICI ---
 (function() {
     function startRadarEngine() {
