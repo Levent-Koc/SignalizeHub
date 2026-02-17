@@ -532,51 +532,69 @@ window.addEventListener('load', () => {
         </div>
     </div>
 </div>
- <div id="comex-section" style="max-width: 1240px; margin: 20px auto; padding: 0 20px; display: grid; grid-template-columns: 400px 1fr; gap: 20px;">
-
-    <div class="comex-table-container" style="background: #0d1117; border: 1px solid #30363d; border-radius: 12px; overflow: hidden;">
-        <div style="background: #161b22; padding: 10px; border-bottom: 1px solid #30363d; font-weight: bold; font-size: 13px; color: #e6edf3;">
-            🌐 ULUSLARARASI PİYASALAR
-        </div>
-        <div style="height: 450px;">
-            <div class="tradingview-widget-container">
-                <div class="tradingview-widget-container__widget"></div>
-                <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-market-overview.js" async>
-                {
-                  "colorTheme": "dark",
-                  "dateRange": "12M",
-                  "showChart": false,
-                  "locale": "tr",
-                  "width": "100%",
-                  "height": "100%",
-                  "largeChartUrl": "",
-                  "isTransparent": true,
-                  "showSymbolLogo": true,
-                  "tabs": [
-                    {
-                      "title": "Emtialar",
-                      "symbols": [
-                        { "s": "OANDA:XAUUSD", "d": "Altın" },
-                        { "s": "OANDA:XAGUSD", "d": "Gümüş" },
-                        { "s": "NYMEX:CL1!", "d": "Ham Petrol" },
-                        { "s": "COMEX:HG1!", "d": "Bakır" },
-                        { "s": "NYMEX:NG1!", "d": "Doğal Gaz" }
-                      ]
-                    },
-                    {
-                        "title": "Endeksler",
-                        "symbols": [
-                          { "s": "FOREXCOM:SPXUSD", "d": "S&P 500" },
-                          { "s": "FOREXCOM:NSXUSD", "d": "Nasdaq 100" },
-                          { "s": "BIST:XU100", "d": "BIST 100" }
-                        ]
-                    }
-                  ]
-                }
-                </script>
-            </div>
-        </div>
+ <div class="international-market-widget" style="background: #000; border: 1px solid #30363d; border-radius: 12px; overflow: hidden; width: 420px;">
+    <div style="background: #161b22; padding: 12px; border-bottom: 1px solid #30363d; font-weight: bold; font-size: 14px; color: #fff; text-align: center; letter-spacing: 1px;">
+        International
     </div>
+    <div class="tradingview-widget-container">
+        <div class="tradingview-widget-container__widget"></div>
+        <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-market-overview.js" async>
+        {
+          "colorTheme": "dark",
+          "dateRange": "12M",
+          "showChart": false,
+          "locale": "tr",
+          "width": "100%",
+          "height": "500",
+          "largeChartUrl": "",
+          "isTransparent": true,
+          "showSymbolLogo": true,
+          "showFloatingTooltip": false,
+          "tabs": [
+            {
+              "title": "Commodities",
+              "symbols": [
+                { "s": "OANDA:XAUUSD", "d": "GOLD" },
+                { "s": "OANDA:XAGUSD", "d": "SILVER" },
+                { "s": "COMEX:HG1!", "d": "COPPER" },
+                { "s": "NYMEX:CL1!", "d": "CRUDE OIL" },
+                { "s": "TVC:UKOIL", "d": "BRENT OIL" },
+                { "s": "NYMEX:NG1!", "d": "NATURAL GAS" }
+              ]
+            },
+            {
+              "title": "Indices",
+              "symbols": [
+                { "s": "FOREXCOM:SPXUSD", "d": "S&P 500" },
+                { "s": "FOREXCOM:NSXUSD", "d": "NASDAQ 100" },
+                { "s": "FOREXCOM:DJI", "d": "DOW 30" },
+                { "s": "INDEX:DAX", "d": "DAX 40" },
+                { "s": "BIST:XU100", "d": "BIST 100" }
+              ]
+            },
+            {
+              "title": "Futures",
+              "symbols": [
+                { "s": "CME_MINI:ES1!", "d": "S&P 500 Fut." },
+                { "s": "CME_MINI:NQ1!", "d": "Nasdaq Fut." },
+                { "s": "COMEX:GC1!", "d": "Gold Fut." },
+                { "s": "NYMEX:CL1!", "d": "Oil Fut." }
+              ]
+            },
+            {
+              "title": "Currencies",
+              "symbols": [
+                { "s": "FX:EURUSD", "d": "EUR / USD" },
+                { "s": "FX:GBPUSD", "d": "GBP / USD" },
+                { "s": "FX:USDJPY", "d": "USD / JPY" },
+                { "s": "FX:USDTRY", "d": "USD / TRY" }
+              ]
+            }
+          ]
+        }
+        </script>
+    </div>
+</div>
 
     <div class="comex-news-container" style="background: #0d1117; border: 1px solid #30363d; border-radius: 12px; overflow: hidden;">
         <div style="background: #161b22; padding: 10px; border-bottom: 1px solid #30363d; font-weight: bold; font-size: 13px; color: #e6edf3; display: flex; justify-content: space-between;">
