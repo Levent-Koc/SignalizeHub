@@ -620,14 +620,13 @@ window.addEventListener('load', () => {
 
 </div>   
 <script>
-// --- BLOOMBERG GLOBAL HABER MOTORU ---
+// --- KESİNTİSİZ BLOOMBERG GLOBAL HABER MOTORU ---
 async function fetchCMENews() {
     const target = document.getElementById('cme-news-list');
     if (!target) return;
 
-    // Bloomberg Markets RSS Akışı
-    // Bu servis dünya finans devidir ve jilet gibi çalışır.
-    const rssUrl = 'https://www.bloomberg.com/feeds/markets/index.xml'; 
+    // Bloomberg haberlerini engelsiz dağıtan profesyonel finans köprüsü
+    const rssUrl = 'https://news.google.com/rss/search?q=when:24h+source:Bloomberg&hl=en-US&gl=US&ceid=US:en'; 
     const apiUrl = `https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(rssUrl)}&t=${Date.now()}`;
 
     try {
@@ -639,31 +638,29 @@ async function fetchCMENews() {
             
             data.items.forEach((item, i) => {
                 const pubDate = new Date(item.pubDate);
-                const timeStr = pubDate.toLocaleDateString('tr-TR') + " " + 
-                               pubDate.getHours().toString().padStart(2, '0') + ":" + 
+                const timeStr = pubDate.getHours().toString().padStart(2, '0') + ":" + 
                                pubDate.getMinutes().toString().padStart(2, '0');
                 
+                // Bloomberg haberlerini görsel olarak özelleştirelim
                 html += `
                     <div style="border-bottom: 1px solid #222; padding: 15px 10px; transition: 0.3s; cursor: pointer; border-left: 3px solid transparent;" 
                          onmouseover="this.style.background='#0d1117'; this.style.borderLeftColor='#ff8000'" 
                          onmouseout="this.style.background='transparent'; this.style.borderLeftColor='transparent'"
                          onclick="window.open('${item.link}', '_blank')">
-                        <div style="font-size: 10px; color: #ff8000; font-weight: bold; margin-bottom: 5px;">📡 BLOOMBERG LIVE | ${timeStr}</div>
+                        <div style="font-size: 10px; color: #ff8000; font-weight: bold; margin-bottom: 5px;">📡 BLOOMBERG USA | ${timeStr}</div>
                         <div style="color:#fff; font-size:13px; font-weight: 600; line-height:1.4;">
-                            ${item.title}
+                            ${item.title.replace(" - Bloomberg", "")}
                         </div>
-                        <div style="font-size: 11px; color: #8b949e; margin-top: 8px; line-height: 1.5;">
-                            ${item.description.replace(/<[^>]*>?/gm, '').substring(0, 100)}...
+                        <div style="font-size: 11px; color: #8b949e; margin-top: 8px;">
+                             Piyasa analizi ve küresel finans akışı...
                         </div>
                     </div>`;
             });
             target.innerHTML = html;
-        } else {
-            throw new Error("Veri hatası");
         }
     } catch (e) {
-        console.error("Bloomberg Hatası:", e);
-        target.innerHTML = '<div style="text-align:center; padding:20px; color:#8b949e; font-size:12px;">🔄 Bloomberg servislerine bağlanılamıyor, tekrar deneniyor...</div>';
+        console.error("Bloomberg Veri Hatası:", e);
+        target.innerHTML = '<div style="text-align:center; padding:20px; color:#8b949e;">🔄 Bloomberg yayını bekleniyor...</div>';
     }
 }
 </script>
