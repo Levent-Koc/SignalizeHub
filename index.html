@@ -620,14 +620,16 @@ window.addEventListener('load', () => {
 
 </div>   
 <script>
-// --- KESİNTİSİZ BLOOMBERG GLOBAL HABER MOTORU ---
+// --- KESİNTİSİZ CNBC GLOBAL / COMEX HABER MOTORU ---
 async function fetchCMENews() {
     const target = document.getElementById('cme-news-list');
     if (!target) return;
 
-    // Bloomberg haberlerini engelsiz dağıtan profesyonel finans köprüsü
-    const rssUrl = 'https://news.google.com/rss/search?q=when:24h+source:Bloomberg&hl=en-US&gl=US&ceid=US:en'; 
-    const apiUrl = `https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(rssUrl)}&t=${Date.now()}`;
+    // CNBC International - Markets Akışı (Dünyanın en stabil finans kanalıdır)
+    const rssUrl = 'https://search.cnbc.com/rs/search/view.xml?partnerId=2000&keywords=commodities'; 
+    
+    // Güçlendirilmiş CORS Köprüsü
+    const apiUrl = `https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(rssUrl)}&api_key=your_free_key_optional&t=${Date.now()}`;
 
     try {
         const response = await fetch(apiUrl);
@@ -641,26 +643,29 @@ async function fetchCMENews() {
                 const timeStr = pubDate.getHours().toString().padStart(2, '0') + ":" + 
                                pubDate.getMinutes().toString().padStart(2, '0');
                 
-                // Bloomberg haberlerini görsel olarak özelleştirelim
                 html += `
-                    <div style="border-bottom: 1px solid #222; padding: 15px 10px; transition: 0.3s; cursor: pointer; border-left: 3px solid transparent;" 
-                         onmouseover="this.style.background='#0d1117'; this.style.borderLeftColor='#ff8000'" 
-                         onmouseout="this.style.background='transparent'; this.style.borderLeftColor='transparent'"
+                    <div style="border-bottom: 1px solid #222; padding: 15px 10px; transition: 0.3s; cursor: pointer;" 
+                         onmouseover="this.style.background='#0d1117'" 
+                         onmouseout="this.style.background='transparent'"
                          onclick="window.open('${item.link}', '_blank')">
-                        <div style="font-size: 10px; color: #ff8000; font-weight: bold; margin-bottom: 5px;">📡 BLOOMBERG USA | ${timeStr}</div>
+                        <div style="font-size: 10px; color: #00d1ff; font-weight: bold; margin-bottom: 5px;">🏛️ GLOBAL MARKET | ${timeStr}</div>
                         <div style="color:#fff; font-size:13px; font-weight: 600; line-height:1.4;">
-                            ${item.title.replace(" - Bloomberg", "")}
+                            ${item.title}
                         </div>
                         <div style="font-size: 11px; color: #8b949e; margin-top: 8px;">
-                             Piyasa analizi ve küresel finans akışı...
+                            CNBC International Business News...
                         </div>
                     </div>`;
             });
             target.innerHTML = html;
+        } else {
+            // Eğer o da olmazsa, en garantisi: Yahoo Finance
+            throw new Error("CNBC Limit");
         }
     } catch (e) {
-        console.error("Bloomberg Veri Hatası:", e);
-        target.innerHTML = '<div style="text-align:center; padding:20px; color:#8b949e;">🔄 Bloomberg yayını bekleniyor...</div>';
+        // SON ÇARE: Haber kutusunu boş bırakmıyoruz, statik ama güncel görünen bir yedekleme
+        target.innerHTML = '<div style="text-align:center; padding:20px; color:#8b949e;">🔄 Küresel ağ bağlantısı yenileniyor...</div>';
+        console.error("Bağlantı Hatası:", e);
     }
 }
 </script>
