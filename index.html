@@ -623,8 +623,8 @@ window.addEventListener('load', () => {
 </div>
 <div id="strategy-center" style="max-width: 1240px; margin: 20px auto; padding: 0 20px; display: grid; grid-template-columns: 450px 1fr; gap: 25px; align-items: stretch;">
 
-    <div style="background: #000; border: 1px solid #30363d; border-radius: 12px; overflow: hidden; display: flex; flex-direction: column; height: 650px;">
-        <div style="background: #161b22; padding: 15px; border-bottom: 1px solid #30363d;">
+    <div style="background: #000; border: 1px solid #30363d; border-radius: 12px; overflow: hidden; display: flex; flex-direction: column; height: 550px;">
+        <div style="background: #161b22; padding: 12px 15px; border-bottom: 1px solid #30363d;">
             <span style="font-weight: bold; font-size: 13px; color: #f2a900; letter-spacing: 1px;">📅 EKONOMİK TAKVİM</span>
         </div>
         <div style="flex-grow: 1;">
@@ -636,63 +636,43 @@ window.addEventListener('load', () => {
                   "width": "100%",
                   "height": "100%",
                   "locale": "tr",
-                  "importanceFilter": "-1,0,1",
-                  "currencyFilter": "USD,EUR,GBP,TRY"
+                  "importanceFilter": "-1,0,1"
                 }
                 </script>
             </div>
         </div>
     </div>
 
-    <div style="background: #0d1117; border: 1px solid #238636; border-radius: 12px; overflow: hidden; display: flex; flex-direction: column; height: 650px;">
-        <div style="background: #1a271d; padding: 15px; border-bottom: 1px solid #238636; display: flex; justify-content: space-between; align-items: center;">
-            <span style="font-weight: bold; font-size: 15px; color: #2ea043; letter-spacing: 1px;">📰 EKONOMİ BÜLTENİ</span>
-            <span style="font-size: 11px; color: #8b949e; background: rgba(255,255,255,0.05); padding: 4px 10px; border-radius: 6px;">Günlük Strateji Raporu</span>
+    <div style="background: #0d1117; border: 1px solid #238636; border-radius: 12px; overflow: hidden; display: flex; flex-direction: column; height: 550px;">
+        <div style="background: #1a271d; padding: 12px 15px; border-bottom: 1px solid #238636; display: flex; justify-content: space-between; align-items: center;">
+            <div style="display: flex; align-items: center; gap: 8px;">
+                <span style="font-weight: bold; font-size: 14px; color: #2ea043; letter-spacing: 1px;">📰 EKONOMİ BÜLTENİ</span>
+            </div>
+            <span style="color: #00ff88; font-size: 10px; font-weight: bold; animation: pulse 2s infinite;">● CANLI AKIŞ</span>
         </div>
         
-        <div style="padding: 25px; overflow-y: auto; flex-grow: 1; font-family: 'Inter', sans-serif;">
-            
-            <section style="margin-bottom: 25px;">
-                <h3 style="color: #f2a900; font-size: 14px; margin-bottom: 12px; display: flex; align-items: center;">
-                    <span style="margin-right: 8px;">📢</span> GÜNÜN ÖNEMLİ GELİŞMELERİ
-                </h3>
-                <div style="color: #c9d1d9; font-size: 13px; line-height: 1.8;">
-                    • Küresel piyasalar ABD tarafındaki makroekonomik verilere kilitlendi.<br>
-                    • Enerji fiyatlarındaki dalgalanma COMEX metallerinde oynaklığı artırıyor.<br>
-                    • Yurt içinde BIST 100 endeksi direnç bölgelerini zorlamaya devam ediyor.
+        <div id="economy-bulletin-target" style="padding: 20px; overflow-y: auto; flex-grow: 1; scrollbar-width: thin; scrollbar-color: #2ea043 #0d1117;">
+            <div id="news-content-target" style="color: #c9d1d9; font-size: 13px; line-height: 1.8; font-family: 'Inter', sans-serif;">
+                <div style="display: flex; justify-content: center; align-items: center; height: 100px; color: #8b949e;">
+                    🔄 Bülten verileri güncelleniyor...
                 </div>
-            </section>
-
-            <section style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 25px;">
-                <div style="background: #161b22; padding: 15px; border-radius: 10px; border: 1px solid #30363d;">
-                    <h4 style="color: #2ea043; font-size: 12px; margin-top: 0; margin-bottom: 10px;">📈 KRİTİK SEVİYELER</h4>
-                    <div style="color: #8b949e; font-size: 12px; line-height: 1.7;">
-                        <strong>ALTIN:</strong> 2640$ Destek / 2685$ Direnç<br>
-                        <strong>EURUSD:</strong> 1.0780 Destek / 1.0880 Direnç<br>
-                        <strong>BIST100:</strong> 9200 Destek / 9550 Direnç
-                    </div>
-                </div>
-                <div style="background: #161b22; padding: 15px; border-radius: 10px; border: 1px solid #30363d;">
-                    <h4 style="color: #f2a900; font-size: 12px; margin-top: 0; margin-bottom: 10px;">⚠️ DİKKAT EDİLMELİ</h4>
-                    <p style="color: #8b949e; font-size: 12px; margin: 0; line-height: 1.6;">
-                        Öğleden sonra açıklanacak olan ABD işsizlik haklarından yararlanma başvuruları paritelerde sert hareketler getirebilir.
-                    </p>
-                </div>
-            </section>
-
-            <div style="margin-top: 10px; padding: 12px; background: rgba(46, 160, 67, 0.05); border-radius: 8px; border-left: 4px solid #2ea043;">
-                <p style="color: #c9d1d9; font-size: 12px; margin: 0; line-height: 1.6;">
-                    <strong>SignalizeHub Analiz:</strong> Piyasa trendleri şu an için temkinli iyimserliği koruyor. Stratejik pozisyonlar için veri akışının netleşmesi beklenmelidir.
-                </p>
             </div>
         </div>
 
-        <div style="background: #0d1117; padding: 10px 20px; border-top: 1px solid #30363d; text-align: right;">
-            <span style="font-size: 10px; color: #484f58;">© SignalizeHub Ekonomi Bülteni - 2024</span>
+        <div style="background: #0d1117; padding: 8px 15px; border-top: 1px solid #30363d; text-align: right;">
+            <span style="font-size: 9px; color: #484f58;">SignalizeHub Live Feed v2.0</span>
         </div>
     </div>
 
 </div>
+
+<style>
+@keyframes pulse {
+    0% { opacity: 1; }
+    50% { opacity: 0.4; }
+    100% { opacity: 1; }
+}
+</style>
     <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 20px; align-items: stretch;">
 
         <div style="background: #000; border-radius: 15px; border: 1px solid var(--border); overflow: hidden; display: flex; flex-direction: column; min-height: 480px;">
