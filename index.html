@@ -533,11 +533,24 @@ window.addEventListener('load', () => {
     </div>
 </div>
 <div id="comex-central" style="max-width: 1240px; margin: 40px auto; padding: 0 20px; display: grid; grid-template-columns: 450px 1fr; gap: 25px; align-items: start;">
-
+    
     <div style="background: #000; border: 1px solid #30363d; border-radius: 12px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.5);">
         <div style="background: #161b22; padding: 15px; border-bottom: 1px solid #30363d; display: flex; align-items: center;">
             <span style="font-weight: bold; font-size: 14px; color: #fff; letter-spacing: 1px; text-transform: uppercase;">🌐 Uluslararası Piyasalar</span>
         </div>
+        <div style="height: 600px;">
+            </div>
+    </div>
+
+    <div style="background: #000; border: 1px solid #30363d; border-radius: 12px; overflow: hidden; height: 655px; display: flex; flex-direction: column;">
+        <div style="background: #161b22; padding: 15px; border-bottom: 1px solid #30363d; display: flex; justify-content: space-between;">
+            <span style="font-weight: bold; font-size: 13px; color: #e6edf3;">🏛️ CME GROUP (COMEX) RESMİ AKIŞ</span>
+            <span style="color: #00d1ff; font-size: 10px; font-weight: bold; border: 1px solid #00d1ff; padding: 2px 8px; border-radius: 20px;">USA FEED</span>
+        </div>
+        <div id="cme-news-list" style="flex-grow: 1; overflow-y: auto; padding: 10px; scrollbar-width: thin; scrollbar-color: #00d1ff #161b22;">
+            </div>
+    </div>
+</div>
         
         <div style="height: 600px;">
             <div class="tradingview-widget-container">
