@@ -5,6 +5,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SignalizeHub | Finansal Terminal</title>
     <style>
+/* Döviz tablosunun (dPanel) alt tarafa kaçmasını engeller, en üste sabitler */
+#dPanel {
+    position: absolute !important;
+    top: 60px !important; /* Menü yüksekliğine göre ayarla */
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+    background: #0f172a;
+    display: none; /* Sadece tıklandığında görünür */
+}
 /* Çark içindeki metinlerin parlaması ve netleşmesi */
 .dial-sector text {
     fill: #ffffff !important;
