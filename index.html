@@ -542,7 +542,7 @@ window.addEventListener('load', () => {
     <div class="opportunity-card" style="
         background: #000; 
         border: 1px solid #30363d; 
-        border-radius: 6px; 
+        border-radius: 4px; 
         display: grid; 
         grid-template-columns: 1fr 1fr; 
         gap: 1px; 
@@ -550,9 +550,9 @@ window.addEventListener('load', () => {
         overflow: hidden;
     ">
         
-        <div style="background: #000; padding: 4px 8px; height: 42px; overflow: hidden; display: flex; flex-direction: column; justify-content: center;">
-            <div style="font-size: 7.5px; color: #8b949e; font-weight: bold; margin-bottom: -8px; text-transform: uppercase; z-index: 10;">BIST</div>
-            <div style="transform: scale(0.58); transform-origin: left center; width: 172%; white-space: nowrap;">
+        <div style="background: #000; padding: 2px 6px; height: 35px; overflow: hidden; display: flex; align-items: center;">
+            <div style="font-size: 7px; color: #8b949e; font-weight: bold; position: absolute; top: 2px; left: 6px; text-transform: uppercase;">BIST</div>
+            <div style="transform: scale(0.44); transform-origin: left center; width: 227%; margin-top: 5px;">
                 <div class="tradingview-widget-container">
                     <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-single-quote.js" async>
                     { "symbol": "BIST:THYAO", "colorTheme": "dark", "isTransparent": true, "locale": "tr", "displayMode": "compact", "width": "100%" }
@@ -561,9 +561,9 @@ window.addEventListener('load', () => {
             </div>
         </div>
 
-        <div style="background: #000; padding: 4px 8px; height: 42px; overflow: hidden; display: flex; flex-direction: column; justify-content: center;">
-            <div style="font-size: 7.5px; color: #8b949e; font-weight: bold; margin-bottom: -8px; text-transform: uppercase; z-index: 10;">KRİPTO</div>
-            <div style="transform: scale(0.58); transform-origin: left center; width: 172%;">
+        <div style="background: #000; padding: 2px 6px; height: 35px; overflow: hidden; display: flex; align-items: center; position: relative;">
+            <div style="font-size: 7px; color: #8b949e; font-weight: bold; position: absolute; top: 2px; left: 6px; text-transform: uppercase;">KRİPTO</div>
+            <div style="transform: scale(0.44); transform-origin: left center; width: 227%; margin-top: 5px;">
                 <div class="tradingview-widget-container">
                     <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-single-quote.js" async>
                     { "symbol": "BINANCE:BTCUSDT", "colorTheme": "dark", "isTransparent": true, "locale": "tr", "displayMode": "compact", "width": "100%" }
@@ -572,9 +572,9 @@ window.addEventListener('load', () => {
             </div>
         </div>
 
-        <div style="background: #000; padding: 4px 8px; height: 42px; overflow: hidden; display: flex; flex-direction: column; justify-content: center;">
-            <div style="font-size: 7.5px; color: #8b949e; font-weight: bold; margin-bottom: -8px; text-transform: uppercase; z-index: 10;">FOREX</div>
-            <div style="transform: scale(0.58); transform-origin: left center; width: 172%;">
+        <div style="background: #000; padding: 2px 6px; height: 35px; overflow: hidden; display: flex; align-items: center; position: relative;">
+            <div style="font-size: 7px; color: #8b949e; font-weight: bold; position: absolute; top: 2px; left: 6px; text-transform: uppercase;">FOREX</div>
+            <div style="transform: scale(0.44); transform-origin: left center; width: 227%; margin-top: 5px;">
                 <div class="tradingview-widget-container">
                     <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-single-quote.js" async>
                     { "symbol": "FX:EURUSD", "colorTheme": "dark", "isTransparent": true, "locale": "tr", "displayMode": "compact", "width": "100%" }
@@ -583,19 +583,12 @@ window.addEventListener('load', () => {
             </div>
         </div>
 
-        <div style="background: #000; padding: 4px 8px; height: 42px; overflow: hidden; display: flex; flex-direction: column; justify-content: center;">
-            <div style="font-size: 7.5px; color: #8b949e; font-weight: bold; margin-bottom: -8px; text-transform: uppercase; z-index: 10;">MADEN</div>
-            <div style="transform: scale(0.58); transform-origin: left center; width: 172%;">
+        <div style="background: #000; padding: 2px 6px; height: 35px; overflow: hidden; display: flex; align-items: center; position: relative;">
+            <div style="font-size: 7px; color: #8b949e; font-weight: bold; position: absolute; top: 2px; left: 6px; text-transform: uppercase;">MADEN</div>
+            <div style="transform: scale(0.44); transform-origin: left center; width: 227%; margin-top: 5px;">
                 <div class="tradingview-widget-container">
                     <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-single-quote.js" async>
-                    { "symbol": "OANDA:XAUUSD", "colorTheme": "dark", "isTransparent": true, "locale": "tr", "displayMode": "compact", "width": "100%" }
-                    </script>
-                </div>
-            </div>
-        </div>
-
-    </div>
-</div>
+                    {
  <div class="container" style="max-width: 1240px; margin: 40px auto; padding: 0 20px;">
     
     <div style="background: var(--card-bg); border-radius: 20px; border: 1px solid var(--border); border-top: 4px solid #9d4edd; padding: 25px; margin-bottom: 25px; position: relative; overflow: hidden; min-height: 200px;">
