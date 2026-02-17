@@ -532,67 +532,75 @@ window.addEventListener('load', () => {
         </div>
     </div>
 </div>
- <div id="hub-opportunities" style="
-    width: 100%; 
-    max-width: 320px; /* Daha dar ve toplu */
-    margin: 10px 0 25px -15px; /* Sola tam hizalama */
-    padding: 0;
-">
-    <div style="
-        background: #000; 
-        border: 1px solid #30363d; 
-        border-radius: 6px; 
-        display: grid; 
-        grid-template-columns: 1fr 1fr; 
-        gap: 1px; 
-        background-color: #333; /* İnce gri çizgiler */
-    ">
-        
-        <div style="background: #000; padding: 6px; height: 35px; overflow: hidden;">
-            <div style="font-size: 8px; color: #8b949e; font-weight: bold; text-transform: uppercase;">BIST</div>
-            <div style="transform: scale(0.7); transform-origin: left center; width: 140%;">
-                <div class="tradingview-widget-container">
-                    <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-ticker-single-item.js" async>
-                    { "symbol": "BIST:THYAO", "colorTheme": "dark", "isTransparent": true, "locale": "tr" }
-                    </script>
-                </div>
+ <div id="comex-section" style="max-width: 1240px; margin: 20px auto; padding: 0 20px; display: grid; grid-template-columns: 400px 1fr; gap: 20px;">
+
+    <div class="comex-table-container" style="background: #0d1117; border: 1px solid #30363d; border-radius: 12px; overflow: hidden;">
+        <div style="background: #161b22; padding: 10px; border-bottom: 1px solid #30363d; font-weight: bold; font-size: 13px; color: #e6edf3;">
+            🌐 ULUSLARARASI PİYASALAR
+        </div>
+        <div style="height: 450px;">
+            <div class="tradingview-widget-container">
+                <div class="tradingview-widget-container__widget"></div>
+                <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-market-overview.js" async>
+                {
+                  "colorTheme": "dark",
+                  "dateRange": "12M",
+                  "showChart": false,
+                  "locale": "tr",
+                  "width": "100%",
+                  "height": "100%",
+                  "largeChartUrl": "",
+                  "isTransparent": true,
+                  "showSymbolLogo": true,
+                  "tabs": [
+                    {
+                      "title": "Emtialar",
+                      "symbols": [
+                        { "s": "OANDA:XAUUSD", "d": "Altın" },
+                        { "s": "OANDA:XAGUSD", "d": "Gümüş" },
+                        { "s": "NYMEX:CL1!", "d": "Ham Petrol" },
+                        { "s": "COMEX:HG1!", "d": "Bakır" },
+                        { "s": "NYMEX:NG1!", "d": "Doğal Gaz" }
+                      ]
+                    },
+                    {
+                        "title": "Endeksler",
+                        "symbols": [
+                          { "s": "FOREXCOM:SPXUSD", "d": "S&P 500" },
+                          { "s": "FOREXCOM:NSXUSD", "d": "Nasdaq 100" },
+                          { "s": "BIST:XU100", "d": "BIST 100" }
+                        ]
+                    }
+                  ]
+                }
+                </script>
             </div>
         </div>
-
-        <div style="background: #000; padding: 6px; height: 35px; overflow: hidden;">
-            <div style="font-size: 8px; color: #8b949e; font-weight: bold; text-transform: uppercase;">KRİPTO</div>
-            <div style="transform: scale(0.7); transform-origin: left center; width: 140%;">
-                <div class="tradingview-widget-container">
-                    <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-ticker-single-item.js" async>
-                    { "symbol": "BINANCE:BTCUSDT", "colorTheme": "dark", "isTransparent": true, "locale": "tr" }
-                    </script>
-                </div>
-            </div>
-        </div>
-
-        <div style="background: #000; padding: 6px; height: 35px; overflow: hidden;">
-            <div style="font-size: 8px; color: #8b949e; font-weight: bold; text-transform: uppercase;">FOREX</div>
-            <div style="transform: scale(0.7); transform-origin: left center; width: 140%;">
-                <div class="tradingview-widget-container">
-                    <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-ticker-single-item.js" async>
-                    { "symbol": "FX:EURUSD", "colorTheme": "dark", "isTransparent": true, "locale": "tr" }
-                    </script>
-                </div>
-            </div>
-        </div>
-
-        <div style="background: #000; padding: 6px; height: 35px; overflow: hidden;">
-            <div style="font-size: 8px; color: #8b949e; font-weight: bold; text-transform: uppercase;">MADEN</div>
-            <div style="transform: scale(0.7); transform-origin: left center; width: 140%;">
-                <div class="tradingview-widget-container">
-                    <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-ticker-single-item.js" async>
-                    { "symbol": "OANDA:XAUUSD", "colorTheme": "dark", "isTransparent": true, "locale": "tr" }
-                    </script>
-                </div>
-            </div>
-        </div>
-
     </div>
+
+    <div class="comex-news-container" style="background: #0d1117; border: 1px solid #30363d; border-radius: 12px; overflow: hidden;">
+        <div style="background: #161b22; padding: 10px; border-bottom: 1px solid #30363d; font-weight: bold; font-size: 13px; color: #e6edf3; display: flex; justify-content: space-between;">
+            <span>📰 COMEX HABER AJANSI</span>
+            <span style="color: #22c55e; font-size: 11px;">● CANLI AKIŞ</span>
+        </div>
+        <div style="height: 450px;">
+            <div class="tradingview-widget-container">
+                <div class="tradingview-widget-container__widget"></div>
+                <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-timeline.js" async>
+                {
+                  "feedMode": "all_symbols",
+                  "colorTheme": "dark",
+                  "isTransparent": true,
+                  "displayMode": "regular",
+                  "width": "100%",
+                  "height": "100%",
+                  "locale": "tr"
+                }
+                </script>
+            </div>
+        </div>
+    </div>
+
 </div>
 
     <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 20px; align-items: stretch;">
