@@ -532,19 +532,30 @@ window.addEventListener('load', () => {
         </div>
     </div>
 </div>
- <div id="hub-opportunities" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; padding: 15px;">
+ <div id="hub-opportunities" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px; padding: 10px;">
 
-    <div class="opportunity-card compact-card" style="padding: 10px; border: 1px solid rgba(34, 197, 94, 0.4);">
-        <div style="font-size: 10px; color: #94a3b8; font-weight: bold; margin-bottom: 5px;">BIST</div>
+    <div class="opportunity-card compact-card" style="padding: 12px; border: 1px solid rgba(34, 197, 94, 0.3); height: 110px; overflow: hidden; background: #161b22;">
+        <div style="font-size: 10px; color: #94a3b8; font-weight: bold; margin-bottom: 8px; text-transform: uppercase;">BIST</div>
         <div class="tradingview-widget-container">
-            <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-single-quote.js" async>
-            { "symbol": "BIST:THYAO", "colorTheme": "dark", "isTransparent": true, "locale": "tr", "displayMode": "compact", "width": "100%" }
+            <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-mini-symbol-overview.js" async>
+            {
+              "symbol": "BIST:THYAO",
+              "width": "100%",
+              "height": "70",
+              "locale": "tr",
+              "dateRange": "1D",
+              "colorTheme": "dark",
+              "trendLineColor": "#22c55e",
+              "underLineColor": "transparent",
+              "isTransparent": true,
+              "autosize": false
+            }
             </script>
         </div>
     </div>
 
-    <div class="opportunity-card compact-card" style="padding: 10px; border: 1px solid rgba(168, 85, 247, 0.4);">
-        <div style="font-size: 10px; color: #94a3b8; font-weight: bold; margin-bottom: 5px;">KRİPTO</div>
+    <div class="opportunity-card compact-card" style="padding: 12px; border: 1px solid rgba(168, 85, 247, 0.3); height: 110px; overflow: hidden; background: #161b22;">
+        <div style="font-size: 10px; color: #94a3b8; font-weight: bold; margin-bottom: 8px; text-transform: uppercase;">KRİPTO</div>
         <div class="tradingview-widget-container">
             <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-single-quote.js" async>
             { "symbol": "BINANCE:BTCUSDT", "colorTheme": "dark", "isTransparent": true, "locale": "tr", "displayMode": "compact", "width": "100%" }
@@ -552,8 +563,8 @@ window.addEventListener('load', () => {
         </div>
     </div>
 
-    <div class="opportunity-card compact-card" style="padding: 10px; border: 1px solid rgba(59, 130, 246, 0.4);">
-        <div style="font-size: 10px; color: #94a3b8; font-weight: bold; margin-bottom: 5px;">FOREX</div>
+    <div class="opportunity-card compact-card" style="padding: 12px; border: 1px solid rgba(59, 130, 246, 0.3); height: 110px; overflow: hidden; background: #161b22;">
+        <div style="font-size: 10px; color: #94a3b8; font-weight: bold; margin-bottom: 8px; text-transform: uppercase;">FOREX</div>
         <div class="tradingview-widget-container">
             <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-single-quote.js" async>
             { "symbol": "FX:EURUSD", "colorTheme": "dark", "isTransparent": true, "locale": "tr", "displayMode": "compact", "width": "100%" }
@@ -561,8 +572,8 @@ window.addEventListener('load', () => {
         </div>
     </div>
 
-    <div class="opportunity-card compact-card" style="padding: 10px; border: 1px solid rgba(234, 179, 8, 0.4);">
-        <div style="font-size: 10px; color: #94a3b8; font-weight: bold; margin-bottom: 5px;">MADEN</div>
+    <div class="opportunity-card compact-card" style="padding: 12px; border: 1px solid rgba(234, 179, 8, 0.3); height: 110px; overflow: hidden; background: #161b22;">
+        <div style="font-size: 10px; color: #94a3b8; font-weight: bold; margin-bottom: 8px; text-transform: uppercase;">MADEN</div>
         <div class="tradingview-widget-container">
             <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-single-quote.js" async>
             { "symbol": "OANDA:XAUUSD", "colorTheme": "dark", "isTransparent": true, "locale": "tr", "displayMode": "compact", "width": "100%" }
