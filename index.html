@@ -608,20 +608,61 @@ window.addEventListener('load', () => {
     </div>
 
     <div style="background: #000; border: 1px solid #30363d; border-radius: 12px; overflow: hidden; height: 655px; display: flex; flex-direction: column;">
-        <div style="background: #161b22; padding: 15px; border-bottom: 1px solid #30363d; display: flex; justify-content: space-between; align-items: center;">
-            <span style="font-weight: bold; font-size: 14px; color: #e6edf3;">📰 COMEX HABER AJANSI (CANLI)</span>
-            <span style="color: #22c55e; font-size: 11px; font-weight: bold; border: 1px solid #22c55e; padding: 2px 8px; border-radius: 20px;">USA FEED</span>
-        </div>
-        <div style="flex-grow: 1;">
-            <div class="tradingview-widget-container">
-                <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-timeline.js" async>
-                { "feedMode": "all_symbols", "colorTheme": "dark", "isTransparent": true, "displayMode": "regular", "width": "100%", "height": "100%", "locale": "tr" }
-                </script>
-            </div>
-        </div>
+    <div style="background: #161b22; padding: 15px; border-bottom: 1px solid #30363d; display: flex; justify-content: space-between; align-items: center;">
+        <span style="font-weight: bold; font-size: 14px; color: #e6edf3;">🏛️ CME GROUP (COMEX) RESMİ AKIŞ</span>
+        <span style="color: #00d1ff; font-size: 10px; font-weight: bold; border: 1px solid #00d1ff; padding: 2px 8px; border-radius: 20px;">OFFICIAL SOURCE</span>
     </div>
 
+    <div id="cme-official-target" style="flex-grow: 1; overflow-y: auto; padding: 10px; scrollbar-width: thin; scrollbar-color: #00d1ff #161b22;">
+        <div id="cme-news-list" style="color: #c9d1d9; font-size: 13px; line-height: 1.6;">
+            <div style="text-align: center; padding-top: 50px; color: #8b949e;">🔄 Chicago Borsası'na bağlanılıyor...</div>
+        </div>
+    </div>
 </div>
+
+<script>
+// --- CME GROUP RSS ENGINE ---
+async function fetchCMENews() {
+    const target = document.getElementById('cme-news-list');
+    if (!target) return;
+
+    // CME Group Metals News RSS Feed
+    const rssUrl = 'https://www.cmegroup.com/news.rss.xml'; 
+    const apiUrl = `https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(rssUrl)}&t=${Date.now()}`;
+
+    try {
+        const response = await fetch(apiUrl);
+        const data = await response.json();
+        
+        if (data && data.status === 'ok') {
+            let html = "";
+            data.items.forEach((item, i) => {
+                const pubDate = new Date(item.pubDate);
+                const timeStr = pubDate.toLocaleDateString('tr-TR') + " " + pubDate.getHours().toString().padStart(2, '0') + ":" + pubDate.getMinutes().toString().padStart(2, '0');
+                
+                html += `
+                    <div style="border-bottom: 1px solid #222; padding: 15px 10px; transition: 0.3s;" onmouseover="this.style.background='#0d1117'" onmouseout="this.style.background='transparent'">
+                        <div style="font-size: 10px; color: #00d1ff; font-weight: bold; margin-bottom: 5px;">[ ${timeStr} ]</div>
+                        <div style="cursor: pointer; color:#eee; font-size:13.5px; font-weight: 600; line-height:1.4;" onclick="window.open('${item.link}', '_blank')">
+                            ${item.title}
+                        </div>
+                        <div style="font-size: 11px; color: #8b949e; margin-top: 8px;">
+                            ${item.description.substring(0, 120)}...
+                        </div>
+                    </div>`;
+            });
+            target.innerHTML = html;
+        }
+    } catch (e) {
+        console.error("CME Hatası:", e);
+        target.innerHTML = '<p style="color:#ff4d4d; text-align:center;">CME Veri hattında bir sorun oluştu.</p>';
+    }
+}
+
+// Sayfa yüklendiğinde ve her 5 dakikada bir güncelle
+window.addEventListener('load', fetchCMENews);
+setInterval(fetchCMENews, 300000); 
+</script>
 
 <div id="strategy-center" style="max-width: 1240px; margin: 20px auto; padding: 0 20px; display: grid; grid-template-columns: 450px 1fr; gap: 25px; align-items: stretch;">
     
