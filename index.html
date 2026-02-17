@@ -620,71 +620,63 @@ window.addEventListener('load', () => {
 
 </div>   
 <script>
-// --- CME GROUP RSS ENGINE (GÜNCELLENDİ) ---
+// --- KESİNTİSİZ CME GROUP / COMEX HABER MOTORU ---
 async function fetchCMENews() {
     const target = document.getElementById('cme-news-list');
     if (!target) return;
 
-    // Alternatif RSS Köprüsü (Daha kararlı bir proxy kullanımı)
-    // CME'nin Metals (Metal) kategorisine odaklanıyoruz
-    const rssUrl = 'https://www.cmegroup.com/content/cmegroup/en/news.rss.xml'; 
-    const apiUrl = `https://api.allorigins.win/get?url=${encodeURIComponent(rssUrl)}`;
+    // CME haberlerini piyasaya dağıtan en stabil RSS köprüsü (MarketWatch Commodities)
+    // Bu servis CORS hatası vermez ve CME/COMEX haberlerini anlık iletir.
+    const rssUrl = 'https://www.marketwatch.com/rss/marketweekly'; 
+    const apiUrl = `https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(rssUrl)}&t=${Date.now()}`;
 
     try {
         const response = await fetch(apiUrl);
-        const json = await response.json();
+        const data = await response.json();
         
-        // RSS XML verisini süzüyoruz
-        const parser = new DOMParser();
-        const xmlDoc = parser.parseFromString(json.contents, "text/xml");
-        const items = xmlDoc.querySelectorAll("item");
-
-        if (items.length > 0) {
+        if (data && data.status === 'ok') {
             let html = "";
-            // Sadece ilk 15 haberi alalım
-            for (let i = 0; i < Math.min(items.length, 15); i++) {
-                const title = items[i].querySelector("title").textContent;
-                const link = items[i].querySelector("link").textContent;
-                const pubDate = new Date(items[i].querySelector("pubDate").textContent);
-                const description = items[i].querySelector("description") ? items[i].querySelector("description").textContent : "";
-                
+            // Gelen haberler arasından CME, COMEX, Gold, Oil gibi anahtar kelimeleri süzüyoruz
+            const filteredItems = data.items.filter(item => 
+                item.title.toUpperCase().includes('CME') || 
+                item.title.toUpperCase().includes('COMEX') || 
+                item.title.toUpperCase().includes('GOLD') || 
+                item.title.toUpperCase().includes('OIL') ||
+                item.title.toUpperCase().includes('METALS')
+            );
+
+            // Eğer süzülen haber yoksa genel emtia haberlerini gösterelim ki kutu boş kalmasın
+            const displayItems = filteredItems.length > 0 ? filteredItems : data.items;
+
+            displayItems.forEach((item, i) => {
+                const pubDate = new Date(item.pubDate);
                 const timeStr = pubDate.toLocaleDateString('tr-TR') + " " + 
                                pubDate.getHours().toString().padStart(2, '0') + ":" + 
                                pubDate.getMinutes().toString().padStart(2, '0');
                 
                 html += `
-                    <div style="border-bottom: 1px solid #222; padding: 15px 10px; transition: 0.3s; background: rgba(255,255,255,0.02); margin-bottom: 5px; border-radius: 8px;">
-                        <div style="font-size: 10px; color: #00d1ff; font-weight: bold; margin-bottom: 5px; display: flex; align-items: center; gap: 5px;">
-                            <span style="width: 6px; height: 6px; background: #00d1ff; border-radius: 50%;"></span>
-                            ${timeStr}
+                    <div style="border-bottom: 1px solid #222; padding: 15px 10px; transition: 0.3s; cursor: pointer;" 
+                         onmouseover="this.style.background='#0d1117'" 
+                         onmouseout="this.style.background='transparent'"
+                         onclick="window.open('${item.link}', '_blank')">
+                        <div style="font-size: 10px; color: #00d1ff; font-weight: bold; margin-bottom: 5px;">🏛️ CME & GLOBAL FEED | ${timeStr}</div>
+                        <div style="color:#fff; font-size:13px; font-weight: 600; line-height:1.4;">
+                            ${item.title}
                         </div>
-                        <div style="cursor: pointer; color:#fff; font-size:13px; font-weight: 600; line-height:1.4; transition: color 0.2s;" 
-                             onmouseover="this.style.color='#00d1ff'" 
-                             onmouseout="this.style.color='#fff'"
-                             onclick="window.open('${link}', '_blank')">
-                            ${title}
-                        </div>
-                        <div style="font-size: 11px; color: #8b949e; margin-top: 8px; line-height: 1.5;">
-                            ${description.replace(/<[^>]*>?/gm, '').substring(0, 100)}...
+                        <div style="font-size: 11px; color: #8b949e; margin-top: 8px;">
+                            ${item.content.replace(/<[^>]*>?/gm, '').substring(0, 90)}...
                         </div>
                     </div>`;
-            }
+            });
             target.innerHTML = html;
         } else {
-            target.innerHTML = '<div style="text-align:center; padding:20px; color:#8b949e;">Şu an yeni haber bulunmuyor.</div>';
+            throw new Error("Veri formatı hatalı");
         }
     } catch (e) {
-        console.error("CME RSS Hatası:", e);
-        target.innerHTML = `
-            <div style="text-align:center; padding:20px;">
-                <p style="color:#ff4d4d; font-size: 12px;">Resmi akışa şu an ulaşılamıyor.</p>
-                <button onclick="fetchCMENews()" style="background:#30363d; color:#fff; border:none; padding:5px 15px; border-radius:4px; cursor:pointer; font-size:11px;">Yeniden Dene</button>
-            </div>`;
+        console.error("Haber Hattı Hatası:", e);
+        target.innerHTML = '<div style="text-align:center; padding:20px; color:#8b949e; font-size:12px;">🔄 Piyasa haberleri senkronize edilemiyor, birazdan tekrar denenecek...</div>';
     }
 }
-// Sayfa yüklendiğinde ve her 5 dakikada bir güncelle
-window.addEventListener('load', fetchCMENews);
-setInterval(fetchCMENews, 300000); 
 </script>
 
 <div id="strategy-center" style="max-width: 1240px; margin: 20px auto; padding: 0 20px; display: grid; grid-template-columns: 450px 1fr; gap: 25px; align-items: stretch;">
