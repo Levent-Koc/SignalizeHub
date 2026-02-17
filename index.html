@@ -623,18 +623,19 @@ window.addEventListener('load', () => {
 
 <div id="strategy-center" style="max-width: 1240px; margin: 20px auto; padding: 0 20px; display: grid; grid-template-columns: 450px 1fr; gap: 25px; align-items: stretch;">
     
-    <div style="background: #000; border: 1px solid #30363d; border-radius: 12px; overflow: hidden; display: flex; flex-direction: column; height: 550px;">
-        <div style="background: #161b22; padding: 12px 15px; border-bottom: 1px solid #30363d;">
-            <span style="font-weight: bold; font-size: 13px; color: #f2a900; letter-spacing: 1px;">📅 EKONOMİK TAKVİM</span>
-        </div>
-        <div style="flex-grow: 1;">
-            <div class="tradingview-widget-container">
-                <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-events.js" async>
-                { "colorTheme": "dark", "isTransparent": true, "width": "100%", "height": "100%", "locale": "tr", "importanceFilter": "-1,0,1" }
-                </script>
+     <div style="background: #000; border-radius: 15px; border: 1px solid var(--border); overflow: hidden; display: flex; flex-direction: column;">
+            <div style="background: #1e293b; padding: 10px 15px; border-bottom: 1px solid rgba(255,255,255,0.1);">
+                <span style="color: #fff; font-size: 11px; font-weight: bold;">🗓️ VERİ TAKVİMİ</span>
+            </div>
+            <div style="flex: 1;">
+                <div class="tradingview-widget-container" style="height: 100%;">
+                    <div class="tradingview-widget-container__widget"></div>
+                    <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-events.js" async>
+                    { "colorTheme": "dark", "isTransparent": true, "width": "100%", "height": "100%", "locale": "tr", "importanceFilter": "0,1", "currencyFilter": "TRY,USD,EUR" }
+                    </script>
+                </div>
             </div>
         </div>
-    </div>
 
     <div style="background: #0d1117; border: 1px solid #238636; border-radius: 12px; overflow: hidden; display: flex; flex-direction: column; height: 550px;">
         <div style="background: #1a271d; padding: 12px 15px; border-bottom: 1px solid #238636; display: flex; justify-content: space-between; align-items: center;">
