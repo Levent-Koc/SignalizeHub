@@ -532,77 +532,80 @@ window.addEventListener('load', () => {
         </div>
     </div>
 </div>
-<div style="background: #000; border: 1px solid #30363d; border-radius: 12px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.5);">
-    <div style="background: #161b22; padding: 15px; border-bottom: 1px solid #30363d; display: flex; align-items: center;">
-        <span style="font-weight: bold; font-size: 14px; color: #fff; letter-spacing: 1px; text-transform: uppercase;">🌐 Uluslararası Piyasalar</span>
-    </div>
-    <div style="height: 600px;">
-        <div class="tradingview-widget-container">
-            <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-market-overview.js" async>
-            {
-              "colorTheme": "dark",
-              "dateRange": "12M",
-              "showChart": false,
-              "locale": "tr",
-              "width": "100%",
-              "height": "100%",
-              "isTransparent": true,
-              "showSymbolLogo": true,
-              "tabs": [
+<div id="comex-central" style="max-width: 1240px; margin: 40px auto; padding: 0 20px; display: grid; grid-template-columns: 450px 1fr; gap: 25px; align-items: start;">
+
+    <div style="background: #000; border: 1px solid #30363d; border-radius: 12px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.5);">
+        <div style="background: #161b22; padding: 15px; border-bottom: 1px solid #30363d; display: flex; align-items: center;">
+            <span style="font-weight: bold; font-size: 14px; color: #fff; letter-spacing: 1px; text-transform: uppercase;">🌐 Uluslararası Piyasalar</span>
+        </div>
+        
+        <div style="height: 600px;">
+            <div class="tradingview-widget-container">
+                <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-market-overview.js" async>
                 {
-                  "title": "EMTİALAR",
-                  "symbols": [
-                    { "s": "OANDA:XAUUSD", "d": "ONS ALTIN" },
-                    { "s": "OANDA:XAGUSD", "d": "ONS GÜMÜŞ" },
-                    { "s": "COMEX:HG1!", "d": "BAKIR VADELİ" },
-                    { "s": "NYMEX:CL1!", "d": "WTI PETROL" },
-                    { "s": "TVC:UKOIL", "d": "BRENT PETROL" },
-                    { "s": "NYMEX:NG1!", "d": "DOĞAL GAZ" },
-                    { "s": "CBOT:ZC1!", "d": "MISIR VADELİ" },
-                    { "s": "CBOT:ZW1!", "d": "BUĞDAY VADELİ" }
-                  ]
-                },
-                {
-                  "title": "ENDEKSLER",
-                  "symbols": [
-                    { "s": "FOREXCOM:SPXUSD", "d": "S&P 500" },
-                    { "s": "FOREXCOM:NSXUSD", "d": "NASDAQ 100" },
-                    { "s": "FOREXCOM:DJI", "d": "DOW 30" },
-                    { "s": "INDEX:DAX", "d": "DAX 40" },
-                    { "s": "INDEX:CAC40", "d": "CAC 40" },
-                    { "s": "INDEX:NI225", "d": "NIKKEI 225" },
-                    { "s": "BIST:XU100", "d": "BIST 100" }
-                  ]
-                },
-                {
-                  "title": "VADELİLER",
-                  "symbols": [
-                    { "s": "CME_MINI:ES1!", "d": "S&P 500 FUT." },
-                    { "s": "CME_MINI:NQ1!", "d": "NASDAQ FUT." },
-                    { "s": "COMEX:GC1!", "d": "GOLD FUT." },
-                    { "s": "NYMEX:CL1!", "d": "OIL FUT." },
-                    { "s": "CME:6E1!", "d": "EURO FUT." },
-                    { "s": "CME:6B1!", "d": "GBP FUT." }
-                  ]
-                },
-                {
-                  "title": "DÖVİZ",
-                  "symbols": [
-                    { "s": "FX:EURUSD", "d": "EUR / USD" },
-                    { "s": "FX:GBPUSD", "d": "GBP / USD" },
-                    { "s": "FX:USDJPY", "d": "USD / JPY" },
-                    { "s": "FX:USDCHF", "d": "USD / CHF" },
-                    { "s": "FX:AUDUSD", "d": "AUD / USD" },
-                    { "s": "FX:USDCAD", "d": "USD / CAD" },
-                    { "s": "FX:USDTRY", "d": "USD / TRY" }
+                  "colorTheme": "dark",
+                  "dateRange": "12M",
+                  "showChart": false,
+                  "locale": "tr",
+                  "width": "100%",
+                  "height": "100%",
+                  "isTransparent": true,
+                  "showSymbolLogo": true,
+                  "tabs": [
+                    {
+                      "title": "EMTİALAR",
+                      "symbols": [
+                        { "s": "OANDA:XAUUSD", "d": "ONS ALTIN" },
+                        { "s": "OANDA:XAGUSD", "d": "ONS GÜMÜŞ" },
+                        { "s": "COMEX:HG1!", "d": "BAKIR VADELİ" },
+                        { "s": "NYMEX:CL1!", "d": "WTI PETROL" },
+                        { "s": "TVC:UKOIL", "d": "BRENT PETROL" },
+                        { "s": "NYMEX:NG1!", "d": "DOĞAL GAZ" },
+                        { "s": "CBOT:ZC1!", "d": "MISIR VADELİ" },
+                        { "s": "CBOT:ZW1!", "d": "BUĞDAY VADELİ" }
+                      ]
+                    },
+                    {
+                      "title": "ENDEKSLER",
+                      "symbols": [
+                        { "s": "FOREXCOM:SPXUSD", "d": "S&P 500" },
+                        { "s": "FOREXCOM:NSXUSD", "d": "NASDAQ 100" },
+                        { "s": "FOREXCOM:DJI", "d": "DOW 30" },
+                        { "s": "INDEX:DAX", "d": "DAX 40" },
+                        { "s": "INDEX:CAC40", "d": "CAC 40" },
+                        { "s": "INDEX:NI225", "d": "NIKKEI 225" },
+                        { "s": "BIST:XU100", "d": "BIST 100" }
+                      ]
+                    },
+                    {
+                      "title": "VADELİLER",
+                      "symbols": [
+                        { "s": "CME_MINI:ES1!", "d": "S&P 500 FUT." },
+                        { "s": "CME_MINI:NQ1!", "d": "NASDAQ FUT." },
+                        { "s": "COMEX:GC1!", "d": "GOLD FUT." },
+                        { "s": "NYMEX:CL1!", "d": "OIL FUT." },
+                        { "s": "CME:6E1!", "d": "EURO FUT." },
+                        { "s": "CME:6B1!", "d": "GBP FUT." }
+                      ]
+                    },
+                    {
+                      "title": "DÖVİZ",
+                      "symbols": [
+                        { "s": "FX:EURUSD", "d": "EUR / USD" },
+                        { "s": "FX:GBPUSD", "d": "GBP / USD" },
+                        { "s": "FX:USDJPY", "d": "USD / JPY" },
+                        { "s": "FX:USDCHF", "d": "USD / CHF" },
+                        { "s": "FX:AUDUSD", "d": "AUD / USD" },
+                        { "s": "FX:USDCAD", "d": "USD / CAD" },
+                        { "s": "FX:USDTRY", "d": "USD / TRY" }
+                      ]
+                    }
                   ]
                 }
-              ]
-            }
-            </script>
+                </script>
+            </div>
         </div>
     </div>
-</div>
 
     <div style="background: #000; border: 1px solid #30363d; border-radius: 12px; overflow: hidden; height: 655px; display: flex; flex-direction: column;">
         <div style="background: #161b22; padding: 15px; border-bottom: 1px solid #30363d; display: flex; justify-content: space-between; align-items: center;">
@@ -617,6 +620,7 @@ window.addEventListener('load', () => {
             </div>
         </div>
     </div>
+
 </div>
 
 <div id="strategy-center" style="max-width: 1240px; margin: 20px auto; padding: 0 20px; display: grid; grid-template-columns: 450px 1fr; gap: 25px; align-items: stretch;">
