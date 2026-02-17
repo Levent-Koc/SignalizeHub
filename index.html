@@ -620,44 +620,68 @@ window.addEventListener('load', () => {
 
 </div>   
 <script>
-// --- CME GROUP RSS ENGINE ---
+// --- CME GROUP RSS ENGINE (GÜNCELLENDİ) ---
 async function fetchCMENews() {
     const target = document.getElementById('cme-news-list');
     if (!target) return;
 
-    // CME Group Metals News RSS Feed
-    const rssUrl = 'https://www.cmegroup.com/news.rss.xml'; 
-    const apiUrl = `https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(rssUrl)}&t=${Date.now()}`;
+    // Alternatif RSS Köprüsü (Daha kararlı bir proxy kullanımı)
+    // CME'nin Metals (Metal) kategorisine odaklanıyoruz
+    const rssUrl = 'https://www.cmegroup.com/content/cmegroup/en/news.rss.xml'; 
+    const apiUrl = `https://api.allorigins.win/get?url=${encodeURIComponent(rssUrl)}`;
 
     try {
         const response = await fetch(apiUrl);
-        const data = await response.json();
+        const json = await response.json();
         
-        if (data && data.status === 'ok') {
+        // RSS XML verisini süzüyoruz
+        const parser = new DOMParser();
+        const xmlDoc = parser.parseFromString(json.contents, "text/xml");
+        const items = xmlDoc.querySelectorAll("item");
+
+        if (items.length > 0) {
             let html = "";
-            data.items.forEach((item, i) => {
-                const pubDate = new Date(item.pubDate);
-                const timeStr = pubDate.toLocaleDateString('tr-TR') + " " + pubDate.getHours().toString().padStart(2, '0') + ":" + pubDate.getMinutes().toString().padStart(2, '0');
+            // Sadece ilk 15 haberi alalım
+            for (let i = 0; i < Math.min(items.length, 15); i++) {
+                const title = items[i].querySelector("title").textContent;
+                const link = items[i].querySelector("link").textContent;
+                const pubDate = new Date(items[i].querySelector("pubDate").textContent);
+                const description = items[i].querySelector("description") ? items[i].querySelector("description").textContent : "";
+                
+                const timeStr = pubDate.toLocaleDateString('tr-TR') + " " + 
+                               pubDate.getHours().toString().padStart(2, '0') + ":" + 
+                               pubDate.getMinutes().toString().padStart(2, '0');
                 
                 html += `
-                    <div style="border-bottom: 1px solid #222; padding: 15px 10px; transition: 0.3s;" onmouseover="this.style.background='#0d1117'" onmouseout="this.style.background='transparent'">
-                        <div style="font-size: 10px; color: #00d1ff; font-weight: bold; margin-bottom: 5px;">[ ${timeStr} ]</div>
-                        <div style="cursor: pointer; color:#eee; font-size:13.5px; font-weight: 600; line-height:1.4;" onclick="window.open('${item.link}', '_blank')">
-                            ${item.title}
+                    <div style="border-bottom: 1px solid #222; padding: 15px 10px; transition: 0.3s; background: rgba(255,255,255,0.02); margin-bottom: 5px; border-radius: 8px;">
+                        <div style="font-size: 10px; color: #00d1ff; font-weight: bold; margin-bottom: 5px; display: flex; align-items: center; gap: 5px;">
+                            <span style="width: 6px; height: 6px; background: #00d1ff; border-radius: 50%;"></span>
+                            ${timeStr}
                         </div>
-                        <div style="font-size: 11px; color: #8b949e; margin-top: 8px;">
-                            ${item.description.substring(0, 120)}...
+                        <div style="cursor: pointer; color:#fff; font-size:13px; font-weight: 600; line-height:1.4; transition: color 0.2s;" 
+                             onmouseover="this.style.color='#00d1ff'" 
+                             onmouseout="this.style.color='#fff'"
+                             onclick="window.open('${link}', '_blank')">
+                            ${title}
+                        </div>
+                        <div style="font-size: 11px; color: #8b949e; margin-top: 8px; line-height: 1.5;">
+                            ${description.replace(/<[^>]*>?/gm, '').substring(0, 100)}...
                         </div>
                     </div>`;
-            });
+            }
             target.innerHTML = html;
+        } else {
+            target.innerHTML = '<div style="text-align:center; padding:20px; color:#8b949e;">Şu an yeni haber bulunmuyor.</div>';
         }
     } catch (e) {
-        console.error("CME Hatası:", e);
-        target.innerHTML = '<p style="color:#ff4d4d; text-align:center;">CME Veri hattında bir sorun oluştu.</p>';
+        console.error("CME RSS Hatası:", e);
+        target.innerHTML = `
+            <div style="text-align:center; padding:20px;">
+                <p style="color:#ff4d4d; font-size: 12px;">Resmi akışa şu an ulaşılamıyor.</p>
+                <button onclick="fetchCMENews()" style="background:#30363d; color:#fff; border:none; padding:5px 15px; border-radius:4px; cursor:pointer; font-size:11px;">Yeniden Dene</button>
+            </div>`;
     }
 }
-
 // Sayfa yüklendiğinde ve her 5 dakikada bir güncelle
 window.addEventListener('load', fetchCMENews);
 setInterval(fetchCMENews, 300000); 
