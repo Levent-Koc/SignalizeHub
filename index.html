@@ -620,6 +620,51 @@ window.addEventListener('load', () => {
         </div>
     </div>
 
+</div><div id="calendar-news-section" style="max-width: 1240px; margin: 20px auto; padding: 0 20px; display: grid; grid-template-columns: 450px 1fr; gap: 25px; align-items: start;">
+
+    <div style="background: #000; border: 1px solid #30363d; border-radius: 12px; overflow: hidden; height: 600px;">
+        <div style="background: #161b22; padding: 12px; border-bottom: 1px solid #30363d; display: flex; justify-content: space-between; align-items: center;">
+            <span style="font-weight: bold; font-size: 13px; color: #f2a900;">📅 EKONOMİK TAKVİM</span>
+            <span style="font-size: 10px; color: #8b949e;">KRİTİK VERİLER</span>
+        </div>
+        <div style="height: 545px;">
+            <div class="tradingview-widget-container">
+                <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-events.js" async>
+                {
+                  "colorTheme": "dark",
+                  "isTransparent": true,
+                  "width": "100%",
+                  "height": "100%",
+                  "locale": "tr",
+                  "importanceFilter": "-1,0,1",
+                  "currencyFilter": "USD,EUR,GBP,TRY"
+                }
+                </script>
+            </div>
+        </div>
+    </div>
+
+    <div style="background: #000; border: 1px solid #30363d; border-radius: 12px; overflow: hidden; height: 600px;">
+        <div style="background: #161b22; padding: 12px; border-bottom: 1px solid #30363d;">
+            <span style="font-weight: bold; font-size: 13px; color: #e6edf3;">📰 GLOBAL PİYASA RADARI (TÜRKÇE)</span>
+        </div>
+        <div style="height: 545px;">
+            <div class="tradingview-widget-container">
+                <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-timeline.js" async>
+                {
+                  "feedMode": "all_symbols",
+                  "colorTheme": "dark",
+                  "isTransparent": true,
+                  "displayMode": "regular",
+                  "width": "100%",
+                  "height": "100%",
+                  "locale": "tr"
+                }
+                </script>
+            </div>
+        </div>
+    </div>
+
 </div>
     <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 20px; align-items: stretch;">
 
