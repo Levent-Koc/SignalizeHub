@@ -535,11 +535,9 @@ window.addEventListener('load', () => {
 <div id="comex-central" style="max-width: 1240px !important; margin: 40px auto !important; padding: 0 20px !important; display: flex !important; flex-direction: row !important; gap: 25px !important; align-items: stretch !important; clear: both !important;">
 
     <div style="width: 450px !important; min-width: 450px !important; background: #000; border: 1px solid #30363d; border-radius: 12px; overflow: hidden; height: 650px; display: flex; flex-direction: column;">
-        
         <div style="background: #161b22; padding: 15px; border-bottom: 1px solid #30363d; display: flex; align-items: center; justify-content: flex-start;">
             <span style="font-weight: bold; font-size: 14px; color: #fff; letter-spacing: 1px; text-transform: uppercase;">🌐 Uluslararası Piyasalar</span>
         </div>
-
         <div style="flex: 1; height: 100%; overflow: hidden;">
             <div class="tradingview-widget-container" style="height: 100% !important; width: 100% !important;">
                 <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-market-overview.js" async>
@@ -571,22 +569,8 @@ window.addEventListener('load', () => {
                       "symbols": [
                         { "s": "FOREXCOM:SPXUSD", "d": "S&P 500" },
                         { "s": "FOREXCOM:NSXUSD", "d": "NASDAQ 100" },
-                        { "s": "FOREXCOM:DJI", "d": "DOW 30" },
                         { "s": "INDEX:DAX", "d": "DAX 40" },
-                        { "s": "INDEX:CAC40", "d": "CAC 40" },
-                        { "s": "INDEX:NI225", "d": "NIKKEI 225" },
                         { "s": "BIST:XU100", "d": "BIST 100" }
-                      ]
-                    },
-                    {
-                      "title": "VADELİLER",
-                      "symbols": [
-                        { "s": "CME_MINI:ES1!", "d": "S&P 500 FUT." },
-                        { "s": "CME_MINI:NQ1!", "d": "NASDAQ FUT." },
-                        { "s": "COMEX:GC1!", "d": "GOLD FUT." },
-                        { "s": "NYMEX:CL1!", "d": "OIL FUT." },
-                        { "s": "CME:6E1!", "d": "EURO FUT." },
-                        { "s": "CME:6B1!", "d": "GBP FUT." }
                       ]
                     },
                     {
@@ -595,9 +579,6 @@ window.addEventListener('load', () => {
                         { "s": "FX:EURUSD", "d": "EUR / USD" },
                         { "s": "FX:GBPUSD", "d": "GBP / USD" },
                         { "s": "FX:USDJPY", "d": "USD / JPY" },
-                        { "s": "FX:USDCHF", "d": "USD / CHF" },
-                        { "s": "FX:AUDUSD", "d": "AUD / USD" },
-                        { "s": "FX:USDCAD", "d": "USD / CAD" },
                         { "s": "FX:USDTRY", "d": "USD / TRY" }
                       ]
                     }
@@ -610,15 +591,27 @@ window.addEventListener('load', () => {
 
     <div style="flex: 1 !important; background: #000; border: 1px solid #30363d; border-radius: 12px; overflow: hidden; height: 650px; display: flex; flex-direction: column;">
         <div style="background: #161b22; padding: 15px; border-bottom: 1px solid #30363d; display: flex; justify-content: space-between; align-items: center;">
-            <span style="font-weight: bold; font-size: 13px; color: #e6edf3;">🏛️ CME GROUP (COMEX) RESMİ AKIŞ</span>
-            <span style="color: #00d1ff; font-size: 9px; font-weight: bold; border: 1px solid #00d1ff; padding: 2px 8px; border-radius: 20px;">USA FEED</span>
+            <span style="font-weight: bold; font-size: 13px; color: #e6edf3; letter-spacing: 1px;">🌍 GLOBAL INTELLIGENCE (ALL MARKETS)</span>
+            <span style="color: #22c55e; font-size: 9px; font-weight: bold; border: 1px solid #22c55e; padding: 2px 8px; border-radius: 20px; letter-spacing: 1px;">LIVE DATA</span>
         </div>
-        <div id="cme-news-list" style="flex: 1; overflow-y: auto; padding: 10px; scrollbar-width: thin; scrollbar-color: #00d1ff #161b22;">
-            <div style="text-align: center; color: #484f58; padding-top: 50px;">Veri akışı bekleniyor...</div>
+        <div style="flex: 1; overflow: hidden;">
+            <div class="tradingview-widget-container" style="height: 100% !important; width: 100% !important;">
+                <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-timeline.js" async>
+                {
+                  "feedMode": "all_symbols",
+                  "colorTheme": "dark",
+                  "isTransparent": true,
+                  "displayMode": "regular",
+                  "width": "100%",
+                  "height": "100%",
+                  "locale": "en"
+                }
+                </script>
+            </div>
         </div>
     </div>
 
-</div>   
+</div>
 <script>
 // --- KESİNTİSİZ CNBC GLOBAL / COMEX HABER MOTORU ---
 async function fetchCMENews() {
