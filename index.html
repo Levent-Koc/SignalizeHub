@@ -283,7 +283,7 @@ let dailyReportData = [
 ];
 window.isLoggedIn = false;
 
-// --- 1. RAPOR RENDER MOTORU ---
+// JavaScript fonksiyonunu şu şekilde güncelle:
 function renderStrategyReport() {
     const target = document.getElementById('report-content-target');
     if (!target || !dailyReportData[currentStrategyPage]) return;
@@ -292,11 +292,11 @@ function renderStrategyReport() {
     const page = dailyReportData[currentStrategyPage];
     
     target.innerHTML = `
-        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
-            <h4 style="margin:0; color:#9d4edd; font-size:16px;">${page.title}</h4>
-            <span style="font-size:9px; background:rgba(34, 197, 94, 0.2); color:#22c55e; border:1px solid #22c55e; padding:2px 6px; border-radius:10px; font-weight:bold; letter-spacing:1px;">${today}</span>
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+            <h4 style="margin:0; color:#00d1ff; font-size:18px; font-weight:bold;">${page.title}</h4>
+            <span style="font-size:10px; background:rgba(0, 209, 255, 0.1); color:#00d1ff; border:1px solid #00d1ff; padding:4px 10px; border-radius:12px; font-weight:bold;">${today}</span>
         </div>
-        <div style="line-height:1.7; font-size:14px; color:var(--text); margin:0; animation: fadeIn 0.4s ease-out;">
+        <div style="line-height:1.8; font-size:15px; color:#e6edf3 !important; margin:0; animation: fadeIn 0.5s ease-out;">
             ${page.text}
         </div>
     `;
