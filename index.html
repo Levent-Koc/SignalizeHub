@@ -1162,37 +1162,46 @@ nav {
             </div>
         </div>
 
-        <div style="flex: 1; padding: 15px; overflow-y: auto; position: relative; background: #090c10;">
-            
-            <div id="sinyalBlurArea" style="filter: blur(6px); opacity: 0.4; pointer-events: none; transition: 0.5s;">
-                <div style="background: #161b22; border: 1px solid #30363d; border-radius: 10px; padding: 15px; margin-bottom: 15px; border-left: 4px solid #00ff88;">
-                    <div style="display: flex; justify-content: space-between; margin-bottom: 5px;">
-                        <span style="color: #fff; font-weight: bold; font-size: 15px;">THYAO</span>
-                        <span style="color: #00ff88; font-weight: 900; font-size: 11px;">GÜÇLÜ AL</span>
-                    </div>
-                    <div style="font-size: 12px; color: #8b949e;">HEDEF: 312.50 | STOP: 288.00</div>
-                </div>
-                <div style="background: #161b22; border: 1px solid #30363d; border-radius: 10px; padding: 15px; border-left: 4px solid #eab308;">
-                    <div style="display: flex; justify-content: space-between; margin-bottom: 5px;">
-                        <span style="color: #fff; font-weight: bold; font-size: 15px;">EREGL</span>
-                        <span style="color: #eab308; font-weight: 900; font-size: 11px;">BEKLE</span>
-                    </div>
-                    <div style="font-size: 12px; color: #8b949e;">HEDEF: 54.20 | STOP: 47.80</div>
-                </div>
+        <div style="flex: 1; padding: 15px; overflow-y: auto; background: #090c10; scrollbar-width: thin;">
+    
+    <div id="sinyalBlurArea" style="filter: none; opacity: 1; pointer-events: auto;">
+        
+        <div style="background: #161b22; border: 1px solid #30363d; border-radius: 10px; padding: 15px; margin-bottom: 12px; border-left: 4px solid #00ff88; transition: 0.3s;" onmouseover="this.style.background='#1c2128'" onmouseout="this.style.background='#161b22'">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+                <span style="color: #fff; font-weight: bold; font-size: 15px; letter-spacing: 0.5px;">THYAO</span>
+                <span style="background: rgba(0, 255, 136, 0.1); color: #00ff88; padding: 2px 8px; border-radius: 4px; font-size: 10px; font-weight: 900;">GÜÇLÜ AL</span>
             </div>
-
-            <div id="sinyalLockVisual" style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; background: rgba(13, 17, 23, 0.6); backdrop-filter: blur(2px);">
-                <div style="font-size: 32px; margin-bottom: 15px;">🔒</div>
-                <h4 style="color: #fff; margin: 0 0 10px 0; font-size: 14px; font-weight: bold;">ÜYELERE ÖZEL ALAN</h4>
-                <p style="color: #8b949e; font-size: 11px; margin-bottom: 20px; max-width: 200px;">Bu analizleri görmek için lütfen giriş yapın.</p>
-                <button onclick="openSingleTab('login')" style="background: var(--primary); color: #000; border: none; padding: 10px 30px; border-radius: 8px; font-weight: 900; cursor: pointer; font-size: 12px; box-shadow: 0 4px 20px rgba(0, 209, 255, 0.3);">GİRİŞ</button>
+            <div style="font-size: 12px; color: #8b949e; display: flex; justify-content: space-between;">
+                <span>🎯 Hedef: <b style="color:#eee">312.50</b></span>
+                <span>🛑 Stop: <b style="color:#eee">288.00</b></span>
             </div>
         </div>
 
-        <div style="padding: 15px; background: #161b22; border-top: 1px solid #30363d; text-align: center;">
-            <span style="color: #8b949e; font-size: 11px;">Haftalık takip listesi için üye olunuz.</span>
+        <div style="background: #161b22; border: 1px solid #30363d; border-radius: 10px; padding: 15px; margin-bottom: 12px; border-left: 4px solid #eab308; transition: 0.3s;" onmouseover="this.style.background='#1c2128'" onmouseout="this.style.background='#161b22'">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+                <span style="color: #fff; font-weight: bold; font-size: 15px; letter-spacing: 0.5px;">EREGL</span>
+                <span style="background: rgba(234, 179, 8, 0.1); color: #eab308; padding: 2px 8px; border-radius: 4px; font-size: 10px; font-weight: 900;">İZLE</span>
+            </div>
+            <div style="font-size: 12px; color: #8b949e; display: flex; justify-content: space-between;">
+                <span>🎯 Hedef: <b style="color:#eee">54.20</b></span>
+                <span>🛑 Stop: <b style="color:#eee">47.80</b></span>
+            </div>
         </div>
+
+        <div style="background: #161b22; border: 1px solid #30363d; border-radius: 10px; padding: 15px; margin-bottom: 12px; border-left: 4px solid #00d1ff; transition: 0.3s;" onmouseover="this.style.background='#1c2128'" onmouseout="this.style.background='#161b22'">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+                <span style="color: #fff; font-weight: bold; font-size: 15px; letter-spacing: 0.5px;">BTC/USDT</span>
+                <span style="background: rgba(0, 209, 255, 0.1); color: #00d1ff; padding: 2px 8px; border-radius: 4px; font-size: 10px; font-weight: 900;">POZİSYON AÇ</span>
+            </div>
+            <div style="font-size: 12px; color: #8b949e; display: flex; justify-content: space-between;">
+                <span>🎯 Hedef: <b style="color:#eee">68.500</b></span>
+                <span>🛑 Stop: <b style="color:#eee">62.100</b></span>
+            </div>
+        </div>
+
     </div>
+
+    <div id="sinyalLockVisual" style="display: none;"></div>
 </div>
 
 <style>
