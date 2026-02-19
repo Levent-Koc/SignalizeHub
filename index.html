@@ -589,37 +589,19 @@ window.addEventListener('load', () => {
         { "s": "FX_IDC:GBPTRY", "d": "GBP / TRY" }
       ]
     },
-<div style="width: 100%; height: 65px; background: #161b22; border: 1px solid #30363d; border-radius: 8px; margin-bottom: 10px; overflow: hidden; position: relative;">
-    <iframe src="https://www.bloomberght.com/borsa/endeks/bist-100" 
-            style="width: 100%; height: 400px; border: none; margin-top: -165px; transform: scale(0.95); transform-origin: top; pointer-events: none;">
-    </iframe>
-</div>
-
-<div class="tradingview-widget-container">
-    <div class="tradingview-widget-container__widget"></div>
-    <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-market-overview.js" async>
-    {
-      "colorTheme": "dark",
-      "dateRange": "12M",
-      "showChart": false,
-      "locale": "tr",
-      "width": "100%",
-      "height": "650",
-      "isTransparent": true,
-      "showSymbolLogo": true,
-      "tabs": [
-        {
-          "title": "ENDEKSLER",
-          "symbols": [
-            { "s": "FOREXCOM:SPXUSD", "d": "S&P 500" },
-            { "s": "FOREXCOM:NSXUSD", "d": "NASDAQ 100" },
-            { "s": "INDEX:DAX", "d": "DAX 40" }
-          ]
-        }
+{
+      "title": "ENDEKSLER",
+      "symbols": [
+        { "s": "FOREXCOM:SPXUSD", "d": "S&P 500" },
+        { "s": "FOREXCOM:NSXUSD", "d": "NASDAQ 100" },
+        { "s": "INDEX:DAX", "d": "DAX 40" },
+        { "s": "TUR", "d": "BIST 100 (ETF)" }
       ]
     }
-    </script>
-</div>
+  ]
+}
+                </script>
+            </div>
         </div>
     </div>
 
