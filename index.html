@@ -1389,7 +1389,57 @@ nav {
 
 </div> 
 </div>
+<div id="analysis-ai-row" style="max-width: 1240px; margin: 30px auto; display: flex; gap: 20px; flex-wrap: wrap;">
 
+    <div class="card" style="flex: 2; min-width: 350px; background: #ffffff; border-top: 4px solid var(--primary); padding: 0; overflow: hidden; height: 600px; display: flex; flex-direction: column; box-shadow: 0 4px 15px rgba(0,0,0,0.05);">
+        <div class="cloud-title c-blue" style="margin:0; padding: 12px 15px; display: flex; justify-content: space-between; align-items: center;">
+            <span style="font-weight: 800; font-size: 13px;">🎨 ANALİZ LABORATUVARI</span>
+            <span style="font-size: 10px; color: #777;">ADVANCED CHART SYSTEM</span>
+        </div>
+        
+        <div style="flex: 1; width: 100%;">
+            <div class="tradingview-widget-container" style="height: 100%; width: 100%;">
+                <div id="tradingview_advanced_chart" style="height: 100%; width: 100%;"></div>
+                <script type="text/javascript" src="https://s3.tradingview.com/tv.js"></script>
+                <script type="text/javascript">
+                new TradingView.widget({
+                  "autosize": true,
+                  "symbol": "BIST:XU100",
+                  "interval": "D",
+                  "timezone": "Europe/Istanbul",
+                  "theme": "light",
+                  "style": "1",
+                  "locale": "tr",
+                  "toolbar_bg": "#f1f3f6",
+                  "enable_publishing": false,
+                  "allow_symbol_change": true,
+                  "container_id": "tradingview_advanced_chart"
+                });
+                </script>
+            </div>
+        </div>
+    </div>
+
+    <div class="card" style="flex: 1; min-width: 300px; background: #ffffff; border-top: 4px solid #1a1a1a; padding: 0; overflow: hidden; height: 600px; display: flex; flex-direction: column; box-shadow: 0 4px 15px rgba(0,0,0,0.05);">
+        <div style="background: #1a1a1a; padding: 15px; color: #fff; display: flex; align-items: center; gap: 10px;">
+            <span>🤖</span>
+            <span style="font-weight: 800; font-size: 13px; letter-spacing: 1px;">SIGNALIZ AI CHAT</span>
+        </div>
+        
+        <div id="ai-chat-box" style="flex: 1; padding: 15px; overflow-y: auto; background: #f8f9fa; display: flex; flex-direction: column; gap: 10px;">
+            <div style="background: #fff; padding: 10px 15px; border-radius: 12px; border: 1px solid #eee; font-size: 13px; color: #333; align-self: flex-start; max-width: 85%;">
+                Merhaba! Ben Signalize AI. Bugün hangi enstrüman üzerinde strateji kuralım?
+            </div>
+        </div>
+
+        <div style="padding: 15px; border-top: 1px solid #eee; background: #fff;">
+            <div style="display: flex; gap: 8px;">
+                <input type="text" placeholder="AI'ya sor..." style="flex: 1; border: 1px solid #ddd; padding: 10px; border-radius: 8px; font-size: 13px; outline: none;">
+                <button style="background: #1a1a1a; color: #fff; border: none; padding: 0 15px; border-radius: 8px; cursor: pointer; font-weight: bold;">></button>
+            </div>
+        </div>
+    </div>
+</div>
 <div class="ticker-bar">
     <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-ticker-tape.js" async>
     {
@@ -1409,7 +1459,7 @@ nav {
         { "proName": "BIST:XU100", "description": "BIST 100" },
         { "proName": "BIST:XU030", "description": "BIST 30" },
         { "proName": "TVC:UKOIL", "description": "Brent Petrol" },
-        { "proName": "NASDAQ:NDX", "description": "Nasdaq 100" }
+        { "proName": "NASDAQ:NDX", "description": "NASDAQ 100" }
       ],
       "showSymbolLogo": true,
       "colorTheme": "light",
