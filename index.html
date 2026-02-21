@@ -1344,40 +1344,51 @@ nav {
             </script>
         </div>
     </div>
- <div class="card" style="padding:0; border-top: 4px solid var(--primary); height: 420px; overflow: hidden; display: flex; flex-direction: column; background: #0d1117; box-shadow: 0 4px 15px rgba(0,0,0,0.2);">
+ <div class="card" style="padding:0; border-top: 4px solid var(--primary); height: 420px; overflow: hidden; display: flex; flex-direction: column; background: #ffffff; box-shadow: 0 4px 15px rgba(0,0,0,0.05);">
     
-    <div style="padding: 15px; background: rgba(0, 209, 255, 0.05); border-bottom: 1px solid #1e293b; display: flex; justify-content: space-between; align-items: center;">
-        <span style="color: var(--primary); font-weight: 800; font-size: 12px; letter-spacing: 1px;">⭐ TAKİP LİSTEM</span>
+    <div class="cloud-title c-blue" style="margin:0; border-radius: 8px 8px 0 0; padding: 12px; display: flex; justify-content: space-between; align-items: center;">
+        <span style="font-weight: 800; font-size: 13px;">⭐ TAKİP LİSTEM</span>
         <div style="display: flex; gap: 5px;">
-             <button title="Ekle" style="background: none; border: 1px solid #30363d; color: #8b949e; border-radius: 4px; cursor: pointer; padding: 2px 6px; font-size: 10px;">+</button>
-             <button title="Ayarlar" style="background: none; border: 1px solid #30363d; color: #8b949e; border-radius: 4px; cursor: pointer; padding: 2px 6px; font-size: 10px;">⚙️</button>
+             <button title="Ekle" style="background: #fff; border: 1px solid #ddd; color: #333; border-radius: 4px; cursor: pointer; padding: 2px 8px; font-size: 12px; font-weight: bold;">+</button>
         </div>
     </div>
 
-    <div id="user-watchlist-content" style="flex-grow: 1; overflow-y: auto; scrollbar-width: thin;">
-        <div style="display: flex; justify-content: space-between; padding: 15px; border-bottom: 1px solid #1e293b; align-items: center;">
+    <div id="user-watchlist-content" style="flex-grow: 1; overflow-y: auto; scrollbar-width: thin; background: #ffffff;">
+        
+        <div style="display: flex; justify-content: space-between; padding: 15px; border-bottom: 1px solid #f1f1f1; align-items: center; transition: 0.2s;" onmouseover="this.style.background='#f9f9f9'" onmouseout="this.style.background='transparent'">
             <div>
-                <span style="display: block; font-weight: bold; color: #fff; font-size: 13px;">THYAO</span>
-                <span style="font-size: 10px; color: #8b949e;">BIST 100</span>
+                <span style="display: block; font-weight: bold; color: #1a1a1a; font-size: 13px;">THYAO</span>
+                <span style="font-size: 10px; color: #777;">TÜRK HAVA YOLLARI</span>
             </div>
             <div style="text-align: right;">
-                <span style="display: block; font-weight: bold; color: #fff; font-size: 13px;">294.50</span>
-                <span style="font-size: 10px; color: #22c55e;">+%1.45</span>
+                <span style="display: block; font-weight: bold; color: #1a1a1a; font-size: 13px;">294.50</span>
+                <span style="font-size: 10px; color: #22c55e; font-weight: bold;">+%1.45</span>
             </div>
         </div>
         
-        <div style="padding: 20px; text-align: center;">
-            <p style="color: #484f58; font-size: 11px;">Buraya takip ettiğiniz semboller gelecek.</p>
+        <div style="display: flex; justify-content: space-between; padding: 15px; border-bottom: 1px solid #f1f1f1; align-items: center; transition: 0.2s;" onmouseover="this.style.background='#f9f9f9'" onmouseout="this.style.background='transparent'">
+            <div>
+                <span style="display: block; font-weight: bold; color: #1a1a1a; font-size: 13px;">BTC/USDT</span>
+                <span style="font-size: 10px; color: #777;">BITCOIN</span>
+            </div>
+            <div style="text-align: right;">
+                <span style="display: block; font-weight: bold; color: #1a1a1a; font-size: 13px;">64,120</span>
+                <span style="font-size: 10px; color: #ff4d4d; font-weight: bold;">-%0.80</span>
+            </div>
+        </div>
+
+        <div style="padding: 25px; text-align: center; background: #fafafa;">
+            <p style="color: #999; font-size: 11px; margin: 0; line-height: 1.4;">Analiz ettiğiniz sembolleri buraya ekleyerek anlık takip edebilirsiniz.</p>
         </div>
     </div>
 
-    <div style="padding: 12px; background: #161b22; border-top: 1px solid #30363d;">
-        <span style="font-size: 10px; color: #8b949e;">LİSTENİZİ ÖZELLEŞTİREBİLİRSİNİZ</span>
+    <div style="padding: 10px 15px; background: #f8f9fa; border-top: 1px solid #eee; text-align: center;">
+        <span style="font-size: 10px; color: #999; font-weight: 600; letter-spacing: 0.5px;">KİŞİSEL PORTFÖY ÖZETİ</span>
     </div>
 </div>
 
-</div> </div> 
-
+</div> 
+</div>
 
 <div class="ticker-bar">
     <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-ticker-tape.js" async>
