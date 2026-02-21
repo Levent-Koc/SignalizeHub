@@ -1366,58 +1366,43 @@ nav {
             </div>
         </div>
         
-        <div style="display: flex; justify-content: space-between; padding: 15px; border-bottom: 1px solid #f1f1f1; align-items: center; transition: 0.2s;" onmouseover="this.style.background='#f9f9f9'" onmouseout="this.style.background='transparent'">
-            <div>
-                <span style="display: block; font-weight: bold; color: #1a1a1a; font-size: 13px;">BTC/USDT</span>
-                <span style="font-size: 10px; color: #777;">BITCOIN</span>
-            </div>
-            <div style="text-align: right;">
-                <span style="display: block; font-weight: bold; color: #1a1a1a; font-size: 13px;">64,120</span>
-                <span style="font-size: 10px; color: #ff4d4d; font-weight: bold;">-%0.80</span>
-            </div>
-        </div>
+       <div id="analysis-ai-row" style="max-width: 1240px; margin: 30px auto; display: flex; gap: 20px; align-items: stretch;">
 
-        <div style="padding: 25px; text-align: center; background: #fafafa;">
-            <p style="color: #999; font-size: 11px; margin: 0; line-height: 1.4;">Analiz ettiğiniz sembolleri buraya ekleyerek anlık takip edebilirsiniz.</p>
-        </div>
-    </div>
-
-    <div style="padding: 10px 15px; background: #f8f9fa; border-top: 1px solid #eee; text-align: center;">
-        <span style="font-size: 10px; color: #999; font-weight: 600; letter-spacing: 0.5px;">KİŞİSEL PORTFÖY ÖZETİ</span>
-    </div>
-</div>
-</div> 
-</div>
- 
-                </script>
-            </div>
-        </div>
-    </div>
-
-   <div id="analysis-ai-row" style="max-width: 1240px; margin: 30px auto; display: flex; flex-direction: row; gap: 20px; align-items: flex-start;">
-
-    <div class="card" style="flex: 2; display: flex; flex-direction: column; background: #ffffff; border-top: 4px solid var(--primary); height: 620px; overflow: hidden; box-shadow: 0 4px 15px rgba(0,0,0,0.05); min-width: 0;">
-        <div class="cloud-title c-blue" style="margin:0; padding: 12px 15px;">
+    <div class="card" style="flex: 2.5; background: #ffffff; border-top: 4px solid var(--primary); height: 620px; display: flex; flex-direction: column; overflow: hidden; box-shadow: 0 4px 15px rgba(0,0,0,0.05);">
+        <div class="cloud-title c-blue" style="margin:0; padding: 12px 15px; text-align: center;">
             <span style="font-weight: 800; font-size: 13px;">🎨 ANALİZ LABORATUVARI</span>
         </div>
         <div style="flex: 1; width: 100%;">
-            <iframe src="https://s.tradingview.com/widgetembed/?symbol=BINANCE%3ABTCUSDT&interval=60&hidesidetoolbar=0&symboledit=1&saveimage=1&toolbarbg=f1f3f6&theme=light&style=1&timezone=Europe%2FIstanbul&locale=tr" style="width: 100%; height: 100%;" frameborder="0" allowfullscreen></iframe>
+            <iframe src="https://s.tradingview.com/widgetembed/?symbol=BINANCE%3ABTCUSDT&interval=60&hidesidetoolbar=0&symboledit=1&toolbarbg=f1f3f6&theme=light&style=1&timezone=Europe%2FIstanbul&locale=tr" style="width: 100%; height: 100%;" frameborder="0"></iframe>
         </div>
     </div>
 
-    <div style="background: #1a1b1e; padding: 18px; color: #fff; display: flex; align-items: center; justify-content: space-between;">
-    <div style="display: flex; align-items: center; gap: 10px;">
-        <span style="font-size: 20px;">🤖</span>
-        <span style="font-weight: 800; font-size: 13px; letter-spacing: 1px; text-transform: uppercase;">
-            SIGNALIZ<span style="color: #00d1ff;">HUB</span> AI
-        </span>
-    </div>
-    <div style="display: flex; align-items: center; gap: 5px;">
-        <span style="width: 8px; height: 8px; background: #00d1ff; border-radius: 50%; display: inline-block; box-shadow: 0 0 8px #00d1ff;"></span>
-        <span style="font-size: 9px; color: #00d1ff; font-weight: bold; letter-spacing: 1px;">ACTIVE</span>
-    </div>
-</div>
+    <div class="card" style="flex: 1; background: #ffffff; border-top: 4px solid #1a1b1e; height: 620px; display: flex; flex-direction: column; overflow: hidden; box-shadow: 0 4px 15px rgba(0,0,0,0.05); min-width: 320px;">
+        
+        <div style="background: #1a1b1e; padding: 16px; color: #fff; display: flex; align-items: center; justify-content: space-between;">
+            <div style="display: flex; align-items: center; gap: 10px;">
+                <span style="font-size: 20px;">🤖</span>
+                <span style="font-weight: 800; font-size: 13px; letter-spacing: 1px;">
+                    SIGNALIZ<span style="color: #00d1ff;">HUB</span> AI
+                </span>
+            </div>
+            <div style="display: flex; align-items: center; gap: 5px;">
+                <span style="width: 8px; height: 8px; background: #00d1ff; border-radius: 50%; box-shadow: 0 0 8px #00d1ff;"></span>
+                <span style="font-size: 9px; color: #00d1ff; font-weight: bold;">ACTIVE</span>
+            </div>
+        </div>
 
+        <div id="ai-chat-content" style="flex: 1; background: #fafafa; padding: 20px; overflow-y: auto;">
+            <div style="background: #fff; padding: 15px; border-radius: 12px; border: 1px solid #eee; font-size: 13px; line-height: 1.5;">
+                <strong style="display: block; margin-bottom: 5px;">Hoş Geldiniz!</strong>
+                SignalizeHub AI strateji merkezine hoş geldiniz. Bugün hangi piyasa hareketini yorumlamamı istersiniz?
+            </div>
+        </div>
+
+        <div style="padding: 15px; border-top: 1px solid #eee; background: #fff;">
+            <input type="text" placeholder="Sorunuzu buraya yazın..." style="width: 100%; padding: 12px; border-radius: 8px; border: 1px solid #ddd; outline: none; font-size: 13px;">
+        </div>
+    </div>
 </div>
 </div>
 <div class="ticker-bar">
