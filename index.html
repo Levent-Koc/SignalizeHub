@@ -1344,44 +1344,48 @@ nav {
             </script>
         </div>
     </div>
- <div class="card" style="padding:0; border-top: 4px solid #3498db; height: 420px; overflow: hidden; display: flex; flex-direction: column; box-shadow: 0 4px 15px rgba(0,0,0,0.05);">
-    <div class="cloud-title c-blue" style="margin:0; border-radius: 8px 8px 0 0; padding: 10px;">🧮 CANLI DÖNÜŞTÜRÜCÜ & DÖVİZ</div>
+ <div class="card" style="padding:0; border-top: 4px solid var(--primary); height: 420px; overflow: hidden; display: flex; flex-direction: column; background: #0d1117; box-shadow: 0 4px 15px rgba(0,0,0,0.2);">
     
-    <div style="flex-grow: 1; overflow: hidden;">
-        <div class="tradingview-widget-container" style="width: 100%; height: 100%;">
-            <div class="tradingview-widget-container__widget"></div>
-            <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-market-overview.js" async>
-            {
-              "colorTheme": "light",
-              "showChart": false,
-              "locale": "tr",
-              "width": "100%",
-              "height": "100%",
-              "isTransparent": true,
-              "tabs": [
-                {
-                  "title": "Piyasa",
-                  "symbols": [
-                    { "s": "FX_IDC:USDTRY", "d": "Dolar / TL" },
-                    { "s": "FX_IDC:EURTRY", "d": "Euro / TL" },
-                    { "s": "FX_IDC:GBPTRY", "d": "Sterlin / TL" },
-                    { "s": "OANDA:XAUUSD", "d": "Ons Altın" },
-                    { "s": "FX_IDC:XAUTRY", "d": "Gram Altın" },
-                    { "s": "BINANCE:BTCUSDT", "d": "Bitcoin / USDT" }
-                  ]
-                }
-              ]
-            }
-            </script>
+    <div style="padding: 15px; background: rgba(0, 209, 255, 0.05); border-bottom: 1px solid #1e293b; display: flex; justify-content: space-between; align-items: center;">
+        <span style="color: var(--primary); font-weight: 800; font-size: 12px; letter-spacing: 1px;">⭐ TAKİP LİSTEM</span>
+        <div style="display: flex; gap: 5px;">
+             <button title="Ekle" style="background: none; border: 1px solid #30363d; color: #8b949e; border-radius: 4px; cursor: pointer; padding: 2px 6px; font-size: 10px;">+</button>
+             <button title="Ayarlar" style="background: none; border: 1px solid #30363d; color: #8b949e; border-radius: 4px; cursor: pointer; padding: 2px 6px; font-size: 10px;">⚙️</button>
         </div>
     </div>
-</div>
+
+    <div id="user-watchlist-content" style="flex-grow: 1; overflow-y: auto; scrollbar-width: thin;">
+        <div style="display: flex; justify-content: space-between; padding: 15px; border-bottom: 1px solid #1e293b; align-items: center;">
+            <div>
+                <span style="display: block; font-weight: bold; color: #fff; font-size: 13px;">THYAO</span>
+                <span style="font-size: 10px; color: #8b949e;">BIST 100</span>
+            </div>
+            <div style="text-align: right;">
+                <span style="display: block; font-weight: bold; color: #fff; font-size: 13px;">294.50</span>
+                <span style="font-size: 10px; color: #22c55e;">+%1.45</span>
+            </div>
+        </div>
         
+        <div style="padding: 20px; text-align: center;">
+            <p style="color: #484f58; font-size: 11px;">Buraya takip ettiğiniz semboller gelecek.</p>
+        </div>
     </div>
+
+    <div style="padding: 12px; background: #161b22; border-top: 1px solid #30363d;">
+        <span style="font-size: 10px; color: #8b949e;">LİSTENİZİ ÖZELLEŞTİREBİLİRSİNİZ</span>
     </div>
 </div>
-     </div>
-</div>
+
+</div> </div> ```
+
+
+
+### ⚠️ Neden Böyle Yapmalısın?
+Senin kodunda aşağıda rastgele duran 4-5 tane `</div>` vardı. Onlar aslında sayfanın ana iskeletini tutan direkler. Eğer onları da silseydin, "En Çok Yükselenler" ve "En Çok Düşenler" kartları bile birbirinin içine girerdi. Yukarıdaki kodda bu kapanışları (`grid-3` ve `container`) güvenli bir şekilde sona ekledim.
+
+Bunu yaptıktan sonra sayfa düzenini kontrol et; eğer kartların hizası bozulmadıysa ve Takip Listem oraya "cuk" diye oturduysa, bir sonraki aşama olan **4 Segmentli Öneri (BIST-Kripto-Forex-Maden)** alanına geçebiliriz.
+
+Hizalamada bir sorun var mı, yoksa devam edelim mi?
 <div class="ticker-bar">
     <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-ticker-tape.js" async>
     {
