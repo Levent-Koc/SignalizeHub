@@ -1392,6 +1392,65 @@ nav {
 </div>
 </div>
 </div>
+<div id="akademi-section" style="max-width: 1240px; margin: 30px auto; padding: 0 10px;">
+    <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 15px;">
+        <span style="font-size: 24px;">🎓</span>
+        <h3 style="margin:0; font-weight: 800; font-size: 16px; color: #1a1b1e; letter-spacing: 1px;">
+            SIGNALIZE<span style="color: #00d1ff;">HUB</span> AKADEMİ'DE BUGÜN
+        </h3>
+    </div>
+
+    <div style="display: flex; gap: 20px; flex-wrap: wrap;">
+        <div class="card" style="flex: 1; min-width: 300px; background: #fff; border-left: 5px solid #00d1ff; padding: 20px; box-shadow: 0 4px 15px rgba(0,0,0,0.05);">
+            <div id="akademi-etiket-1" style="font-size: 10px; font-weight: bold; color: #00d1ff; text-transform: uppercase; margin-bottom: 8px;">STRATEJİ</div>
+            <h4 id="akademi-baslik-1" style="margin: 0 0 10px 0; font-size: 16px; color: #003366;">Yükleniyor...</h4>
+            <p id="akademi-icerik-1" style="margin: 0; font-size: 13px; color: #555; line-height: 1.6;">Lütfen bekleyin...</p>
+        </div>
+
+        <div class="card" style="flex: 1; min-width: 300px; background: #fff; border-left: 5px solid #1a1b1e; padding: 20px; box-shadow: 0 4px 15px rgba(0,0,0,0.05);">
+            <div id="akademi-etiket-2" style="font-size: 10px; font-weight: bold; color: #1a1b1e; text-transform: uppercase; margin-bottom: 8px;">PİYASA BİLGİSİ</div>
+            <h4 id="akademi-baslik-2" style="margin: 0 0 10px 0; font-size: 16px; color: #003366;">Yükleniyor...</h4>
+            <p id="akademi-icerik-2" style="margin: 0; font-size: 13px; color: #555; line-height: 1.6;">Lütfen bekleyin...</p>
+        </div>
+    </div>
+</div>
+
+<script>
+// 60 KARTLIK HAVUZUN ÖRNEK YAPISI (Burayı 60'a kadar doldurabiliriz)
+const akademiHavuzu = [
+    { etiket: "BORSA", baslik: "RSI 'Pozitif Uyuşmazlık' Nedir?", icerik: "Fiyat yeni bir dip yaparken RSI göstergesinin daha yukarıda bir dip yapmasıdır. Bu, düşüşün yorulduğunu fısıldar." },
+    { etiket: "EMTİA", baslik: "Altın/Gümüş Rasyosu", icerik: "Bir ons altınla kaç ons gümüş alınacağını gösterir. Rasyo 80 üzerine çıktığında gümüş genelde altına göre ucuz kabul edilir." },
+    { etiket: "KRİPTO", baslik: "Korku ve Açgözlülük Endeksi", icerik: "Endeks 20'nin altına indiğinde piyasada panik vardır. Bu genelde 'alım' fırsatı olarak değerlendirilir." },
+    { etiket: "BİST", baslik: "Açığa Satış Nedir?", icerik: "Sahip olunmayan hissenin, fiyatın düşeceği beklentisiyle borç alınarak satılmasıdır. Riskli bir profesyonel stratejisidir." },
+    { etiket: "FX", baslik: "Taşıma Maliyeti (Swap)", icerik: "Forex piyasasında elinizdeki pozisyonu ertesi güne taşıdığınızda ödediğiniz veya kazandığınız faiz farkıdır." },
+    // Buraya 60'a kadar benzer kartlar eklenecek...
+];
+
+function kartlariGuncelle() {
+    const bugun = new Date();
+    const gunSayisi = Math.floor(bugun / (1000 * 60 * 60 * 24)); // Miladi başlangıçtan bugüne geçen gün
+    
+    // Her gün havuzdan iki farklı kart seç
+    const kart1Index = gunSayisi % akademiHavuzu.length;
+    const kart2Index = (gunSayisi + 1) % akademiHavuzu.length;
+
+    const kart1 = akademiHavuzu[kart1Index];
+    const kart2 = akademiHavuzu[kart2Index];
+
+    document.getElementById('akademi-etiket-1').innerText = kart1.etiket;
+    document.getElementById('akademi-baslik-1').innerText = kart1.baslik;
+    document.getElementById('akademi-icerik-1').innerText = kart1.icerik;
+
+    document.getElementById('akademi-etiket-2').innerText = kart2.etiket;
+    document.getElementById('akademi-baslik-2').innerText = kart2.baslik;
+    document.getElementById('akademi-icerik-2').innerText = kart2.icerik;
+}
+
+// Sayfa açıldığında çalıştır
+window.onload = function() {
+    kartlariGuncelle();
+};
+</script>
 <div class="ticker-bar">
     <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-ticker-tape.js" async>
     {
