@@ -1156,69 +1156,73 @@ nav {
 
   <div id="signal-box" style="flex: 1; min-width: 320px; background: #0d1117; border: 1px solid #30363d; border-radius: 12px; display: flex; flex-direction: column; min-height: 600px; box-shadow: 0 8px 32px rgba(0,0,0,0.2);">
     
-    <div style="background: #161b22; padding: 18px 20px; border-bottom: 2px solid var(--primary);">
+    <div style="background: #161b22; padding: 18px 20px; border-bottom: 2px solid #00d1ff;">
         <div style="display: flex; align-items: center; justify-content: space-between;">
             <div style="display: flex; align-items: center; gap: 10px;">
                 <span style="font-size: 18px;">🎯</span>
                 <h3 style="color: #fff; margin: 0; font-size: 13px; font-weight: 800; letter-spacing: 1px;">GÜNLÜK ÖNERİLER</h3>
             </div>
-            <span id="last-update" style="color: #8b949e; font-size: 10px; font-family: monospace;">Güncelleniyor...</span>
+            <span id="last-update-time" style="color: #8b949e; font-size: 10px; font-family: monospace;">GÜNCELLENİYOR...</span>
         </div>
     </div>
 
     <div id="live-signals-list" style="flex: 1; padding: 20px; overflow-y: auto; background: #090c10; scrollbar-width: thin;">
-        <div style="color: #8b949e; text-align: center; margin-top: 50px; font-size: 12px;">Analiz motoru hazırlanıyor...</div>
-    </div>
+        </div>
 
     <div style="padding: 15px; background: #161b22; border-top: 1px solid #30363d; text-align: center;">
-        <span style="color: #58a6ff; font-size: 11px; cursor: pointer; font-weight: bold; transition: 0.2s;" onmouseover="this.style.color='#00d1ff'" onmouseout="this.style.color='#58a6ff'">
-            Tüm Sinyalleri Arşivde Gör →
-        </span>
+        <span style="color: #58a6ff; font-size: 11px; cursor: pointer; font-weight: bold;">Tüm Sinyalleri Arşivde Gör →</span>
     </div>
 </div>
 
 <script>
-// PİYASA TAKİP LİSTESİ (Buraya dilediğin hisse/coin ekleyebilirsin)
-const piyasaListesi = [
-    { s: "THYAO", h: "312.50", st: "288.00" },
-    { s: "BTC/USDT", h: "68.450", st: "61.200" },
-    { s: "SISE", h: "54.20", st: "48.50" },
-    { s: "XAU/USD", h: "2.145", st: "2.020" },
-    { s: "EREGL", h: "58.10", st: "47.40" }
+// 1. VERİ HAVUZU (Buraya istediğin kadar hisse ekleyebilirsin)
+const piyasaVerileri = [
+    { s: "THYAO", h: "312.50", st: "288.00", d: "GÜÇLÜ AL", r: "#00ff88" },
+    { s: "BTC/USDT", h: "68.450", st: "61.200", d: "İZLEMEDE", r: "#eab308" },
+    { s: "SISE", h: "54.20", st: "48.50", d: "AL", r: "#22c55e" },
+    { s: "XAU/USD", h: "2.145", st: "2.020", d: "KADEMELİ AL", r: "#00d1ff" },
+    { s: "EREGL", h: "58.10", st: "47.40", d: "İZLEMEDE", r: "#eab308" }
 ];
 
-function sinyalMotorunuCalistir() {
-    const listContainer = document.getElementById('live-signals-list');
-    const updateLabel = document.getElementById('last-update');
-    const simdi = new Date();
+// 2. GÜNCELLEME FONKSİYONU
+function tabloyuGuncelle() {
+    const container = document.getElementById('live-signals-list');
+    const updateLabel = document.getElementById('last-update-time');
     
-    // Saat bilgisini güncelle (Örn: 14:30)
+    if (!container) return; // Güvenlik kontrolü
+
+    const simdi = new Date();
     updateLabel.innerText = "SON GÜNCELLEME: " + simdi.getHours().toString().padStart(2, '0') + ":" + simdi.getMinutes().toString().padStart(2, '0');
 
-    listContainer.innerHTML = ''; // Eski verileri temizle
-
-    piyasaListesi.forEach(item => {
-        // Rastgele Durum ve Renk Seçimi (Canlılık hissi için)
-        const d = [
-            {t: "GÜÇLÜ AL", c: "#00ff88"}, 
-            {t: "İZLEMEDE", c: "#eab308"}, 
-            {t: "KADEMELİ AL", c: "#00d1ff"}
-        ];
-        const r = d[Math.floor(Math.random() * d.length)];
-
-        listContainer.innerHTML += `
-            <div style="background: #161b22; border: 1px solid #30363d; border-radius: 12px; padding: 15px; margin-bottom: 15px; border-left: 5px solid ${r.c}; transition: 0.3s;">
+    let htmlIcerik = '';
+    piyasaVerileri.forEach(item => {
+        htmlIcerik += `
+            <div style="background: #161b22; border: 1px solid #30363d; border-radius: 12px; padding: 15px; margin-bottom: 15px; border-left: 5px solid ${item.r};">
                 <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
                     <span style="color: #fff; font-weight: bold; font-size: 16px;">${item.s}</span>
-                    <span style="background: ${r.c}1a; color: ${r.c}; padding: 3px 10px; border-radius: 6px; font-size: 10px; font-weight: 900;">${r.t}</span>
+                    <span style="background: ${item.r}1a; color: ${item.r}; padding: 3px 10px; border-radius: 6px; font-size: 10px; font-weight: 900;">${item.d}</span>
                 </div>
-                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; font
-@keyframes blink {
-    0% { opacity: 1; }
-    50% { opacity: 0.3; }
-    100% { opacity: 1; }
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; font-size: 12px; color: #8b949e;">
+                    <div style="background: rgba(255,255,255,0.03); padding: 8px; border-radius: 6px;">🎯 Hedef: <b style="color:#fff; display:block; font-size:14px;">${item.h}</b></div>
+                    <div style="background: rgba(255,255,255,0.03); padding: 8px; border-radius: 6px;">🛑 Stop: <b style="color:#fff; display:block; font-size:14px;">${item.st}</b></div>
+                </div>
+            </div>
+        `;
+    });
+    container.innerHTML = htmlIcerik;
 }
-</style>
+
+// 3. ÇALIŞTIRMA KOMUTLARI
+// Sayfa hazır olduğunda çalıştır
+if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", tabloyuGuncelle);
+} else {
+    tabloyuGuncelle();
+}
+
+// Her 30 dakikada bir (1.800.000 ms) güncelle
+setInterval(tabloyuGuncelle, 1800000);
+</script>
 <div id="kPanel" class="tali-panel-yeni" style="display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 450px; background: #121212; z-index: 10005; box-shadow: 0 25px 50px rgba(0,0,0,0.6); border-radius: 20px; border: 1px solid #333; overflow: hidden;">
     
     <div style="background: #1a1a1a; padding: 15px 20px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #333;">
