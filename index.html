@@ -1154,57 +1154,65 @@ nav {
         </div>
     </div>
 
-   <div style="flex: 1; min-width: 320px; background: #0d1117; border: 1px solid #30363d; border-radius: 12px; display: flex; flex-direction: column; min-height: 600px; box-shadow: 0 8px 32px rgba(0,0,0,0.2);">
+  <div id="signal-box" style="flex: 1; min-width: 320px; background: #0d1117; border: 1px solid #30363d; border-radius: 12px; display: flex; flex-direction: column; min-height: 600px; box-shadow: 0 8px 32px rgba(0,0,0,0.2);">
     
     <div style="background: #161b22; padding: 18px 20px; border-bottom: 2px solid var(--primary);">
-        <div style="display: flex; align-items: center; gap: 10px;">
-            <span style="font-size: 18px;">🎯</span>
-            <h3 style="color: #fff; margin: 0; font-size: 13px; font-weight: 800; letter-spacing: 1px;">GÜNLÜK ÖNERİLER</h3>
+        <div style="display: flex; align-items: center; justify-content: space-between;">
+            <div style="display: flex; align-items: center; gap: 10px;">
+                <span style="font-size: 18px;">🎯</span>
+                <h3 style="color: #fff; margin: 0; font-size: 13px; font-weight: 800; letter-spacing: 1px;">GÜNLÜK ÖNERİLER</h3>
+            </div>
+            <span id="last-update" style="color: #8b949e; font-size: 10px; font-family: monospace;">Güncelleniyor...</span>
         </div>
     </div>
 
-    <div style="flex: 1; padding: 20px; overflow-y: auto; background: #090c10; scrollbar-width: thin;">
-        
-        <div style="background: #161b22; border: 1px solid #30363d; border-radius: 12px; padding: 15px; margin-bottom: 15px; border-left: 5px solid #00ff88; transition: 0.3s;" onmouseover="this.style.borderColor='var(--primary)'" onmouseout="this.style.borderColor='#30363d'">
-            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
-                <span style="color: #fff; font-weight: bold; font-size: 16px;">THYAO</span>
-                <span style="background: rgba(0, 255, 136, 0.1); color: #00ff88; padding: 3px 10px; border-radius: 6px; font-size: 10px; font-weight: 900;">GÜÇLÜ AL</span>
-            </div>
-            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; font-size: 12px; color: #8b949e;">
-                <div style="background: rgba(255,255,255,0.03); padding: 8px; border-radius: 6px;">🎯 Hedef: <b style="color:#fff; display:block; font-size:14px;">312.50</b></div>
-                <div style="background: rgba(255,255,255,0.03); padding: 8px; border-radius: 6px;">🛑 Stop: <b style="color:#fff; display:block; font-size:14px;">288.00</b></div>
-            </div>
-        </div>
-
-        <div style="background: #161b22; border: 1px solid #30363d; border-radius: 12px; padding: 15px; margin-bottom: 15px; border-left: 5px solid #eab308;">
-            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
-                <span style="color: #fff; font-weight: bold; font-size: 16px;">EREGL</span>
-                <span style="background: rgba(234, 179, 8, 0.1); color: #eab308; padding: 3px 10px; border-radius: 6px; font-size: 10px; font-weight: 900;">İZLEMEDE</span>
-            </div>
-            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; font-size: 12px; color: #8b949e;">
-                <div style="background: rgba(255,255,255,0.03); padding: 8px; border-radius: 6px;">🎯 Hedef: <b style="color:#fff; display:block; font-size:14px;">54.20</b></div>
-                <div style="background: rgba(255,255,255,0.03); padding: 8px; border-radius: 6px;">🛑 Stop: <b style="color:#fff; display:block; font-size:14px;">47.80</b></div>
-            </div>
-        </div>
-
-        <div style="background: #161b22; border: 1px solid #30363d; border-radius: 12px; padding: 15px; border-left: 5px solid #00d1ff;">
-            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
-                <span style="color: #fff; font-weight: bold; font-size: 16px;">SISE</span>
-                <span style="background: rgba(0, 209, 255, 0.1); color: #00d1ff; padding: 3px 10px; border-radius: 6px; font-size: 10px; font-weight: 900;">KADEMELİ AL</span>
-            </div>
-            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; font-size: 12px; color: #8b949e;">
-                <div style="background: rgba(255,255,255,0.03); padding: 8px; border-radius: 6px;">🎯 Hedef: <b style="color:#fff; display:block; font-size:14px;">52.10</b></div>
-                <div style="background: rgba(255,255,255,0.03); padding: 8px; border-radius: 6px;">🛑 Stop: <b style="color:#fff; display:block; font-size:14px;">48.50</b></div>
-            </div>
-        </div>
-
+    <div id="live-signals-list" style="flex: 1; padding: 20px; overflow-y: auto; background: #090c10; scrollbar-width: thin;">
+        <div style="color: #8b949e; text-align: center; margin-top: 50px; font-size: 12px;">Analiz motoru hazırlanıyor...</div>
     </div>
 
     <div style="padding: 15px; background: #161b22; border-top: 1px solid #30363d; text-align: center;">
-        <span style="color: #58a6ff; font-size: 11px; cursor: pointer; font-weight: bold;">Tüm Sinyalleri Arşivde Gör →</span>
+        <span style="color: #58a6ff; font-size: 11px; cursor: pointer; font-weight: bold; transition: 0.2s;" onmouseover="this.style.color='#00d1ff'" onmouseout="this.style.color='#58a6ff'">
+            Tüm Sinyalleri Arşivde Gör →
+        </span>
     </div>
 </div>
-<style>
+
+<script>
+// PİYASA TAKİP LİSTESİ (Buraya dilediğin hisse/coin ekleyebilirsin)
+const piyasaListesi = [
+    { s: "THYAO", h: "312.50", st: "288.00" },
+    { s: "BTC/USDT", h: "68.450", st: "61.200" },
+    { s: "SISE", h: "54.20", st: "48.50" },
+    { s: "XAU/USD", h: "2.145", st: "2.020" },
+    { s: "EREGL", h: "58.10", st: "47.40" }
+];
+
+function sinyalMotorunuCalistir() {
+    const listContainer = document.getElementById('live-signals-list');
+    const updateLabel = document.getElementById('last-update');
+    const simdi = new Date();
+    
+    // Saat bilgisini güncelle (Örn: 14:30)
+    updateLabel.innerText = "SON GÜNCELLEME: " + simdi.getHours().toString().padStart(2, '0') + ":" + simdi.getMinutes().toString().padStart(2, '0');
+
+    listContainer.innerHTML = ''; // Eski verileri temizle
+
+    piyasaListesi.forEach(item => {
+        // Rastgele Durum ve Renk Seçimi (Canlılık hissi için)
+        const d = [
+            {t: "GÜÇLÜ AL", c: "#00ff88"}, 
+            {t: "İZLEMEDE", c: "#eab308"}, 
+            {t: "KADEMELİ AL", c: "#00d1ff"}
+        ];
+        const r = d[Math.floor(Math.random() * d.length)];
+
+        listContainer.innerHTML += `
+            <div style="background: #161b22; border: 1px solid #30363d; border-radius: 12px; padding: 15px; margin-bottom: 15px; border-left: 5px solid ${r.c}; transition: 0.3s;">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+                    <span style="color: #fff; font-weight: bold; font-size: 16px;">${item.s}</span>
+                    <span style="background: ${r.c}1a; color: ${r.c}; padding: 3px 10px; border-radius: 6px; font-size: 10px; font-weight: 900;">${r.t}</span>
+                </div>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; font
 @keyframes blink {
     0% { opacity: 1; }
     50% { opacity: 0.3; }
